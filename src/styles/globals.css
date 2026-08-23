@@ -1,0 +1,62 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --font-sans: 'Inter', system-ui, sans-serif;
+  --font-arabic: 'Noto Sans Arabic', system-ui, sans-serif;
+
+  --color-bg: #ffffff;
+  --color-surface: #f7f8fb;
+  --color-text: #0a1120;
+  --color-text-muted: #4a5568;
+  --color-border: #e2e5ec;
+}
+
+* {
+  border-color: var(--color-border);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+}
+
+/* Accessible focus indicators — Section 24 */
+:focus-visible {
+  outline: 3px solid theme('colors.highlight.electric');
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* RTL handling for Arabic locale */
+[dir='rtl'] body {
+  font-family: var(--font-arabic);
+}
+
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 100;
+  background: theme('colors.navy.900');
+  color: white;
+  padding: 0.75rem 1rem;
+}
+.skip-link:focus {
+  left: 1rem;
+  top: 1rem;
+}

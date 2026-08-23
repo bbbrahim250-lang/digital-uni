@@ -1,0 +1,138 @@
+{
+  "site": {
+    "name": "Digital-UNI",
+    "tagline": "Apprenez la technologie sans barrière linguistique"
+  },
+  "nav": {
+    "courses": "Cours",
+    "pathways": "Parcours d'apprentissage",
+    "institutions": "Institutions",
+    "certifications": "Certifications",
+    "accreditation": "Accréditation",
+    "faa": "Contrôleur IA FAA",
+    "cte": "Programmes CTE",
+    "translations": "Traductions",
+    "about": "À propos",
+    "contact": "Contact",
+    "dashboard": "Tableau de bord",
+    "signIn": "Connexion",
+    "signUp": "Inscription",
+    "language": "Langue"
+  },
+  "home": {
+    "heroHeadline": "Apprenez la technologie sans barrière linguistique",
+    "heroSubheadline": "Découvrez des cours proposés par des universités et plateformes éducatives de premier plan, organisez votre parcours professionnel et étudiez en anglais, en arabe ou en français.",
+    "heroCta": "Explorer les cours",
+    "heroSecondaryCta": "Parcourir les parcours",
+    "featuredCategories": "Catégories en vedette",
+    "featuredCourses": "Cours autorisés en vedette",
+    "pathwaysTitle": "Parcours d'apprentissage",
+    "multilingualTitle": "Apprentissage multilingue",
+    "certPrepTitle": "Préparation aux certifications professionnelles",
+    "faaTitle": "Initiative future contrôleur IA de la FAA",
+    "cteTitle": "Programmes CTE",
+    "accreditationTitle": "Feuille de route vers l'accréditation",
+    "howItWorksTitle": "Comment fonctionne Digital-UNI",
+    "newsletterTitle": "Restez informé",
+    "newsletterCta": "S'abonner",
+    "categories": {
+      "python": "Programmation Python",
+      "webdev": "JavaScript et développement web",
+      "ai": "Intelligence artificielle",
+      "ml": "Apprentissage automatique",
+      "dataScience": "Science des données",
+      "cybersecurity": "Cybersécurité",
+      "cloud": "Cloud computing",
+      "business": "Commerce et entrepreneuriat",
+      "certPrep": "Préparation aux certifications professionnelles"
+    }
+  },
+  "legal": {
+    "attributionNotice": "Digital-UNI est une plateforme de découverte de cours et de parcours d'apprentissage. Les cours restent la propriété de leurs fournisseurs d'origine. Digital-UNI ne revendique aucune propriété sur le contenu externe et redirige les apprenants vers les sources autorisées.",
+    "noAccreditationClaim": "Digital-UNI développe des programmes éducatifs et de préparation à la certification. L'accréditation, les crédits universitaires, la reconnaissance de la FAA, l'approbation CTE et la certification des fournisseurs technologiques restent soumises à l'autorisation formelle des institutions et agences compétentes."
+  },
+  "footer": {
+    "copyright": "Droits d'auteur",
+    "copyrightRemoval": "Demande de retrait pour droits d'auteur",
+    "privacy": "Politique de confidentialité",
+    "terms": "Conditions d'utilisation",
+    "accessibility": "Déclaration d'accessibilité",
+    "rights": "Tous droits réservés."
+  },
+  "a11y": {
+    "skipToContent": "Passer au contenu principal"
+  },
+  "common": {
+    "contentPending": "Le contenu complet de cette page est en cours de développement."
+  },
+  "pages": {
+    "courses": {
+      "title": "Cours",
+      "intro": "Recherchez et filtrez les cours autorisés proposés par les institutions et fournisseurs liés."
+    },
+    "pathways": {
+      "title": "Parcours d'apprentissage",
+      "intro": "Séquences structurées de cours autorisés et de contenus originaux Digital-UNI vers un objectif professionnel."
+    },
+    "institutions": {
+      "title": "Institutions",
+      "intro": "Institutions et fournisseurs dont les métadonnées de cours publiques ou sous licence sont liées depuis Digital-UNI."
+    },
+    "certifications": {
+      "title": "Certifications",
+      "intro": "Parcours de préparation à des certifications externes délivrées par l'industrie. Les certifications officielles ne sont délivrées que par le fournisseur nommé."
+    },
+    "accreditation": {
+      "title": "Accréditation et certifications",
+      "intro": "Digital-UNI entend obtenir une reconnaissance formelle via des partenariats autorisés, des accords d'articulation et des processus réglementaires."
+    },
+    "faaAiController": {
+      "title": "Programme proposé de formation et de simulation de contrôleur IA de la FAA par Digital-UNI",
+      "intro": "Sous réserve d'examen et d'autorisation de la FAA et des exigences de certification applicables. La formation Digital-UNI ne constitue pas une licence ou certification FAA sans autorisation formelle."
+    },
+    "cte": {
+      "title": "Programmes CTE",
+      "intro": "Parcours d'éducation technique et professionnelle proposés, en attente d'examen et d'approbation selon la juridiction."
+    },
+    "translations": {
+      "title": "Traductions",
+      "intro": "Comment Digital-UNI examine les licences, génère et vérifie humainement les traductions arabe et française avant publication."
+    },
+    "about": {
+      "title": "À propos de Digital-UNI",
+      "intro": "Digital-UNI est une plateforme de découverte de cours, de gestion des traductions et de parcours d'apprentissage."
+    },
+    "partnerships": {
+      "title": "Partenariats",
+      "intro": "État des partenariats proposés et en cours avec des institutions et fournisseurs technologiques."
+    },
+    "copyright": {
+      "title": "Droits d'auteur",
+      "intro": "Comment Digital-UNI attribue, met sous licence et renvoie vers le contenu de cours tiers."
+    },
+    "copyrightRemoval": {
+      "title": "Demande de retrait pour droits d'auteur",
+      "intro": "Soumettez une demande d'examen ou de retrait d'un contenu que vous jugez contrefaisant."
+    },
+    "privacy": {
+      "title": "Politique de confidentialité",
+      "intro": "Comment Digital-UNI collecte, utilise et protège les données personnelles."
+    },
+    "terms": {
+      "title": "Conditions d'utilisation",
+      "intro": "Les conditions régissant l'utilisation de la plateforme Digital-UNI."
+    },
+    "accessibility": {
+      "title": "Déclaration d'accessibilité",
+      "intro": "L'engagement de Digital-UNI envers l'accessibilité WCAG 2.2 AA."
+    },
+    "contact": {
+      "title": "Contact",
+      "intro": "Contactez l'équipe Digital-UNI."
+    },
+    "verify": {
+      "title": "Vérifier une certification",
+      "intro": "Saisissez ou ouvrez un lien de certification pour vérifier son authenticité et son statut actuel."
+    }
+  }
+}

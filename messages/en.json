@@ -1,0 +1,138 @@
+{
+  "site": {
+    "name": "Digital-UNI",
+    "tagline": "Learn Technology Without Language Barriers"
+  },
+  "nav": {
+    "courses": "Courses",
+    "pathways": "Learning Pathways",
+    "institutions": "Institutions",
+    "certifications": "Certifications",
+    "accreditation": "Accreditation",
+    "faa": "FAA AI Controller",
+    "cte": "CTE Programs",
+    "translations": "Translations",
+    "about": "About",
+    "contact": "Contact",
+    "dashboard": "Dashboard",
+    "signIn": "Sign In",
+    "signUp": "Sign Up",
+    "language": "Language"
+  },
+  "home": {
+    "heroHeadline": "Learn Technology Without Language Barriers",
+    "heroSubheadline": "Discover courses from leading universities and educational platforms, organize your professional learning pathway, and study in English, Arabic, or French.",
+    "heroCta": "Explore Courses",
+    "heroSecondaryCta": "Browse Pathways",
+    "featuredCategories": "Featured Categories",
+    "featuredCourses": "Featured Authorized Courses",
+    "pathwaysTitle": "Learning Pathways",
+    "multilingualTitle": "Multilingual Learning",
+    "certPrepTitle": "Professional Certification Preparation",
+    "faaTitle": "FAA Future AI Controller Initiative",
+    "cteTitle": "CTE Programs",
+    "accreditationTitle": "Accreditation Roadmap",
+    "howItWorksTitle": "How Digital-UNI Works",
+    "newsletterTitle": "Stay Informed",
+    "newsletterCta": "Subscribe",
+    "categories": {
+      "python": "Python Programming",
+      "webdev": "JavaScript and Web Development",
+      "ai": "Artificial Intelligence",
+      "ml": "Machine Learning",
+      "dataScience": "Data Science",
+      "cybersecurity": "Cybersecurity",
+      "cloud": "Cloud Computing",
+      "business": "Business and Entrepreneurship",
+      "certPrep": "Professional Certification Preparation"
+    }
+  },
+  "legal": {
+    "attributionNotice": "Digital-UNI is a course-discovery and learning-pathway platform. Courses remain the property of their original providers. Digital-UNI does not claim ownership of external course content and links learners to authorized sources.",
+    "noAccreditationClaim": "Digital-UNI develops educational and certification-preparation programs. Accreditation, college credit, FAA recognition, state CTE approval, and technology-provider certification remain subject to formal authorization by the appropriate institutions and agencies."
+  },
+  "footer": {
+    "copyright": "Copyright",
+    "copyrightRemoval": "Copyright Removal Request",
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Service",
+    "accessibility": "Accessibility Statement",
+    "rights": "All rights reserved."
+  },
+  "a11y": {
+    "skipToContent": "Skip to main content"
+  },
+  "common": {
+    "contentPending": "Full content for this page is under active development."
+  },
+  "pages": {
+    "courses": {
+      "title": "Courses",
+      "intro": "Search and filter authorized courses from linked institutions and providers."
+    },
+    "pathways": {
+      "title": "Learning Pathways",
+      "intro": "Structured sequences of authorized courses and Digital-UNI original content toward a professional goal."
+    },
+    "institutions": {
+      "title": "Institutions",
+      "intro": "Institutions and providers whose publicly available or licensed course metadata is linked from Digital-UNI."
+    },
+    "certifications": {
+      "title": "Certifications",
+      "intro": "Preparation pathways for external, industry-issued certifications. Official credentials are issued only by the named provider."
+    },
+    "accreditation": {
+      "title": "Accreditation and Certifications",
+      "intro": "Digital-UNI intends to pursue formal recognition through authorized partnerships, articulation agreements, and regulatory processes."
+    },
+    "faaAiController": {
+      "title": "Proposed Digital-UNI FAA AI Controller Training and Simulation Program",
+      "intro": "Subject to FAA review, authorization, and applicable certification requirements. Digital-UNI training is not an FAA license or certification unless formal authorization is obtained."
+    },
+    "cte": {
+      "title": "CTE Programs",
+      "intro": "Proposed Career and Technical Education pathways, pending jurisdiction-specific review and approval."
+    },
+    "translations": {
+      "title": "Translations",
+      "intro": "How Digital-UNI reviews licensing, generates, and human-verifies Arabic and French translations before publication."
+    },
+    "about": {
+      "title": "About Digital-UNI",
+      "intro": "Digital-UNI is a course-discovery, translation-management, and learning-pathway platform."
+    },
+    "partnerships": {
+      "title": "Partnerships",
+      "intro": "Proposed and in-progress partnership status with institutions and technology providers."
+    },
+    "copyright": {
+      "title": "Copyright",
+      "intro": "How Digital-UNI attributes, licenses, and links to third-party course content."
+    },
+    "copyrightRemoval": {
+      "title": "Copyright Removal Request",
+      "intro": "Submit a request to review or remove content you believe infringes your rights."
+    },
+    "privacy": {
+      "title": "Privacy Policy",
+      "intro": "How Digital-UNI collects, uses, and protects personal data."
+    },
+    "terms": {
+      "title": "Terms of Service",
+      "intro": "The terms governing use of the Digital-UNI platform."
+    },
+    "accessibility": {
+      "title": "Accessibility Statement",
+      "intro": "Digital-UNI's commitment to WCAG 2.2 AA accessibility."
+    },
+    "contact": {
+      "title": "Contact",
+      "intro": "Reach the Digital-UNI team."
+    },
+    "verify": {
+      "title": "Verify a Credential",
+      "intro": "Enter or open a credential link to verify its authenticity and current status."
+    }
+  }
+}
