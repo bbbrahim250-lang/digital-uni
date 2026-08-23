@@ -48,7 +48,18 @@
       "business": "Business and Entrepreneurship",
       "certPrep": "Professional Certification Preparation"
     },
-    "highSchoolCta": "First AI High School Initiative — Santa Monica / West Los Angeles"
+    "highSchoolCta": "First AI High School Initiative — Santa Monica / West Los Angeles",
+    "aiTrain": {
+      "eyebrow": "The global learning express",
+      "title": "All aboard the DIGITAL-UNI AI TRAIN",
+      "description": "A borderless journey where ambitious students meet, learn, and build the intelligent future together.",
+      "animationLabel": "An animated Digital-UNI train travels between Paris, New York, Algiers, and Kuala Lumpur while students board at every stop.",
+      "stops": { "paris": "Paris", "newYork": "New York", "algiers": "Algiers", "kualaLumpur": "Kuala Lumpur" },
+      "stopLabels": { "paris": "Innovation", "newYork": "Ambition", "algiers": "Connection", "kualaLumpur": "Discovery" },
+      "coinName": "Digital-UNI Coin",
+      "coinDescription": "Green digital value for a global learning community.",
+      "coinBadge": "Learn • Connect • Grow"
+    }
   },
   "legal": {
     "attributionNotice": "Digital-UNI is a course-discovery and learning-pathway platform. Courses remain the property of their original providers. Digital-UNI does not claim ownership of external course content and links learners to authorized sources.",
