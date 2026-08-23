@@ -54,11 +54,30 @@
       "title": "Embarquez à bord du DIGITAL-UNI AI TRAIN",
       "description": "Un voyage sans frontières où les étudiants ambitieux se rencontrent, apprennent et bâtissent ensemble l’avenir intelligent.",
       "animationLabel": "Un train Digital-UNI animé relie Paris, New York, Alger et Kuala Lumpur tandis que des étudiants montent à chaque arrêt.",
-      "stops": { "paris": "Paris", "newYork": "New York", "algiers": "Alger", "kualaLumpur": "Kuala Lumpur" },
-      "stopLabels": { "paris": "Innovation", "newYork": "Ambition", "algiers": "Connexion", "kualaLumpur": "Découverte" },
+      "stops": {
+        "paris": "Paris",
+        "newYork": "New York",
+        "algiers": "Alger",
+        "kualaLumpur": "Kuala Lumpur"
+      },
+      "stopLabels": {
+        "paris": "Innovation",
+        "newYork": "Ambition",
+        "algiers": "Connexion",
+        "kualaLumpur": "Découverte"
+      },
       "coinName": "Digital-UNI Coin",
       "coinDescription": "Une valeur numérique verte pour une communauté mondiale d’apprentissage.",
-      "coinBadge": "Apprendre • Relier • Grandir"
+      "coinBadge": "Apprendre • Relier • Grandir",
+      "techLine": "IA • Cybersécurité • Science des données • Blockchain • Cryptomonnaie verte",
+      "citiesLine": "Paris • New York • Alger • Kuala Lumpur",
+      "enrollCta": "S’inscrire maintenant",
+      "landmarks": {
+        "paris": "Tour Eiffel",
+        "newYork": "Statue de la Liberté",
+        "algiers": "Maqam Echahid",
+        "kualaLumpur": "Tours Petronas"
+      }
     }
   },
   "legal": {
