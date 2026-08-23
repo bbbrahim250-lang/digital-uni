@@ -75,14 +75,14 @@ body {
   box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.08), 0 28px 80px rgb(0 0 0 / 0.22);
 }
 
-.ai-train-skyline {
+.ai-train-poster {
   position: absolute;
-  inset: 32px 0 auto;
-  height: 145px;
-  opacity: 0.12;
-  background-image: linear-gradient(90deg, transparent 2%, #93f0b0 2% 5%, transparent 5% 7%, #93f0b0 7% 11%, transparent 11% 14%, #93f0b0 14% 20%, transparent 20% 76%, #93f0b0 76% 81%, transparent 81% 84%, #93f0b0 84% 89%, transparent 89% 92%, #93f0b0 92% 97%, transparent 97%);
-  clip-path: polygon(0 100%, 0 55%, 4% 55%, 4% 35%, 8% 35%, 8% 68%, 13% 68%, 13% 15%, 17% 15%, 17% 50%, 22% 50%, 22% 78%, 29% 78%, 29% 42%, 34% 42%, 34% 70%, 39% 70%, 39% 32%, 44% 32%, 44% 80%, 54% 80%, 54% 52%, 60% 52%, 60% 22%, 64% 22%, 64% 65%, 70% 65%, 70% 38%, 75% 38%, 75% 74%, 82% 74%, 82% 30%, 87% 30%, 87% 58%, 92% 58%, 92% 20%, 96% 20%, 96% 65%, 100% 65%, 100% 100%);
+  object-fit: cover;
+  opacity: 0.28;
+  filter: saturate(0.85) contrast(1.08);
 }
+
+.ai-train-scene::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgb(7 27 24 / .12), rgb(6 20 17 / .72)); pointer-events: none; }
 
 .ai-train-route { position: absolute; right: 6%; bottom: 116px; left: 6%; height: 3px; background: #3da964; }
 .ai-train-route::before, .ai-train-route::after { content: ''; position: absolute; right: 0; left: 0; height: 2px; background: repeating-linear-gradient(90deg, #bdcfca 0 14px, transparent 14px 24px); }
@@ -90,7 +90,7 @@ body {
 .ai-train-route::after { top: 14px; }
 .ai-train-route-glow { position: absolute; inset: -12px 0; background: #4de17e; filter: blur(18px); opacity: 0.13; }
 
-.ai-train-stops { position: absolute; inset: 0 5%; }
+.ai-train-stops { position: absolute; z-index: 2; inset: 0 5%; }
 .ai-train-stop { position: absolute; bottom: 28px; width: 22%; text-align: center; transform: translateX(-50%); }
 .ai-train-stop-1 { left: 7%; }
 .ai-train-stop-2 { left: 35%; }

@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import { getTranslations } from 'next-intl/server';
 import type { Locale } from '@/i18n/config';
 
@@ -18,7 +19,14 @@ export async function AiTrain({ locale }: { locale: Locale }) {
         </div>
 
         <div className="ai-train-scene mt-10" dir="ltr" aria-label={t('animationLabel')}>
-          <div className="ai-train-skyline" aria-hidden="true" />
+          <Image
+            className="ai-train-poster"
+            src="/images/ai-train-poster.png"
+            alt=""
+            fill
+            sizes="(min-width: 1280px) 1216px, calc(100vw - 32px)"
+            aria-hidden="true"
+          />
           <div className="ai-train-route" aria-hidden="true">
             <span className="ai-train-route-glow" />
           </div>
