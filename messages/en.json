@@ -17,12 +17,14 @@
     "dashboard": "Dashboard",
     "signIn": "Sign In",
     "signUp": "Sign Up",
-    "language": "Language"
+    "language": "Language",
+    "industrialRevolution": "Industrial Revolution 4.0",
+    "aiHighSchool": "AI High School"
   },
   "home": {
-    "heroHeadline": "Learn Technology Without Language Barriers",
-    "heroSubheadline": "Discover courses from leading universities and educational platforms, organize your professional learning pathway, and study in English, Arabic, or French.",
-    "heroCta": "Explore Courses",
+    "heroHeadline": "Professional Certification & College Accreditation for Industrial Revolution 4.0",
+    "heroSubheadline": "Multilingual pathways in AI, cybersecurity, data science, cloud computing, programming, and emerging technologies — in English, Arabic, and French.",
+    "heroCta": "Explore Industrial Revolution 4.0 Pathways",
     "heroSecondaryCta": "Browse Pathways",
     "featuredCategories": "Featured Categories",
     "featuredCourses": "Featured Authorized Courses",
@@ -45,7 +47,8 @@
       "cloud": "Cloud Computing",
       "business": "Business and Entrepreneurship",
       "certPrep": "Professional Certification Preparation"
-    }
+    },
+    "highSchoolCta": "First AI High School Initiative — Santa Monica / West Los Angeles"
   },
   "legal": {
     "attributionNotice": "Digital-UNI is a course-discovery and learning-pathway platform. Courses remain the property of their original providers. Digital-UNI does not claim ownership of external course content and links learners to authorized sources.",
@@ -57,7 +60,9 @@
     "privacy": "Privacy Policy",
     "terms": "Terms of Service",
     "accessibility": "Accessibility Statement",
-    "rights": "All rights reserved."
+    "rights": "All rights reserved.",
+    "enrollmentQr": "Scan to enroll online and receive 10% off Digital-UNI tuition",
+    "tuitionDiscount": "Scan to enroll — 10% off tuition only"
   },
   "a11y": {
     "skipToContent": "Skip to main content"
@@ -134,5 +139,91 @@
       "title": "Verify a Credential",
       "intro": "Enter or open a credential link to verify its authenticity and current status."
     }
+  },
+  "showcase": {
+    "title": "Professional Certification & College Accreditation for Industrial Revolution 4.0",
+    "subtitle": "Multilingual pathways in AI, cybersecurity, data science, cloud computing, programming, and emerging technologies — in English, Arabic, and French.",
+    "posterAlt": "Digital-UNI Industrial Revolution 4.0",
+    "explore": "Explore Industrial Revolution 4.0 Pathways",
+    "portfolio": "Build Your Professional Learning Portfolio",
+    "certification": "Start a Certification Pathway",
+    "disciplinesTitle": "Professional disciplines and learning pathways",
+    "projectsTitle": "Applied projects and hands-on learning",
+    "explorePathway": "Explore Pathway",
+    "disciplines": {
+      "ai": {
+        "title": "AI / Machine Learning",
+        "description": "Build practical skills in artificial intelligence, data analysis, neural networks, and computer vision.",
+        "pathway": "Foundation → Python → NumPy / Pandas → Data Visualization → Machine Learning → Neural Networks → Computer Vision → Applied Project → Assessment"
+      },
+      "cybersecurity": {
+        "title": "Cybersecurity",
+        "description": "Prepare for security operations, incident response, secure infrastructure, and cyber-risk careers.",
+        "pathway": "Networking → Linux → Security Fundamentals → Threat Analysis → Cloud Security → SOC / Incident Response → Applied Lab → Assessment"
+      },
+      "cryptocurrency": {
+        "title": "Cryptocurrency / Digital Assets",
+        "description": "Understand digital assets, market infrastructure, responsible risk assessment, and emerging financial technologies.",
+        "pathway": "Distributed Systems → Cryptography → Digital Assets → Market Structure → Risk Management → Security → Applied Project"
+      },
+      "blockchain": {
+        "title": "Blockchain / Web3",
+        "description": "Explore distributed systems, smart contracts, blockchain architecture, and secure decentralized applications.",
+        "pathway": "Distributed Systems → Cryptography → Blockchain Fundamentals → Smart Contracts → Web3 Development → Security → Applied Project"
+      }
+    },
+    "projects": {
+      "neural": {
+        "title": "TensorFlow / Keras / ANN",
+        "description": "Hands-on neural-network project work using Google Colab."
+      },
+      "clustering": {
+        "title": "EDA, Visualization & K-Means Clustering",
+        "description": "Exploratory data analysis and unsupervised learning."
+      },
+      "regression": {
+        "title": "Linear Regression & Model Assumptions",
+        "description": "Teamwork, regression analysis, and interpretation."
+      },
+      "data": {
+        "title": "Pandas, NumPy & Visualization",
+        "description": "Data preparation, analysis, and machine-learning foundations."
+      }
+    }
+  },
+  "highSchool": {
+    "title": "First AI High School Initiative — Santa Monica / West Los Angeles",
+    "subtitle": "Preparing High-School Students for AI, Machine Learning, Robotics, Cybersecurity, and Industrial Revolution 4.0",
+    "focusTitle": "Preparing students for the future",
+    "contact": "Discuss the initiative",
+    "focus": {
+      "ai": {
+        "title": "AI & Machine Learning",
+        "description": "Introduce Python, data science, neural networks, and responsible artificial intelligence through applied projects."
+      },
+      "robotics": {
+        "title": "Robotics & Automation",
+        "description": "Connect computational thinking, sensors, engineering, and intelligent automation."
+      },
+      "cybersecurity": {
+        "title": "Cybersecurity & Digital Citizenship",
+        "description": "Build foundational security awareness, safe online practices, and practical technical confidence."
+      },
+      "portfolio": {
+        "title": "College & Career Learning Portfolio",
+        "description": "Document projects, learning pathways, and certification-preparation accomplishments."
+      }
+    }
+  },
+  "enrollment": {
+    "title": "Online Enrollment",
+    "subtitle": "Begin your Digital-UNI professional learning pathway in artificial intelligence, cybersecurity, data science, and emerging technologies.",
+    "discountTitle": "10% Tuition Reduction",
+    "discountExplanation": "Your enrollment invitation includes a 10% discount on eligible Digital-UNI tuition only.",
+    "startTitle": "Begin your professional learning pathway",
+    "startDescription": "Tell us about your educational goals and preferred program. Our enrollment team will contact you with available pathway and tuition information.",
+    "explore": "Explore Industrial Revolution 4.0 pathways",
+    "discountTerms": "The 10% reduction applies only to eligible Digital-UNI tuition. It does not reduce the value, published price, or provider charges of individual courses, external university courses, examinations, or third-party certifications.",
+    "requestTitle": "Request enrollment information"
   }
 }

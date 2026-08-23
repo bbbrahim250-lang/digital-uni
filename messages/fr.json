@@ -17,12 +17,14 @@
     "dashboard": "Tableau de bord",
     "signIn": "Connexion",
     "signUp": "Inscription",
-    "language": "Langue"
+    "language": "Langue",
+    "industrialRevolution": "Industrie 4.0",
+    "aiHighSchool": "Lycée IA"
   },
   "home": {
-    "heroHeadline": "Apprenez la technologie sans barrière linguistique",
-    "heroSubheadline": "Découvrez des cours proposés par des universités et plateformes éducatives de premier plan, organisez votre parcours professionnel et étudiez en anglais, en arabe ou en français.",
-    "heroCta": "Explorer les cours",
+    "heroHeadline": "Certifications professionnelles et accréditation universitaire pour la révolution industrielle 4.0",
+    "heroSubheadline": "Parcours multilingues en IA, cybersécurité, science des données, cloud, programmation et technologies émergentes — en anglais, arabe et français.",
+    "heroCta": "Découvrir les parcours Industrie 4.0",
     "heroSecondaryCta": "Parcourir les parcours",
     "featuredCategories": "Catégories en vedette",
     "featuredCourses": "Cours autorisés en vedette",
@@ -45,7 +47,8 @@
       "cloud": "Cloud computing",
       "business": "Commerce et entrepreneuriat",
       "certPrep": "Préparation aux certifications professionnelles"
-    }
+    },
+    "highSchoolCta": "Première initiative de lycée IA — Santa Monica / Ouest de Los Angeles"
   },
   "legal": {
     "attributionNotice": "Digital-UNI est une plateforme de découverte de cours et de parcours d'apprentissage. Les cours restent la propriété de leurs fournisseurs d'origine. Digital-UNI ne revendique aucune propriété sur le contenu externe et redirige les apprenants vers les sources autorisées.",
@@ -57,7 +60,9 @@
     "privacy": "Politique de confidentialité",
     "terms": "Conditions d'utilisation",
     "accessibility": "Déclaration d'accessibilité",
-    "rights": "Tous droits réservés."
+    "rights": "Tous droits réservés.",
+    "enrollmentQr": "Scannez pour vous inscrire en ligne et bénéficier de 10 % de réduction sur les frais de scolarité Digital-UNI",
+    "tuitionDiscount": "Inscrivez-vous — 10 % de réduction sur les frais de scolarité uniquement"
   },
   "a11y": {
     "skipToContent": "Passer au contenu principal"
@@ -134,5 +139,91 @@
       "title": "Vérifier une certification",
       "intro": "Saisissez ou ouvrez un lien de certification pour vérifier son authenticité et son statut actuel."
     }
+  },
+  "showcase": {
+    "title": "Certifications professionnelles et accréditation universitaire pour la révolution industrielle 4.0",
+    "subtitle": "Parcours multilingues en IA, cybersécurité, science des données, cloud, programmation et technologies émergentes — en anglais, arabe et français.",
+    "posterAlt": "Digital-UNI Industrial Revolution 4.0",
+    "explore": "Découvrir les parcours Industrie 4.0",
+    "portfolio": "Construire votre portfolio professionnel",
+    "certification": "Commencer un parcours de certification",
+    "disciplinesTitle": "Disciplines professionnelles et parcours",
+    "projectsTitle": "Projets pratiques et apprentissage appliqué",
+    "explorePathway": "Découvrir le parcours",
+    "disciplines": {
+      "ai": {
+        "title": "IA / Apprentissage automatique",
+        "description": "Développez vos compétences pratiques en intelligence artificielle, analyse de données et réseaux neuronaux.",
+        "pathway": "Fondamentaux → Python → NumPy / Pandas → Visualisation → Machine learning → Réseaux neuronaux → Projet"
+      },
+      "cybersecurity": {
+        "title": "Cybersécurité",
+        "description": "Préparez-vous aux opérations de sécurité, à la réponse aux incidents et à la protection des infrastructures.",
+        "pathway": "Réseaux → Linux → Fondamentaux de sécurité → Analyse des menaces → Cloud → SOC → Laboratoire"
+      },
+      "cryptocurrency": {
+        "title": "Cryptomonnaies / Actifs numériques",
+        "description": "Comprenez les actifs numériques, les infrastructures de marché et l’évaluation responsable des risques.",
+        "pathway": "Systèmes distribués → Cryptographie → Actifs numériques → Marchés → Gestion des risques → Projet"
+      },
+      "blockchain": {
+        "title": "Blockchain / Web3",
+        "description": "Explorez les systèmes distribués, les contrats intelligents et les applications décentralisées sécurisées.",
+        "pathway": "Systèmes distribués → Cryptographie → Blockchain → Contrats intelligents → Web3 → Sécurité → Projet"
+      }
+    },
+    "projects": {
+      "neural": {
+        "title": "TensorFlow / Keras / ANN",
+        "description": "Projets pratiques sur les réseaux neuronaux avec Google Colab."
+      },
+      "clustering": {
+        "title": "EDA, visualisation et clustering K-Means",
+        "description": "Analyse exploratoire des données et apprentissage non supervisé."
+      },
+      "regression": {
+        "title": "Régression linéaire et hypothèses du modèle",
+        "description": "Travail en équipe, analyse de régression et interprétation."
+      },
+      "data": {
+        "title": "Pandas, NumPy et visualisation",
+        "description": "Préparation des données, analyse et bases du machine learning."
+      }
+    }
+  },
+  "highSchool": {
+    "title": "Première initiative de lycée IA — Santa Monica / Ouest de Los Angeles",
+    "subtitle": "Préparer les lycéens à l’intelligence artificielle, à l’apprentissage automatique, à la robotique, à la cybersécurité et à l’industrie 4.0",
+    "focusTitle": "Préparer les élèves aux métiers de demain",
+    "contact": "Discuter de l’initiative",
+    "focus": {
+      "ai": {
+        "title": "IA et apprentissage automatique",
+        "description": "Découvrir Python, la science des données et l’intelligence artificielle responsable."
+      },
+      "robotics": {
+        "title": "Robotique et automatisation",
+        "description": "Associer pensée informatique, capteurs, ingénierie et automatisation intelligente."
+      },
+      "cybersecurity": {
+        "title": "Cybersécurité et citoyenneté numérique",
+        "description": "Développer les bases de la sécurité et des pratiques numériques responsables."
+      },
+      "portfolio": {
+        "title": "Portfolio universitaire et professionnel",
+        "description": "Documenter les projets, parcours et préparations aux certifications."
+      }
+    }
+  },
+  "enrollment": {
+    "title": "Inscription en ligne",
+    "subtitle": "Commencez votre parcours professionnel Digital-UNI en intelligence artificielle, cybersécurité, science des données et technologies émergentes.",
+    "discountTitle": "10 % de réduction sur les frais de scolarité",
+    "discountExplanation": "Votre invitation inclut une réduction de 10 % uniquement sur les frais de scolarité Digital-UNI admissibles.",
+    "startTitle": "Commencez votre parcours professionnel",
+    "startDescription": "Présentez vos objectifs et le programme souhaité. Notre équipe vous contactera avec les informations relatives aux parcours et aux frais de scolarité.",
+    "explore": "Découvrir les parcours Industrie 4.0",
+    "discountTerms": "La réduction de 10 % s’applique uniquement aux frais de scolarité Digital-UNI admissibles. Elle ne réduit pas la valeur ou le prix des cours individuels, cours universitaires, examens ou certifications externes.",
+    "requestTitle": "Demander des renseignements"
   }
 }

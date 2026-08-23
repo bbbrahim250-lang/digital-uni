@@ -4,6 +4,8 @@ import type { Locale } from '@/i18n/config';
 import { LanguageSwitcher } from './language-switcher';
 
 const navItems = [
+  ['industrialRevolution', 'industrial-revolution-4'],
+  ['aiHighSchool', 'ai-high-school'],
   ['courses', 'courses'],
   ['pathways', 'pathways'],
   ['institutions', 'institutions'],
@@ -23,7 +25,7 @@ export async function SiteHeader({ locale }: { locale: Locale }) {
           <span>{tSite('name')}</span>
         </Link>
 
-        <nav aria-label={t('courses')} className="hidden gap-6 md:flex">
+        <nav aria-label={t('courses')} className="hidden gap-4 lg:flex">
           {navItems.map(([key, path]) => (
             <Link key={key} href={`/${locale}/${path}`} className="text-sm text-navy-50 hover:text-gold-400">
               {t(key)}
