@@ -50,18 +50,20 @@ export default async function LocaleLayout({
   const direction = localeDirection[locale];
   const t = await getTranslations({ locale, namespace: 'a11y' });
 
-  return (
-    <html lang={locale} dir={direction}>
-      <body className="min-h-screen bg-white font-sans text-navy-900 antialiased">
-        <NextIntlClientProvider locale={locale} messages={messages}>
-          <a href="#main-content" className="skip-link">
-            {t('skipToContent')}
-          </a>
-          <SiteHeader locale={locale} />
-          <main id="main-content">{children}</main>
-          <SiteFooter locale={locale} />
-        </NextIntlClientProvider>
-      </body>
-    </html>
-  );
+ return (
+  <div
+    lang={locale}
+    dir={direction}
+    className="min-h-screen bg-white font-sans text-navy-900 antialiased"
+  >
+    <NextIntlClientProvider locale={locale} messages={messages}>
+      <a href="#main-content" className="skip-link">
+        {t('skipToContent')}
+      </a>
+      <SiteHeader locale={locale} />
+      <main id="main-content">{children}</main>
+      <SiteFooter locale={locale} />
+    </NextIntlClientProvider>
+  </div>
+);
 }

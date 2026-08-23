@@ -18,7 +18,7 @@ export function createSupabaseServerClient() {
         get(name: string) {
           return cookieStore.get(name)?.value;
         },
-        set(name: string, value: string, options) {
+       set(name: string, value: string, options: any) {
           try {
             cookieStore.set({ name, value, ...options });
           } catch {
@@ -26,7 +26,7 @@ export function createSupabaseServerClient() {
             // safe to ignore when middleware also refreshes the session.
           }
         },
-        remove(name: string, options) {
+        remove(name: string, options: any) {
           try {
             cookieStore.set({ name, value: '', ...options });
           } catch {
