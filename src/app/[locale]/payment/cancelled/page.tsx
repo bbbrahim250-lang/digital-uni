@@ -1,0 +1,2 @@
+import Link from 'next/link';
+export default function PaymentCancelled({ params }: { params: { locale: string } }) { return <main className="mx-auto max-w-2xl px-4 py-20"><h1 className="text-3xl font-bold">Payment cancelled</h1><p className="my-5">No payment has been marked complete. You may return to payment options or request an enrollment invoice.</p><Link className="font-bold text-highlight-electric" href={`/${params.locale}/payment`}>Return to payment →</Link></main>; }

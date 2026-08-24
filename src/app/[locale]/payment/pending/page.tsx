@@ -1,0 +1,2 @@
+import Link from 'next/link';
+export default function PaymentPending({ params }: { params: { locale: string } }) { return <main className="mx-auto max-w-2xl px-4 py-20"><h1 className="text-3xl font-bold">Payment pending</h1><p className="my-5">Your enrollment is not marked paid while provider verification is pending. The enrollment team will send confirmation and a transaction reference only after verification.</p><Link className="font-bold text-highlight-electric" href={`/${params.locale}/enrollment`}>Contact enrollment →</Link></main>; }

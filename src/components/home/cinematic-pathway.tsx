@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { useEffect, useRef, useState } from 'react';
+import { useState } from 'react';
 import type { Locale } from '@/i18n/config';
 
 type Program = {
@@ -33,46 +33,24 @@ const stations = ['Paris', 'New York', 'Algiers', 'Kuala Lumpur', 'Santa Monica'
 
 export function CinematicPathway({ locale, eyebrow, headline, enrollLabel, pathwaysLabel }: { locale: Locale; eyebrow: string; headline: string; enrollLabel: string; pathwaysLabel: string }) {
   const [selected, setSelected] = useState<Program | null>(null);
-  const [isMuted, setIsMuted] = useState(true);
-  const videoRef = useRef<HTMLVideoElement>(null);
-
-  useEffect(() => {
-    const video = videoRef.current;
-    if (!video) return;
-
-    video.muted = true;
-    setIsMuted(true);
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      video.pause();
-    } else {
-      void video.play().catch(() => {
-        // The native controls remain available if a browser requires direct playback.
-      });
-    }
-
-    const syncSoundState = () => setIsMuted(video.muted || video.volume === 0);
-    video.addEventListener('volumechange', syncSoundState);
-    return () => video.removeEventListener('volumechange', syncSoundState);
-  }, []);
-
-  const toggleSound = () => {
-    const video = videoRef.current;
-    if (!video) return;
-
-    const soundOn = video.muted || video.volume === 0;
-    if (soundOn && video.volume === 0) video.volume = 1;
-    video.muted = !soundOn;
-    setIsMuted(!soundOn);
-    if (soundOn) void video.play().catch(() => undefined);
-  };
 
   return (
     <section className="pathway-experience" aria-labelledby="cinematic-hero-title">
       <div className="pathway-video-frame">
-        <video ref={videoRef} className="pathway-video block h-auto w-full" autoPlay muted loop playsInline controls preload="metadata" poster="/images/ai-train-poster.png">
+        <video className="pathway-video block h-auto w-full" autoPlay muted loop playsInline controls preload="metadata" poster="/images/ai-train-poster.png">
           <source src="/images/digital-uni-ai-train-trailer.mp4.mp4" type="video/mp4" />
         </video>
       </div>
+
+      <div className="pathway-actions" aria-label="Start your Digital-UNI journey">
+        <Link href={`/${locale}/enrollment`} className="pathway-primary">{enrollLabel}</Link>
+        <Link href={`/${locale}/pathways`} className="pathway-secondary">{pathwaysLabel}</Link>
+      </div>
+
+      <Link href={`/${locale}/industrial-revolution-4`} className="pathway-ad">
+        <img src="/images/industrial-revolution-4-showcase.webp" alt="Digital-UNI Industrial Revolution 4.0 professional learning pathways" />
+        <span><b>BUILD YOUR INDUSTRIAL REVOLUTION 4.0 PATHWAY</b><small>View programs and applied learning projects →</small></span>
+      </Link>
 
       <div className="pathway-stage">
         <div className="pathway-heading">
@@ -101,24 +79,9 @@ export function CinematicPathway({ locale, eyebrow, headline, enrollLabel, pathw
         <div className="brand-coin" aria-label="Digital-UNI educational brand symbol"><b>DU</b><span>LEARN • CONNECT • GROW</span></div>
       </div>
 
-      <div className="pathway-actions" aria-label="Start your Digital-UNI journey">
-        <Link href={`/${locale}/enrollment`} className="pathway-primary">{enrollLabel}</Link>
-        <Link href={`/${locale}/pathways`} className="pathway-secondary">{pathwaysLabel}</Link>
-        <button type="button" className={`pathway-sound ${isMuted ? '' : 'sound-active'}`} onClick={toggleSound} aria-pressed={!isMuted} aria-label={isMuted ? 'Turn video sound on' : 'Turn video sound off'}>
-          <span className="sound-icon" aria-hidden="true">{isMuted ? '🔇' : '🔊'}</span>
-          {isMuted ? 'Sound On' : 'Sound Off'}
-          <small>{isMuted ? 'Sound is off' : 'Sound is on'}</small>
-        </button>
-      </div>
-
       <div className="mobile-program-strip" aria-label="Learning programs">
         {programs.map(program => <button key={program.title} onClick={() => setSelected(program)}>{program.short}<span>Explore program →</span></button>)}
       </div>
-
-      <Link href={`/${locale}/industrial-revolution-4`} className="pathway-ad">
-        <img src="/images/industrial-revolution-4-showcase.webp" alt="Digital-UNI Industrial Revolution 4.0 professional learning pathways" />
-        <span><b>BUILD YOUR INDUSTRIAL REVOLUTION 4.0 PATHWAY</b><small>View programs and applied learning projects →</small></span>
-      </Link>
 
       {selected && (
         <div className="program-modal" role="dialog" aria-modal="true" aria-labelledby="program-title" onMouseDown={(event) => { if (event.target === event.currentTarget) setSelected(null); }}>
