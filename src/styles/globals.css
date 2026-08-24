@@ -197,7 +197,7 @@ body {
 .brand-coin { position: absolute; z-index: 3; right: 3vw; top: 2rem; display: grid; width: 6.5rem; aspect-ratio: 1; place-content: center; border: 5px double #caffe0; border-radius: 50%; background: radial-gradient(circle at 35% 25%, #78ff9e, #087b38 65%); text-align: center; box-shadow: 0 0 40px rgb(77 255 136 / .35); }
 .brand-coin b { font-family: Georgia, serif; font-size: 2.2rem; line-height: 1; }
 .brand-coin span { max-width: 4rem; margin-top: .35rem; font-size: .38rem; font-weight: 900; letter-spacing: .08em; }
-.pathway-ad { position: absolute; z-index: 4; left: 4vw; bottom: 2rem; display: flex; width: min(29vw, 420px); min-width: 270px; overflow: hidden; border: 1px solid rgb(212 246 255 / .5); border-radius: .8rem; background: rgb(4 20 31 / .88); box-shadow: 0 15px 45px #000, 0 0 25px rgb(58 245 139 / .18); }
+.pathway-ad { position: relative; z-index: 4; display: flex; width: min(29vw, 420px); min-width: 270px; margin: 1rem 4vw; overflow: hidden; border: 1px solid rgb(212 246 255 / .5); border-radius: .8rem; background: rgb(4 20 31 / .88); box-shadow: 0 15px 45px #000, 0 0 25px rgb(58 245 139 / .18); }
 .pathway-ad img { width: 43%; object-fit: cover; }
 .pathway-ad > span { display: flex; padding: .8rem; flex-direction: column; justify-content: center; font-size: .65rem; line-height: 1.25; }
 .pathway-ad small { margin-top: .4rem; color: #7dffa5; }
@@ -240,6 +240,5 @@ body {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .pathway-video { display: none; }
   .route-lines circle { display: none; }
 }

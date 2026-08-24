@@ -42,14 +42,9 @@ export function CinematicPathway({ locale, eyebrow, headline, enrollLabel, pathw
   return (
     <section className="pathway-experience" aria-labelledby="cinematic-hero-title">
       <div className="pathway-video-frame">
-        <video ref={videoRef} className="pathway-video" autoPlay muted loop playsInline preload="metadata" poster="/images/ai-train-poster.png" aria-hidden="true">
-          <source src="/images/Digital-UNI_20260825_VIDEO_4K_HD_prop_1144_0.mp4" type="video/mp4" />
+        <video ref={videoRef} className="pathway-video block h-auto w-full" autoPlay muted loop playsInline controls preload="metadata" poster="/images/ai-train-poster.png">
+          <source src="/images/digital-uni-ai-train-trailer.mp4.mp4" type="video/mp4" />
         </video>
-      </div>
-
-      <div className="pathway-actions" aria-label="Start your Digital-UNI journey">
-        <Link href={`/${locale}/enrollment`} className="pathway-primary">{enrollLabel}</Link>
-        <Link href={`/${locale}/pathways`} className="pathway-secondary">{pathwaysLabel}</Link>
       </div>
 
       <div className="pathway-stage">
@@ -77,6 +72,11 @@ export function CinematicPathway({ locale, eyebrow, headline, enrollLabel, pathw
         </div>
 
         <div className="brand-coin" aria-label="Digital-UNI educational brand symbol"><b>DU</b><span>LEARN • CONNECT • GROW</span></div>
+      </div>
+
+      <div className="pathway-actions" aria-label="Start your Digital-UNI journey">
+        <Link href={`/${locale}/enrollment`} className="pathway-primary">{enrollLabel}</Link>
+        <Link href={`/${locale}/pathways`} className="pathway-secondary">{pathwaysLabel}</Link>
       </div>
 
       <div className="mobile-program-strip" aria-label="Learning programs">
