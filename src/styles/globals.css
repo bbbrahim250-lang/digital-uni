@@ -162,3 +162,82 @@ body {
   .cinematic-stop small { display: none; }
   .cinematic-stop strong { font-size: .6rem; }
 }
+
+/* Cinematic global learning itinerary */
+.pathway-experience { position: relative; overflow: hidden; background: #020b16; color: white; }
+.pathway-stage { isolation: isolate; position: relative; min-height: clamp(680px, calc(100vh - 65px), 980px); overflow: hidden; background: #061625 url('/images/ai-train-poster.png') center / cover no-repeat; }
+.pathway-video, .pathway-shade { position: absolute; z-index: -3; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.pathway-shade { z-index: -2; background: linear-gradient(90deg, rgb(2 9 20 / .91) 0%, rgb(2 11 24 / .55) 45%, rgb(1 12 20 / .2) 72%), linear-gradient(0deg, rgb(1 9 18 / .9), transparent 54%); }
+.pathway-heading { position: absolute; z-index: 3; top: clamp(2rem, 6vh, 5.5rem); left: max(4vw, calc((100% - 1500px) / 2)); width: min(42rem, 46vw); text-shadow: 0 4px 30px #000; }
+.pathway-heading > p { color: #7dffa5; font-size: .72rem; font-weight: 900; letter-spacing: .3em; text-transform: uppercase; }
+.pathway-heading h1 { margin-top: .65rem; font-size: clamp(3rem, 6.2vw, 6.7rem); font-weight: 950; letter-spacing: -.065em; line-height: .78; }
+.pathway-heading h1 span { display: block; color: #71f79b; font-size: .58em; letter-spacing: .06em; }
+.pathway-heading h2 { max-width: 37rem; margin-top: 1.25rem; color: #d7e8ef; font-size: clamp(1rem, 1.5vw, 1.3rem); font-weight: 550; line-height: 1.35; }
+.pathway-actions { display: flex; gap: .7rem; margin-top: 1.5rem; }
+.pathway-actions a, .modal-actions a { border-radius: 999px; padding: .8rem 1.25rem; font-size: .8rem; font-weight: 900; }
+.pathway-primary { background: #62f48d; color: #041b10; box-shadow: 0 0 28px rgb(65 255 130 / .3); }
+.pathway-secondary { border: 1px solid #75e5ff; background: rgb(4 31 48 / .66); }
+.glass-map { position: absolute; z-index: 2; right: 3.5vw; bottom: 8rem; width: min(54vw, 850px); aspect-ratio: 1.9; border: 1px solid rgb(200 244 255 / .35); border-radius: 2rem; background: radial-gradient(ellipse at 55% 50%, rgb(31 132 139 / .25), transparent 48%), url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 400'%3E%3Cpath fill='%239bdde0' fill-opacity='.12' d='M53 112l68-50 94 18 56 62-39 38-71-7-34 41-65-33zm250 41l73-57 94 24 22 55-51 28-30 90-62-31-15-60zm220-58l118-21 104 48-45 37 58 45-84 46-63-38-72 12-20-58z'/%3E%3C/svg%3E") center / 95% auto no-repeat, linear-gradient(135deg, rgb(6 29 45 / .79), rgb(6 48 48 / .44)); box-shadow: inset 0 1px rgb(255 255 255 / .2), 0 25px 70px rgb(0 0 0 / .3); backdrop-filter: blur(12px); }
+.map-title { position: absolute; top: 1rem; left: 1.4rem; display: flex; flex-direction: column; font-size: .7rem; font-weight: 900; letter-spacing: .15em; }
+.map-title small { color: #71f79b; font-size: .55rem; letter-spacing: .08em; }
+.route-lines { position: absolute; inset: 10% 3% 3%; width: 94%; height: 87%; overflow: visible; }
+.route-lines path { fill: none; stroke: #53ff92; stroke-width: .45; stroke-dasharray: 2 2; filter: drop-shadow(0 0 2px #35eaff); }
+.route-lines circle { fill: #b8ffca; filter: drop-shadow(0 0 3px #46ff91); }
+.map-node { position: absolute; display: grid; min-width: 4.2rem; transform: translate(-50%, -50%); place-items: center; color: white; text-align: center; }
+.map-node b { display: grid; width: 1.65rem; height: 1.65rem; place-items: center; border: 2px solid #c9ffe0; border-radius: 50%; background: #149b4d; color: white; font-size: .56rem; box-shadow: 0 0 0 5px rgb(62 255 134 / .14), 0 0 18px #41ff86; transition: transform .2s; }
+.map-node span { margin-top: .32rem; padding: .18rem .35rem; border-radius: .3rem; background: rgb(1 12 23 / .72); font-size: .55rem; font-weight: 800; white-space: nowrap; }
+.map-node:hover b, .map-node:focus-visible b { transform: scale(1.2); }
+.executive-node b { border-color: #ffe4a0; background: #907025; box-shadow: 0 0 20px #d7b85f; }
+.executive-node span { color: #ffe8a6; }
+.route-stations { position: absolute; z-index: 3; right: 4vw; bottom: 3rem; left: 4vw; display: flex; justify-content: space-between; border-top: 1px solid rgb(97 255 149 / .7); }
+.route-stations span { display: flex; width: 8rem; transform: translateY(-.5rem); flex-direction: column; align-items: center; font-size: .57rem; font-weight: 900; letter-spacing: .08em; text-align: center; text-transform: uppercase; }
+.route-stations i { width: 1rem; height: 1rem; border: 3px solid white; border-radius: 50%; background: #42eb79; box-shadow: 0 0 15px #50ff94; }
+.route-stations small { color: #7dffa5; font-size: .45rem; }
+.brand-coin { position: absolute; z-index: 3; right: 3vw; top: 2rem; display: grid; width: 6.5rem; aspect-ratio: 1; place-content: center; border: 5px double #caffe0; border-radius: 50%; background: radial-gradient(circle at 35% 25%, #78ff9e, #087b38 65%); text-align: center; box-shadow: 0 0 40px rgb(77 255 136 / .35); }
+.brand-coin b { font-family: Georgia, serif; font-size: 2.2rem; line-height: 1; }
+.brand-coin span { max-width: 4rem; margin-top: .35rem; font-size: .38rem; font-weight: 900; letter-spacing: .08em; }
+.pathway-ad { position: absolute; z-index: 4; left: 4vw; bottom: 2rem; display: flex; width: min(29vw, 420px); min-width: 270px; overflow: hidden; border: 1px solid rgb(212 246 255 / .5); border-radius: .8rem; background: rgb(4 20 31 / .88); box-shadow: 0 15px 45px #000, 0 0 25px rgb(58 245 139 / .18); }
+.pathway-ad img { width: 43%; object-fit: cover; }
+.pathway-ad > span { display: flex; padding: .8rem; flex-direction: column; justify-content: center; font-size: .65rem; line-height: 1.25; }
+.pathway-ad small { margin-top: .4rem; color: #7dffa5; }
+.mobile-program-strip { display: none; }
+.program-modal { position: fixed; z-index: 100; inset: 0; display: grid; padding: 1rem; place-items: center; background: rgb(0 6 15 / .78); backdrop-filter: blur(8px); }
+.program-modal article { position: relative; width: min(38rem, 100%); max-height: 90vh; overflow-y: auto; padding: clamp(1.5rem, 4vw, 2.5rem); border: 1px solid rgb(129 244 255 / .5); border-radius: 1.5rem; background: linear-gradient(145deg, #092a37, #03121d); box-shadow: 0 30px 90px #000; }
+.program-modal h2 { margin: .5rem 2rem 1rem 0; font-size: clamp(1.6rem, 4vw, 2.4rem); font-weight: 900; line-height: 1.05; }
+.modal-kicker { color: #6ff49b; font-size: .65rem; font-weight: 900; letter-spacing: .16em; }
+.modal-close { position: absolute; top: 1rem; right: 1rem; display: grid; width: 2.75rem; height: 2.75rem; place-items: center; border: 1px solid #66838d; border-radius: 50%; font-size: 1.8rem; }
+.program-modal dl { display: grid; gap: .7rem; margin-top: 1.25rem; }
+.program-modal dl div { padding: .75rem; border-left: 2px solid #4bec83; background: rgb(255 255 255 / .05); }
+.program-modal dt { color: #7dffa5; font-size: .65rem; font-weight: 900; letter-spacing: .1em; text-transform: uppercase; }
+.program-modal dd { margin-top: .2rem; color: #d7e3e8; font-size: .88rem; }
+.credit-note { margin-top: 1rem; color: #aabac2; font-size: .72rem; }
+.modal-actions { display: flex; flex-wrap: wrap; gap: .6rem; margin-top: 1.25rem; }
+.modal-actions a { background: #60ef8c; color: #03170d; }
+.modal-actions a + a { border: 1px solid #71dcf1; background: transparent; color: white; }
+.executive-panel { border-color: #e3c872 !important; background: linear-gradient(145deg, #183b32, #111721) !important; box-shadow: 0 0 80px rgb(191 155 54 / .2) !important; }
+.executive-price { margin-bottom: 1rem; color: #f4d97d; font-size: 1.25rem; font-weight: 900; text-transform: uppercase; }
+
+@media (max-width: 767px) {
+  .pathway-stage { min-height: min(78rem, calc(100svh - 56px)); background-image: linear-gradient(0deg, #03101d, transparent), url('/images/ai-train-poster-v2.png'); background-position: center; }
+  .pathway-video { object-position: center; }
+  .pathway-shade { background: linear-gradient(180deg, rgb(1 8 18 / .72), transparent 38%, rgb(1 8 18 / .92)); }
+  .pathway-heading { top: 2rem; right: 1rem; left: 1rem; width: auto; text-align: center; }
+  .pathway-heading h1 { font-size: clamp(3rem, 15vw, 5.3rem); }
+  .pathway-heading h2 { display: none; }
+  .pathway-actions { justify-content: center; }
+  .brand-coin { top: 17rem; right: 1rem; width: 4.8rem; }
+  .brand-coin b { font-size: 1.6rem; }
+  .glass-map { display: none; }
+  .route-stations { right: 1.25rem; bottom: 2rem; left: 1.25rem; }
+  .route-stations span { width: auto; max-width: 4.2rem; font-size: .47rem; letter-spacing: 0; }
+  .pathway-ad { position: relative; left: auto; bottom: auto; width: calc(100% - 2rem); min-width: 0; margin: 1rem; }
+  .pathway-ad img { width: 40%; }
+  .mobile-program-strip { display: flex; overflow-x: auto; gap: .75rem; padding: 1.25rem 1rem .25rem; scroll-snap-type: x mandatory; scrollbar-width: thin; }
+  .mobile-program-strip button { min-width: 13rem; padding: 1rem; border: 1px solid rgb(103 238 255 / .25); border-radius: 1rem; background: linear-gradient(135deg, #0b2834, #083523); font-size: .85rem; font-weight: 850; text-align: left; scroll-snap-align: start; }
+  .mobile-program-strip span { display: block; margin-top: .5rem; color: #72f49b; font-size: .65rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pathway-video { display: none; }
+  .route-lines circle { display: none; }
+}
