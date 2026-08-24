@@ -1,37 +1,48 @@
 import Link from 'next/link';
-import Image from 'next/image';
 import { getTranslations } from 'next-intl/server';
 import type { Locale } from '@/i18n/config';
 
+const stops = ['paris', 'newYork', 'algiers', 'kualaLumpur'] as const;
+
 export async function Hero({ locale }: { locale: Locale }) {
   const t = await getTranslations({ locale, namespace: 'home' });
-
   return (
-    <section className="bg-gradient-to-b from-navy-900 to-navy-600 px-4 py-16 text-center text-white">
-      <div className="mx-auto max-w-6xl">
-        <h1 className="text-3xl font-bold tracking-tight md:text-5xl">{t('heroHeadline')}</h1>
-        <p className="mt-5 text-lg text-navy-50/90">{t('heroSubheadline')}</p>
-        <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
-          <Link
-            href={`/${locale}/industrial-revolution-4`}
-            className="rounded-md bg-gold-500 px-6 py-3 font-medium text-navy-900 hover:bg-gold-400"
-          >
-            {t('heroCta')}
-          </Link>
-          <Link
-            href={`/${locale}/pathways`}
-            className="rounded-md border border-navy-50/40 px-6 py-3 font-medium text-white hover:bg-navy-600"
-          >
-            {t('heroSecondaryCta')}
-          </Link>
-        </div>
-        <Link href={`/${locale}/industrial-revolution-4`} className="mt-12 block overflow-hidden rounded-2xl border border-gold-400/40 shadow-2xl">
-          <Image src="/images/industrial-revolution-4-showcase.webp" alt="Digital-UNI Industrial Revolution 4.0 professional learning portfolio" width={1536} height={1024} priority className="h-auto w-full" />
-        </Link>
-        <Link href={`/${locale}/ai-high-school`} className="mt-8 inline-block text-gold-200 hover:text-gold-400">
-          {t('highSchoolCta')} →
-        </Link>
+    <section className="train-hero" aria-labelledby="train-hero-title">
+      <video className="train-hero-media" autoPlay muted loop playsInline poster="/images/ai-train-poster.png" aria-hidden="true">
+        <source src="/videos/digital-uni-ai-train.mp4" type="video/mp4" />
+      </video>
+      <div className="train-atmosphere" aria-hidden="true">
+        <span className="speed-trail speed-trail-one" /><span className="speed-trail speed-trail-two" /><span className="speed-trail speed-trail-three" />
       </div>
+      <div className="train-hero-content">
+        <p className="train-kicker">{t('aiTrain.eyebrow')}</p>
+        <h1 id="train-hero-title">DIGITAL-UNI <span>AI TRAIN</span></h1>
+        <p className="train-headline">{t('heroHeadline')}</p>
+        <p className="train-disciplines">{t('aiTrain.disciplines')}</p>
+        <p className="train-cities">{t('aiTrain.cityLine')}</p>
+        <div className="train-actions">
+          <Link href={`/${locale}/enrollment`} className="train-primary-action">{t('aiTrain.enrollCta')}</Link>
+          <Link href={`/${locale}/pathways`} className="train-secondary-action">{t('heroSecondaryCta')}</Link>
+        </div>
+      </div>
+      <div className="cinematic-train" aria-hidden="true">
+        <div className="train-nose"><span className="train-windscreen" /><b>DIGITAL-UNI</b><i /></div>
+        <div className="train-carriage"><span /><span /><span /><span /></div>
+      </div>
+      <div className="global-route" dir="ltr" aria-label={t('aiTrain.animationLabel')}>
+        <div className="route-rail" aria-hidden="true" />
+        {stops.map((stop, index) => (
+          <div className={`global-stop global-stop-${index + 1}`} key={stop}>
+            <div className="boarding-students" aria-hidden="true"><i /><i /><i /></div>
+            <span className="station-beacon" aria-hidden="true" />
+            <strong>{t(`aiTrain.stops.${stop}`)}</strong><small>{t(`aiTrain.landmarks.${stop}`)}</small>
+          </div>
+        ))}
+      </div>
+      <div className="digital-coin" aria-label={t('aiTrain.coinName')}>
+        <span className="coin-face">D<span>U</span></span><span><b>{t('aiTrain.coinName')}</b><small>{t('aiTrain.coinBadge')}</small></span>
+      </div>
+      <span className="train-scroll-cue" aria-hidden="true">⌄</span>
     </section>
   );
 }

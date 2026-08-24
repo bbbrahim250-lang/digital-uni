@@ -3,7 +3,6 @@ import { notFound } from 'next/navigation';
 import { Hero } from '@/components/home/hero';
 import { FeaturedCategories } from '@/components/home/featured-categories';
 import { LegalNotice } from '@/components/home/legal-notice';
-import { AiTrain } from '@/components/home/ai-train';
 
 export default function HomePage({ params }: { params: { locale: string } }) {
   if (!isValidLocale(params.locale)) notFound();
@@ -12,7 +11,6 @@ export default function HomePage({ params }: { params: { locale: string } }) {
   return (
     <>
       <Hero locale={locale} />
-      <AiTrain locale={locale} />
       <FeaturedCategories locale={locale} />
       {/* TODO M2+: FeaturedCourses (needs course data), Pathways, Multilingual,
           CertPrep, FAA, CTE, Accreditation-roadmap sections — placeholders below */}
