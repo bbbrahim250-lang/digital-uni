@@ -61,9 +61,10 @@ body {
   top: 1rem;
 }
 
-/* Full-viewport DIGITAL-UNI AI Train poster. */
+/* Full-viewport DIGITAL-UNI AI Train poster. The softly enlarged copy behind
+   the poster fills unusually tall screens without cropping the actual artwork. */
 .poster-hero {
-  background: #020b0c;
+  background: #fff;
 }
 
 .poster-hero-media {
@@ -72,11 +73,42 @@ body {
   height: calc(100svh - 4rem);
   min-height: 32rem;
   overflow: hidden;
+  background: #d9fff1;
 }
 
 .poster-hero-image {
   object-fit: contain;
   object-position: center;
+  z-index: 1;
+}
+
+.poster-hero-backdrop {
+  object-fit: cover;
+  transform: scale(1.04);
+  filter: blur(18px) saturate(1.15) brightness(1.12);
+}
+
+.poster-hero-destinations {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem 1.35rem;
+  margin: 0;
+  padding: 0.85rem 1rem;
+  background: #eafff4;
+  color: theme('colors.navy.900');
+  font-size: clamp(0.72rem, 1.2vw, 0.95rem);
+  font-weight: 800;
+  letter-spacing: 0.045em;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.poster-hero-destinations span:not(:last-child)::after {
+  content: '•';
+  margin-inline-start: 1.35rem;
+  color: #159947;
 }
 
 .poster-hero-actions {
@@ -120,6 +152,46 @@ body {
   background: theme('colors.navy.50');
 }
 
+/* A large, station-style digital display keeps the original course artwork
+   readable and directly adjacent to the train scene. */
+.pathway-billboard {
+  padding: clamp(1.25rem, 3vw, 2.75rem);
+  background: linear-gradient(180deg, #d8e0e6 0%, #f7f8fb 100%);
+}
+
+.pathway-billboard-link {
+  position: relative;
+  display: block;
+  width: min(100%, 96rem);
+  margin: 0 auto;
+  overflow: hidden;
+  border: clamp(0.45rem, 1vw, 0.85rem) solid #162231;
+  border-radius: 0.4rem;
+  background: white;
+  box-shadow: 0 1.25rem 3rem rgb(9 20 34 / 24%), inset 0 0 1.5rem rgb(255 255 255 / 70%);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.pathway-billboard-link:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 1.5rem 3.25rem rgb(9 20 34 / 30%);
+}
+
+.pathway-billboard-image {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.pathway-billboard-cta {
+  display: block;
+  padding: 0.9rem 1rem;
+  background: #071b3b;
+  color: white;
+  font-weight: 800;
+  text-align: center;
+}
+
 @media (max-width: 700px) {
   .poster-hero-media {
     height: calc(100svh - 4rem);
@@ -129,5 +201,17 @@ body {
   .poster-hero-actions a {
     flex: 1 1 12rem;
     text-align: center;
+  }
+
+  .poster-hero-destinations span:not(:last-child)::after {
+    content: none;
+  }
+
+  .poster-hero-destinations span {
+    flex: 1 1 9rem;
+  }
+
+  .pathway-billboard {
+    padding: 0.75rem;
   }
 }
