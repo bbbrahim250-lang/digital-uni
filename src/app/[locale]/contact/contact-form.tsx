@@ -6,6 +6,19 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { contactFormSchema, type ContactFormValues } from '@/lib/schemas';
 import { submitContactForm } from './actions';
 
+export const PROGRAMS = [
+  'AI and Machine Learning',
+  'Cybersecurity',
+  'Blockchain and Digital Currency',
+  'Executive AI Leadership',
+  'AI for Lawyers',
+  'AI for Judges and Courts',
+  'Court AI Clerk Assistant',
+  'Court AI Expert',
+  'Digital-UNI™ AI Agent for Proof-of-Service & Jurisdiction Compatibility',
+  'Other Digital-UNI™ program'
+] as const;
+
 export function ContactForm({ locale }: { locale: string }) {
   const [status, setStatus] = useState<'idle' | 'success' | 'error'>('idle');
   const [serverError, setServerError] = useState<string | null>(null);
@@ -32,7 +45,7 @@ export function ContactForm({ locale }: { locale: string }) {
   if (status === 'success') {
     return (
       <div role="status" className="rounded-md border border-green-200 bg-green-50 p-4 text-sm text-green-800">
-        Thank you — your message has been sent. We'll respond as soon as possible.
+        Thank you. Your request has been received by the Digital-UNI enrollment team.
       </div>
     );
   }
@@ -44,6 +57,17 @@ export function ContactForm({ locale }: { locale: string }) {
           {serverError}
         </div>
       )}
+
+      <div>
+        <label htmlFor="program" className="block text-sm font-medium text-navy-900">
+          Program
+        </label>
+        <select id="program" defaultValue="" className="mt-1 w-full rounded-md border border-navy-100 bg-white px-3 py-2" aria-invalid={!!errors.program} aria-describedby={errors.program ? 'program-error' : undefined} {...register('program')}>
+          <option value="" disabled>Select a program</option>
+          {PROGRAMS.map(program => <option key={program} value={program}>{program}</option>)}
+        </select>
+        {errors.program && <p id="program-error" className="mt-1 text-sm text-red-600">{errors.program.message}</p>}
+      </div>
 
       <div>
         <label htmlFor="name" className="block text-sm font-medium text-navy-900">

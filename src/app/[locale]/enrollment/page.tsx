@@ -3,6 +3,7 @@ import { getTranslations } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import { isValidLocale, type Locale } from '@/i18n/config';
 import { ContactForm } from '../contact/contact-form';
+import { EnrollmentPaymentOptions } from './enrollment-payment-options';
 
 export default async function EnrollmentPage({
   params,
@@ -16,6 +17,11 @@ export default async function EnrollmentPage({
   const t = await getTranslations({ locale, namespace: 'enrollment' });
   const legal = await getTranslations({ locale, namespace: 'legal' });
   const hasTuitionDiscount = searchParams.promo?.toUpperCase() === 'TUITION10';
+  const paymentUrls = {
+    visa: process.env.STRIPE_CHECKOUT_URL,
+    paypal: process.env.PAYPAL_CHECKOUT_URL,
+    bitcoin: process.env.CRYPTO_CHECKOUT_URL
+  };
 
   return (
     <article>
@@ -46,6 +52,11 @@ export default async function EnrollmentPage({
         <div className="rounded-2xl border border-navy-100 bg-white p-7 shadow-card">
           <h2 className="mb-6 text-2xl font-bold text-navy-900">{t('requestTitle')}</h2>
           <ContactForm locale={locale} />
+          <EnrollmentPaymentOptions urls={paymentUrls} />
+          <div className="mt-8 rounded-xl border border-emerald-200 bg-emerald-50 p-5">
+            <p className="font-bold text-navy-900">Financial aid questions? Contact <a className="break-all text-highlight-electric underline" href="mailto:financial_aid@digital-uni.net">financial_aid@digital-uni.net</a></p>
+            <a href="mailto:financial_aid@digital-uni.net?subject=Digital-UNI%20Financial%20Aid%20Information%20Request" className="mt-4 inline-flex rounded-lg bg-navy-900 px-4 py-3 text-center text-sm font-bold text-white">Request Financial Aid Information</a>
+          </div>
         </div>
       </section>
     </article>
