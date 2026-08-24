@@ -33,11 +33,38 @@ const stations = ['Paris', 'New York', 'Algiers', 'Kuala Lumpur', 'Santa Monica'
 
 export function CinematicPathway({ locale, eyebrow, headline, enrollLabel, pathwaysLabel }: { locale: Locale; eyebrow: string; headline: string; enrollLabel: string; pathwaysLabel: string }) {
   const [selected, setSelected] = useState<Program | null>(null);
+  const [isMuted, setIsMuted] = useState(true);
   const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) videoRef.current?.pause();
+    const video = videoRef.current;
+    if (!video) return;
+
+    video.muted = true;
+    setIsMuted(true);
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      video.pause();
+    } else {
+      void video.play().catch(() => {
+        // The native controls remain available if a browser requires direct playback.
+      });
+    }
+
+    const syncSoundState = () => setIsMuted(video.muted || video.volume === 0);
+    video.addEventListener('volumechange', syncSoundState);
+    return () => video.removeEventListener('volumechange', syncSoundState);
   }, []);
+
+  const toggleSound = () => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    const soundOn = video.muted || video.volume === 0;
+    if (soundOn && video.volume === 0) video.volume = 1;
+    video.muted = !soundOn;
+    setIsMuted(!soundOn);
+    if (soundOn) void video.play().catch(() => undefined);
+  };
 
   return (
     <section className="pathway-experience" aria-labelledby="cinematic-hero-title">
@@ -77,6 +104,11 @@ export function CinematicPathway({ locale, eyebrow, headline, enrollLabel, pathw
       <div className="pathway-actions" aria-label="Start your Digital-UNI journey">
         <Link href={`/${locale}/enrollment`} className="pathway-primary">{enrollLabel}</Link>
         <Link href={`/${locale}/pathways`} className="pathway-secondary">{pathwaysLabel}</Link>
+        <button type="button" className={`pathway-sound ${isMuted ? '' : 'sound-active'}`} onClick={toggleSound} aria-pressed={!isMuted} aria-label={isMuted ? 'Turn video sound on' : 'Turn video sound off'}>
+          <span className="sound-icon" aria-hidden="true">{isMuted ? '🔇' : '🔊'}</span>
+          {isMuted ? 'Sound On' : 'Sound Off'}
+          <small>{isMuted ? 'Sound is off' : 'Sound is on'}</small>
+        </button>
       </div>
 
       <div className="mobile-program-strip" aria-label="Learning programs">
