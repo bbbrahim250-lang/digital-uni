@@ -39,6 +39,7 @@ export default async function EnrollmentPage({
           <h2 className="text-2xl font-bold text-navy-900">{t('startTitle')}</h2>
           <p className="mt-4 leading-7 text-navy-400">{t('startDescription')}</p>
           <Link href={`/${locale}/industrial-revolution-4`} className="mt-6 inline-block font-semibold text-highlight-electric">{t('explore')} →</Link>
+          <div><Link href={`/${locale}/payment`} className="mt-6 inline-block rounded-lg bg-gold-500 px-6 py-3 font-bold text-navy-900">Apply Now / Pay Tuition</Link></div>
           <p className="mt-8 rounded-lg border border-gold-400/40 p-5 text-sm leading-6 text-navy-600">{t('discountTerms')}</p>
           <p className="mt-5 text-sm leading-6 text-navy-400">{legal('noAccreditationClaim')}</p>
         </div>
