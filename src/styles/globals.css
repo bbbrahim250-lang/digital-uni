@@ -165,9 +165,10 @@ body {
 
 /* Cinematic global learning itinerary */
 .pathway-experience { position: relative; overflow: hidden; background: #020b16; color: white; }
-.pathway-stage { isolation: isolate; position: relative; min-height: clamp(680px, calc(100vh - 65px), 980px); overflow: hidden; background: #061625 url('/images/ai-train-poster.png') center / cover no-repeat; }
-.pathway-video, .pathway-shade { position: absolute; z-index: -3; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-.pathway-shade { z-index: -2; background: linear-gradient(90deg, rgb(2 9 20 / .91) 0%, rgb(2 11 24 / .55) 45%, rgb(1 12 20 / .2) 72%), linear-gradient(0deg, rgb(1 9 18 / .9), transparent 54%); }
+.pathway-video-frame { width: 100%; background: #020b16 url('/images/ai-train-poster.png') center / contain no-repeat; }
+.pathway-video { display: block; width: 100%; height: auto; max-height: calc(100svh - 65px); object-fit: contain; background: #020b16; }
+.pathway-experience > .pathway-actions { display: flex; position: relative; z-index: 5; justify-content: center; gap: .8rem; padding: 1rem clamp(1rem, 4vw, 3rem) 1.25rem; background: linear-gradient(180deg, #020b16, #061625); }
+.pathway-stage { isolation: isolate; position: relative; min-height: clamp(680px, calc(100vh - 65px), 980px); overflow: hidden; background: radial-gradient(circle at 72% 45%, #0b5360, transparent 35%), linear-gradient(135deg, #061625, #020b16); }
 .pathway-heading { position: absolute; z-index: 3; top: clamp(2rem, 6vh, 5.5rem); left: max(4vw, calc((100% - 1500px) / 2)); width: min(42rem, 46vw); text-shadow: 0 4px 30px #000; }
 .pathway-heading > p { color: #7dffa5; font-size: .72rem; font-weight: 900; letter-spacing: .3em; text-transform: uppercase; }
 .pathway-heading h1 { margin-top: .65rem; font-size: clamp(3rem, 6.2vw, 6.7rem); font-weight: 950; letter-spacing: -.065em; line-height: .78; }
@@ -218,13 +219,14 @@ body {
 .executive-price { margin-bottom: 1rem; color: #f4d97d; font-size: 1.25rem; font-weight: 900; text-transform: uppercase; }
 
 @media (max-width: 767px) {
-  .pathway-stage { min-height: min(78rem, calc(100svh - 56px)); background-image: linear-gradient(0deg, #03101d, transparent), url('/images/ai-train-poster-v2.png'); background-position: center; }
-  .pathway-video { object-position: center; }
-  .pathway-shade { background: linear-gradient(180deg, rgb(1 8 18 / .72), transparent 38%, rgb(1 8 18 / .92)); }
+  .pathway-video-frame { width: 100vw; max-width: 100%; }
+  .pathway-video { width: 100%; max-height: none; object-fit: contain; }
+  .pathway-experience > .pathway-actions { display: grid; grid-template-columns: 1fr; padding: 1rem; }
+  .pathway-experience > .pathway-actions a { width: 100%; text-align: center; }
+  .pathway-stage { min-height: 46rem; }
   .pathway-heading { top: 2rem; right: 1rem; left: 1rem; width: auto; text-align: center; }
   .pathway-heading h1 { font-size: clamp(3rem, 15vw, 5.3rem); }
   .pathway-heading h2 { display: none; }
-  .pathway-actions { justify-content: center; }
   .brand-coin { top: 17rem; right: 1rem; width: 4.8rem; }
   .brand-coin b { font-size: 1.6rem; }
   .glass-map { display: none; }
@@ -232,8 +234,8 @@ body {
   .route-stations span { width: auto; max-width: 4.2rem; font-size: .47rem; letter-spacing: 0; }
   .pathway-ad { position: relative; left: auto; bottom: auto; width: calc(100% - 2rem); min-width: 0; margin: 1rem; }
   .pathway-ad img { width: 40%; }
-  .mobile-program-strip { display: flex; overflow-x: auto; gap: .75rem; padding: 1.25rem 1rem .25rem; scroll-snap-type: x mandatory; scrollbar-width: thin; }
-  .mobile-program-strip button { min-width: 13rem; padding: 1rem; border: 1px solid rgb(103 238 255 / .25); border-radius: 1rem; background: linear-gradient(135deg, #0b2834, #083523); font-size: .85rem; font-weight: 850; text-align: left; scroll-snap-align: start; }
+  .mobile-program-strip { display: grid; gap: .75rem; padding: 1.25rem 1rem .25rem; }
+  .mobile-program-strip button { width: 100%; padding: 1rem; border: 1px solid rgb(103 238 255 / .25); border-radius: 1rem; background: linear-gradient(135deg, #0b2834, #083523); font-size: .85rem; font-weight: 850; text-align: left; }
   .mobile-program-strip span { display: block; margin-top: .5rem; color: #72f49b; font-size: .65rem; }
 }
 

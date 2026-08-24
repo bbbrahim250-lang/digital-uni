@@ -41,21 +41,22 @@ export function CinematicPathway({ locale, eyebrow, headline, enrollLabel, pathw
 
   return (
     <section className="pathway-experience" aria-labelledby="cinematic-hero-title">
-      <div className="pathway-stage">
+      <div className="pathway-video-frame">
         <video ref={videoRef} className="pathway-video" autoPlay muted loop playsInline preload="metadata" poster="/images/ai-train-poster.png" aria-hidden="true">
-          <source media="(max-width: 767px)" src="/videos/digital-uni-ai-train-mobile.mp4" type="video/mp4" />
-          <source src="/videos/digital-uni-ai-train-desktop.mp4" type="video/mp4" />
+          <source src="/images/Digital-UNI_20260825_VIDEO_4K_HD_prop_1144_0.mp4" type="video/mp4" />
         </video>
-        <div className="pathway-shade" />
+      </div>
 
+      <div className="pathway-actions" aria-label="Start your Digital-UNI journey">
+        <Link href={`/${locale}/enrollment`} className="pathway-primary">{enrollLabel}</Link>
+        <Link href={`/${locale}/pathways`} className="pathway-secondary">{pathwaysLabel}</Link>
+      </div>
+
+      <div className="pathway-stage">
         <div className="pathway-heading">
           <p>{eyebrow}</p>
           <h1 id="cinematic-hero-title">DIGITAL-UNI <span>AI TRAIN</span></h1>
           <h2>{headline}</h2>
-          <div className="pathway-actions">
-            <Link href={`/${locale}/enrollment`} className="pathway-primary">{enrollLabel}</Link>
-            <Link href={`/${locale}/pathways`} className="pathway-secondary">{pathwaysLabel}</Link>
-          </div>
         </div>
 
         <div className="route-stations" aria-label="International AI Train stations">
