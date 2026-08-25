@@ -33,6 +33,7 @@ export async function SiteFooter({ locale }: { locale: Locale }) {
         <p className="mt-6 text-xs text-navy-50/60">
           © {new Date().getFullYear()} {tSite('name')}. {t('rights')}
         </p>
+        <div className="mt-5 flex flex-wrap gap-5 text-sm"><a href="tel:+12137084890" className="hover:text-gold-400">213-708-4890</a><a href="mailto:enroll@digital-uni.net" className="hover:text-gold-400">enroll@digital-uni.net</a><a href="mailto:financial_aid@digital-uni.net" className="hover:text-gold-400">financial_aid@digital-uni.net</a></div>
 
         <div className="mt-10 border-t border-white/15 pt-8">
           <div className="relative mx-auto w-full max-w-3xl overflow-hidden rounded-xl border border-white/20 shadow-2xl">
@@ -58,6 +59,7 @@ export async function SiteFooter({ locale }: { locale: Locale }) {
               {t('tuitionDiscount')}
             </Link>
           </p>
+          <p className="mt-2 text-center text-xs text-amber-200">The business-card image may contain outdated contact details and is flagged for replacement. Current phone: <a className="underline" href="tel:+12137084890">213-708-4890</a>.</p>
         </div>
       </div>
     </footer>

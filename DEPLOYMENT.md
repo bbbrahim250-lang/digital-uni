@@ -174,3 +174,13 @@ course search — only two static category cards and detail pages that
 an alpha built through Milestone 1 plus schema; Milestone 2 (auth +
 catalog + seed data) is what turns this into something a test user can
 actually click around in.
+
+## Applicant planning workflow
+
+Configure `OPENAI_API_KEY`, `EMAIL_SERVICE_API_KEY`, `EMAIL_FROM_ADDRESS`, and
+`SUPABASE_SERVICE_ROLE_KEY` as encrypted Vercel environment variables. Apply
+migration `0007_applicant_plans.sql`. The `applicant-brochures` bucket is private;
+seven-day signed links are generated only after consent. Set a 24-month deletion
+job for `applicant_plans` and its brochure objects, and honor access/deletion
+requests received at `enroll@digital-uni.net`. Do not put `OPENAI_API_KEY` in a
+`NEXT_PUBLIC_` variable.
