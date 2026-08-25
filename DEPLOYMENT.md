@@ -177,7 +177,8 @@ actually click around in.
 
 ## Applicant planning workflow
 
-Configure `OPENAI_API_KEY`, `EMAIL_SERVICE_API_KEY`, `EMAIL_FROM_ADDRESS`, and
+Configure `OPENAI_API_KEY`, `APPLICANT_PLAN_SIGNING_SECRET` (a random value of at
+least 32 bytes), `EMAIL_SERVICE_API_KEY`, `EMAIL_FROM_ADDRESS`, and
 `SUPABASE_SERVICE_ROLE_KEY` as encrypted Vercel environment variables. Apply
 migration `0007_applicant_plans.sql`. The `applicant-brochures` bucket is private;
 seven-day signed links are generated only after consent. Set a 24-month deletion

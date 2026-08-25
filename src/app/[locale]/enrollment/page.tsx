@@ -69,7 +69,7 @@ export default async function EnrollmentPage({
           </div>
         </div>
       </section>
-      <ApplicantAssistant locale={locale} enabled={Boolean(process.env.OPENAI_API_KEY)} />
+      <ApplicantAssistant locale={locale} enabled={Boolean(process.env.OPENAI_API_KEY && process.env.APPLICANT_PLAN_SIGNING_SECRET)} />
     </article>
   );
 }

@@ -47,6 +47,7 @@ export const planSchema = z.object({
 export const submissionSchema = z.object({
   answers: applicantAnswersSchema,
   plan: planSchema,
+  planToken: z.string().min(40).max(200),
   consent: z.literal(true),
   website: z.string().max(0).optional()
 });

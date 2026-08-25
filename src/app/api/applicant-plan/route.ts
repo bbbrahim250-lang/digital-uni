@@ -1,13 +1,14 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { applicantAnswersSchema, legalProgramNotice, planSchema, programCatalog, programNames } from '@/lib/applicant-planning';
 import { rateLimit } from '@/lib/rate-limit';
+import { signApplicantPlan } from '@/lib/applicant-plan-security';
 
 export const runtime = 'nodejs';
 
 export async function POST(request: NextRequest) {
   const ip = request.headers.get('x-forwarded-for')?.split(',')[0] ?? 'unknown';
   if (!rateLimit(`plan:${ip}`, 8, 60_000)) return NextResponse.json({ error: 'Too many requests. Please wait and try again.' }, { status: 429 });
-  if (!process.env.OPENAI_API_KEY) return NextResponse.json({ error: 'AI Planning Assistant Coming Soon' }, { status: 503 });
+  if (!process.env.OPENAI_API_KEY || !process.env.APPLICANT_PLAN_SIGNING_SECRET) return NextResponse.json({ error: 'AI Planning Assistant Coming Soon' }, { status: 503 });
   const parsed = applicantAnswersSchema.safeParse(await request.json().catch(() => null));
   if (!parsed.success) return NextResponse.json({ error: 'Please check your answers.' }, { status: 400 });
 
@@ -38,5 +39,7 @@ export async function POST(request: NextRequest) {
   const generated = planSchema.safeParse(JSON.parse(outputText ?? 'null'));
   if (!generated.success) return NextResponse.json({ error: 'The proposed plan could not be validated.' }, { status: 502 });
   const plan = { ...generated.data, applicantName: parsed.data.name, applicantEmail: parsed.data.email, preferredLanguage: parsed.data.preferredLanguage, applicantBudget: parsed.data.budget, requestedInstallmentPreference: parsed.data.installmentPreference, financialAidInquiryStatus: parsed.data.financialAid, tuitionStartingPrice: programCatalog[generated.data.recommendedProgram] };
-  return NextResponse.json({ plan: planSchema.parse(plan) });
+  const validatedPlan = planSchema.parse(plan);
+  const planToken = signApplicantPlan(parsed.data, validatedPlan, process.env.APPLICANT_PLAN_SIGNING_SECRET);
+  return NextResponse.json({ plan: validatedPlan, planToken });
 }
