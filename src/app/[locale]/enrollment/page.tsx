@@ -4,6 +4,9 @@ import { notFound } from 'next/navigation';
 import { isValidLocale, type Locale } from '@/i18n/config';
 import { ContactForm } from '../contact/contact-form';
 import { EnrollmentPaymentOptions } from './enrollment-payment-options';
+import { ApplicantAssistant } from './applicant-assistant';
+
+export const dynamic = 'force-dynamic';
 
 export default async function EnrollmentPage({
   params,
@@ -52,13 +55,21 @@ export default async function EnrollmentPage({
         <div className="rounded-2xl border border-navy-100 bg-white p-7 shadow-card">
           <h2 className="mb-6 text-2xl font-bold text-navy-900">{t('requestTitle')}</h2>
           <ContactForm locale={locale} />
+          {(!process.env.EMAIL_SERVICE_API_KEY || !process.env.EMAIL_FROM_ADDRESS) && <p role="alert" className="mt-5 rounded-lg border border-amber-300 bg-amber-50 p-4 text-sm text-amber-900">Email notification is not configured. The form cannot confirm delivery; please use the functioning email links below.</p>}
           <EnrollmentPaymentOptions urls={paymentUrls} />
+          <div className="mt-7 rounded-xl border border-navy-100 bg-navy-50 p-5 text-sm">
+            <p className="font-bold">Enrollment and financial-aid contacts</p>
+            <a className="mt-2 block break-all text-highlight-electric underline" href="mailto:enroll@digital-uni.net">enroll@digital-uni.net</a>
+            <a className="mt-2 block break-all text-highlight-electric underline" href="mailto:financial_aid@digital-uni.net">financial_aid@digital-uni.net</a>
+            <a className="mt-2 block text-highlight-electric underline" href="tel:+12137084890">213-708-4890</a>
+          </div>
           <div className="mt-8 rounded-xl border border-emerald-200 bg-emerald-50 p-5">
             <p className="font-bold text-navy-900">Financial aid questions? Contact <a className="break-all text-highlight-electric underline" href="mailto:financial_aid@digital-uni.net">financial_aid@digital-uni.net</a></p>
             <a href="mailto:financial_aid@digital-uni.net?subject=Digital-UNI%20Financial%20Aid%20Information%20Request" className="mt-4 inline-flex rounded-lg bg-navy-900 px-4 py-3 text-center text-sm font-bold text-white">Request Financial Aid Information</a>
           </div>
         </div>
       </section>
+      <ApplicantAssistant locale={locale} enabled={Boolean(process.env.OPENAI_API_KEY)} />
     </article>
   );
 }
