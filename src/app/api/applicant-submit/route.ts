@@ -4,6 +4,7 @@ import { randomUUID } from 'crypto';
 import { brochureDisclaimer, submissionSchema } from '@/lib/applicant-planning';
 import { createBrochurePdf } from '@/lib/pdf';
 import { rateLimit } from '@/lib/rate-limit';
+import { verifyApplicantPlan } from '@/lib/applicant-plan-security';
 
 export const runtime = 'nodejs';
 
@@ -20,6 +21,10 @@ export async function POST(request: NextRequest) {
   const parsed = submissionSchema.safeParse(await request.json().catch(() => null));
   if (!parsed.success) return NextResponse.json({ error: 'Explicit consent and a valid plan are required.' }, { status: 400 });
   if (parsed.data.website) return NextResponse.json({ error: 'Submission rejected.' }, { status: 400 });
+  const signingSecret = process.env.APPLICANT_PLAN_SIGNING_SECRET;
+  if (!signingSecret || !verifyApplicantPlan(parsed.data.answers, parsed.data.plan, parsed.data.planToken, signingSecret)) {
+    return NextResponse.json({ error: 'This plan is invalid or has been changed. Please regenerate it before submitting.' }, { status: 400 });
+  }
   const { NEXT_PUBLIC_SUPABASE_URL: url, SUPABASE_SERVICE_ROLE_KEY: key } = process.env;
   if (!url || !key) return NextResponse.json({ error: 'Secure application storage is not configured. Please use the email links below.' }, { status: 503 });
 
