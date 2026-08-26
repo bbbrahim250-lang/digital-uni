@@ -243,6 +243,119 @@
         "title": "College & Career Learning Portfolio",
         "description": "Document projects, learning pathways, and certification-preparation accomplishments."
       }
+    },
+    "campaign": {
+      "metaTitle": "Santa Monica AI-Native Private High School Campaign | Digital-UNI",
+      "metaDescription": "Read the formal notice, review the investor deck, and join the Santa Monica community-support campaign for a proposed AI-native private high school at the Civic Auditorium.",
+      "heroEyebrow": "Santa Monica Civic Center Campaign",
+      "heroTitle": "Santa Monica’s First AI-Native Private High School",
+      "heroSubtitle": "A proposed Grades 9–12 campus combining AI, computer science, mathematics, entrepreneurship, AI Pioneers athletics, applied laboratories, and workforce pathways at the historic Civic Auditorium.",
+      "primaryCta": "Join the community campaign",
+      "noticeCta": "Read the formal notice",
+      "deckCta": "Open the investor deck",
+      "heroLegal": "Proposed concept only. Site control, private-school authorization, historic preservation, land use, field access, construction, financing, and all public approvals remain required.",
+      "founderImageAlt": "Brahim Boumakh, founder of Digital-UNI, in an AI data-center environment",
+      "founderRole": "Founder · Digital-UNI",
+      "founderCredential": "Confirmed as an ITU TELECOM WORLD 2009 Forum speaker and invited to the event’s VIP Program. This historical credential does not imply current ITU endorsement of Digital-UNI.",
+      "facts": {
+        "landmark": "Historic Civic Auditorium closed since 2013",
+        "district": "Civic Center planning area near Santa Monica High School",
+        "field": "Historic Belmar Park athletics beside the Civic",
+        "approvals": "Private-school use requires City and education approvals"
+      },
+      "siteKicker": "The site case",
+      "siteTitle": "Preserve the landmark. Activate the field. Build the AI generation.",
+      "siteIntro": "Digital-UNI proposes a disciplined public-private evaluation of the Civic Auditorium as a secure education, technology, athletics, and workforce campus serving Santa Monica families and the wider region.",
+      "zoningTitle": "Accurate land-use position",
+      "zoningText": "The Civic is in the Civic Center Specific Plan area, adjacent to Historic Belmar Park and near Santa Monica High School. Digital-UNI does not claim that the property is already zoned or entitled for private-school use. Any conversion requires City land-use review, lawful site control, historic-preservation review, permits, safety compliance, and educational authorization.",
+      "prioritiesTitle": "Four connected priorities",
+      "priorities": {
+        "school": {
+          "title": "AI-Native Private High School",
+          "description": "Grades 9–12 learning in AI, computer science, mathematics, physics, cybersecurity, robotics, and entrepreneurship."
+        },
+        "athletics": {
+          "title": "AI Pioneers Athletics",
+          "description": "Proposed soccer and football programming through approved shared field use, with basketball inside the renovated campus."
+        },
+        "infrastructure": {
+          "title": "AI Labs + Compute",
+          "description": "Applied AI laboratories, GPU and data-center capacity, cloud and edge systems, cybersecurity, and student projects."
+        },
+        "pathways": {
+          "title": "Workforce + Higher Education",
+          "description": "Professional certification preparation and accelerated pathways subject to authorization, accreditation, and partner agreements."
+        }
+      },
+      "noticeKicker": "Formal notice · August 26, 2026",
+      "noticeTitle": "Notice of intent to pursue a municipal initiative petition",
+      "noticeAddress": "To Mayor Caroline Torosis, Mayor Pro Tem Jesse Zwick, and the Santa Monica City Council",
+      "noticeDate": "Civic Auditorium transformation · 1855 Main Street",
+      "noticeParagraph1": "Digital-UNI has formally notified City leadership of its intent to pursue a municipal initiative petition asking Santa Monica voters whether the Civic Auditorium should be evaluated and reserved for transformation into Santa Monica’s First AI-Native Private High School, an applied AI education campus, and a workforce and compute center.",
+      "noticeParagraph2": "The proposed measure would seek a transparent City evaluation of landmark preservation, an AI high school, workforce programs, compute infrastructure, and approved shared athletics programming. It would not itself grant Digital-UNI ownership, a lease, funding, permits, accreditation, or development approval.",
+      "noticeParagraph3": "Historic Belmar Park is a 3.5-acre municipal sports complex adjacent to the Civic. AI Pioneers soccer and football, youth clinics, and sports analytics would require City permits, scheduling, existing community-use protections, and appropriate athletics approvals.",
+      "noticeParagraph4": "This community campaign is notice and public outreach—not the statutory Notice of Intention, authorization to circulate petitions, or a legally valid ballot signature. Formal qualification must follow the California Elections Code, Santa Monica Municipal Code, City Clerk procedures, signature verification, and required public action.",
+      "noticeDocumentTitle": "Formal Notice to the Mayor and City Council",
+      "noticeDocumentDescription": "Read the signed-format, one-page notice setting out the proposed campus, field strategy, campaign intent, and legal status.",
+      "openNotice": "Open formal notice PDF",
+      "publicProcessTitle": "Public process matters",
+      "publicProcessText": "Community support can demonstrate public interest, but it cannot replace land-use review, a City transaction, historic-preservation requirements, school authorization, or the formal municipal initiative process.",
+      "deckKicker": "Investor presentation · 10 slides",
+      "deckTitle": "Santa Monica AI High School investor deck",
+      "deckDescription": "Review the site strategy, AI Pioneers team identity, Grades 9–12 curriculum, applied AI and GPU infrastructure, founder background, operating model, and phased capital approach.",
+      "openDeck": "Open investor deck PDF",
+      "deckFrameLabel": "Digital-UNI Santa Monica AI High School investor deck",
+      "deckMobileText": "The full 10-slide investor deck is available as a high-resolution PDF and opens in a new browser tab.",
+      "supportKicker": "Santa Monica community support",
+      "supportTitle": "Add your name to the campaign",
+      "supportIntro": "Santa Monica residents, parents, students, educators, neighborhood leaders, businesses, and community partners may register support and receive project updates.",
+      "legalTitle": "Community registration—not a ballot signature",
+      "legalText": "This online form records support for Digital-UNI’s civic campaign. It is not an electronic signature on a municipal initiative petition. The City states that ballot qualification requires the State Elections Code process and signatures from 10% of registered City voters for an initiative, or 15% for a charter amendment.",
+      "officialElectionSource": "Read the City’s official elections guidance",
+      "sourcesTitle": "Official public references",
+      "sourceCivic": "Civic Auditorium restoration update",
+      "sourceBelmar": "Historic Belmar Park",
+      "sourceElections": "Santa Monica elections guidance",
+      "mobileCampaignLabel": "Support Santa Monica’s AI High School",
+      "mobileCampaignCta": "Join",
+      "form": {
+        "name": "Full name",
+        "email": "Email address",
+        "phone": "Phone number",
+        "optional": "optional",
+        "zipCode": "ZIP code",
+        "connection": "Your Santa Monica connection",
+        "interest": "Primary area of interest",
+        "message": "Why do you support this proposal?",
+        "messagePlaceholder": "Share a short comment, question, or idea for the proposed school and athletics program.",
+        "consent": "Add my name to the Digital-UNI Santa Monica AI High School community-support campaign and contact me with project updates.",
+        "legalAcknowledgement": "I understand this is a community-support registration, not a statutory municipal initiative or ballot-petition signature.",
+        "submit": "Register my support",
+        "submitting": "Registering…",
+        "successTitle": "Your support has been registered",
+        "successMessage": "Thank you for joining the Santa Monica AI High School community campaign. Digital-UNI may contact you with project and public-process updates.",
+        "invalidSubmission": "Please review the required fields and try again.",
+        "submissionFailed": "We could not register your support right now. Please try again shortly.",
+        "requiredError": "This field or acknowledgement is required.",
+        "emailError": "Enter a valid email address.",
+        "zipError": "Enter a valid five-digit ZIP code.",
+        "connections": {
+          "resident": "Santa Monica resident",
+          "parentGuardian": "Parent or guardian",
+          "student": "Student",
+          "educator": "Educator",
+          "businessCommunity": "Business or community organization",
+          "other": "Other supporter"
+        },
+        "interests": {
+          "privateAiHighSchool": "AI-native private high school",
+          "aiPioneersAthletics": "AI Pioneers athletics and field",
+          "technologyWorkforce": "AI labs, compute, and workforce programs",
+          "investmentPartnership": "Investment or strategic partnership",
+          "volunteer": "Volunteer or community outreach",
+          "generalSupport": "General community support"
+        }
+      }
     }
   },
   "enrollment": {
