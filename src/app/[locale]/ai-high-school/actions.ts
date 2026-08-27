@@ -37,7 +37,7 @@ async function sendCampaignEmail(
   submittedAt: string,
   message: string
 ) {
-  const apiKey = process.env.EMAIL_SERVICE_API_KEY;
+  const apiKey = process.env.EMAIL_SERVICE_API_KEY ?? process.env.RESEND_API_KEY;
   const from = process.env.EMAIL_FROM_ADDRESS;
   if (!apiKey || !from) return { configured: false, accepted: false };
 
