@@ -2,7 +2,7 @@
 
 import { createSupabaseServerClient } from '@/lib/supabase/server';
 import { campaignSupportSchema, type CampaignSupportValues } from '@/lib/schemas';
-import nodemailer from 'nodemailer';
+import { sendTransactionalEmail } from '@/lib/email';
 
 const DIGITAL_UNI_RECIPIENTS = ['enroll@digital-uni.net', 'financial_aid@digital-uni.net'];
 const CITY_COUNCIL_RECIPIENT = 'council.mailbox@santamonica.gov';
@@ -38,19 +38,6 @@ async function sendCampaignEmail(
   submittedAt: string,
   message: string
 ) {
-  const apiKey = process.env.EMAIL_SERVICE_API_KEY ?? process.env.RESEND_API_KEY;
-  const smtpHost = process.env.SMTP_HOST;
-  const smtpPort = Number(process.env.SMTP_PORT ?? '465');
-  const smtpUser = process.env.SMTP_USER;
-  const smtpPassword = process.env.SMTP_PASSWORD;
-  const from = process.env.EMAIL_FROM_ADDRESS ?? smtpUser;
-  const resendConfigured = Boolean(apiKey && from);
-  const smtpConfigured = Boolean(
-    smtpHost && Number.isInteger(smtpPort) && smtpPort > 0 && smtpUser && smtpPassword && from
-  );
-
-  if (!resendConfigured && !smtpConfigured) return { configured: false, accepted: false };
-
   const subject = `Community support — Santa Monica AI High School — ${data.signatureName}`;
   const text = [
     message,
@@ -62,73 +49,15 @@ async function sendCampaignEmail(
     `Delivery: Digital-UNI (${DIGITAL_UNI_RECIPIENTS.join(', ')}) with a copy to the Santa Monica City Council Office (${CITY_COUNCIL_RECIPIENT}).`
   ].join('\n');
 
-  if (resendConfigured) {
-    try {
-      const response = await fetch('https://api.resend.com/emails', {
-        method: 'POST',
-        headers: {
-          Authorization: `Bearer ${apiKey}`,
-          'Content-Type': 'application/json',
-          'Idempotency-Key': `ai-high-school-campaign/${data.submissionId}`
-        },
-        body: JSON.stringify({
-          from,
-          to: DIGITAL_UNI_RECIPIENTS,
-          cc: [CITY_COUNCIL_RECIPIENT],
-          reply_to: data.email,
-          subject,
-          text
-        }),
-        cache: 'no-store'
-      });
-
-      if (response.ok) {
-        const accepted = (await response.json()) as { id?: string };
-        if (accepted.id) return { configured: true, accepted: true };
-      } else {
-        console.error('campaign_support_resend_rejected', { status: response.status });
-      }
-    } catch (error) {
-      console.error('campaign_support_resend_failed', {
-        error: error instanceof Error ? error.name : 'unknown_error'
-      });
-    }
-  }
-
-  if (smtpConfigured) {
-    try {
-      const transporter = nodemailer.createTransport({
-        host: smtpHost,
-        port: smtpPort,
-        secure: process.env.SMTP_SECURE !== 'false',
-        auth: { user: smtpUser, pass: smtpPassword },
-        requireTLS: smtpPort !== 465,
-        connectionTimeout: 10_000,
-        greetingTimeout: 10_000,
-        socketTimeout: 20_000,
-        tls: { minVersion: 'TLSv1.2' }
-      });
-      const delivery = await transporter.sendMail({
-        from,
-        to: DIGITAL_UNI_RECIPIENTS,
-        cc: [CITY_COUNCIL_RECIPIENT],
-        replyTo: data.email,
-        subject,
-        text,
-        messageId: `<ai-high-school-${data.submissionId}@digital-uni.net>`
-      });
-      return {
-        configured: true,
-        accepted: delivery.accepted.length >= DIGITAL_UNI_RECIPIENTS.length + 1 && delivery.rejected.length === 0
-      };
-    } catch (error) {
-      console.error('campaign_support_smtp_failed', {
-        error: error instanceof Error ? error.name : 'unknown_error'
-      });
-    }
-  }
-
-  return { configured: true, accepted: false };
+  return sendTransactionalEmail({
+    to: DIGITAL_UNI_RECIPIENTS,
+    cc: [CITY_COUNCIL_RECIPIENT],
+    replyTo: data.email,
+    subject,
+    text,
+    idempotencyKey: `ai-high-school-campaign/${data.submissionId}`,
+    messageId: `<ai-high-school-${data.submissionId}@digital-uni.net>`
+  });
 }
 
 export async function submitCampaignSupport(

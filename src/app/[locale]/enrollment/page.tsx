@@ -5,6 +5,7 @@ import { isValidLocale, type Locale } from '@/i18n/config';
 import { ContactForm } from '../contact/contact-form';
 import { EnrollmentPaymentOptions } from './enrollment-payment-options';
 import { ApplicantAssistant } from './applicant-assistant';
+import { isTransactionalEmailConfigured } from '@/lib/email';
 
 export const dynamic = 'force-dynamic';
 
@@ -55,7 +56,7 @@ export default async function EnrollmentPage({
         <div className="rounded-2xl border border-navy-100 bg-white p-7 shadow-card">
           <h2 className="mb-6 text-2xl font-bold text-navy-900">{t('requestTitle')}</h2>
           <ContactForm locale={locale} />
-          {(!process.env.EMAIL_SERVICE_API_KEY || !process.env.EMAIL_FROM_ADDRESS) && <p role="alert" className="mt-5 rounded-lg border border-amber-300 bg-amber-50 p-4 text-sm text-amber-900">Email notification is not configured. The form cannot confirm delivery; please use the functioning email links below.</p>}
+          {!isTransactionalEmailConfigured() && <p role="alert" className="mt-5 rounded-lg border border-amber-300 bg-amber-50 p-4 text-sm text-amber-900">Email notification is not configured. The form cannot confirm delivery; please use the functioning email links below.</p>}
           <EnrollmentPaymentOptions urls={paymentUrls} />
           <div className="mt-7 rounded-xl border border-navy-100 bg-navy-50 p-5 text-sm">
             <p className="font-bold">Enrollment and financial-aid contacts</p>
