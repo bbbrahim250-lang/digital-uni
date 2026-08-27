@@ -29,6 +29,7 @@ export const campaignInterestValues = [
 ] as const;
 
 export const campaignSupportSchema = z.object({
+  submissionId: z.string().uuid(),
   name: z.string().trim().min(2).max(200),
   email: z.string().trim().email().max(320),
   phone: z.string().trim().max(40).optional(),
@@ -36,9 +37,22 @@ export const campaignSupportSchema = z.object({
   connection: z.enum(campaignConnectionValues),
   interest: z.enum(campaignInterestValues),
   message: z.string().trim().max(2000).optional(),
+  signatureName: z.string().trim().min(2).max(200),
+  signatureConsent: z.boolean().refine(Boolean),
   supportConsent: z.boolean().refine(Boolean),
+  cityCopyConsent: z.boolean().refine(Boolean),
   legalAcknowledgement: z.boolean().refine(Boolean),
+  turnstileToken: z.string().min(1).max(2048),
   website: z.string().max(0).optional()
+}).superRefine((data, context) => {
+  const normalizeName = (value: string) => value.trim().replace(/\s+/g, ' ').toLocaleLowerCase('en-US');
+  if (normalizeName(data.signatureName) !== normalizeName(data.name)) {
+    context.addIssue({
+      code: z.ZodIssueCode.custom,
+      path: ['signatureName'],
+      message: 'The electronic signature must match the full name.'
+    });
+  }
 });
 
 export type CampaignSupportValues = z.infer<typeof campaignSupportSchema>;

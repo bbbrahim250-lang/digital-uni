@@ -38,10 +38,17 @@ export default async function AiHighSchoolPage({ params }: { params: { locale: s
   const formCopy: CampaignFormCopy = {
     name: t('form.name'), email: t('form.email'), phone: t('form.phone'), optional: t('form.optional'),
     zipCode: t('form.zipCode'), connection: t('form.connection'), interest: t('form.interest'),
-    message: t('form.message'), messagePlaceholder: t('form.messagePlaceholder'), consent: t('form.consent'),
+    message: t('form.message'), messagePlaceholder: t('form.messagePlaceholder'),
+    signatureName: t('form.signatureName'), signatureHelp: t('form.signatureHelp'),
+    signatureMismatch: t('form.signatureMismatch'), signatureConsent: t('form.signatureConsent'),
+    consent: t('form.consent'), cityCopyConsent: t('form.cityCopyConsent'),
     legalAcknowledgement: t('form.legalAcknowledgement'), submit: t('form.submit'), submitting: t('form.submitting'),
+    humanVerification: t('form.humanVerification'), verificationUnavailable: t('form.verificationUnavailable'),
     successTitle: t('form.successTitle'), successMessage: t('form.successMessage'),
     invalidSubmission: t('form.invalidSubmission'), submissionFailed: t('form.submissionFailed'),
+    verificationFailed: t('form.verificationFailed'), deliveryUnavailable: t('form.deliveryUnavailable'),
+    deliveryFailed: t('form.deliveryFailed'), backupWarning: t('form.backupWarning'),
+    emailFallback: t('form.emailFallback'),
     requiredError: t('form.requiredError'), emailError: t('form.emailError'), zipError: t('form.zipError'),
     connectionOptions: {
       resident: t('form.connections.resident'), parent_guardian: t('form.connections.parentGuardian'),
@@ -204,7 +211,11 @@ export default async function AiHighSchoolPage({ params }: { params: { locale: s
             </div>
           </div>
           <div className="rounded-3xl border border-navy-100 bg-white p-6 shadow-2xl md:p-10">
-            <CampaignForm locale={locale} copy={formCopy} />
+            <CampaignForm
+              locale={locale}
+              copy={formCopy}
+              turnstileSiteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY ?? ''}
+            />
           </div>
         </div>
       </section>
