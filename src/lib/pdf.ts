@@ -7,11 +7,16 @@ export function createBrochurePdf(plan: ApplicantPlan, reference: string, genera
   const lines = [
     'DIGITAL-UNI(TM) PERSONALIZED LEARNING PATHWAY', 'Digital-UNI | www.digital-uni.net | 213-708-4890',
     'enroll@digital-uni.net | financial_aid@digital-uni.net', '', `Applicant: ${plan.applicantName}`, `Application reference: ${reference}`,
-    `Generation date: ${generated}`, `Recommended pathway: ${plan.recommendedProgram}`, `Learning objectives: ${plan.learningGoals}`,
+    `Generation date: ${generated}`, `AI Train route: ${plan.routeLabel}`, `Route duration: ${plan.routeDuration}`,
+    `Selected program: ${plan.recommendedProgram}`, `Learning objectives: ${plan.learningGoals}`,
+    'Proposed ticket itinerary:',
+    ...plan.ticketSegments.map(segment => `Station ${segment.station}: ${segment.title} | ${segment.duration} | USD ${segment.price.toLocaleString('en-US')}`),
+    `Proposed complete-route ticket: USD ${plan.ticketTotal.toLocaleString('en-US')}`,
+    `Requested reservation schedule: ${plan.requestedInstallmentPreference}`,
+    ...plan.paymentSchedule.map(item => `  ${item}`),
     `Program modules: ${plan.skillsAndModules.join(' | ')}`, `Weekly learning schedule: ${plan.weeklySchedule.join(' | ')}`,
     `Applied project: ${plan.appliedProject}`, `Personalized AI application: ${plan.personalizedAiApplicationOutcome}`,
-    `Duration: ${plan.proposedDuration}`, `Tuition starting price: USD ${plan.tuitionStartingPrice.toLocaleString('en-US')}`,
-    `Applicant stated budget: ${plan.applicantBudget}`, `Installment preference (request only): ${plan.requestedInstallmentPreference}`,
+    `Duration: ${plan.proposedDuration}`, `Applicant stated budget: ${plan.applicantBudget}`,
     `Financial-aid-information request: ${plan.financialAidInquiryStatus ? 'Yes' : 'No'}`, '', 'Enrollment next steps:',
     'Digital-UNI staff review, written confirmation, then secure payment if approved.', '', brochureDisclaimer
   ];

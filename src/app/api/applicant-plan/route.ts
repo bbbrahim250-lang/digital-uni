@@ -1,5 +1,15 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { applicantAnswersSchema, legalProgramNotice, planSchema, programCatalog, programNames } from '@/lib/applicant-planning';
+import {
+  aiGeneratedPlanSchema,
+  applicantAnswersSchema,
+  getTicketPaymentSummary,
+  getTrainPathway,
+  legalProgramNotice,
+  planSchema,
+  programCatalog,
+  programNames,
+  programNamesByTrack
+} from '@/lib/applicant-planning';
 import { rateLimit } from '@/lib/rate-limit';
 import { signApplicantPlan } from '@/lib/applicant-plan-security';
 
@@ -19,26 +29,55 @@ export async function POST(request: NextRequest) {
       learningGoals: { type: 'string' }, currentExperience: { type: 'string' }, recommendedProgram: { type: 'string', enum: programNames }, alternativeProgram: { type: 'string', enum: programNames },
       proposedDuration: { type: 'string' }, weeklySchedule: { type: 'array', items: { type: 'string' }, minItems: 1, maxItems: 12 },
       skillsAndModules: { type: 'array', items: { type: 'string' }, minItems: 1, maxItems: 12 }, appliedProject: { type: 'string' }, personalizedAiApplicationOutcome: { type: 'string' },
-      tuitionStartingPrice: { type: 'number' }, applicantBudget: { type: 'string' }, requestedInstallmentPreference: { type: 'string', enum: ['Full payment', 'Installments'] },
-      financialAidInquiryStatus: { type: 'boolean' }, assumptionsAndDisclaimers: { type: 'array', items: { type: 'string' }, minItems: 1, maxItems: 10 }
+      applicantBudget: { type: 'string' }, financialAidInquiryStatus: { type: 'boolean' },
+      assumptionsAndDisclaimers: { type: 'array', items: { type: 'string' }, minItems: 1, maxItems: 10 }
     },
-    required: ['applicantName','applicantEmail','preferredLanguage','learningGoals','currentExperience','recommendedProgram','alternativeProgram','proposedDuration','weeklySchedule','skillsAndModules','appliedProject','personalizedAiApplicationOutcome','tuitionStartingPrice','applicantBudget','requestedInstallmentPreference','financialAidInquiryStatus','assumptionsAndDisclaimers']
+    required: ['applicantName','applicantEmail','preferredLanguage','learningGoals','currentExperience','recommendedProgram','alternativeProgram','proposedDuration','weeklySchedule','skillsAndModules','appliedProject','personalizedAiApplicationOutcome','applicantBudget','financialAidInquiryStatus','assumptionsAndDisclaimers']
   };
+  const route = getTrainPathway(parsed.data.pathwayTrack);
+  const allowedPrograms = programNamesByTrack[parsed.data.pathwayTrack];
   const response = await fetch('https://api.openai.com/v1/responses', {
     method: 'POST', headers: { Authorization: `Bearer ${process.env.OPENAI_API_KEY}`, 'Content-Type': 'application/json' }, cache: 'no-store',
     body: JSON.stringify({
       model: process.env.OPENAI_MODEL || 'gpt-4.1-mini',
-      instructions: `Create a concise applicant learning proposal in ${parsed.data.preferredLanguage}. Recommend only a catalog program. Never approve enrollment, aid, credit, certification, installment terms, or scholarships. Installments are requests only. Include this safeguard where relevant: ${legalProgramNotice}`,
-      input: JSON.stringify({ answers: parsed.data, serverControlledCatalogUsd: programCatalog }),
+      instructions: `Create a concise applicant learning proposal in ${parsed.data.preferredLanguage} for the selected ${route.label}. Recommend only one of the allowed programs. The candidate's chosen program is the controlling recommendation. Never approve enrollment, aid, credit, certification, installment terms, or scholarships. Prices and installments are proposals only. Include this safeguard where relevant: ${legalProgramNotice}`,
+      input: JSON.stringify({
+        answers: parsed.data,
+        allowedPrograms,
+        selectedProgram: parsed.data.programInterest,
+        route: { label: route.label, duration: route.duration, proposedStartingPriceUsd: route.startingPrice },
+        individualModuleReferencePricesUsd: programCatalog
+      }),
       text: { format: { type: 'json_schema', name: 'applicant_plan', strict: true, schema } }
     })
   });
   if (!response.ok) return NextResponse.json({ error: 'The planning service is temporarily unavailable.' }, { status: 502 });
   const result = await response.json() as { output_text?: string; output?: Array<{ content?: Array<{ text?: string }> }> };
   const outputText = result.output_text ?? result.output?.flatMap(item => item.content ?? []).find(item => item.text)?.text;
-  const generated = planSchema.safeParse(JSON.parse(outputText ?? 'null'));
+  const generated = aiGeneratedPlanSchema.safeParse(JSON.parse(outputText ?? 'null'));
   if (!generated.success) return NextResponse.json({ error: 'The proposed plan could not be validated.' }, { status: 502 });
-  const plan = { ...generated.data, applicantName: parsed.data.name, applicantEmail: parsed.data.email, preferredLanguage: parsed.data.preferredLanguage, applicantBudget: parsed.data.budget, requestedInstallmentPreference: parsed.data.installmentPreference, financialAidInquiryStatus: parsed.data.financialAid, tuitionStartingPrice: programCatalog[generated.data.recommendedProgram] };
+  const alternativeProgram = allowedPrograms.includes(generated.data.alternativeProgram)
+    ? generated.data.alternativeProgram
+    : allowedPrograms.find(program => program !== parsed.data.programInterest) ?? parsed.data.programInterest;
+  const plan = {
+    ...generated.data,
+    applicantName: parsed.data.name,
+    applicantEmail: parsed.data.email,
+    preferredLanguage: parsed.data.preferredLanguage,
+    recommendedProgram: parsed.data.programInterest,
+    alternativeProgram,
+    proposedDuration: route.duration,
+    applicantBudget: parsed.data.budget,
+    financialAidInquiryStatus: parsed.data.financialAid,
+    pathwayTrack: parsed.data.pathwayTrack,
+    routeLabel: route.label,
+    routeDuration: route.duration,
+    ticketSegments: route.segments,
+    ticketTotal: route.startingPrice,
+    tuitionStartingPrice: route.startingPrice,
+    requestedInstallmentPreference: parsed.data.installmentPreference,
+    paymentSchedule: getTicketPaymentSummary(parsed.data.pathwayTrack, parsed.data.installmentPreference)
+  };
   const validatedPlan = planSchema.parse(plan);
   const planToken = signApplicantPlan(parsed.data, validatedPlan, process.env.APPLICANT_PLAN_SIGNING_SECRET);
   return NextResponse.json({ plan: validatedPlan, planToken });

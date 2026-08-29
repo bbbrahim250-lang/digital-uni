@@ -75,7 +75,20 @@ export async function POST(request: NextRequest) {
   }
   const signed = await supabase.storage.from('applicant-brochures').createSignedUrl(brochurePath, 60 * 60 * 24 * 7);
   if (signed.error) return NextResponse.json({ error: 'A secure brochure link could not be created.' }, { status: 502 });
-  const summary = [`Application: ${reference}`, `Applicant: ${parsed.data.answers.name} <${parsed.data.answers.email}>`, `Program: ${parsed.data.plan.recommendedProgram}`, `Financial-aid information requested: ${parsed.data.answers.financialAid ? 'Yes' : 'No'}`, `Installment preference (request only): ${parsed.data.answers.installmentPreference}`, `Résumé attached: ${resume.filename}`, `Secure brochure (expires in 7 days): ${signed.data.signedUrl}`, '', brochureDisclaimer].join('\n');
+  const summary = [
+    `Application: ${reference}`,
+    `Applicant: ${parsed.data.answers.name} <${parsed.data.answers.email}>`,
+    `AI Train route: ${parsed.data.plan.routeLabel} (${parsed.data.plan.routeDuration})`,
+    `Program: ${parsed.data.plan.recommendedProgram}`,
+    `Proposed complete-route ticket: $${parsed.data.plan.ticketTotal.toLocaleString('en-US')} USD`,
+    `Reservation schedule request: ${parsed.data.answers.installmentPreference}`,
+    ...parsed.data.plan.paymentSchedule.map(item => `  - ${item}`),
+    `Financial-aid information requested: ${parsed.data.answers.financialAid ? 'Yes' : 'No'}`,
+    `Résumé attached: ${resume.filename}`,
+    `Secure brochure (expires in 7 days): ${signed.data.signedUrl}`,
+    '',
+    brochureDisclaimer
+  ].join('\n');
   const [internalDelivery, applicantDelivery] = await Promise.all([
     sendTransactionalEmail({
       to: INTERNAL_ENROLLMENT_RECIPIENTS,
