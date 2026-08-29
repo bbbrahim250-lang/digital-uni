@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { FormEvent, useEffect, useMemo, useState } from 'react';
 import {
   brochureDisclaimer,
@@ -369,7 +370,18 @@ export function ApplicantAssistant({ locale, enabled }: { locale: Locale; enable
             {!plan && !result ? (
               <form onSubmit={next}>
                 <div className="rounded-2xl border border-emerald-200 bg-emerald-50 p-4">
-                  <p className="text-xs font-bold uppercase tracking-widest text-emerald-700">OpenAI prompt · Stop {step + 1} / {fields.length}</p>
+                  <div className="flex items-center gap-3">
+                    <div className="relative h-14 w-14 shrink-0 overflow-hidden rounded-full border-2 border-emerald-300 bg-navy-900 shadow-md">
+                      <Image
+                        src="/images/digital-uni-bitcoin-logo.png"
+                        alt="Digital-UNI Bitcoin logo"
+                        fill
+                        sizes="56px"
+                        className="object-cover"
+                      />
+                    </div>
+                    <p className="text-xs font-bold uppercase tracking-widest text-emerald-700">OpenAI prompt · Stop {step + 1} / {fields.length}</p>
+                  </div>
                   <label className="mt-3 block text-lg font-bold text-navy-900" htmlFor="assistant-answer">{questions[locale][step]}</label>
                   {step === 8 ? (
                     <select id="assistant-answer" value={String(answers.financialAid)} onChange={event => setAnswers(current => ({ ...current, financialAid: event.target.value === 'true' }))} className={inputClass}>
