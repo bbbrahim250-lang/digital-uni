@@ -22,11 +22,13 @@ type OpenAIErrorPayload = {
   };
 };
 
-function openAIErrorMessage(status: number, code?: string | null) {
+function openAIErrorMessage(status: number, code?: string | null, type?: string | null) {
   if (status === 401) return 'The AI planning service could not authenticate. Digital-UNI must replace its OpenAI API key.';
   if (status === 403) return 'The AI planning service does not have permission to use the configured OpenAI model.';
   if (status === 404 || code === 'model_not_found') return 'The configured OpenAI model is not available to the Digital-UNI API project.';
-  if (status === 429 && code === 'insufficient_quota') return 'The OpenAI API project needs billing or usage credits before planning can continue.';
+  if (status === 429 && (code === 'insufficient_quota' || code === 'credit_balance_exhausted' || type === 'insufficient_quota')) {
+    return 'The OpenAI API project needs billing or usage credits before planning can continue.';
+  }
   if (status === 429) return 'The AI planning service is receiving too many requests. Please wait and try again.';
   return 'The planning service is temporarily unavailable.';
 }
@@ -89,7 +91,7 @@ export async function POST(request: NextRequest) {
       requestId,
       model
     });
-    return NextResponse.json({ error: openAIErrorMessage(response.status, code) }, { status: 502 });
+    return NextResponse.json({ error: openAIErrorMessage(response.status, code, type) }, { status: 502 });
   }
   const result = await response.json() as { output_text?: string; output?: Array<{ content?: Array<{ text?: string }> }> };
   const outputText = result.output_text ?? result.output?.flatMap(item => item.content ?? []).find(item => item.text)?.text;
