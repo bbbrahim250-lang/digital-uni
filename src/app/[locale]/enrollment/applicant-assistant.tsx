@@ -16,12 +16,13 @@ import {
 } from '@/lib/applicant-planning';
 
 type Locale = 'en' | 'ar' | 'fr';
+type PlannerWindow = PathwayTrack | 'exploration';
 
 const copy = {
   en: {
     kicker: 'Digital-UNI AI Train Ticket Planner',
-    title: 'Build your professional or executive journey',
-    intro: 'Choose a route, program and reservation schedule. Then answer one short question at a time. OpenAI helps tailor the proposed itinerary and brochure. Do not enter identification numbers, payment details, passwords, medical records or immigration documents.',
+    title: 'Choose your Executive, Professional, or Exploration journey',
+    intro: 'Choose one of three Digital-AI Train windows. Executive and Professional routes create tailored certification proposals; the complimentary Exploration ticket tours available learning, financial and legal technology concepts. Do not enter identification numbers, payment details, passwords, medical records or immigration documents.',
     professional: 'Professional Path',
     professionalSummary: '12-week job-ready certification journey',
     executive: 'Executive Path',
@@ -49,8 +50,8 @@ const copy = {
   },
   fr: {
     kicker: 'Planificateur de billets AI Train Digital-UNI',
-    title: 'Construisez votre parcours professionnel ou exécutif',
-    intro: 'Choisissez un parcours, un programme et un calendrier de réservation. Répondez ensuite à une courte question à la fois. OpenAI aide à personnaliser l’itinéraire et la brochure proposés. Ne saisissez pas de pièce d’identité, données bancaires, mots de passe, dossiers médicaux ou documents d’immigration.',
+    title: 'Choisissez votre parcours exécutif, professionnel ou exploratoire',
+    intro: 'Choisissez l’une des trois fenêtres Digital-AI Train. Les parcours exécutif et professionnel créent une proposition de certification personnalisée; le billet d’exploration gratuit présente les concepts d’apprentissage et de technologie financière et juridique disponibles. Ne saisissez pas de pièce d’identité, données bancaires, mots de passe, dossiers médicaux ou documents d’immigration.',
     professional: 'Parcours professionnel',
     professionalSummary: 'Parcours de certification de 12 semaines',
     executive: 'Parcours exécutif',
@@ -78,8 +79,8 @@ const copy = {
   },
   ar: {
     kicker: 'مخطط تذكرة قطار Digital-UNI بالذكاء الاصطناعي',
-    title: 'ابنِ مسارك المهني أو التنفيذي',
-    intro: 'اختر المسار والبرنامج وجدول الحجز، ثم أجب عن سؤال قصير في كل مرة. يساعد OpenAI في تخصيص خط السير والكتيب المقترحين. لا تدخل أرقام الهوية أو بيانات الدفع أو كلمات المرور أو السجلات الطبية أو وثائق الهجرة.',
+    title: 'اختر رحلتك التنفيذية أو المهنية أو الاستكشافية',
+    intro: 'اختر إحدى نوافذ قطار Digital-AI الثلاث. ينشئ المساران التنفيذي والمهني مقترحات شهادات مخصصة، وتعرض تذكرة الاستكشاف المجانية مفاهيم التعلم والتقنيات المالية والقانونية المتاحة. لا تدخل أرقام الهوية أو بيانات الدفع أو كلمات المرور أو السجلات الطبية أو وثائق الهجرة.',
     professional: 'المسار المهني',
     professionalSummary: 'رحلة شهادة مهنية لمدة 12 أسبوعًا',
     executive: 'المسار التنفيذي',
@@ -106,6 +107,180 @@ const copy = {
     download: 'تنزيل الكتيب الآمن'
   }
 } as const;
+
+const windowCopy = {
+  en: {
+    executive: 'Executive Certification',
+    executiveSummary: 'Enterprise leadership and advisory pathway',
+    professional: 'Professional Certification',
+    professionalSummary: 'Job-ready certification pathway',
+    exploration: 'Exploration Ticket',
+    explorationSummary: 'Complimentary tour of Digital-UNI AI services',
+    startingAt: 'Starts at',
+    complimentary: 'Complimentary',
+    select: 'Open this window',
+    active: 'Selected window',
+    trainReady: 'Digital-AI Train · route engine running',
+    trainSearching: 'Digital-AI Train · searching the route',
+    explorationPrompt: 'What would you like to explore?',
+    explorationPlaceholder: 'Describe the library, learning pathway, case-management question, financial-audit concept, case-value factors, or legal precedent topic you want to explore.',
+    explore: 'Run complimentary exploration',
+    explorationReady: 'Your complimentary Digital-UNI AI Train tour pass is ready.',
+    pass: 'AI Train Pass',
+    paymentPass: 'RFID PAYMENT PASS · PREVIEW',
+    scan: 'Scan for Digital-UNI enrollment',
+    previewOnly: 'Planning preview only · No charge is collected here.',
+    legalNotice: 'Exploration is educational and informational only. It does not provide legal advice, perform a certified financial audit, determine what a case is worth, predict an outcome, or create an attorney-client relationship.',
+    chooseTour: 'Choose an exploration tour'
+  },
+  fr: {
+    executive: 'Certification exécutive',
+    executiveSummary: 'Parcours de leadership et de conseil en entreprise',
+    professional: 'Certification professionnelle',
+    professionalSummary: 'Parcours de certification prêt pour l’emploi',
+    exploration: 'Billet d’exploration',
+    explorationSummary: 'Visite gratuite des services IA de Digital-UNI',
+    startingAt: 'À partir de',
+    complimentary: 'Gratuit',
+    select: 'Ouvrir cette fenêtre',
+    active: 'Fenêtre sélectionnée',
+    trainReady: 'Digital-AI Train · moteur de parcours actif',
+    trainSearching: 'Digital-AI Train · recherche du parcours',
+    explorationPrompt: 'Que souhaitez-vous explorer ?',
+    explorationPlaceholder: 'Décrivez la bibliothèque, le parcours, la gestion de dossier, l’audit financier, les facteurs de valeur d’un dossier ou les précédents juridiques à explorer.',
+    explore: 'Lancer l’exploration gratuite',
+    explorationReady: 'Votre laissez-passer gratuit Digital-UNI AI Train est prêt.',
+    pass: 'Pass AI Train',
+    paymentPass: 'PASS DE PAIEMENT RFID · APERÇU',
+    scan: 'Scannez pour l’inscription Digital-UNI',
+    previewOnly: 'Aperçu de planification · Aucun paiement ici.',
+    legalNotice: 'L’exploration est uniquement éducative et informative. Elle ne fournit pas de conseil juridique, d’audit financier certifié, de valeur définitive d’un dossier, de prédiction de résultat ou de relation avocat-client.',
+    chooseTour: 'Choisissez une visite exploratoire'
+  },
+  ar: {
+    executive: 'الشهادة التنفيذية',
+    executiveSummary: 'مسار القيادة والاستشارة المؤسسية',
+    professional: 'الشهادة المهنية',
+    professionalSummary: 'مسار شهادة جاهز لسوق العمل',
+    exploration: 'تذكرة الاستكشاف',
+    explorationSummary: 'جولة مجانية في خدمات Digital-UNI للذكاء الاصطناعي',
+    startingAt: 'يبدأ من',
+    complimentary: 'مجاني',
+    select: 'افتح هذه النافذة',
+    active: 'النافذة المختارة',
+    trainReady: 'قطار Digital-AI · محرك المسار يعمل',
+    trainSearching: 'قطار Digital-AI · يبحث في المسار',
+    explorationPrompt: 'ماذا تريد أن تستكشف؟',
+    explorationPlaceholder: 'صف المكتبة أو المسار التعليمي أو إدارة القضية أو مفهوم التدقيق المالي أو عوامل قيمة القضية أو السوابق القانونية التي تريد استكشافها.',
+    explore: 'ابدأ الاستكشاف المجاني',
+    explorationReady: 'بطاقة جولتك المجانية على قطار Digital-UNI AI جاهزة.',
+    pass: 'بطاقة قطار الذكاء الاصطناعي',
+    paymentPass: 'بطاقة دفع RFID · معاينة',
+    scan: 'امسح للتسجيل في Digital-UNI',
+    previewOnly: 'معاينة تخطيطية فقط · لا يتم تحصيل أي مبلغ هنا.',
+    legalNotice: 'الاستكشاف تعليمي وإعلامي فقط. لا يقدم استشارة قانونية أو تدقيقًا ماليًا معتمدًا، ولا يحدد قيمة القضية أو يتنبأ بالنتيجة أو ينشئ علاقة محامٍ وموكل.',
+    chooseTour: 'اختر جولة استكشافية'
+  }
+} as const;
+
+const explorationTopics = {
+  en: [
+    'Available learning library tour',
+    'Court case management concepts',
+    'Digital-UNI AI financial audit preview',
+    'Case-value factors explorer',
+    'Legal precedent research explorer'
+  ],
+  fr: [
+    'Visite de la bibliothèque d’apprentissage',
+    'Concepts de gestion des dossiers judiciaires',
+    'Aperçu de l’audit financier IA Digital-UNI',
+    'Exploration des facteurs de valeur d’un dossier',
+    'Exploration de la recherche de précédents juridiques'
+  ],
+  ar: [
+    'جولة في مكتبة التعلم المتاحة',
+    'مفاهيم إدارة القضايا القضائية',
+    'معاينة التدقيق المالي بالذكاء الاصطناعي من Digital-UNI',
+    'استكشاف عوامل قيمة القضية',
+    'استكشاف أبحاث السوابق القانونية'
+  ]
+} as const;
+
+const windowTheme: Record<PlannerWindow, { card: string; prompt: string; ticket: string; accent: string }> = {
+  executive: {
+    card: 'border-emerald-400 bg-gradient-to-br from-emerald-950 via-emerald-800 to-emerald-600 text-white',
+    prompt: 'border-emerald-300/40 bg-emerald-950 text-white',
+    ticket: 'from-emerald-950 via-emerald-800 to-emerald-600',
+    accent: 'text-emerald-200'
+  },
+  professional: {
+    card: 'border-slate-600 bg-gradient-to-br from-black via-navy-900 to-slate-800 text-white',
+    prompt: 'border-slate-600 bg-black text-white',
+    ticket: 'from-black via-navy-900 to-slate-800',
+    accent: 'text-gold-400'
+  },
+  exploration: {
+    card: 'border-amber-500 bg-gradient-to-br from-amber-950 via-[#6b3f22] to-amber-700 text-white',
+    prompt: 'border-amber-500/60 bg-[#4a2b18] text-white',
+    ticket: 'from-amber-950 via-[#6b3f22] to-amber-700',
+    accent: 'text-amber-200'
+  }
+};
+
+function AiTrainPass({
+  locale,
+  window,
+  title,
+  subject,
+  fare
+}: {
+  locale: Locale;
+  window: PlannerWindow;
+  title: string;
+  subject: string;
+  fare: string;
+}) {
+  const wt = windowCopy[locale];
+  const theme = windowTheme[window];
+  return (
+    <div className={`overflow-hidden rounded-3xl border border-white/20 bg-gradient-to-br ${theme.ticket} p-5 text-white shadow-2xl`}>
+      <div className="flex items-start justify-between gap-4">
+        <div className="flex min-w-0 items-center gap-3">
+          <div className="relative h-14 w-14 shrink-0 overflow-hidden rounded-full border-2 border-white/60 bg-navy-900 shadow-lg">
+            <Image src="/images/digital-uni-bitcoin-logo.png" alt="Digital-UNI Bitcoin logo" fill sizes="56px" className="object-cover" />
+          </div>
+          <div className="min-w-0">
+            <p className={`text-xs font-black uppercase tracking-[.2em] ${theme.accent}`}>Digital-UNI</p>
+            <h3 className="truncate text-xl font-black">{wt.pass}</h3>
+          </div>
+        </div>
+        <span className="rounded-full border border-white/30 bg-white/10 px-3 py-1 text-xs font-black">PASS</span>
+      </div>
+      <div className="my-5 border-t border-dashed border-white/30" />
+      <dl className="grid gap-4 sm:grid-cols-2">
+        <div><dt className="text-[10px] font-black uppercase tracking-widest text-white/60">Window</dt><dd className="mt-1 font-black">{title}</dd></div>
+        <div><dt className="text-[10px] font-black uppercase tracking-widest text-white/60">Fare</dt><dd className="mt-1 font-black">{fare}</dd></div>
+        <div className="sm:col-span-2"><dt className="text-[10px] font-black uppercase tracking-widest text-white/60">Route / Exploration</dt><dd className="mt-1 break-words font-semibold">{subject}</dd></div>
+      </dl>
+      <div className="mt-5 grid items-end gap-4 sm:grid-cols-[1fr_auto]">
+        <div>
+          <p className="mb-2 text-[10px] font-black uppercase tracking-[.18em] text-white/70">{wt.paymentPass}</p>
+          <div
+            aria-label="RFID payment pass preview stripe"
+            className="h-11 rounded-lg border border-white/25 bg-black/30"
+            style={{ backgroundImage: 'repeating-linear-gradient(90deg, transparent 0 5px, rgba(255,255,255,.32) 5px 7px, transparent 7px 12px)' }}
+          />
+          <p className="mt-2 text-[10px] text-white/65">{wt.previewOnly}</p>
+        </div>
+        <div className="rounded-xl bg-white p-2 text-center text-navy-900">
+          <Image src="/images/enrollment-tuition-10-qr.svg" alt="QR code for Digital-UNI enrollment" width={92} height={92} className="h-[92px] w-[92px]" />
+          <p className="mt-1 max-w-[92px] text-[8px] font-black uppercase leading-tight">{wt.scan}</p>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 const questions = {
   en: ['What is your name?', 'What is your email?', 'What do you want to learn?', 'What is your current education and professional experience?', 'What career or professional outcome do you want?', 'Does this proposed route duration work, or do you need another schedule?', 'How many hours per week are available?', 'What is your tuition budget?', 'Are you requesting financial-aid information?', 'Which language do you prefer: English, Arabic, or French?'],
@@ -142,7 +317,9 @@ function formatUsd(value: number) {
 
 export function ApplicantAssistant({ locale, enabled }: { locale: Locale; enabled: boolean }) {
   const t = copy[locale];
+  const wt = windowCopy[locale];
   const [answers, setAnswers] = useState<ApplicantAnswers>(() => createInitialAnswers());
+  const [plannerWindow, setPlannerWindow] = useState<PlannerWindow>('professional');
   const [step, setStep] = useState(0);
   const [isEnabled, setIsEnabled] = useState(enabled);
   const [value, setValue] = useState('');
@@ -153,6 +330,10 @@ export function ApplicantAssistant({ locale, enabled }: { locale: Locale; enable
   const [error, setError] = useState('');
   const [consent, setConsent] = useState(false);
   const [result, setResult] = useState<{ reference: string; brochureUrl: string } | null>(null);
+  const [explorationTopic, setExplorationTopic] = useState<string>(explorationTopics[locale][0]);
+  const [explorationPrompt, setExplorationPrompt] = useState('');
+  const [explorationRunning, setExplorationRunning] = useState(false);
+  const [explorationPassReady, setExplorationPassReady] = useState(false);
   const route = useMemo(() => getTrainPathway(answers.pathwayTrack), [answers.pathwayTrack]);
   const paymentSummary = useMemo(
     () => getTicketPaymentSummary(answers.pathwayTrack, answers.installmentPreference),
@@ -170,6 +351,7 @@ export function ApplicantAssistant({ locale, enabled }: { locale: Locale; enable
 
   function selectTrack(track: PathwayTrack) {
     const nextProgram = programNamesByTrack[track][0]!;
+    setPlannerWindow(track);
     setAnswers(current => ({
       ...current,
       pathwayTrack: track,
@@ -178,7 +360,25 @@ export function ApplicantAssistant({ locale, enabled }: { locale: Locale; enable
     }));
     setStep(0);
     setValue('');
+    setExplorationPassReady(false);
     clearGeneratedPlan();
+  }
+
+  function selectExploration() {
+    setPlannerWindow('exploration');
+    setExplorationPassReady(false);
+    setError('');
+    clearGeneratedPlan();
+  }
+
+  async function runExploration(event: FormEvent) {
+    event.preventDefault();
+    setExplorationRunning(true);
+    setExplorationPassReady(false);
+    setError('');
+    await new Promise(resolve => setTimeout(resolve, 900));
+    setExplorationRunning(false);
+    setExplorationPassReady(true);
   }
 
   function choiceValue() {
@@ -237,6 +437,7 @@ export function ApplicantAssistant({ locale, enabled }: { locale: Locale; enable
 
   function cancel() {
     setAnswers(createInitialAnswers());
+    setPlannerWindow('professional');
     setPlan(null);
     setPlanToken('');
     setStep(0);
@@ -244,6 +445,8 @@ export function ApplicantAssistant({ locale, enabled }: { locale: Locale; enable
     setResume(null);
     setConsent(false);
     setResult(null);
+    setExplorationPrompt('');
+    setExplorationPassReady(false);
     setError('');
   }
 
@@ -256,6 +459,18 @@ export function ApplicantAssistant({ locale, enabled }: { locale: Locale; enable
 
   const availablePrograms = programNamesByTrack[answers.pathwayTrack];
   const inputClass = 'mt-3 min-h-12 w-full rounded-xl border border-navy-100 bg-white p-3 text-navy-900 outline-none focus:border-gold-500 focus:ring-2 focus:ring-gold-200';
+  const paidWindowTitle = plannerWindow === 'executive' ? wt.executive : wt.professional;
+  const activeWindowTitle = plannerWindow === 'exploration' ? wt.exploration : paidWindowTitle;
+  const activeFare = plannerWindow === 'exploration' ? wt.complimentary : formatUsd(route.startingPrice);
+  const activeSubject = plannerWindow === 'exploration'
+    ? explorationTopic
+    : plan?.recommendedProgram ?? answers.programInterest;
+  const promptTheme = windowTheme[plannerWindow].prompt;
+  const windowOptions: Array<{ id: PlannerWindow; title: string; summary: string; fare: string }> = [
+    { id: 'executive', title: wt.executive, summary: wt.executiveSummary, fare: `${wt.startingAt} $25,000 USD` },
+    { id: 'professional', title: wt.professional, summary: wt.professionalSummary, fare: `${wt.startingAt} $3,000 USD` },
+    { id: 'exploration', title: wt.exploration, summary: wt.explorationSummary, fare: wt.complimentary }
+  ];
 
   return (
     <section className="mx-auto max-w-7xl px-4 pb-20" aria-labelledby="assistant-title">
@@ -276,90 +491,195 @@ export function ApplicantAssistant({ locale, enabled }: { locale: Locale; enable
             <h2 id="assistant-title" className="mt-3 text-3xl font-black md:text-5xl">{t.title}</h2>
             <p className="mt-4 max-w-3xl text-sm leading-7 text-navy-50">{t.intro}</p>
             <div className="mt-5 inline-flex rounded-full border border-white/20 bg-white/10 px-4 py-2 text-xs font-bold text-emerald-100 backdrop-blur">
-              {isEnabled ? t.ready : t.unavailable}
+              {plannerWindow === 'exploration' ? wt.explorationSummary : isEnabled ? t.ready : t.unavailable}
             </div>
           </div>
         </div>
       </div>
 
       <div className="mt-8 rounded-3xl border border-navy-100 bg-white p-5 shadow-card md:p-8">
-        <div className="grid gap-4 md:grid-cols-2">
-          {(['professional', 'executive'] as const).map(track => {
-            const selected = answers.pathwayTrack === track;
+        <div className="grid gap-5 lg:grid-cols-3">
+          {windowOptions.map(option => {
+            const selected = plannerWindow === option.id;
+            const theme = windowTheme[option.id];
             return (
               <button
-                key={track}
+                key={option.id}
                 type="button"
                 aria-pressed={selected}
-                onClick={() => selectTrack(track)}
-                className={`rounded-2xl border p-5 text-start transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-500 ${selected ? 'border-emerald-500 bg-emerald-50 shadow-md' : 'border-navy-100 bg-navy-50 hover:border-gold-400'}`}
+                onClick={() => option.id === 'exploration' ? selectExploration() : selectTrack(option.id)}
+                className={`group rounded-3xl border p-5 text-start shadow-lg transition hover:-translate-y-1 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-gold-400 ${theme.card} ${selected ? 'ring-4 ring-gold-400 ring-offset-2' : ''}`}
               >
-                <span className="block text-xl font-black text-navy-900">{track === 'professional' ? t.professional : t.executive}</span>
-                <span className="mt-2 block text-sm text-navy-600">{track === 'professional' ? t.professionalSummary : t.executiveSummary}</span>
-                <span className="mt-3 block font-black text-emerald-700">{formatUsd(getTrainPathway(track).startingPrice)} proposed starting fare</span>
+                <span className="flex items-start justify-between gap-4">
+                  <span>
+                    <span className="block text-xl font-black">{option.title}</span>
+                    <span className="mt-2 block min-h-10 text-sm text-white/75">{option.summary}</span>
+                  </span>
+                  <span className={`mt-1 h-3 w-3 shrink-0 rounded-full ${selected ? 'animate-pulse bg-gold-400 shadow-[0_0_18px_rgba(217,181,89,.9)]' : 'bg-white/35'}`} />
+                </span>
+                <span className={`mt-4 block text-lg font-black ${theme.accent}`}>{option.fare}</span>
+                <span className="mt-5 block rounded-2xl border border-white/20 bg-black/25 p-3">
+                  <span className="flex items-center gap-2 text-[10px] font-black uppercase tracking-[.16em] text-white/70">
+                    <span className="relative h-7 w-7 shrink-0 overflow-hidden rounded-full border border-white/40 bg-navy-900">
+                      <Image src="/images/digital-uni-bitcoin-logo.png" alt="" fill sizes="28px" className="object-cover" />
+                    </span>
+                    Digital-AI Train
+                  </span>
+                  <span className="mt-2 flex items-center gap-2 text-sm font-semibold">
+                    <span className="flex gap-1" aria-hidden="true">
+                      <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-current" />
+                      <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-current [animation-delay:160ms]" />
+                      <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-current [animation-delay:320ms]" />
+                    </span>
+                    {selected ? wt.active : wt.select}
+                  </span>
+                </span>
               </button>
             );
           })}
         </div>
 
-        <div className="mt-7 grid gap-5 lg:grid-cols-2">
-          <label className="font-bold text-navy-900">
-            {t.program}
-            <select
-              value={answers.programInterest}
-              onChange={event => {
-                setAnswers(current => ({ ...current, programInterest: event.target.value as ApplicantAnswers['programInterest'] }));
-                clearGeneratedPlan();
-              }}
-              className={inputClass}
-            >
-              {availablePrograms.map(program => <option key={program}>{program}</option>)}
-            </select>
-          </label>
-          <label className="font-bold text-navy-900">
-            {t.payment}
-            <select
-              value={answers.installmentPreference}
-              onChange={event => {
-                setAnswers(current => ({ ...current, installmentPreference: event.target.value as TicketPaymentPreference }));
-                clearGeneratedPlan();
-              }}
-              className={inputClass}
-            >
-              {ticketPaymentValues.map(option => <option key={option}>{option}</option>)}
-            </select>
-          </label>
-        </div>
-
-        <div className="mt-8">
-          <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
-            <div>
-              <p className="text-xs font-black uppercase tracking-[.18em] text-highlight-turquoise">{t.itinerary}</p>
-              <h3 className="mt-2 text-2xl font-black text-navy-900">{route.label} · {route.duration}</h3>
+        {plannerWindow === 'exploration' ? (
+          <div className="mt-8 rounded-3xl border border-amber-300 bg-amber-50 p-5 md:p-7">
+            <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
+              <div>
+                <p className="text-xs font-black uppercase tracking-[.18em] text-amber-800">Digital-UNI AI Train Tour</p>
+                <h3 className="mt-2 text-2xl font-black text-navy-900">{wt.exploration}</h3>
+              </div>
+              <p className="text-xl font-black text-amber-900">{wt.complimentary} · $0 USD</p>
             </div>
-            <p className="text-xl font-black text-emerald-700">{t.routeTicket}: {formatUsd(route.startingPrice)}</p>
+            <ol className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
+              {explorationTopics[locale].map((topic, index) => (
+                <li key={topic} className="rounded-2xl border border-amber-300 bg-white p-4">
+                  <span className="grid h-8 w-8 place-items-center rounded-full bg-amber-900 text-sm font-black text-amber-200">{index + 1}</span>
+                  <p className="mt-3 text-sm font-black leading-5 text-navy-900">{topic}</p>
+                  <p className="mt-3 text-xs font-black uppercase tracking-widest text-amber-800">Tour stop</p>
+                </li>
+              ))}
+            </ol>
+            <p className="mt-5 rounded-2xl border border-amber-300 bg-white p-4 text-xs leading-5 text-amber-950">{wt.legalNotice}</p>
           </div>
-          <ol className="mt-6 grid gap-4 md:grid-cols-4">
-            {route.segments.map(segment => (
-              <li key={segment.station} className="relative rounded-2xl border border-emerald-200 bg-gradient-to-b from-emerald-50 to-white p-5">
-                <span className="grid h-9 w-9 place-items-center rounded-full bg-navy-900 font-black text-gold-400">{segment.station}</span>
-                <h4 className="mt-4 font-black text-navy-900">{segment.title}</h4>
-                <p className="mt-2 text-sm text-navy-500">{segment.duration}</p>
-                <p className="mt-3 text-lg font-black text-emerald-700">{formatUsd(segment.price)}</p>
-              </li>
-            ))}
-          </ol>
-          <div className="mt-5 rounded-2xl border border-gold-400/50 bg-gold-200/30 p-5">
-            <p className="font-black text-navy-900">{answers.installmentPreference}</p>
-            <ul className="mt-2 flex flex-wrap gap-2 text-sm font-semibold text-navy-600">
-              {paymentSummary.map(item => <li key={item} className="rounded-full bg-white px-3 py-2">{item}</li>)}
-            </ul>
-            <p className="mt-4 text-xs leading-5 text-navy-500">{t.estimateNotice}</p>
-          </div>
-        </div>
+        ) : (
+          <>
+            <div className="mt-7 grid gap-5 lg:grid-cols-2">
+              <label className="font-bold text-navy-900">
+                {t.program}
+                <select
+                  value={answers.programInterest}
+                  onChange={event => {
+                    setAnswers(current => ({ ...current, programInterest: event.target.value as ApplicantAnswers['programInterest'] }));
+                    clearGeneratedPlan();
+                  }}
+                  className={inputClass}
+                >
+                  {availablePrograms.map(program => <option key={program}>{program}</option>)}
+                </select>
+              </label>
+              <label className="font-bold text-navy-900">
+                {t.payment}
+                <select
+                  value={answers.installmentPreference}
+                  onChange={event => {
+                    setAnswers(current => ({ ...current, installmentPreference: event.target.value as TicketPaymentPreference }));
+                    clearGeneratedPlan();
+                  }}
+                  className={inputClass}
+                >
+                  {ticketPaymentValues.map(option => <option key={option}>{option}</option>)}
+                </select>
+              </label>
+            </div>
+
+            <div className="mt-8">
+              <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
+                <div>
+                  <p className="text-xs font-black uppercase tracking-[.18em] text-highlight-turquoise">{t.itinerary}</p>
+                  <h3 className="mt-2 text-2xl font-black text-navy-900">{route.label} · {route.duration}</h3>
+                </div>
+                <p className="text-xl font-black text-emerald-700">{t.routeTicket}: {formatUsd(route.startingPrice)}</p>
+              </div>
+              <ol className="mt-6 grid gap-4 md:grid-cols-4">
+                {route.segments.map(segment => (
+                  <li key={segment.station} className="relative rounded-2xl border border-emerald-200 bg-gradient-to-b from-emerald-50 to-white p-5">
+                    <span className="grid h-9 w-9 place-items-center rounded-full bg-navy-900 font-black text-gold-400">{segment.station}</span>
+                    <h4 className="mt-4 font-black text-navy-900">{segment.title}</h4>
+                    <p className="mt-2 text-sm text-navy-500">{segment.duration}</p>
+                    <p className="mt-3 text-lg font-black text-emerald-700">{formatUsd(segment.price)}</p>
+                  </li>
+                ))}
+              </ol>
+              <div className="mt-5 rounded-2xl border border-gold-400/50 bg-gold-200/30 p-5">
+                <p className="font-black text-navy-900">{answers.installmentPreference}</p>
+                <ul className="mt-2 flex flex-wrap gap-2 text-sm font-semibold text-navy-600">
+                  {paymentSummary.map(item => <li key={item} className="rounded-full bg-white px-3 py-2">{item}</li>)}
+                </ul>
+                <p className="mt-4 text-xs leading-5 text-navy-500">{t.estimateNotice}</p>
+              </div>
+            </div>
+          </>
+        )}
       </div>
 
-      {!isEnabled ? (
+      {plannerWindow === 'exploration' ? (
+        <div className="mt-6 grid min-w-0 gap-6 lg:grid-cols-2">
+          <form onSubmit={runExploration} className={`min-w-0 rounded-3xl border p-5 shadow-2xl md:p-7 ${promptTheme}`}>
+            <div className="flex items-center gap-3">
+              <div className="relative h-14 w-14 shrink-0 overflow-hidden rounded-full border-2 border-amber-300 bg-navy-900 shadow-lg">
+                <Image src="/images/digital-uni-bitcoin-logo.png" alt="Digital-UNI Bitcoin logo" fill sizes="56px" className="object-cover" />
+              </div>
+              <div>
+                <p className="text-xs font-black uppercase tracking-[.18em] text-amber-200">Digital-UNI AI Train</p>
+                <p aria-live="polite" className="mt-1 flex items-center gap-2 text-sm font-bold text-white/80">
+                  <span className={`h-2.5 w-2.5 rounded-full bg-amber-300 ${explorationRunning ? 'animate-ping' : 'animate-pulse'}`} />
+                  {explorationRunning ? wt.trainSearching : wt.trainReady}
+                </p>
+              </div>
+            </div>
+            <label className="mt-6 block font-black text-white" htmlFor="exploration-topic">
+              {wt.chooseTour}
+              <select
+                id="exploration-topic"
+                value={explorationTopic}
+                onChange={event => { setExplorationTopic(event.target.value); setExplorationPassReady(false); }}
+                className={inputClass}
+              >
+                {explorationTopics[locale].map(topic => <option key={topic}>{topic}</option>)}
+              </select>
+            </label>
+            <label className="mt-5 block font-black text-white" htmlFor="exploration-prompt">
+              {wt.explorationPrompt}
+              <textarea
+                id="exploration-prompt"
+                rows={5}
+                value={explorationPrompt}
+                onChange={event => { setExplorationPrompt(event.target.value); setExplorationPassReady(false); }}
+                placeholder={wt.explorationPlaceholder}
+                maxLength={1500}
+                className={inputClass}
+              />
+            </label>
+            <button type="submit" disabled={explorationRunning} className="mt-5 min-h-14 w-full rounded-xl bg-amber-300 px-5 font-black text-amber-950 shadow-lg disabled:opacity-60">
+              {explorationRunning ? wt.trainSearching : wt.explore}
+            </button>
+            <p className="mt-4 text-xs leading-5 text-amber-100/80">{wt.legalNotice}</p>
+          </form>
+
+          <div className="min-w-0 rounded-3xl border border-amber-200 bg-amber-50 p-5 shadow-card md:p-7">
+            <h3 className="mb-5 text-xl font-black text-navy-900">{t.preview}</h3>
+            <AiTrainPass locale={locale} window="exploration" title={activeWindowTitle} subject={activeSubject} fare={activeFare} />
+            {explorationPassReady ? (
+              <div role="status" className="mt-5 rounded-2xl border border-amber-300 bg-white p-5 text-sm leading-6 text-navy-900">
+                <p className="font-black text-amber-900">{wt.explorationReady}</p>
+                <p className="mt-2"><strong>Tour:</strong> {explorationTopic}</p>
+                {explorationPrompt.trim() ? <p className="mt-2"><strong>Exploration request:</strong> {explorationPrompt.trim()}</p> : null}
+                <p className="mt-3 text-xs text-navy-600">{wt.legalNotice}</p>
+              </div>
+            ) : (
+              <p className="mt-5 text-sm leading-6 text-amber-950">Choose a tour, write what you want the Digital-AI Train to explore, and run the complimentary ticket.</p>
+            )}
+          </div>
+        </div>
+      ) : !isEnabled ? (
         <div className="mt-6 rounded-2xl border border-amber-300 bg-amber-50 p-6 text-center text-amber-950">
           <strong>{t.unavailable}</strong>
           <p className="mt-2 text-sm">The standard enrollment form remains available above.</p>
@@ -369,9 +689,9 @@ export function ApplicantAssistant({ locale, enabled }: { locale: Locale; enable
           <div className="min-w-0 rounded-2xl border border-navy-100 bg-white p-5 shadow-card md:p-7">
             {!plan && !result ? (
               <form onSubmit={next}>
-                <div className="rounded-2xl border border-emerald-200 bg-emerald-50 p-4">
+                <div className={`rounded-2xl border p-4 ${promptTheme}`}>
                   <div className="flex items-center gap-3">
-                    <div className="relative h-14 w-14 shrink-0 overflow-hidden rounded-full border-2 border-emerald-300 bg-navy-900 shadow-md">
+                    <div className="relative h-14 w-14 shrink-0 overflow-hidden rounded-full border-2 border-white/50 bg-navy-900 shadow-md">
                       <Image
                         src="/images/digital-uni-bitcoin-logo.png"
                         alt="Digital-UNI Bitcoin logo"
@@ -380,9 +700,15 @@ export function ApplicantAssistant({ locale, enabled }: { locale: Locale; enable
                         className="object-cover"
                       />
                     </div>
-                    <p className="text-xs font-bold uppercase tracking-widest text-emerald-700">OpenAI prompt · Stop {step + 1} / {fields.length}</p>
+                    <div>
+                      <p className="text-xs font-bold uppercase tracking-widest text-white/75">Digital-AI Train · OpenAI prompt · Stop {step + 1} / {fields.length}</p>
+                      <p aria-live="polite" className="mt-1 flex items-center gap-2 text-xs font-semibold text-white/65">
+                        <span className={`h-2 w-2 rounded-full bg-gold-400 ${busy ? 'animate-ping' : 'animate-pulse'}`} />
+                        {busy ? wt.trainSearching : wt.trainReady}
+                      </p>
+                    </div>
                   </div>
-                  <label className="mt-3 block text-lg font-bold text-navy-900" htmlFor="assistant-answer">{questions[locale][step]}</label>
+                  <label className="mt-4 block text-lg font-bold text-white" htmlFor="assistant-answer">{questions[locale][step]}</label>
                   {step === 8 ? (
                     <select id="assistant-answer" value={String(answers.financialAid)} onChange={event => setAnswers(current => ({ ...current, financialAid: event.target.value === 'true' }))} className={inputClass}>
                       <option value="false">No</option><option value="true">Yes</option>
@@ -451,10 +777,11 @@ export function ApplicantAssistant({ locale, enabled }: { locale: Locale; enable
             {error ? <p role="alert" className="mt-5 rounded-lg bg-red-50 p-3 text-sm text-red-800">{error}</p> : null}
           </div>
 
-          <details open={Boolean(plan)} className="min-w-0 rounded-2xl border border-navy-100 bg-navy-50 p-5 lg:block md:p-7">
-            <summary className="cursor-pointer text-xl font-bold lg:pointer-events-none">{t.preview}</summary>
+          <div className="min-w-0 rounded-2xl border border-navy-100 bg-navy-50 p-5 md:p-7">
+            <h3 className="mb-5 text-xl font-bold">{t.preview}</h3>
+            <AiTrainPass locale={locale} window={plannerWindow} title={activeWindowTitle} subject={activeSubject} fare={activeFare} />
             {plan ? (
-              <div className="mt-5 space-y-4 break-words text-sm">
+              <div className="mt-6 space-y-4 break-words rounded-2xl bg-white p-5 text-sm">
                 <h3 className="text-2xl font-bold">{plan.routeLabel}</h3>
                 <p><strong>Applicant:</strong> {plan.applicantName} ({plan.applicantEmail})</p>
                 <p><strong>Program:</strong> {plan.recommendedProgram}</p>
@@ -480,7 +807,7 @@ export function ApplicantAssistant({ locale, enabled }: { locale: Locale; enable
             ) : (
               <p className="mt-5 text-sm text-navy-500">Your validated AI Train ticket and proposal will appear here after the questions are complete.</p>
             )}
-          </details>
+          </div>
         </div>
       )}
     </section>
