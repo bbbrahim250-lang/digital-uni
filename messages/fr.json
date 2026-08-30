@@ -316,13 +316,18 @@
       "mobile": "Expérience mobile",
       "featured": "Reprendre l'apprentissage",
       "sampleTitle": "IA appliquée et apprentissage automatique",
+      "liveHd": "Direct HD",
+      "sportsSampleTitle": "AI Pioneers Sharks — Événement sportif en direct",
+      "sportsTitle": "Tous les événements sportifs Digital-UNI en HD",
+      "sportsDescription": "Tous les événements sportifs Digital-UNI sont prévus en direct et à la demande en HD : matchs des AI Pioneers Sharks, tournois, compétitions du campus, cérémonies et démonstrations sportives sur ordinateur et mobile.",
       "devicePreviewAlt": "Digital-UNI Streaming présenté sur un écran d'ordinateur et un téléphone mobile",
       "catalog": {
         "classes": "Classes en streaming",
         "courses": "Cours complets",
-        "certifications": "Programmes de certification"
+        "certifications": "Programmes de certification",
+        "sports": "Sports HD en direct et à la demande"
       },
-      "availability": "Plateforme en cours de développement. La publication des cours, les comptes sécurisés, la lecture vidéo, le suivi des progrès, l'accessibilité, les évaluations et les certifications vérifiables seront activés par étapes.",
+      "availability": "Plateforme en cours de développement. La publication des cours, les comptes sécurisés, la diffusion sportive HD en direct et à la demande, la lecture vidéo, le suivi des progrès, l'accessibilité, les évaluations et les certifications vérifiables seront activés par étapes. La couverture dépendra de la connectivité du site, des autorisations média et du respect de la vie privée des participants.",
       "cta": "Rejoindre le parcours"
     },
     "exploreCta": "Planifier ce certificat",
@@ -331,9 +336,9 @@
     "items": {
       "digitalUni": {
         "title": "Digital-UNI Streaming — Classes, cours et certifications",
-        "short": "L'apprentissage Digital-UNI sur ordinateur et mobile",
+        "short": "Cours, certifications et sports HD sur tous les écrans",
         "track": "Plateforme Digital-UNI",
-        "description": "Un espace de streaming adaptatif pour les classes, cours complets, démonstrations de projets, évaluations et certifications professionnelles Digital-UNI, conçu pour ordinateurs, tablettes et téléphones.",
+        "description": "Un espace de streaming adaptatif pour les classes, cours complets, projets, évaluations, certifications professionnelles et tous les événements sportifs Digital-UNI en direct et à la demande en HD, sur ordinateur, tablette et téléphone.",
         "brandAlt": "Plateforme Digital-UNI Streaming"
       },
       "netflix": {

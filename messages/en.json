@@ -316,13 +316,18 @@
       "mobile": "Mobile experience",
       "featured": "Continue learning",
       "sampleTitle": "Applied AI & Machine Learning",
+      "liveHd": "Live HD",
+      "sportsSampleTitle": "AI Pioneers Sharks — Live Sports Event",
+      "sportsTitle": "Every Digital-UNI sports event in HD",
+      "sportsDescription": "All Digital-UNI sports events are planned for live and on-demand HD coverage, including AI Pioneers Sharks games, tournaments, campus competitions, ceremonies, and athletic showcases on desktop and mobile.",
       "devicePreviewAlt": "Digital-UNI Streaming shown on a desktop screen and mobile phone",
       "catalog": {
         "classes": "Streaming Classes",
         "courses": "Complete Courses",
-        "certifications": "Certification Programs"
+        "certifications": "Certification Programs",
+        "sports": "Live & On-Demand HD Sports"
       },
-      "availability": "Platform experience in development. Course publishing, secure learner accounts, video playback, progress tracking, accessibility, assessments, and verified credential delivery will be activated in planned releases.",
+      "availability": "Platform experience in development. Course publishing, secure learner accounts, HD live and on-demand sports broadcasting, video playback, progress tracking, accessibility, assessments, and verified credential delivery will be activated in planned releases. Event coverage remains subject to venue connectivity, media permissions, and participant privacy requirements.",
       "cta": "Join the learning pathway"
     },
     "exploreCta": "Plan this certificate",
@@ -331,9 +336,9 @@
     "items": {
       "digitalUni": {
         "title": "Digital-UNI Streaming — Classes, Courses & Certification",
-        "short": "Digital-UNI learning on desktop and mobile",
+        "short": "Courses, certification and HD sports on every screen",
         "track": "Digital-UNI-owned platform",
-        "description": "A responsive streaming home for Digital-UNI classes, full courses, project demonstrations, assessments, and professional-certification programs—designed for desktop computers, tablets, and mobile phones.",
+        "description": "A responsive streaming home for Digital-UNI classes, full courses, project demonstrations, assessments, professional-certification programs, and every Digital-UNI sports event in live and on-demand HD—designed for desktop computers, tablets, and mobile phones.",
         "brandAlt": "Digital-UNI Streaming platform"
       },
       "netflix": {
