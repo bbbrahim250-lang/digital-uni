@@ -1,8 +1,10 @@
 import type { Metadata } from 'next';
 import Image from 'next/image';
+import Link from 'next/link';
 import { getTranslations } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import { isValidLocale, type Locale } from '@/i18n/config';
+import { campusDirectoryItems } from '@/lib/site-directories';
 import { CampaignForm, type CampaignFormCopy } from './campaign-form';
 
 const NOTICE_PDF = '/documents/digital-uni-formal-notice-santa-monica-ai-high-school-2026.pdf';
@@ -32,8 +34,11 @@ export async function generateMetadata({ params }: { params: { locale: string } 
 export default async function AiHighSchoolPage({ params }: { params: { locale: string } }) {
   if (!isValidLocale(params.locale)) notFound();
   const locale = params.locale as Locale;
-  const t = await getTranslations({ locale, namespace: 'highSchool.campaign' });
-  const legal = await getTranslations({ locale, namespace: 'legal' });
+  const [t, legal, campuses] = await Promise.all([
+    getTranslations({ locale, namespace: 'highSchool.campaign' }),
+    getTranslations({ locale, namespace: 'legal' }),
+    getTranslations({ locale, namespace: 'campusDirectory' })
+  ]);
 
   const formCopy: CampaignFormCopy = {
     name: t('form.name'), email: t('form.email'), phone: t('form.phone'), optional: t('form.optional'),
@@ -106,6 +111,24 @@ export default async function AiHighSchoolPage({ params }: { params: { locale: s
               </div>
             </div>
           </figure>
+        </div>
+      </section>
+
+      <section id="campus-selector" className="scroll-mt-24 border-b border-navy-100 bg-white px-4 py-12">
+        <div className="mx-auto max-w-7xl">
+          <p className="text-sm font-black uppercase tracking-[0.2em] text-highlight-turquoise">{campuses('eyebrow')}</p>
+          <h2 className="mt-3 text-3xl font-black text-navy-900">{campuses('chooseTitle')}</h2>
+          <p className="mt-3 max-w-3xl leading-7 text-navy-600">{campuses('intro')}</p>
+          <div className="mt-7 grid gap-5 md:grid-cols-2">
+            {campusDirectoryItems.map(({ key, href }) => (
+              <Link key={key} href={`/${locale}/${href}`} className="rounded-2xl border border-navy-100 bg-navy-50 p-6 shadow-card transition hover:-translate-y-0.5 hover:border-gold-400 hover:bg-white">
+                <span className="text-xs font-black uppercase tracking-[0.15em] text-gold-600">{campuses(`items.${key}.status`)}</span>
+                <h3 className="mt-2 text-2xl font-black text-navy-900">{campuses(`items.${key}.title`)}</h3>
+                <p className="mt-3 leading-7 text-navy-600">{campuses(`items.${key}.description`)}</p>
+                <span className="mt-5 inline-flex text-sm font-bold text-highlight-electric">{campuses('selectCta')} →</span>
+              </Link>
+            ))}
+          </div>
         </div>
       </section>
 

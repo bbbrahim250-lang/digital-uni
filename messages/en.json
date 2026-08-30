@@ -19,7 +19,206 @@
     "signUp": "Sign Up",
     "language": "Language",
     "industrialRevolution": "Industrial Revolution 4.0",
-    "aiHighSchool": "AI High School"
+    "aiHighSchool": "AI High School",
+    "primaryNavigation": "Primary navigation",
+    "explore": "Explore"
+  },
+  "campusDirectory": {
+    "eyebrow": "Digital-UNI AI High Schools",
+    "chooseTitle": "Choose an AI High School location",
+    "chooseShort": "Select a Digital-UNI campus initiative",
+    "intro": "Select a location to explore its Digital-UNI AI-native high-school concept, programs, professional pathways, and current project status.",
+    "selectCta": "Open this location",
+    "items": {
+      "santaMonica": {
+        "title": "Santa Monica, CA",
+        "short": "Flagship AI-native high-school initiative",
+        "status": "Flagship initiative",
+        "description": "The Santa Monica / West Los Angeles flagship concept, community-support campaign, civic-campus proposal, and AI Pioneers program."
+      },
+      "paloAlto": {
+        "title": "Palo Alto, CA",
+        "short": "Proposed Silicon Valley AI campus",
+        "status": "Proposed campus concept",
+        "description": "A proposed Digital-UNI AI-native high-school and professional-certification campus serving Silicon Valley learners and workforce needs."
+      }
+    },
+    "paloAltoPage": {
+      "eyebrow": "Proposed Silicon Valley campus",
+      "title": "Digital-UNI AI High School — Palo Alto, California",
+      "intro": "A proposed AI-native learning environment connecting high-school preparation, applied laboratories, entrepreneurship, and Digital-UNI professional certification pathways.",
+      "enrollmentCta": "Explore enrollment",
+      "santaMonicaLink": "View Santa Monica flagship",
+      "focusTitle": "Proposed program focus",
+      "focus": {
+        "aiRobotics": {
+          "title": "AI, Machine Learning & Robotics",
+          "description": "Project-based foundations in Python, intelligent systems, computer vision, automation, and robotics."
+        },
+        "cloudCybersecurity": {
+          "title": "Cloud & Cybersecurity",
+          "description": "Secure cloud architecture, identity, networks, incident response, privacy, and resilient infrastructure."
+        },
+        "entrepreneurship": {
+          "title": "Silicon Valley Entrepreneurship",
+          "description": "Product development, venture thinking, intellectual property, financial literacy, and responsible innovation."
+        },
+        "responsibleAi": {
+          "title": "Responsible AI & Safety",
+          "description": "Human oversight, model evaluation, data governance, risk analysis, ethics, and public accountability."
+        },
+        "certification": {
+          "title": "Professional Certification",
+          "description": "Digital-UNI-issued professional certification pathways aligned with practical industry skills and portfolio evidence."
+        },
+        "educatorWorkforce": {
+          "title": "Educator & Workforce Development",
+          "description": "Training for teachers, career changers, technical teams, and executives adapting to Industrial Revolution 4.0."
+        }
+      },
+      "statusTitle": "Independent Digital-UNI planning concept",
+      "statusText": "This Palo Alto campus is a proposed Digital-UNI initiative. A location, school authorization, accreditation, district relationship, financing, and opening date have not been finalized. No affiliation with the City of Palo Alto, local school districts, Stanford University, or another public or private institution is claimed."
+    }
+  },
+  "institutionDirectory": {
+    "eyebrow": "Institutional professional pathways",
+    "title": "Digital-UNI Institutional Professional Certifications",
+    "menuDescription": "Digital-UNI-issued certifications organized by professional sector",
+    "intro": "Select the institution or professional sector you serve. Each pathway combines applied AI, governance, cybersecurity, analytics, and sector-specific projects leading to a Digital-UNI professional certification.",
+    "issuerNotice": "Digital-UNI issues the professional certifications shown on this page. They are Digital-UNI credentials—not certificates, licenses, endorsements, or appointments issued by the named government body, court, bank, hospital, or other institution.",
+    "certificateBadge": "Digital-UNI certificate",
+    "exploreCta": "Plan this certification",
+    "digitalBankTitle": "Digital-UNI Bank notice:",
+    "digitalBankNotice": "The Digital-UNI Bank and cryptocurrency pathway is an educational and planning concept. Digital-UNI does not currently claim to be a chartered bank, insured depository institution, investment adviser, exchange, or operational cryptocurrency issuer.",
+    "futureCurrencyTitle": "Future Digital-UNI currency vision",
+    "futureCurrencyNotice": "Digital-UNI intends for Digital-UNI Coin to become the platform’s primary digital payment currency, with every amount showing transparent U.S. dollar and euro reference equivalents. It is not currently an active payment method, stablecoin, deposit, security, or guaranteed redemption instrument. Any launch remains subject to technical validation and applicable financial, consumer-protection, tax, custody, and payment requirements.",
+    "items": {
+      "usGovernment": {
+        "title": "Digital-UNI Professional Certification — U.S. Government AI",
+        "short": "Responsible AI for public administration",
+        "description": "Digital-UNI certification in responsible AI, public-sector analytics, cybersecurity, procurement awareness, program evaluation, and accountable decision support."
+      },
+      "executiveBranch": {
+        "title": "Digital-UNI Professional Certification — White House & Executive Operations AI",
+        "short": "Secure AI-supported executive workflows",
+        "description": "Digital-UNI certification in policy analysis, secure executive information workflows, crisis coordination, communication, and human-supervised AI decision support."
+      },
+      "usCourts": {
+        "title": "Digital-UNI Professional Certification — U.S. Courts AI",
+        "short": "AI-assisted judicial administration",
+        "description": "Digital-UNI certification in legal research workflows, case administration, precedent analysis, evidence governance, privacy, and human judicial review."
+      },
+      "superiorCourts": {
+        "title": "Digital-UNI Professional Certification — State & Superior Courts AI",
+        "short": "Court operations and case management",
+        "description": "Digital-UNI certification for state and local court workflows, case management, access to justice, document analysis, scheduling, and responsible AI controls."
+      },
+      "homelandSecurity": {
+        "title": "Digital-UNI Professional Certification — Homeland Security AI & Cybersecurity",
+        "short": "Resilience, cyber defense and emergency coordination",
+        "description": "Digital-UNI certification in cyber risk, critical-infrastructure protection, emergency operations, threat analysis, interoperability, and privacy-preserving AI."
+      },
+      "banking": {
+        "title": "Digital-UNI Professional Certification — U.S. Banking, AI Audit & Risk",
+        "short": "Financial AI, audit, fraud and compliance",
+        "description": "Digital-UNI certification in AI financial audit, fraud detection, model risk, compliance workflows, secure payments, and explainable financial analytics."
+      },
+      "digitalUniBank": {
+        "title": "Digital-UNI Professional Certification — Bank & Cryptocurrency",
+        "short": "Blockchain, digital currency and USD/EUR equivalency",
+        "description": "Digital-UNI certification in blockchain architecture, digital-asset controls, smart contracts, wallet security, AI audit, responsible cryptocurrency design, and transparent U.S. dollar/euro reference-equivalency models."
+      },
+      "healthcare": {
+        "title": "Digital-UNI Professional Certification — Healthcare & Hospitals AI",
+        "short": "Responsible clinical and hospital AI workflows",
+        "description": "Digital-UNI certification in healthcare analytics, hospital operations, privacy, cybersecurity, model governance, and human-supervised decision support. It is not medical licensure."
+      },
+      "education": {
+        "title": "Digital-UNI Professional Certification — Education & Workforce AI",
+        "short": "AI-ready schools, educators and workforce programs",
+        "description": "Digital-UNI certification in AI-supported instruction, curriculum design, assessment, student data protection, career pathways, and workforce transformation."
+      },
+      "aviation": {
+        "title": "Digital-UNI Professional Certification — Aviation & Air-Traffic AI",
+        "short": "Simulation, safety and intelligent operations",
+        "description": "Digital-UNI certification in aviation AI concepts, simulation, safety systems, human-machine coordination, data analysis, and operational risk. It is not an FAA license."
+      },
+      "infrastructure": {
+        "title": "Digital-UNI Professional Certification — Telecommunications & Critical Infrastructure",
+        "short": "AI-enabled networks, cloud and operational resilience",
+        "description": "Digital-UNI certification in telecommunications, cloud and edge systems, network automation, infrastructure cybersecurity, continuity, and emergency restoration."
+      }
+    }
+  },
+  "certificationDirectory": {
+    "eyebrow": "Technology-aligned credentials",
+    "title": "Digital-UNI Technology Certification Pathways",
+    "menuDescription": "Digital-UNI professional certificates aligned with leading technologies",
+    "intro": "Build applied skills with major AI, cloud, database, networking, and cybersecurity technologies, then demonstrate them through a Digital-UNI assessment and professional portfolio.",
+    "issuerNotice": "Digital-UNI issues the professional certificate for these pathways. A separately named vendor certification, badge, or exam is issued only by that vendor and is not included unless Digital-UNI states a formal authorized arrangement in writing.",
+    "exploreCta": "Plan this pathway",
+    "items": {
+      "ibm": {
+        "title": "Digital-UNI Professional Certificate — IBM AI & Data",
+        "short": "AI, data science and enterprise automation",
+        "track": "Digital-UNI certificate",
+        "description": "Applied AI, data engineering, analytics, automation, and enterprise project work using IBM technologies and industry practices."
+      },
+      "aws": {
+        "title": "Digital-UNI Professional Certificate — AWS Cloud & AI",
+        "short": "Cloud architecture, data and machine learning",
+        "track": "Digital-UNI certificate",
+        "description": "Cloud foundations, architecture, security, data services, serverless systems, and AI/ML deployment using AWS technologies."
+      },
+      "anthropic": {
+        "title": "Digital-UNI Professional Certificate — Claude / Anthropic Applied AI",
+        "short": "Responsible generative AI and agent workflows",
+        "track": "Digital-UNI certificate",
+        "description": "Prompt design, tool use, agent workflows, evaluation, safety, and responsible enterprise applications using Claude and Anthropic technologies."
+      },
+      "openai": {
+        "title": "Digital-UNI Professional Certificate — OpenAI Applied AI",
+        "short": "Models, agents, APIs and responsible deployment",
+        "track": "Digital-UNI certificate",
+        "description": "Applied generative AI, API integration, agents, evaluation, safety, multimodal workflows, and production-oriented projects using OpenAI technologies."
+      },
+      "oracle": {
+        "title": "Digital-UNI Professional Certificate — Oracle SQL & Database",
+        "short": "SQL, data modeling and database administration",
+        "track": "Digital-UNI certificate",
+        "description": "SQL programming, relational design, database administration, performance, security, and applied data projects using Oracle technologies."
+      },
+      "microsoft": {
+        "title": "Digital-UNI Professional Certificate — Microsoft Azure AI & Cloud",
+        "short": "Azure cloud, data, security and AI services",
+        "track": "Digital-UNI certificate",
+        "description": "Azure architecture, identity, data services, security, automation, and responsible AI solution development."
+      },
+      "googleCloud": {
+        "title": "Digital-UNI Professional Certificate — Google Cloud AI & Data",
+        "short": "Cloud data platforms and machine learning",
+        "track": "Digital-UNI certificate",
+        "description": "Cloud infrastructure, analytics, data engineering, machine learning, security, and deployment using Google Cloud technologies."
+      },
+      "nvidia": {
+        "title": "Digital-UNI Professional Certificate — NVIDIA AI & Accelerated Computing",
+        "short": "GPU computing, deep learning and AI infrastructure",
+        "track": "Digital-UNI certificate",
+        "description": "GPU foundations, accelerated computing, deep learning, computer vision, inference, and AI infrastructure using NVIDIA technologies."
+      },
+      "cisco": {
+        "title": "Digital-UNI Professional Certificate — Cisco Networking & Cybersecurity",
+        "short": "Networks, infrastructure and cyber defense",
+        "track": "Digital-UNI certificate",
+        "description": "Networking, routing, switching, secure infrastructure, automation, cloud connectivity, and cybersecurity using Cisco technologies."
+      },
+      "comptia": {
+        "title": "Digital-UNI Professional Certificate — CompTIA-Aligned IT & Cybersecurity",
+        "short": "IT foundations, cloud and security operations",
+        "track": "Digital-UNI certificate",
+        "description": "IT support, networking, cloud, cybersecurity operations, risk, and troubleshooting aligned with common CompTIA exam domains."
+      }
+    }
   },
   "home": {
     "heroHeadline": "Professional Certification & College Accreditation for Industrial Revolution 4.0",
