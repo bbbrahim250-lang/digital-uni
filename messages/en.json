@@ -34,13 +34,19 @@
         "title": "Santa Monica, CA",
         "short": "Flagship AI-native high-school initiative",
         "status": "Flagship initiative",
-        "description": "The Santa Monica / West Los Angeles flagship concept, community-support campaign, civic-campus proposal, and AI Pioneers program."
+        "description": "The Santa Monica / West Los Angeles flagship concept, community-support campaign, civic-campus proposal, and AI Pioneers Sharks program."
       },
       "paloAlto": {
         "title": "Palo Alto, CA",
         "short": "Proposed Silicon Valley AI campus",
         "status": "Proposed campus concept",
         "description": "A proposed Digital-UNI AI-native high-school and professional-certification campus serving Silicon Valley learners and workforce needs."
+      },
+      "pioneersFund": {
+        "title": "AI Pioneers Sharks Fund",
+        "short": "Support Santa Monica and Palo Alto programs",
+        "status": "Two-campus program fund",
+        "description": "Support the Digital-UNI AI Pioneers Sharks athletics, AI competitions, laboratories, equipment, and student-access programs planned for both campuses."
       }
     },
     "paloAltoPage": {
@@ -78,6 +84,59 @@
       },
       "statusTitle": "Independent Digital-UNI planning concept",
       "statusText": "This Palo Alto campus is a proposed Digital-UNI initiative. A location, school authorization, accreditation, district relationship, financing, and opening date have not been finalized. No affiliation with the City of Palo Alto, local school districts, Stanford University, or another public or private institution is claimed."
+    },
+    "fundPage": {
+      "metaTitle": "Digital-UNI AI Pioneers Sharks Fund",
+      "metaDescription": "Support the proposed Digital-UNI AI Pioneers Sharks programs for the Santa Monica and Palo Alto AI High School initiatives.",
+      "logoAlt": "Digital-UNI AI Pioneers Sharks crest with an open-mouth shark made from green binary digits and AI chips",
+      "eyebrow": "Athletics · AI competitions · student opportunity",
+      "teamName": "AI Pioneers Sharks",
+      "teamSubtitle": "Official Digital-UNI athletics and AI competition identity",
+      "title": "Build the team. Equip the labs. Open the opportunity.",
+      "intro": "The AI Pioneers Sharks Fund is the Digital-UNI program-support campaign for proposed student athletics, robotics, AI competitions, laboratories, uniforms, equipment, scholarships, and community activities in Santa Monica and Palo Alto.",
+      "chooseCta": "Choose a campus fund",
+      "contactCta": "Discuss funding support",
+      "openFund": "Support the AI Pioneers Sharks",
+      "campusEyebrow": "Two locations · one team identity",
+      "campusTitle": "Choose the program you want to support",
+      "campusIntro": "Both campus initiatives share the Digital-UNI AI Pioneers Sharks identity while maintaining separate project needs, approvals, budgets, and launch plans.",
+      "viewCampusCta": "View campus proposal",
+      "campuses": {
+        "santaMonica": {
+          "status": "Flagship community program",
+          "title": "Santa Monica AI High School Fund",
+          "description": "Support the flagship AI Pioneers Sharks program proposed for Santa Monica: soccer, football, basketball, robotics and AI competitions, performance analytics, youth clinics, applied laboratories, and student access—subject to site, City, school, and athletics approvals.",
+          "cta": "Support Santa Monica"
+        },
+        "paloAlto": {
+          "status": "Proposed Silicon Valley program",
+          "title": "Palo Alto AI High School Fund",
+          "description": "Support the proposed Palo Alto AI Pioneers Sharks program: robotics, AI and cybersecurity competitions, athletics, entrepreneurship, laboratory equipment, educator development, and student-access planning—subject to location, authorization, financing, and program approvals.",
+          "cta": "Support Palo Alto"
+        }
+      },
+      "supportTitle": "What program support can build",
+      "supportIntro": "Funding conversations may include sponsorship, equipment, scholarships, program capital, technical expertise, facilities support, or community participation.",
+      "support": {
+        "athletics": {
+          "title": "Athletics & performance",
+          "description": "Uniforms, safe equipment, coaching, soccer, football, basketball, youth clinics, and responsible sports-performance analytics."
+        },
+        "aiLabs": {
+          "title": "AI, robotics & chip labs",
+          "description": "Robotics systems, workstations, sensors, green-computing demonstrations, cybersecurity labs, and student AI competition equipment."
+        },
+        "scholarships": {
+          "title": "Student access",
+          "description": "Need-informed scholarships, competition fees, transportation support, learning materials, and access to certification pathways."
+        },
+        "community": {
+          "title": "Community program",
+          "description": "Youth clinics, public demonstrations, mentor networks, educator workshops, family events, and local workforce connections."
+        }
+      },
+      "transparencyTitle": "Funding transparency",
+      "transparencyText": "This page presents proposed Digital-UNI programs and invites funding conversations; it does not state that either school is open or authorized, that a facility has been secured, or that another school, city, district, university, or athletics organization endorses the project. Do not treat a payment as a tax-deductible charitable donation unless Digital-UNI provides written confirmation of eligibility, terms, use, and receipt before funds are accepted."
     }
   },
   "institutionDirectory": {
@@ -448,7 +507,7 @@
       "metaDescription": "Read the formal notice, review the investor deck, and join the Santa Monica community-support campaign for a proposed AI-native private high school at the Civic Auditorium.",
       "heroEyebrow": "Santa Monica Civic Center Campaign",
       "heroTitle": "Santa Monica’s First AI-Native Private High School",
-      "heroSubtitle": "A proposed Grades 9–12 campus combining AI, computer science, mathematics, entrepreneurship, AI Pioneers athletics, applied laboratories, and workforce pathways at the historic Civic Auditorium.",
+      "heroSubtitle": "A proposed Grades 9–12 campus combining AI, computer science, mathematics, entrepreneurship, AI Pioneers Sharks athletics, applied laboratories, and workforce pathways at the historic Civic Auditorium.",
       "primaryCta": "Join the community campaign",
       "noticeCta": "Read the formal notice",
       "deckCta": "Open the investor deck",
@@ -474,7 +533,7 @@
           "description": "Grades 9–12 learning in AI, computer science, mathematics, physics, cybersecurity, robotics, and entrepreneurship."
         },
         "athletics": {
-          "title": "AI Pioneers Athletics",
+          "title": "AI Pioneers Sharks Athletics",
           "description": "Proposed soccer and football programming through approved shared field use, with basketball inside the renovated campus."
         },
         "infrastructure": {
@@ -492,7 +551,7 @@
       "noticeDate": "Civic Auditorium transformation · 1855 Main Street",
       "noticeParagraph1": "Digital-UNI has formally notified City leadership of its intent to pursue a municipal initiative petition asking Santa Monica voters whether the Civic Auditorium should be evaluated and reserved for transformation into Santa Monica’s First AI-Native Private High School, an applied AI education campus, and a workforce and compute center.",
       "noticeParagraph2": "The proposed measure would seek a transparent City evaluation of landmark preservation, an AI high school, workforce programs, compute infrastructure, and approved shared athletics programming. It would not itself grant Digital-UNI ownership, a lease, funding, permits, accreditation, or development approval.",
-      "noticeParagraph3": "Historic Belmar Park is a 3.5-acre municipal sports complex adjacent to the Civic. AI Pioneers soccer and football, youth clinics, and sports analytics would require City permits, scheduling, existing community-use protections, and appropriate athletics approvals.",
+      "noticeParagraph3": "Historic Belmar Park is a 3.5-acre municipal sports complex adjacent to the Civic. AI Pioneers Sharks soccer and football, youth clinics, and sports analytics would require City permits, scheduling, existing community-use protections, and appropriate athletics approvals.",
       "noticeParagraph4": "This community campaign is notice and public outreach—not the statutory Notice of Intention, authorization to circulate petitions, or a legally valid ballot signature. Formal qualification must follow the California Elections Code, Santa Monica Municipal Code, City Clerk procedures, signature verification, and required public action.",
       "noticeDocumentTitle": "Formal Notice to the Mayor and City Council",
       "noticeDocumentDescription": "Read the signed-format, one-page notice setting out the proposed campus, field strategy, campaign intent, and legal status.",
@@ -501,7 +560,7 @@
       "publicProcessText": "Community support can demonstrate public interest, but it cannot replace land-use review, a City transaction, historic-preservation requirements, school authorization, or the formal municipal initiative process.",
       "deckKicker": "Investor presentation · 10 slides",
       "deckTitle": "Santa Monica AI High School investor deck",
-      "deckDescription": "Review the site strategy, AI Pioneers team identity, Grades 9–12 curriculum, applied AI and GPU infrastructure, founder background, operating model, and phased capital approach.",
+      "deckDescription": "Review the site strategy, AI Pioneers Sharks team identity, Grades 9–12 curriculum, applied AI and GPU infrastructure, founder background, operating model, and phased capital approach.",
       "openDeck": "Open investor deck PDF",
       "deckFrameLabel": "Digital-UNI Santa Monica AI High School investor deck",
       "deckMobileText": "The full 10-slide investor deck is available as a high-resolution PDF and opens in a new browser tab.",
@@ -560,7 +619,7 @@
         },
         "interests": {
           "privateAiHighSchool": "AI-native private high school",
-          "aiPioneersAthletics": "AI Pioneers athletics and field",
+          "aiPioneersAthletics": "AI Pioneers Sharks athletics and field",
           "technologyWorkforce": "AI labs, compute, and workforce programs",
           "investmentPartnership": "Investment or strategic partnership",
           "volunteer": "Volunteer or community outreach",

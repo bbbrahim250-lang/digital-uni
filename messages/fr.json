@@ -34,13 +34,19 @@
         "title": "Santa Monica, Californie",
         "short": "Initiative phare de lycée natif de l’IA",
         "status": "Initiative phare",
-        "description": "Le concept phare Santa Monica / Ouest de Los Angeles, sa campagne communautaire, sa proposition de campus civique et son programme AI Pioneers."
+        "description": "Le concept phare Santa Monica / Ouest de Los Angeles, sa campagne communautaire, sa proposition de campus civique et son programme AI Pioneers Sharks."
       },
       "paloAlto": {
         "title": "Palo Alto, Californie",
         "short": "Campus IA proposé dans la Silicon Valley",
         "status": "Concept de campus proposé",
         "description": "Un projet de lycée natif de l’IA et de campus de certifications professionnelles Digital-UNI au service des apprenants et des besoins de la Silicon Valley."
+      },
+      "pioneersFund": {
+        "title": "Fonds AI Pioneers Sharks",
+        "short": "Soutenir les programmes de Santa Monica et Palo Alto",
+        "status": "Fonds de programme pour deux campus",
+        "description": "Soutenez les sports, compétitions d’IA, laboratoires, équipements et programmes d’accès des élèves AI Pioneers Sharks prévus par Digital-UNI pour les deux campus."
       }
     },
     "paloAltoPage": {
@@ -78,6 +84,59 @@
       },
       "statusTitle": "Concept de planification indépendant de Digital-UNI",
       "statusText": "Ce campus de Palo Alto est une initiative Digital-UNI proposée. Le site, l’autorisation scolaire, l’accréditation, les relations avec les districts, le financement et la date d’ouverture ne sont pas finalisés. Aucune affiliation avec la ville de Palo Alto, les districts scolaires locaux, l’Université Stanford ou une autre institution publique ou privée n’est revendiquée."
+    },
+    "fundPage": {
+      "metaTitle": "Fonds Digital-UNI AI Pioneers Sharks",
+      "metaDescription": "Soutenez les programmes proposés Digital-UNI AI Pioneers Sharks pour les initiatives de lycées IA de Santa Monica et Palo Alto.",
+      "logoAlt": "Écusson Digital-UNI AI Pioneers Sharks avec un requin à gueule ouverte formé de chiffres binaires verts et de puces d’IA",
+      "eyebrow": "Sports · compétitions d’IA · possibilités pour les élèves",
+      "teamName": "AI Pioneers Sharks",
+      "teamSubtitle": "Identité officielle des sports et compétitions d’IA Digital-UNI",
+      "title": "Bâtir l’équipe. Équiper les laboratoires. Ouvrir les possibilités.",
+      "intro": "Le fonds AI Pioneers Sharks est la campagne de soutien de Digital-UNI pour les sports, la robotique, les compétitions d’IA, les laboratoires, les uniformes, les équipements, les bourses et les activités communautaires proposés à Santa Monica et Palo Alto.",
+      "chooseCta": "Choisir un fonds de campus",
+      "contactCta": "Discuter d’un soutien financier",
+      "openFund": "Soutenir les AI Pioneers Sharks",
+      "campusEyebrow": "Deux sites · une identité d’équipe",
+      "campusTitle": "Choisissez le programme à soutenir",
+      "campusIntro": "Les deux initiatives partagent l’identité Digital-UNI AI Pioneers Sharks, tout en conservant des besoins, autorisations, budgets et plans de lancement distincts.",
+      "viewCampusCta": "Voir la proposition du campus",
+      "campuses": {
+        "santaMonica": {
+          "status": "Programme communautaire phare",
+          "title": "Fonds du lycée IA de Santa Monica",
+          "description": "Soutenez le programme phare AI Pioneers Sharks proposé à Santa Monica : soccer, football, basketball, robotique et compétitions d’IA, analyse de performance, cliniques jeunesse, laboratoires appliqués et accès des élèves — sous réserve des autorisations du site, de la ville, de l’école et des instances sportives.",
+          "cta": "Soutenir Santa Monica"
+        },
+        "paloAlto": {
+          "status": "Programme proposé dans la Silicon Valley",
+          "title": "Fonds du lycée IA de Palo Alto",
+          "description": "Soutenez le programme proposé AI Pioneers Sharks à Palo Alto : compétitions de robotique, d’IA et de cybersécurité, sports, entrepreneuriat, équipements de laboratoire, formation des éducateurs et accès des élèves — sous réserve du site, des autorisations, du financement et des validations du programme.",
+          "cta": "Soutenir Palo Alto"
+        }
+      },
+      "supportTitle": "Ce que le soutien peut construire",
+      "supportIntro": "Les échanges peuvent porter sur le parrainage, les équipements, les bourses, le capital de programme, l’expertise technique, les installations ou la participation communautaire.",
+      "support": {
+        "athletics": {
+          "title": "Sports et performance",
+          "description": "Uniformes, équipements sûrs, encadrement, soccer, football, basketball, cliniques jeunesse et analyse responsable des performances sportives."
+        },
+        "aiLabs": {
+          "title": "Laboratoires IA, robotique et puces",
+          "description": "Systèmes robotiques, postes de travail, capteurs, démonstrations d’informatique verte, laboratoires de cybersécurité et équipements de compétition IA."
+        },
+        "scholarships": {
+          "title": "Accès des élèves",
+          "description": "Bourses fondées sur les besoins, frais de compétition, transport, matériel pédagogique et accès aux parcours de certification."
+        },
+        "community": {
+          "title": "Programme communautaire",
+          "description": "Cliniques jeunesse, démonstrations publiques, réseaux de mentors, ateliers pour éducateurs, événements familiaux et liens avec l’emploi local."
+        }
+      },
+      "transparencyTitle": "Transparence du financement",
+      "transparencyText": "Cette page présente des programmes Digital-UNI proposés et invite à des échanges sur leur financement. Elle n’affirme pas que les écoles sont ouvertes ou autorisées, qu’un site est acquis, ni qu’une école, ville, district, université ou organisation sportive soutient le projet. Ne considérez aucun paiement comme un don caritatif déductible fiscalement sauf confirmation écrite préalable de Digital-UNI concernant l’éligibilité, les conditions, l’utilisation et le reçu."
     }
   },
   "institutionDirectory": {
@@ -448,7 +507,7 @@
       "metaDescription": "Consultez l’avis officiel, le dossier investisseurs et rejoignez la campagne communautaire pour un lycée privé natif de l’IA au Civic Auditorium.",
       "heroEyebrow": "Campagne du Civic Center de Santa Monica",
       "heroTitle": "Le premier lycée privé natif de l’IA à Santa Monica",
-      "heroSubtitle": "Un projet pour les classes 9 à 12 réunissant IA, informatique, mathématiques, entrepreneuriat, sports AI Pioneers, laboratoires appliqués et parcours professionnels au Civic Auditorium historique.",
+      "heroSubtitle": "Un projet pour les classes 9 à 12 réunissant IA, informatique, mathématiques, entrepreneuriat, sports AI Pioneers Sharks, laboratoires appliqués et parcours professionnels au Civic Auditorium historique.",
       "primaryCta": "Rejoindre la campagne",
       "noticeCta": "Lire l’avis officiel",
       "deckCta": "Ouvrir le dossier investisseurs",
@@ -470,7 +529,7 @@
       "prioritiesTitle": "Quatre priorités liées",
       "priorities": {
         "school": { "title": "Lycée privé natif de l’IA", "description": "Classes 9 à 12 : IA, informatique, mathématiques, physique, cybersécurité, robotique et entrepreneuriat." },
-        "athletics": { "title": "Sports AI Pioneers", "description": "Football et soccer proposés dans le cadre d’un partage approuvé du terrain, avec basketball dans le campus rénové." },
+        "athletics": { "title": "Sports AI Pioneers Sharks", "description": "Football et soccer proposés dans le cadre d’un partage approuvé du terrain, avec basketball dans le campus rénové." },
         "infrastructure": { "title": "Laboratoires IA + calcul", "description": "Laboratoires d’IA appliquée, capacité GPU et centre de données, cloud, edge, cybersécurité et projets étudiants." },
         "pathways": { "title": "Emploi + études supérieures", "description": "Préparation aux certifications et parcours accélérés soumis aux autorisations, accréditations et accords partenaires." }
       },
@@ -480,7 +539,7 @@
       "noticeDate": "Transformation du Civic Auditorium · 1855 Main Street",
       "noticeParagraph1": "Digital-UNI a officiellement informé la Ville de son intention de poursuivre une initiative municipale demandant aux électeurs d’évaluer et de réserver le Civic Auditorium pour le premier lycée privé natif de l’IA de Santa Monica, un campus d’IA et un centre de calcul et de formation professionnelle.",
       "noticeParagraph2": "La mesure proposée demanderait une évaluation transparente de la préservation du monument, du lycée IA, des programmes professionnels, de l’infrastructure de calcul et des sports partagés autorisés. Elle n’accorderait pas à elle seule à Digital-UNI la propriété, un bail, des fonds, des permis, une accréditation ou une autorisation de construire.",
-      "noticeParagraph3": "Historic Belmar Park est un complexe sportif municipal de 3,5 acres adjacent au Civic. Le soccer, le football, les cliniques jeunesse et l’analyse sportive AI Pioneers exigeraient permis, planification, protection des usages existants et autorisations sportives.",
+      "noticeParagraph3": "Historic Belmar Park est un complexe sportif municipal de 3,5 acres adjacent au Civic. Le soccer, le football, les cliniques jeunesse et l’analyse sportive AI Pioneers Sharks exigeraient permis, planification, protection des usages existants et autorisations sportives.",
       "noticeParagraph4": "Cette campagne communautaire constitue une information et une mobilisation du public, et non un avis légal de circulation, une autorisation de recueillir des signatures ou une signature électorale valable. La qualification doit suivre le Code électoral, le code municipal, les procédures du City Clerk et la vérification des signatures.",
       "noticeDocumentTitle": "Avis officiel à la maire et au conseil municipal",
       "noticeDocumentDescription": "Consultez l’avis d’une page présentant le campus, la stratégie sportive, l’intention de campagne et son statut juridique.",
@@ -489,7 +548,7 @@
       "publicProcessText": "Le soutien communautaire démontre l’intérêt public, mais ne remplace ni l’urbanisme, ni une transaction municipale, ni la préservation, ni l’autorisation scolaire, ni la procédure officielle d’initiative.",
       "deckKicker": "Présentation investisseurs · 10 diapositives",
       "deckTitle": "Dossier investisseurs du lycée IA de Santa Monica",
-      "deckDescription": "Découvrez le site, l’identité AI Pioneers, le programme 9–12, l’infrastructure IA/GPU, le fondateur, le modèle opérationnel et le financement par phases.",
+      "deckDescription": "Découvrez le site, l’identité AI Pioneers Sharks, le programme 9–12, l’infrastructure IA/GPU, le fondateur, le modèle opérationnel et le financement par phases.",
       "openDeck": "Ouvrir le dossier investisseurs PDF",
       "deckFrameLabel": "Dossier investisseurs Digital-UNI pour le lycée IA de Santa Monica",
       "deckMobileText": "La présentation complète de 10 diapositives est disponible en PDF haute résolution dans un nouvel onglet.",
@@ -522,7 +581,7 @@
         "backupWarning": "L’e-mail a été accepté, mais la copie privée de sauvegarde n’a pas pu être enregistrée. Ne renvoyez pas le formulaire.", "emailFallback": "Envoyer directement un e-mail à Digital-UNI et au conseil municipal",
         "requiredError": "Ce champ ou cette confirmation est obligatoire.", "emailError": "Saisissez une adresse e-mail valide.", "zipError": "Saisissez un code postal américain à cinq chiffres.",
         "connections": { "resident": "Résident de Santa Monica", "parentGuardian": "Parent ou tuteur", "student": "Élève", "educator": "Éducateur", "businessCommunity": "Entreprise ou organisation communautaire", "other": "Autre soutien" },
-        "interests": { "privateAiHighSchool": "Lycée privé natif de l’IA", "aiPioneersAthletics": "Sports et terrain AI Pioneers", "technologyWorkforce": "Laboratoires IA, calcul et emploi", "investmentPartnership": "Investissement ou partenariat", "volunteer": "Bénévolat ou mobilisation", "generalSupport": "Soutien général" }
+        "interests": { "privateAiHighSchool": "Lycée privé natif de l’IA", "aiPioneersAthletics": "Sports et terrain AI Pioneers Sharks", "technologyWorkforce": "Laboratoires IA, calcul et emploi", "investmentPartnership": "Investissement ou partenariat", "volunteer": "Bénévolat ou mobilisation", "generalSupport": "Soutien général" }
       }
     }
   },
