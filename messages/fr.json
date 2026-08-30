@@ -20,6 +20,7 @@
     "language": "Langue",
     "industrialRevolution": "Industrie 4.0",
     "aiHighSchool": "Lycée IA",
+    "aiStudios": "Studios IA",
     "primaryNavigation": "Navigation principale",
     "explore": "Explorer"
   },
@@ -276,6 +277,84 @@
         "short": "Fondations IT, cloud et opérations de sécurité",
         "track": "Certificat Digital-UNI",
         "description": "Support IT, réseaux, cloud, opérations de cybersécurité, risques et dépannage alignés sur les domaines d’examen CompTIA courants."
+      }
+    }
+  },
+  "studioDirectory": {
+    "eyebrow": "Digital-UNI Santa Monica Studios",
+    "title": "Films IA, art IA et production de scénarios",
+    "menuDescription": "Parcours de production créative par IA et plateformes de streaming",
+    "intro": "Créez des projets responsables et prêts pour un portfolio en cinéma, animation, arts visuels, écriture scénaristique et production virtuelle pour l'économie moderne du streaming.",
+    "enrollCta": "Planifier un parcours studio",
+    "platformCta": "Explorer les plateformes",
+    "creativeEyebrow": "De l'idée à l'écran",
+    "creativeTitle": "Disciplines créatives des studios IA",
+    "creative": {
+      "movies": {
+        "title": "Films et animation par IA",
+        "description": "Développez les concepts, la prévisualisation, l'animation, les scènes virtuelles, le montage, le son et une production vidéo générative responsable."
+      },
+      "art": {
+        "title": "Art IA et storyboards",
+        "description": "Créez des portfolios de développement visuel : personnages, environnements, storyboards, titres, accessibilité et gestion des droits."
+      },
+      "scripts": {
+        "title": "Scénarios assistés par IA",
+        "description": "Réalisez des scénarios originaux, structures épisodiques, traitements, dossiers de présentation et révisions avec un contrôle humain clair de l'auteur."
+      },
+      "virtualProduction": {
+        "title": "Production virtuelle et livraison",
+        "description": "Combinez environnements temps réel, gestion de production, postproduction, sous-titres, localisation, contrôle qualité et livrables pour plateformes."
+      }
+    },
+    "platformEyebrow": "Certificats professionnels indépendants Digital-UNI",
+    "platformTitle": "Parcours de production pour plateformes de streaming",
+    "platformIntro": "Chaque parcours étudie la production, le public, la livraison et les pratiques commerciales d'un grand environnement de streaming. Les projets sont évalués et certifiés par Digital-UNI.",
+    "exploreCta": "Planifier ce certificat",
+    "independentTitle": "Avis de programme indépendant :",
+    "independentNotice": "Digital-UNI délivre ces certificats professionnels. Netflix, Hulu, Tubi, Pluto TV, Prime Video et Apple TV+ sont des marques de tiers utilisées uniquement pour identifier le contexte de plateforme étudié. Aucun parrainage, soutien, partenariat, certificat fournisseur, promesse d'acceptation de contenu ou garantie d'emploi n'est revendiqué.",
+    "items": {
+      "netflix": {
+        "title": "Certificat Digital-UNI — Production de films IA pour un streaming de style Netflix",
+        "short": "Récit épisodique, livraison cinématographique et stratégie d'audience",
+        "track": "Films et séries épisodiques",
+        "description": "Développez des films et séries premium : architecture narrative, développement visuel, production, localisation, accessibilité, métadonnées et portfolio.",
+        "brandAlt": "Identifiant de la plateforme Netflix"
+      },
+      "hulu": {
+        "title": "Certificat Digital-UNI — Séries IA pour un streaming de style Hulu",
+        "short": "Développement de séries, formats publicitaires et stratégie de sortie",
+        "track": "Séries et télévision en streaming",
+        "description": "Créez concepts épisodiques, pilotes, documents de salle d'auteurs, plans de production, formats publicitaires et dossiers de présentation.",
+        "brandAlt": "Identifiant de la plateforme Hulu"
+      },
+      "tubi": {
+        "title": "Certificat Digital-UNI — Contenu IA pour un streaming de style Tubi",
+        "short": "Production financée par la publicité, catalogue et découvrabilité",
+        "track": "Streaming gratuit avec publicité",
+        "description": "Produisez films et séries à coûts maîtrisés avec stratégie de catalogue, pauses publicitaires, métadonnées, vignettes, accessibilité et découverte.",
+        "brandAlt": "Identifiant de la plateforme Tubi"
+      },
+      "pluto": {
+        "title": "Certificat Digital-UNI — Chaînes FAST IA pour un streaming de style Pluto TV",
+        "short": "Chaînes linéaires, grilles de programmes et diffusion continue",
+        "track": "Chaînes FAST et programmation",
+        "description": "Concevez des chaînes gratuites avec horloges de programmation, planification, conditionnement, continuité, publicité, métadonnées et opérations.",
+        "brandAlt": "Identifiant de la plateforme Pluto TV"
+      },
+      "primeVideo": {
+        "title": "Certificat Digital-UNI — Distribution de films IA pour un streaming de style Prime Video",
+        "short": "Production, conditionnement, livraison mondiale et distribution",
+        "track": "Film et distribution mondiale",
+        "description": "Préparez des livrables couvrant production, droits, localisation, accessibilité, visuels, métadonnées, qualité et stratégie de distribution.",
+        "brandAlt": "Identifiant de la plateforme Prime Video"
+      },
+      "appleTv": {
+        "title": "Certificat Digital-UNI — Récit premium IA pour un streaming de style Apple TV+",
+        "short": "Concepts premium, création cinématographique et présentation soignée",
+        "track": "Cinéma et télévision premium",
+        "description": "Développez des concepts et projets soignés par le langage visuel, l'écriture humaine, le son, le design, l'accessibilité et la présentation. ",
+        "brandAlt": "Identifiant de la plateforme Apple TV Plus"
       }
     }
   },

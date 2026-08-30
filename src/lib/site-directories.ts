@@ -33,3 +33,12 @@ export const certificationDirectoryItems = [
   { key: 'cisco', anchor: 'cisco' },
   { key: 'comptia', anchor: 'comptia' }
 ] as const;
+
+export const streamingStudioItems = [
+  { key: 'netflix', anchor: 'netflix' },
+  { key: 'hulu', anchor: 'hulu' },
+  { key: 'tubi', anchor: 'tubi' },
+  { key: 'pluto', anchor: 'pluto-tv' },
+  { key: 'primeVideo', anchor: 'prime-video' },
+  { key: 'appleTv', anchor: 'apple-tv' }
+] as const;
