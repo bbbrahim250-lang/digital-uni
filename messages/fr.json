@@ -19,7 +19,206 @@
     "signUp": "Inscription",
     "language": "Langue",
     "industrialRevolution": "Industrie 4.0",
-    "aiHighSchool": "Lycée IA"
+    "aiHighSchool": "Lycée IA",
+    "primaryNavigation": "Navigation principale",
+    "explore": "Explorer"
+  },
+  "campusDirectory": {
+    "eyebrow": "Lycées IA Digital-UNI",
+    "chooseTitle": "Choisir un lycée IA",
+    "chooseShort": "Sélectionner une initiative de campus Digital-UNI",
+    "intro": "Sélectionnez un site pour découvrir son concept de lycée natif de l’IA, ses programmes, ses parcours professionnels et l’état actuel du projet.",
+    "selectCta": "Ouvrir ce site",
+    "items": {
+      "santaMonica": {
+        "title": "Santa Monica, Californie",
+        "short": "Initiative phare de lycée natif de l’IA",
+        "status": "Initiative phare",
+        "description": "Le concept phare Santa Monica / Ouest de Los Angeles, sa campagne communautaire, sa proposition de campus civique et son programme AI Pioneers."
+      },
+      "paloAlto": {
+        "title": "Palo Alto, Californie",
+        "short": "Campus IA proposé dans la Silicon Valley",
+        "status": "Concept de campus proposé",
+        "description": "Un projet de lycée natif de l’IA et de campus de certifications professionnelles Digital-UNI au service des apprenants et des besoins de la Silicon Valley."
+      }
+    },
+    "paloAltoPage": {
+      "eyebrow": "Campus proposé dans la Silicon Valley",
+      "title": "Lycée IA Digital-UNI — Palo Alto, Californie",
+      "intro": "Un environnement d’apprentissage natif de l’IA proposé, reliant préparation au lycée, laboratoires appliqués, entrepreneuriat et parcours de certifications professionnelles Digital-UNI.",
+      "enrollmentCta": "Explorer l’inscription",
+      "santaMonicaLink": "Voir le site phare de Santa Monica",
+      "focusTitle": "Axes de programme proposés",
+      "focus": {
+        "aiRobotics": {
+          "title": "IA, apprentissage automatique et robotique",
+          "description": "Fondations par projets en Python, systèmes intelligents, vision par ordinateur, automatisation et robotique."
+        },
+        "cloudCybersecurity": {
+          "title": "Cloud et cybersécurité",
+          "description": "Architecture cloud sécurisée, identité, réseaux, réponse aux incidents, confidentialité et infrastructures résilientes."
+        },
+        "entrepreneurship": {
+          "title": "Entrepreneuriat de la Silicon Valley",
+          "description": "Développement de produits, approche entrepreneuriale, propriété intellectuelle, culture financière et innovation responsable."
+        },
+        "responsibleAi": {
+          "title": "IA responsable et sécurité",
+          "description": "Supervision humaine, évaluation des modèles, gouvernance des données, analyse des risques, éthique et responsabilité publique."
+        },
+        "certification": {
+          "title": "Certification professionnelle",
+          "description": "Parcours de certifications professionnelles délivrées par Digital-UNI, alignés sur des compétences pratiques et des preuves de portfolio."
+        },
+        "educatorWorkforce": {
+          "title": "Développement des éducateurs et de la main-d’œuvre",
+          "description": "Formation des enseignants, personnes en reconversion, équipes techniques et cadres face à l’Industrie 4.0."
+        }
+      },
+      "statusTitle": "Concept de planification indépendant de Digital-UNI",
+      "statusText": "Ce campus de Palo Alto est une initiative Digital-UNI proposée. Le site, l’autorisation scolaire, l’accréditation, les relations avec les districts, le financement et la date d’ouverture ne sont pas finalisés. Aucune affiliation avec la ville de Palo Alto, les districts scolaires locaux, l’Université Stanford ou une autre institution publique ou privée n’est revendiquée."
+    }
+  },
+  "institutionDirectory": {
+    "eyebrow": "Parcours professionnels institutionnels",
+    "title": "Certifications professionnelles institutionnelles Digital-UNI",
+    "menuDescription": "Certifications Digital-UNI organisées par secteur professionnel",
+    "intro": "Sélectionnez l’institution ou le secteur professionnel que vous servez. Chaque parcours réunit IA appliquée, gouvernance, cybersécurité, analytique et projets sectoriels menant à une certification professionnelle Digital-UNI.",
+    "issuerNotice": "Digital-UNI délivre les certifications professionnelles présentées sur cette page. Ce sont des titres Digital-UNI — et non des certificats, licences, soutiens ou nominations délivrés par l’administration, le tribunal, la banque, l’hôpital ou toute autre institution citée.",
+    "certificateBadge": "Certificat Digital-UNI",
+    "exploreCta": "Planifier cette certification",
+    "digitalBankTitle": "Avis Digital-UNI Bank :",
+    "digitalBankNotice": "Le parcours Digital-UNI Bank et cryptomonnaie est un concept éducatif et de planification. Digital-UNI ne se présente actuellement ni comme une banque agréée, ni comme un établissement de dépôt assuré, un conseiller en investissement, une bourse ou un émetteur opérationnel de cryptomonnaie.",
+    "futureCurrencyTitle": "Vision future de la monnaie Digital-UNI",
+    "futureCurrencyNotice": "Digital-UNI prévoit que Digital-UNI Coin devienne la principale monnaie numérique de paiement de la plateforme, chaque montant affichant une équivalence de référence transparente en dollars américains et en euros. Ce n’est actuellement ni un moyen de paiement actif, ni un stablecoin, un dépôt, un titre financier ou un instrument à remboursement garanti. Tout lancement reste soumis à une validation technique et aux exigences applicables en matière financière, fiscale, de protection des consommateurs, de conservation et de paiement.",
+    "items": {
+      "usGovernment": {
+        "title": "Certification professionnelle Digital-UNI — IA du gouvernement américain",
+        "short": "IA responsable pour l’administration publique",
+        "description": "Certification Digital-UNI en IA responsable, analytique publique, cybersécurité, sensibilisation aux marchés publics, évaluation des programmes et aide à la décision responsable."
+      },
+      "executiveBranch": {
+        "title": "Certification professionnelle Digital-UNI — IA de la Maison-Blanche et des opérations exécutives",
+        "short": "Flux exécutifs sécurisés assistés par l’IA",
+        "description": "Certification Digital-UNI en analyse des politiques, flux d’information exécutifs sécurisés, coordination de crise, communication et aide à la décision supervisée par l’humain."
+      },
+      "usCourts": {
+        "title": "Certification professionnelle Digital-UNI — IA des tribunaux américains",
+        "short": "Administration judiciaire assistée par l’IA",
+        "description": "Certification Digital-UNI en recherche juridique, administration des dossiers, analyse des précédents, gouvernance des preuves, confidentialité et contrôle judiciaire humain."
+      },
+      "superiorCourts": {
+        "title": "Certification professionnelle Digital-UNI — IA des tribunaux d’État et cours supérieures",
+        "short": "Opérations judiciaires et gestion des dossiers",
+        "description": "Certification Digital-UNI pour les flux judiciaires locaux et d’État, la gestion des dossiers, l’accès à la justice, l’analyse documentaire, la planification et les contrôles d’IA responsable."
+      },
+      "homelandSecurity": {
+        "title": "Certification professionnelle Digital-UNI — IA et cybersécurité de la sécurité intérieure",
+        "short": "Résilience, cyberdéfense et coordination d’urgence",
+        "description": "Certification Digital-UNI en cyberrisque, protection des infrastructures critiques, opérations d’urgence, analyse des menaces, interopérabilité et IA respectueuse de la vie privée."
+      },
+      "banking": {
+        "title": "Certification professionnelle Digital-UNI — Banques américaines, audit IA et risques",
+        "short": "IA financière, audit, fraude et conformité",
+        "description": "Certification Digital-UNI en audit financier par IA, détection de fraude, risque de modèle, conformité, paiements sécurisés et analytique financière explicable."
+      },
+      "digitalUniBank": {
+        "title": "Certification professionnelle Digital-UNI — Banque et cryptomonnaie",
+        "short": "Blockchain, monnaie numérique et équivalence USD/EUR",
+        "description": "Certification Digital-UNI en architecture blockchain, contrôles des actifs numériques, contrats intelligents, sécurité des portefeuilles, audit IA, conception responsable des cryptomonnaies et modèles transparents d’équivalence de référence dollar/euro."
+      },
+      "healthcare": {
+        "title": "Certification professionnelle Digital-UNI — IA de la santé et des hôpitaux",
+        "short": "Flux cliniques et hospitaliers responsables",
+        "description": "Certification Digital-UNI en analytique de santé, opérations hospitalières, confidentialité, cybersécurité, gouvernance des modèles et aide à la décision supervisée. Ce n’est pas une autorisation d’exercer la médecine."
+      },
+      "education": {
+        "title": "Certification professionnelle Digital-UNI — IA de l’éducation et de la main-d’œuvre",
+        "short": "Écoles, éducateurs et programmes prêts pour l’IA",
+        "description": "Certification Digital-UNI en enseignement assisté par l’IA, conception des programmes, évaluation, protection des données étudiantes, parcours de carrière et transformation de la main-d’œuvre."
+      },
+      "aviation": {
+        "title": "Certification professionnelle Digital-UNI — IA de l’aviation et du contrôle aérien",
+        "short": "Simulation, sécurité et opérations intelligentes",
+        "description": "Certification Digital-UNI en concepts d’IA aéronautique, simulation, systèmes de sécurité, coordination humain-machine, analyse de données et risque opérationnel. Ce n’est pas une licence FAA."
+      },
+      "infrastructure": {
+        "title": "Certification professionnelle Digital-UNI — Télécommunications et infrastructures critiques",
+        "short": "Réseaux, cloud et résilience assistés par l’IA",
+        "description": "Certification Digital-UNI en télécommunications, cloud et edge, automatisation des réseaux, cybersécurité des infrastructures, continuité et restauration d’urgence."
+      }
+    }
+  },
+  "certificationDirectory": {
+    "eyebrow": "Titres alignés sur les technologies",
+    "title": "Parcours de certification technologique Digital-UNI",
+    "menuDescription": "Certificats professionnels Digital-UNI alignés sur les technologies majeures",
+    "intro": "Développez des compétences appliquées avec les grandes technologies d’IA, de cloud, de bases de données, de réseaux et de cybersécurité, puis démontrez-les par une évaluation et un portfolio Digital-UNI.",
+    "issuerNotice": "Digital-UNI délivre le certificat professionnel de ces parcours. Toute certification, badge ou examen distinct portant le nom d’un fournisseur est délivré uniquement par ce fournisseur et n’est inclus que si Digital-UNI indique par écrit un accord formel autorisé.",
+    "exploreCta": "Planifier ce parcours",
+    "items": {
+      "ibm": {
+        "title": "Certificat professionnel Digital-UNI — IBM IA et données",
+        "short": "IA, science des données et automatisation d’entreprise",
+        "track": "Certificat Digital-UNI",
+        "description": "IA appliquée, ingénierie des données, analytique, automatisation et projets d’entreprise utilisant les technologies IBM et les pratiques du secteur."
+      },
+      "aws": {
+        "title": "Certificat professionnel Digital-UNI — AWS Cloud et IA",
+        "short": "Architecture cloud, données et apprentissage automatique",
+        "track": "Certificat Digital-UNI",
+        "description": "Fondations, architecture, sécurité, services de données, systèmes serverless et déploiement IA/ML avec les technologies AWS."
+      },
+      "anthropic": {
+        "title": "Certificat professionnel Digital-UNI — IA appliquée Claude / Anthropic",
+        "short": "IA générative responsable et agents",
+        "track": "Certificat Digital-UNI",
+        "description": "Conception de prompts, outils, agents, évaluation, sécurité et applications d’entreprise responsables avec Claude et les technologies Anthropic."
+      },
+      "openai": {
+        "title": "Certificat professionnel Digital-UNI — OpenAI appliqué",
+        "short": "Modèles, agents, API et déploiement responsable",
+        "track": "Certificat Digital-UNI",
+        "description": "IA générative appliquée, intégration API, agents, évaluation, sécurité, flux multimodaux et projets de production avec les technologies OpenAI."
+      },
+      "oracle": {
+        "title": "Certificat professionnel Digital-UNI — Oracle SQL et bases de données",
+        "short": "SQL, modélisation et administration de bases",
+        "track": "Certificat Digital-UNI",
+        "description": "Programmation SQL, conception relationnelle, administration, performance, sécurité et projets de données avec les technologies Oracle."
+      },
+      "microsoft": {
+        "title": "Certificat professionnel Digital-UNI — Microsoft Azure IA et Cloud",
+        "short": "Cloud Azure, données, sécurité et services IA",
+        "track": "Certificat Digital-UNI",
+        "description": "Architecture Azure, identité, services de données, sécurité, automatisation et développement responsable de solutions IA."
+      },
+      "googleCloud": {
+        "title": "Certificat professionnel Digital-UNI — Google Cloud IA et données",
+        "short": "Plateformes de données cloud et apprentissage automatique",
+        "track": "Certificat Digital-UNI",
+        "description": "Infrastructure cloud, analytique, ingénierie des données, apprentissage automatique, sécurité et déploiement avec Google Cloud."
+      },
+      "nvidia": {
+        "title": "Certificat professionnel Digital-UNI — NVIDIA IA et calcul accéléré",
+        "short": "GPU, deep learning et infrastructure IA",
+        "track": "Certificat Digital-UNI",
+        "description": "Fondations GPU, calcul accéléré, deep learning, vision, inférence et infrastructure IA utilisant les technologies NVIDIA."
+      },
+      "cisco": {
+        "title": "Certificat professionnel Digital-UNI — Cisco réseaux et cybersécurité",
+        "short": "Réseaux, infrastructure et cyberdéfense",
+        "track": "Certificat Digital-UNI",
+        "description": "Réseaux, routage, commutation, infrastructure sécurisée, automatisation, connectivité cloud et cybersécurité avec les technologies Cisco."
+      },
+      "comptia": {
+        "title": "Certificat professionnel Digital-UNI — Informatique et cybersécurité alignées CompTIA",
+        "short": "Fondations IT, cloud et opérations de sécurité",
+        "track": "Certificat Digital-UNI",
+        "description": "Support IT, réseaux, cloud, opérations de cybersécurité, risques et dépannage alignés sur les domaines d’examen CompTIA courants."
+      }
+    }
   },
   "home": {
     "heroHeadline": "Certifications professionnelles et accréditation universitaire pour la révolution industrielle 4.0",

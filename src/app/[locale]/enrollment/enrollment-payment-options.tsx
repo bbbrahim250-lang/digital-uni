@@ -20,7 +20,7 @@ export function EnrollmentPaymentOptions({ urls }: { urls: Partial<Record<(typeo
           );
         })}
       </div>
-      <p className="mt-4 text-xs leading-5 text-navy-400">Digital-UNI™ Coin is planned and is not currently an operational payment method. Checkout is offered only when a provider has been configured.</p>
+      <p className="mt-4 text-xs leading-5 text-navy-400">Digital-UNI™ Coin is planned as the future primary platform currency, with transparent U.S. dollar and euro reference equivalents. It is not currently an operational payment method, stablecoin, deposit, security, or guaranteed redemption instrument. Checkout is offered only when a compliant provider has been configured.</p>
     </section>
   );
 }
