@@ -35,6 +35,7 @@ export const certificationDirectoryItems = [
 ] as const;
 
 export const streamingStudioItems = [
+  { key: 'digitalUni', anchor: 'digital-uni-streaming' },
   { key: 'netflix', anchor: 'netflix' },
   { key: 'hulu', anchor: 'hulu' },
   { key: 'tubi', anchor: 'tubi' },

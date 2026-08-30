@@ -310,10 +310,32 @@
     "platformEyebrow": "Certificats professionnels indépendants Digital-UNI",
     "platformTitle": "Parcours de production pour plateformes de streaming",
     "platformIntro": "Chaque parcours étudie la production, le public, la livraison et les pratiques commerciales d'un grand environnement de streaming. Les projets sont évalués et certifiés par Digital-UNI.",
+    "streaming": {
+      "kicker": "Plateforme d'apprentissage Digital-UNI",
+      "desktop": "Expérience ordinateur",
+      "mobile": "Expérience mobile",
+      "featured": "Reprendre l'apprentissage",
+      "sampleTitle": "IA appliquée et apprentissage automatique",
+      "devicePreviewAlt": "Digital-UNI Streaming présenté sur un écran d'ordinateur et un téléphone mobile",
+      "catalog": {
+        "classes": "Classes en streaming",
+        "courses": "Cours complets",
+        "certifications": "Programmes de certification"
+      },
+      "availability": "Plateforme en cours de développement. La publication des cours, les comptes sécurisés, la lecture vidéo, le suivi des progrès, l'accessibilité, les évaluations et les certifications vérifiables seront activés par étapes.",
+      "cta": "Rejoindre le parcours"
+    },
     "exploreCta": "Planifier ce certificat",
     "independentTitle": "Avis de programme indépendant :",
     "independentNotice": "Digital-UNI délivre ces certificats professionnels. Netflix, Hulu, Tubi, Pluto TV, Prime Video et Apple TV+ sont des marques de tiers utilisées uniquement pour identifier le contexte de plateforme étudié. Aucun parrainage, soutien, partenariat, certificat fournisseur, promesse d'acceptation de contenu ou garantie d'emploi n'est revendiqué.",
     "items": {
+      "digitalUni": {
+        "title": "Digital-UNI Streaming — Classes, cours et certifications",
+        "short": "L'apprentissage Digital-UNI sur ordinateur et mobile",
+        "track": "Plateforme Digital-UNI",
+        "description": "Un espace de streaming adaptatif pour les classes, cours complets, démonstrations de projets, évaluations et certifications professionnelles Digital-UNI, conçu pour ordinateurs, tablettes et téléphones.",
+        "brandAlt": "Plateforme Digital-UNI Streaming"
+      },
       "netflix": {
         "title": "Certificat Digital-UNI — Production de films IA pour un streaming de style Netflix",
         "short": "Récit épisodique, livraison cinématographique et stratégie d'audience",

@@ -310,10 +310,32 @@
     "platformEyebrow": "Independent Digital-UNI professional certificates",
     "platformTitle": "Streaming-platform production pathways",
     "platformIntro": "Each pathway studies the production, audience, delivery, and business practices relevant to a major streaming environment. Projects are assessed and certified by Digital-UNI.",
+    "streaming": {
+      "kicker": "Digital-UNI-owned learning platform",
+      "desktop": "Desktop experience",
+      "mobile": "Mobile experience",
+      "featured": "Continue learning",
+      "sampleTitle": "Applied AI & Machine Learning",
+      "devicePreviewAlt": "Digital-UNI Streaming shown on a desktop screen and mobile phone",
+      "catalog": {
+        "classes": "Streaming Classes",
+        "courses": "Complete Courses",
+        "certifications": "Certification Programs"
+      },
+      "availability": "Platform experience in development. Course publishing, secure learner accounts, video playback, progress tracking, accessibility, assessments, and verified credential delivery will be activated in planned releases.",
+      "cta": "Join the learning pathway"
+    },
     "exploreCta": "Plan this certificate",
     "independentTitle": "Independent-program notice:",
     "independentNotice": "Digital-UNI issues these professional certificates. Netflix, Hulu, Tubi, Pluto TV, Prime Video, and Apple TV+ are third-party trademarks used only to identify the platform context studied. No sponsorship, endorsement, partnership, vendor credential, content-acceptance promise, or employment guarantee is claimed.",
     "items": {
+      "digitalUni": {
+        "title": "Digital-UNI Streaming — Classes, Courses & Certification",
+        "short": "Digital-UNI learning on desktop and mobile",
+        "track": "Digital-UNI-owned platform",
+        "description": "A responsive streaming home for Digital-UNI classes, full courses, project demonstrations, assessments, and professional-certification programs—designed for desktop computers, tablets, and mobile phones.",
+        "brandAlt": "Digital-UNI Streaming platform"
+      },
       "netflix": {
         "title": "Digital-UNI Certificate — AI Film Production for Netflix-Style Streaming",
         "short": "Episodic storytelling, cinematic delivery and audience strategy",
