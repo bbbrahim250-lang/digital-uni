@@ -3,6 +3,7 @@ import { getTranslations } from 'next-intl/server';
 import type { Locale } from '@/i18n/config';
 import {
   campusDirectoryItems,
+  campusSupportItems,
   certificationDirectoryItems,
   institutionDirectoryItems
 } from '@/lib/site-directories';
@@ -115,7 +116,7 @@ export async function SiteHeader({ locale }: { locale: Locale }) {
     href: `/${locale}/${path}`,
     label: t(key)
   }));
-  const campuses = campusDirectoryItems.map(({ key, href }) => ({
+  const campuses = [...campusDirectoryItems, ...campusSupportItems].map(({ key, href }) => ({
     href: `/${locale}/${href}`,
     label: tCampus(`items.${key}.title`),
     description: tCampus(`items.${key}.short`)

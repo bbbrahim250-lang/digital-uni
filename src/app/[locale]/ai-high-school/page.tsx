@@ -98,16 +98,18 @@ export default async function AiHighSchoolPage({ params }: { params: { locale: s
             <figcaption className="mt-4 rounded-xl border border-white/15 bg-white/5 p-4 text-sm leading-6 text-navy-50/80">{t('founderCredential')}</figcaption>
             <div className="mt-4 flex items-center gap-4 rounded-2xl border border-gold-400/30 bg-white/[0.06] p-4 shadow-xl backdrop-blur">
               <Image
-                src="/images/digital-uni-ai-pioneers-logo.png"
-                alt={t('priorities.athletics.title')}
+                src="/images/digital-uni-ai-pioneers-shark-logo.png"
+                alt={campuses('fundPage.logoAlt')}
                 width={112}
                 height={112}
                 sizes="112px"
                 className="h-24 w-24 shrink-0 object-contain md:h-28 md:w-28"
               />
               <div>
-                <p className="text-lg font-black text-gold-400">{t('priorities.athletics.title')}</p>
+                <p className="text-xs font-black uppercase tracking-[0.14em] text-highlight-turquoise">Digital-UNI</p>
+                <p className="mt-1 text-lg font-black uppercase text-gold-400">{campuses('fundPage.teamName')}</p>
                 <p className="mt-1 text-sm leading-6 text-navy-50/80">{t('priorities.athletics.description')}</p>
+                <Link href={`/${locale}/ai-high-school/fund`} className="mt-3 inline-flex text-sm font-black text-white hover:text-gold-400">{campuses('fundPage.openFund')} →</Link>
               </div>
             </div>
           </figure>

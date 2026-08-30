@@ -3,6 +3,10 @@ export const campusDirectoryItems = [
   { key: 'paloAlto', href: 'ai-high-school/palo-alto' }
 ] as const;
 
+export const campusSupportItems = [
+  { key: 'pioneersFund', href: 'ai-high-school/fund' }
+] as const;
+
 export const institutionDirectoryItems = [
   { key: 'usGovernment', anchor: 'us-government' },
   { key: 'executiveBranch', anchor: 'executive-branch' },
