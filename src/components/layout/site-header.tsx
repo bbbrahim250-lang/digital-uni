@@ -5,7 +5,8 @@ import {
   campusDirectoryItems,
   campusSupportItems,
   certificationDirectoryItems,
-  institutionDirectoryItems
+  institutionDirectoryItems,
+  streamingStudioItems
 } from '@/lib/site-directories';
 import { LanguageSwitcher } from './language-switcher';
 
@@ -53,6 +54,7 @@ function MobileNavigation({
   campuses,
   institutions,
   certifications,
+  studios,
   sectionLabels,
   signIn
 }: {
@@ -61,13 +63,15 @@ function MobileNavigation({
   campuses: DropdownItem[];
   institutions: DropdownItem[];
   certifications: DropdownItem[];
-  sectionLabels: { campuses: string; institutions: string; certifications: string };
+  studios: DropdownItem[];
+  sectionLabels: { campuses: string; institutions: string; certifications: string; studios: string };
   signIn: { href: string; label: string };
 }) {
   const sections = [
     [sectionLabels.campuses, campuses],
     [sectionLabels.institutions, institutions],
-    [sectionLabels.certifications, certifications]
+    [sectionLabels.certifications, certifications],
+    [sectionLabels.studios, studios]
   ] as const;
 
   return (
@@ -104,12 +108,13 @@ function MobileNavigation({
 }
 
 export async function SiteHeader({ locale }: { locale: Locale }) {
-  const [t, tSite, tCampus, tInstitutions, tCertifications] = await Promise.all([
+  const [t, tSite, tCampus, tInstitutions, tCertifications, tStudios] = await Promise.all([
     getTranslations({ locale, namespace: 'nav' }),
     getTranslations({ locale, namespace: 'site' }),
     getTranslations({ locale, namespace: 'campusDirectory' }),
     getTranslations({ locale, namespace: 'institutionDirectory' }),
-    getTranslations({ locale, namespace: 'certificationDirectory' })
+    getTranslations({ locale, namespace: 'certificationDirectory' }),
+    getTranslations({ locale, namespace: 'studioDirectory' })
   ]);
 
   const directItems = directNavItems.map(([key, path]) => ({
@@ -130,6 +135,11 @@ export async function SiteHeader({ locale }: { locale: Locale }) {
     href: `/${locale}/certifications#${anchor}`,
     label: tCertifications(`items.${key}.title`),
     description: tCertifications(`items.${key}.short`)
+  }));
+  const studios = streamingStudioItems.map(({ key, anchor }) => ({
+    href: `/${locale}/ai-studios#${anchor}`,
+    label: tStudios(`items.${key}.title`),
+    description: tStudios(`items.${key}.short`)
   }));
 
   return (
@@ -161,6 +171,11 @@ export async function SiteHeader({ locale }: { locale: Locale }) {
             items={certifications}
           />
           <Link href={directItems[3]!.href} className="rounded-md px-2 py-1.5 text-sm text-navy-50 hover:bg-white/10 hover:text-gold-400">{directItems[3]!.label}</Link>
+          <NavigationDropdown
+            label={t('aiStudios')}
+            overview={{ href: `/${locale}/ai-studios`, label: tStudios('title'), description: tStudios('menuDescription') }}
+            items={studios}
+          />
         </nav>
 
         <div className="flex items-center gap-3">
@@ -170,7 +185,8 @@ export async function SiteHeader({ locale }: { locale: Locale }) {
             campuses={campuses}
             institutions={institutions}
             certifications={certifications}
-            sectionLabels={{ campuses: t('aiHighSchool'), institutions: t('institutions'), certifications: t('certifications') }}
+            studios={studios}
+            sectionLabels={{ campuses: t('aiHighSchool'), institutions: t('institutions'), certifications: t('certifications'), studios: t('aiStudios') }}
             signIn={{ href: `/${locale}/sign-in`, label: t('signIn') }}
           />
           <LanguageSwitcher current={locale} label={t('language')} />

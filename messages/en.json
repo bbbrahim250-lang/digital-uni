@@ -20,6 +20,7 @@
     "language": "Language",
     "industrialRevolution": "Industrial Revolution 4.0",
     "aiHighSchool": "AI High School",
+    "aiStudios": "AI Studios",
     "primaryNavigation": "Primary navigation",
     "explore": "Explore"
   },
@@ -276,6 +277,106 @@
         "short": "IT foundations, cloud and security operations",
         "track": "Digital-UNI certificate",
         "description": "IT support, networking, cloud, cybersecurity operations, risk, and troubleshooting aligned with common CompTIA exam domains."
+      }
+    }
+  },
+  "studioDirectory": {
+    "eyebrow": "Digital-UNI Santa Monica Studios",
+    "title": "AI Movies, AI Art & Script Production",
+    "menuDescription": "Creative-AI production and streaming-platform pathways",
+    "intro": "Create responsible, portfolio-ready film, animation, visual art, screenwriting, and virtual-production projects for the modern streaming economy.",
+    "enrollCta": "Plan a studio pathway",
+    "platformCta": "Explore streaming platforms",
+    "creativeEyebrow": "From idea to screen",
+    "creativeTitle": "Creative-AI studio disciplines",
+    "creative": {
+      "movies": {
+        "title": "AI Movies & Animation",
+        "description": "Develop concepts, previsualization, animation, virtual scenes, editing workflows, sound design, and responsible generative-video production."
+      },
+      "art": {
+        "title": "AI Art & Storyboards",
+        "description": "Create visual development portfolios covering character design, environments, storyboards, title art, accessibility, and rights-aware asset management."
+      },
+      "scripts": {
+        "title": "AI-Assisted Scripts",
+        "description": "Build original screenplays, episodic structures, treatments, pitch materials, revisions, and human-led editorial workflows with clear authorship controls."
+      },
+      "virtualProduction": {
+        "title": "Virtual Production & Delivery",
+        "description": "Combine real-time environments, production management, post-production, captions, localization, quality control, and platform-ready delivery packages."
+      }
+    },
+    "platformEyebrow": "Independent Digital-UNI professional certificates",
+    "platformTitle": "Streaming-platform production pathways",
+    "platformIntro": "Each pathway studies the production, audience, delivery, and business practices relevant to a major streaming environment. Projects are assessed and certified by Digital-UNI.",
+    "streaming": {
+      "kicker": "Digital-UNI-owned learning platform",
+      "desktop": "Desktop experience",
+      "mobile": "Mobile experience",
+      "featured": "Continue learning",
+      "sampleTitle": "Applied AI & Machine Learning",
+      "devicePreviewAlt": "Digital-UNI Streaming shown on a desktop screen and mobile phone",
+      "catalog": {
+        "classes": "Streaming Classes",
+        "courses": "Complete Courses",
+        "certifications": "Certification Programs"
+      },
+      "availability": "Platform experience in development. Course publishing, secure learner accounts, video playback, progress tracking, accessibility, assessments, and verified credential delivery will be activated in planned releases.",
+      "cta": "Join the learning pathway"
+    },
+    "exploreCta": "Plan this certificate",
+    "independentTitle": "Independent-program notice:",
+    "independentNotice": "Digital-UNI issues these professional certificates. Netflix, Hulu, Tubi, Pluto TV, Prime Video, and Apple TV+ are third-party trademarks used only to identify the platform context studied. No sponsorship, endorsement, partnership, vendor credential, content-acceptance promise, or employment guarantee is claimed.",
+    "items": {
+      "digitalUni": {
+        "title": "Digital-UNI Streaming — Classes, Courses & Certification",
+        "short": "Digital-UNI learning on desktop and mobile",
+        "track": "Digital-UNI-owned platform",
+        "description": "A responsive streaming home for Digital-UNI classes, full courses, project demonstrations, assessments, and professional-certification programs—designed for desktop computers, tablets, and mobile phones.",
+        "brandAlt": "Digital-UNI Streaming platform"
+      },
+      "netflix": {
+        "title": "Digital-UNI Certificate — AI Film Production for Netflix-Style Streaming",
+        "short": "Episodic storytelling, cinematic delivery and audience strategy",
+        "track": "Movies and episodic series",
+        "description": "Develop premium film and episodic projects with story architecture, visual development, production workflows, localization, accessibility, metadata, and portfolio delivery.",
+        "brandAlt": "Netflix platform identifier"
+      },
+      "hulu": {
+        "title": "Digital-UNI Certificate — AI Series Production for Hulu-Style Streaming",
+        "short": "Series development, advertising formats and release strategy",
+        "track": "Series and streaming television",
+        "description": "Create episodic concepts, pilots, writers-room materials, production plans, advertising-aware formats, audience positioning, and presentation packages.",
+        "brandAlt": "Hulu platform identifier"
+      },
+      "tubi": {
+        "title": "Digital-UNI Certificate — AI Content Production for Tubi-Style Streaming",
+        "short": "Ad-supported production, catalog strategy and discoverability",
+        "track": "Free ad-supported streaming",
+        "description": "Build cost-aware films and series with efficient production, catalog positioning, advertising breaks, metadata, thumbnails, accessibility, and audience discovery.",
+        "brandAlt": "Tubi platform identifier"
+      },
+      "pluto": {
+        "title": "Digital-UNI Certificate — AI FAST Channel Production for Pluto TV-Style Streaming",
+        "short": "Linear channels, programming schedules and live-like delivery",
+        "track": "FAST channels and programming",
+        "description": "Design free ad-supported television channels with programming clocks, scheduling, content packaging, continuity, advertising inventory, metadata, and operations.",
+        "brandAlt": "Pluto TV platform identifier"
+      },
+      "primeVideo": {
+        "title": "Digital-UNI Certificate — AI Film Distribution for Prime Video-Style Streaming",
+        "short": "Production, packaging, global delivery and distribution strategy",
+        "track": "Film and global distribution",
+        "description": "Prepare film and episodic packages covering production, rights documentation, localization, accessibility, artwork, metadata, quality control, and distribution planning.",
+        "brandAlt": "Prime Video platform identifier"
+      },
+      "appleTv": {
+        "title": "Digital-UNI Certificate — AI Premium Storytelling for Apple TV+-Style Streaming",
+        "short": "Premium concepts, cinematic craft and polished presentation",
+        "track": "Premium film and television",
+        "description": "Develop highly polished concepts and screen projects through cinematic visual language, human-led writing, sound, design systems, accessibility, and pitch presentation.",
+        "brandAlt": "Apple TV Plus platform identifier"
       }
     }
   },
