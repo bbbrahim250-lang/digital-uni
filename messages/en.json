@@ -15,6 +15,7 @@
     "about": "About",
     "contact": "Contact",
     "dashboard": "Dashboard",
+    "store": "Digital-UNI Store",
     "signIn": "Sign In",
     "signUp": "Sign Up",
     "language": "Language",
@@ -90,6 +91,8 @@
       "metaTitle": "Digital-UNI AI Pioneers Sharks Fund",
       "metaDescription": "Support the proposed Digital-UNI AI Pioneers Sharks programs for the Santa Monica and Palo Alto AI High School initiatives.",
       "logoAlt": "Digital-UNI AI Pioneers Sharks crest with an open-mouth shark made from green binary digits and AI chips",
+      "santaMonicaLogoAlt": "Digital-UNI AI Pioneers Sharks crest for Santa Monica, California",
+      "paloAltoLogoAlt": "Digital-UNI AI Pioneers Sharks crest for Palo Alto, California",
       "eyebrow": "Athletics · AI competitions · student opportunity",
       "teamName": "AI Pioneers Sharks",
       "teamSubtitle": "Official Digital-UNI athletics and AI competition identity",
@@ -330,6 +333,32 @@
       "availability": "Platform experience in development. Course publishing, secure learner accounts, HD live and on-demand sports broadcasting, video playback, progress tracking, accessibility, assessments, and verified credential delivery will be activated in planned releases. Event coverage remains subject to venue connectivity, media permissions, and participant privacy requirements.",
       "cta": "Join the learning pathway"
     },
+    "exploration": {
+      "eyebrow": "Digital-UNI exploratory ticket",
+      "ticketNumber": "EXP-001 · Streaming learning discovery",
+      "status": "Exploration — no partnership claimed",
+      "title": "Consult streaming platforms and explore a learning-discovery algorithm",
+      "intro": "Digital-UNI proposes an exploratory conversation with major entertainment platforms about an optional learning layer that helps viewers discover useful Digital-UNI classes, courses, and certification programs connected to their interests and current workforce trends.",
+      "consultation": {
+        "label": "Exploration track 01",
+        "title": "Platform consultation",
+        "description": "Seek formal conversations about technical feasibility, brand and content rules, viewer experience, privacy, revenue models, accessibility, educational placement, and any authorized integration pathway. Listing a platform here is a consultation target, not evidence of contact, approval, or partnership."
+      },
+      "algorithm": {
+        "label": "Exploration track 02",
+        "title": "Relevant + trending learning algorithm",
+        "description": "Explore an opt-in recommendation system that ranks Digital-UNI learning without taking over the entertainment experience.",
+        "steps": {
+          "start": "A viewer voluntarily opens or begins eligible entertainment content.",
+          "match": "The system maps broad, permissioned themes to relevant Digital-UNI skills and programs.",
+          "rank": "Results are ranked by relevance, learner language, program availability, quality, and responsible trend signals.",
+          "display": "An optional learning rail presents available and trending classes, courses, and certification pathways."
+        }
+      },
+      "safeguardTitle": "Responsible-design guardrail:",
+      "safeguard": "The concept must be opt-in, transparent, age-appropriate, privacy-preserving, explainable, and easy to dismiss. It must not interrupt playback, auto-enroll viewers, sell viewing history, use protected traits, or imply platform endorsement without a signed agreement.",
+      "cta": "Discuss an exploratory consultation"
+    },
     "exploreCta": "Plan this certificate",
     "independentTitle": "Independent-program notice:",
     "independentNotice": "Digital-UNI issues these professional certificates. Netflix, Hulu, Tubi, Pluto TV, Prime Video, and Apple TV+ are third-party trademarks used only to identify the platform context studied. No sponsorship, endorsement, partnership, vendor credential, content-acceptance promise, or employment guarantee is claimed.",
@@ -384,6 +413,77 @@
         "brandAlt": "Apple TV Plus platform identifier"
       }
     }
+  },
+  "storeDirectory": {
+    "eyebrow": "Digital-UNI Store",
+    "title": "Exploratory Tickets, Shirts & Accessories",
+    "intro": "A dedicated Digital-UNI shop for paid student and staff exploratory tickets, team shirts, and selected accessories. Checkout uses a secure provider-hosted payment page when a product is available.",
+    "pricePending": "Fee confirmed before checkout",
+    "amazonShop": {
+      "eyebrow": "External storefront",
+      "title": "Digital-UNI Amazon Shop",
+      "intro": "Use the official Digital-UNI Amazon storefront for eligible merchandise when the storefront is active.",
+      "cta": "Visit Digital-UNI Amazon Shop",
+      "pending": "Official Amazon Shop connection pending",
+      "notice": "Amazon checkout, fulfillment, shipping, returns, privacy, and taxes are handled under Amazon's applicable terms. Digital-UNI does not request your Amazon password or payment-card number."
+    },
+    "ticket": {
+      "eyebrow": "Student and staff access",
+      "title": "Digital-UNI Exploratory Tickets",
+      "intro": "Purchase an eligibility-based pass for an approved Digital-UNI exploratory session, program visit, demonstration, or discovery event. The exact session, fee, and access terms are confirmed before payment.",
+      "preview": "PREVIEW",
+      "passLabel": "Digital-UNI access pass",
+      "passName": "Exploratory Ticket",
+      "holder": "Holder",
+      "holderValue": "Student / Staff",
+      "status": "Status",
+      "statusValue": "Awaiting verified purchase",
+      "reference": "Reference",
+      "delivery": "Delivery",
+      "deliveryValue": "Email / mobile pass",
+      "codeAlt": "Decorative preview barcode",
+      "notValid": "Preview only — not valid for admission or access.",
+      "issuanceTitle": "Ticket issuance:",
+      "issuanceNotice": "Digital-UNI issues a unique ticket reference only after verified provider payment, purchaser eligibility review, event or session availability, and written confirmation. A ticket is not enrollment, certification, unrestricted event access, or a charitable donation."
+    },
+    "merch": {
+      "eyebrow": "Digital-UNI apparel",
+      "title": "Shirts & Accessories",
+      "intro": "Support the Digital-UNI community with AI Pioneers Sharks apparel, Digital-UNI shirts, and practical branded accessories."
+    },
+    "products": {
+      "studentTicket": {
+        "type": "Student pass",
+        "title": "Student Exploratory Ticket",
+        "description": "For an eligible student attending one approved exploratory session or event. Student identity, age requirements, and any guardian or school authorization are reviewed before issuance."
+      },
+      "staffTicket": {
+        "type": "Staff pass",
+        "title": "Staff Exploratory Ticket",
+        "description": "For eligible school, program, or Digital-UNI staff attending an approved exploratory session or event. Employment or staff affiliation is reviewed before issuance."
+      },
+      "sharksShirt": {
+        "title": "AI Pioneers Sharks Shirt",
+        "description": "A team shirt concept featuring the Digital-UNI AI Pioneers Sharks identity. Final artwork, sizes, colors, and availability are confirmed before purchase."
+      },
+      "digitalUniShirt": {
+        "title": "Digital-UNI Classic Shirt",
+        "description": "A Digital-UNI branded shirt for students, staff, supporters, and events. Final material, fit, colors, and availability are confirmed before purchase."
+      },
+      "accessories": {
+        "title": "Digital-UNI Accessories Kit",
+        "description": "A proposed selection such as a cap, tote or bag, notebook, and reusable bottle, subject to final design and inventory."
+      }
+    },
+    "checkout": {
+      "accept": "I accept the",
+      "terms": "terms and refund/cancellation policy.",
+      "continue": "Continue to secure checkout",
+      "acceptFirst": "Accept terms to continue",
+      "request": "Request verified checkout"
+    },
+    "fulfillmentNotice": "Merchandise sizes, colors, inventory, shipping, and applicable tax are confirmed before payment. Product images are concept previews until final merchandise is approved.",
+    "bulkCta": "Request group, team, or staff orders"
   },
   "home": {
     "heroHeadline": "Professional Certification & College Accreditation for Industrial Revolution 4.0",

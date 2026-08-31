@@ -15,6 +15,7 @@
     "about": "À propos",
     "contact": "Contact",
     "dashboard": "Tableau de bord",
+    "store": "Boutique Digital-UNI",
     "signIn": "Connexion",
     "signUp": "Inscription",
     "language": "Langue",
@@ -90,6 +91,8 @@
       "metaTitle": "Fonds Digital-UNI AI Pioneers Sharks",
       "metaDescription": "Soutenez les programmes proposés Digital-UNI AI Pioneers Sharks pour les initiatives de lycées IA de Santa Monica et Palo Alto.",
       "logoAlt": "Écusson Digital-UNI AI Pioneers Sharks avec un requin à gueule ouverte formé de chiffres binaires verts et de puces d’IA",
+      "santaMonicaLogoAlt": "Écusson Digital-UNI AI Pioneers Sharks pour Santa Monica, Californie",
+      "paloAltoLogoAlt": "Écusson Digital-UNI AI Pioneers Sharks pour Palo Alto, Californie",
       "eyebrow": "Sports · compétitions d’IA · possibilités pour les élèves",
       "teamName": "AI Pioneers Sharks",
       "teamSubtitle": "Identité officielle des sports et compétitions d’IA Digital-UNI",
@@ -330,6 +333,32 @@
       "availability": "Plateforme en cours de développement. La publication des cours, les comptes sécurisés, la diffusion sportive HD en direct et à la demande, la lecture vidéo, le suivi des progrès, l'accessibilité, les évaluations et les certifications vérifiables seront activés par étapes. La couverture dépendra de la connectivité du site, des autorisations média et du respect de la vie privée des participants.",
       "cta": "Rejoindre le parcours"
     },
+    "exploration": {
+      "eyebrow": "Ticket exploratoire Digital-UNI",
+      "ticketNumber": "EXP-001 · Découverte éducative en streaming",
+      "status": "Exploration — aucun partenariat revendiqué",
+      "title": "Consulter les plateformes et explorer un algorithme de découverte éducative",
+      "intro": "Digital-UNI propose une conversation exploratoire avec les grandes plateformes de divertissement sur une couche éducative facultative aidant les spectateurs à découvrir des classes, cours et certifications Digital-UNI liés à leurs intérêts et aux tendances professionnelles.",
+      "consultation": {
+        "label": "Axe d'exploration 01",
+        "title": "Consultation des plateformes",
+        "description": "Rechercher des échanges formels sur la faisabilité technique, les règles de marque et de contenu, l'expérience utilisateur, la confidentialité, les modèles économiques, l'accessibilité et toute intégration autorisée. La présence d'une plateforme ici indique une cible de consultation, pas un contact, une approbation ou un partenariat."
+      },
+      "algorithm": {
+        "label": "Axe d'exploration 02",
+        "title": "Algorithme d'apprentissage pertinent et tendance",
+        "description": "Explorer un système de recommandation volontaire classant les contenus Digital-UNI sans prendre le contrôle de l'expérience de divertissement.",
+        "steps": {
+          "start": "Un spectateur ouvre volontairement un contenu de divertissement admissible.",
+          "match": "Le système associe des thèmes généraux autorisés aux compétences et programmes Digital-UNI pertinents.",
+          "rank": "Les résultats sont classés par pertinence, langue, disponibilité, qualité et signaux de tendance responsables.",
+          "display": "Un rail éducatif facultatif présente les classes, cours et certifications disponibles et tendance."
+        }
+      },
+      "safeguardTitle": "Protection de conception responsable :",
+      "safeguard": "Le concept doit être volontaire, transparent, adapté à l'âge, respectueux de la vie privée, explicable et facile à fermer. Il ne doit pas interrompre la lecture, inscrire automatiquement, vendre l'historique de visionnage, utiliser des caractéristiques protégées ni suggérer un soutien sans accord signé.",
+      "cta": "Discuter d'une consultation exploratoire"
+    },
     "exploreCta": "Planifier ce certificat",
     "independentTitle": "Avis de programme indépendant :",
     "independentNotice": "Digital-UNI délivre ces certificats professionnels. Netflix, Hulu, Tubi, Pluto TV, Prime Video et Apple TV+ sont des marques de tiers utilisées uniquement pour identifier le contexte de plateforme étudié. Aucun parrainage, soutien, partenariat, certificat fournisseur, promesse d'acceptation de contenu ou garantie d'emploi n'est revendiqué.",
@@ -384,6 +413,77 @@
         "brandAlt": "Identifiant de la plateforme Apple TV Plus"
       }
     }
+  },
+  "storeDirectory": {
+    "eyebrow": "Boutique Digital-UNI",
+    "title": "Billets exploratoires, t-shirts et accessoires",
+    "intro": "Une boutique Digital-UNI dédiée aux billets exploratoires payants pour étudiants et personnel, aux t-shirts d'équipe et à certains accessoires. Lorsqu'un produit est disponible, le paiement s'effectue sur une page sécurisée hébergée par le prestataire.",
+    "pricePending": "Tarif confirmé avant le paiement",
+    "amazonShop": {
+      "eyebrow": "Boutique externe",
+      "title": "Boutique Amazon Digital-UNI",
+      "intro": "Utilisez la boutique Amazon officielle de Digital-UNI pour les produits admissibles lorsque celle-ci est active.",
+      "cta": "Visiter la boutique Amazon Digital-UNI",
+      "pending": "Connexion à la boutique Amazon officielle en attente",
+      "notice": "Le paiement, l'expédition, les retours, la confidentialité et les taxes Amazon sont régis par les conditions applicables d'Amazon. Digital-UNI ne demande ni votre mot de passe Amazon ni votre numéro de carte bancaire."
+    },
+    "ticket": {
+      "eyebrow": "Accès étudiants et personnel",
+      "title": "Billets exploratoires Digital-UNI",
+      "intro": "Achetez un pass soumis à vérification d'éligibilité pour une séance exploratoire, une visite de programme, une démonstration ou un événement découverte approuvé par Digital-UNI. La séance, le tarif et les conditions d'accès sont confirmés avant le paiement.",
+      "preview": "APERÇU",
+      "passLabel": "Pass d'accès Digital-UNI",
+      "passName": "Billet exploratoire",
+      "holder": "Titulaire",
+      "holderValue": "Étudiant / Personnel",
+      "status": "Statut",
+      "statusValue": "Achat vérifié en attente",
+      "reference": "Référence",
+      "delivery": "Livraison",
+      "deliveryValue": "E-mail / pass mobile",
+      "codeAlt": "Code-barres décoratif d'aperçu",
+      "notValid": "Aperçu uniquement — non valable pour l'admission ou l'accès.",
+      "issuanceTitle": "Émission du billet :",
+      "issuanceNotice": "Digital-UNI émet une référence unique seulement après vérification du paiement par le prestataire, de l'éligibilité de l'acheteur, des places disponibles pour l'événement ou la séance et d'une confirmation écrite. Le billet ne constitue ni une inscription, ni une certification, ni un accès illimité, ni un don caritatif."
+    },
+    "merch": {
+      "eyebrow": "Vêtements Digital-UNI",
+      "title": "T-shirts et accessoires",
+      "intro": "Soutenez la communauté Digital-UNI avec les vêtements AI Pioneers Sharks, les t-shirts Digital-UNI et des accessoires pratiques."
+    },
+    "products": {
+      "studentTicket": {
+        "type": "Pass étudiant",
+        "title": "Billet exploratoire étudiant",
+        "description": "Pour un étudiant admissible participant à une séance ou un événement exploratoire approuvé. L'identité, l'âge requis et, le cas échéant, l'autorisation d'un parent ou de l'établissement sont vérifiés avant l'émission."
+      },
+      "staffTicket": {
+        "type": "Pass personnel",
+        "title": "Billet exploratoire personnel",
+        "description": "Pour le personnel admissible d'un établissement, d'un programme ou de Digital-UNI participant à une séance ou un événement approuvé. Le lien professionnel est vérifié avant l'émission."
+      },
+      "sharksShirt": {
+        "title": "T-shirt AI Pioneers Sharks",
+        "description": "Un concept de t-shirt d'équipe portant l'identité Digital-UNI AI Pioneers Sharks. Le visuel final, les tailles, les couleurs et la disponibilité sont confirmés avant l'achat."
+      },
+      "digitalUniShirt": {
+        "title": "T-shirt classique Digital-UNI",
+        "description": "Un t-shirt Digital-UNI pour les étudiants, le personnel, les supporters et les événements. La matière, la coupe, les couleurs et la disponibilité sont confirmées avant l'achat."
+      },
+      "accessories": {
+        "title": "Kit d'accessoires Digital-UNI",
+        "description": "Une sélection proposée pouvant inclure casquette, sac, carnet et bouteille réutilisable, sous réserve du design final et du stock."
+      }
+    },
+    "checkout": {
+      "accept": "J'accepte les",
+      "terms": "conditions et la politique de remboursement/annulation.",
+      "continue": "Continuer vers le paiement sécurisé",
+      "acceptFirst": "Acceptez les conditions pour continuer",
+      "request": "Demander un paiement vérifié"
+    },
+    "fulfillmentNotice": "Les tailles, couleurs, stocks, frais d'expédition et taxes applicables sont confirmés avant le paiement. Les images sont des aperçus conceptuels jusqu'à l'approbation des produits finaux.",
+    "bulkCta": "Demander une commande de groupe, d'équipe ou de personnel"
   },
   "home": {
     "heroHeadline": "Certifications professionnelles et accréditation universitaire pour la révolution industrielle 4.0",

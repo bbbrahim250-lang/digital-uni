@@ -141,6 +141,7 @@ export async function SiteHeader({ locale }: { locale: Locale }) {
     label: tStudios(`items.${key}.title`),
     description: tStudios(`items.${key}.short`)
   }));
+  const store = { href: `/${locale}/store`, label: t('store') };
 
   return (
     <header className="border-b border-navy-100 bg-navy-900 text-white">
@@ -181,7 +182,7 @@ export async function SiteHeader({ locale }: { locale: Locale }) {
         <div className="flex items-center gap-3">
           <MobileNavigation
             label={t('explore')}
-            directItems={directItems}
+            directItems={[...directItems, store]}
             campuses={campuses}
             institutions={institutions}
             certifications={certifications}
@@ -190,6 +191,12 @@ export async function SiteHeader({ locale }: { locale: Locale }) {
             signIn={{ href: `/${locale}/sign-in`, label: t('signIn') }}
           />
           <LanguageSwitcher current={locale} label={t('language')} />
+          <Link
+            href={store.href}
+            className="hidden rounded-md bg-highlight-turquoise px-3 py-1.5 text-sm font-bold text-navy-900 transition hover:bg-white md:inline-flex"
+          >
+            {store.label}
+          </Link>
           <Link
             href={`/${locale}/sign-in`}
             className="hidden rounded-md border border-navy-100 px-3 py-1.5 text-sm hover:bg-navy-600 sm:inline-flex"
