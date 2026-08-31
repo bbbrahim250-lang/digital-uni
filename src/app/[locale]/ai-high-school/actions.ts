@@ -8,7 +8,7 @@ const DIGITAL_UNI_RECIPIENTS = ['enroll@digital-uni.net', 'financial_aid@digital
 const CITY_COUNCIL_RECIPIENT = 'council.mailbox@santamonica.gov';
 
 export type CampaignSubmissionResult =
-  | { ok: true; backupStored: boolean }
+  | { ok: true; backupStored: boolean; emailDelivered: boolean; reference: string }
   | {
       ok: false;
       code: 'invalid_submission' | 'verification_failed' | 'delivery_unavailable' | 'delivery_failed';
@@ -36,9 +36,10 @@ async function sendCampaignEmail(
   data: CampaignSupportValues,
   locale: string,
   submittedAt: string,
-  message: string
+  message: string,
+  reference: string
 ) {
-  const subject = `Community support — Santa Monica AI High School — ${data.signatureName}`;
+  const subject = `Community support ${reference} — Santa Monica AI High School — ${data.signatureName}`;
   const text = [
     message,
     '',
@@ -70,9 +71,11 @@ export async function submitCampaignSupport(
     return { ok: false, code: 'invalid_submission' };
   }
 
+  const reference = `DU-SM-${parsed.data.submissionId.slice(0, 8).toUpperCase()}`;
+
   // Quietly accept bot-filled honeypot submissions without storing or sending them.
   if (parsed.data.website) {
-    return { ok: true, backupStored: true };
+    return { ok: true, backupStored: true, emailDelivered: true, reference };
   }
 
   const turnstile = await verifyTurnstile(parsed.data.turnstileToken);
@@ -87,6 +90,7 @@ export async function submitCampaignSupport(
   const submittedAt = new Date().toISOString();
   const message = [
     'SANTA MONICA AI HIGH SCHOOL COMMUNITY SUPPORT',
+    `Reference: ${reference}`,
     `Full name: ${parsed.data.name}`,
     `ZIP code: ${parsed.data.zipCode}`,
     `Community connection: ${parsed.data.connection}`,
@@ -102,17 +106,8 @@ export async function submitCampaignSupport(
     'Legal acknowledgement confirmed: This registration is not a statutory municipal initiative signature or ballot-petition signature.'
   ].join('\n');
 
-  // Email is the primary delivery path requested by the campaign owner.
-  const email = await sendCampaignEmail(parsed.data, locale, submittedAt, message);
-  if (!email.configured) {
-    console.error('campaign_support_email_not_configured');
-    return { ok: false, code: 'delivery_unavailable' };
-  }
-  if (!email.accepted) {
-    return { ok: false, code: 'delivery_failed' };
-  }
-
-  // Supabase is the private backup record. Email acceptance is not undone if backup storage fails.
+  // Store the signed submission before attempting notification delivery so an
+  // SMTP or email-provider outage cannot discard valid community support.
   const supabase = createSupabaseServerClient();
   const { error } = await supabase.from('contact_submissions').insert({
     id: parsed.data.submissionId,
@@ -125,15 +120,23 @@ export async function submitCampaignSupport(
     created_at: submittedAt
   });
 
-  if (error && error.code !== '23505') {
+  const backupStored = !error || error.code === '23505';
+  if (!backupStored) {
     console.error('campaign_support_storage_failed', {
       code: error.code,
       message: error.message,
       details: error.details,
       hint: error.hint
     });
-    return { ok: true, backupStored: false };
   }
 
-  return { ok: true, backupStored: true };
+  const email = await sendCampaignEmail(parsed.data, locale, submittedAt, message, reference);
+  if (!email.configured) console.error('campaign_support_email_not_configured');
+
+  const emailDelivered = email.configured && email.accepted;
+  if (backupStored || emailDelivered) {
+    return { ok: true, backupStored, emailDelivered, reference };
+  }
+
+  return { ok: false, code: email.configured ? 'delivery_failed' : 'delivery_unavailable' };
 }

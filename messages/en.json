@@ -449,7 +449,8 @@
     "merch": {
       "eyebrow": "Digital-UNI apparel",
       "title": "Shirts & Accessories",
-      "intro": "Support the Digital-UNI community with AI Pioneers Sharks apparel, Digital-UNI shirts, and practical branded accessories."
+      "intro": "Support the Digital-UNI community with AI Pioneers Sharks apparel, Digital-UNI shirts, and practical branded accessories.",
+      "priceGuide": "Mugs from $5 • Shirts $35 • Soccer and basketball shoes $45–$70"
     },
     "products": {
       "studentTicket": {
@@ -462,9 +463,17 @@
         "title": "Staff Exploratory Ticket",
         "description": "For eligible school, program, or Digital-UNI staff attending an approved exploratory session or event. Employment or staff affiliation is reviewed before issuance."
       },
-      "sharksShirt": {
-        "title": "AI Pioneers Sharks Shirt",
-        "description": "A team shirt concept featuring the Digital-UNI AI Pioneers Sharks identity. Final artwork, sizes, colors, and availability are confirmed before purchase."
+      "santaMonicaSharksShirts": {
+        "type": "Santa Monica collection",
+        "title": "Santa Monica AI Pioneers Sharks Team Shirts",
+        "description": "Approved black-and-emerald binary 1/0 designs for men's and women's football, basketball, and soccer shirts. Size, fabric, personalization, availability, and fulfillment are confirmed before checkout.",
+        "imageAlt": "Santa Monica AI Pioneers Sharks black-and-emerald binary team shirt collection for men and women"
+      },
+      "paloAltoSharksShirts": {
+        "type": "Palo Alto collection",
+        "title": "Palo Alto AI Pioneers Sharks Team Shirts",
+        "description": "Approved black-and-emerald binary 1/0 designs for men's and women's football, basketball, and soccer shirts. Size, fabric, personalization, availability, and fulfillment are confirmed before checkout.",
+        "imageAlt": "Palo Alto AI Pioneers Sharks black-and-emerald binary team shirt collection for men and women"
       },
       "digitalUniShirt": {
         "title": "Digital-UNI Classic Shirt",
@@ -472,7 +481,7 @@
       },
       "accessories": {
         "title": "Digital-UNI Accessories Kit",
-        "description": "A proposed selection such as a cap, tote or bag, notebook, and reusable bottle, subject to final design and inventory."
+        "description": "Black-and-emerald binary accessories include mugs from $5 and soccer or basketball shoes from $45–$70. Cap pricing, sizes, inventory, and fulfillment are confirmed before checkout."
       }
     },
     "checkout": {
@@ -804,13 +813,13 @@
         "submit": "Register my support",
         "submitting": "Registering…",
         "successTitle": "Your support has been registered",
-        "successMessage": "Your signed support was accepted for delivery to Digital-UNI, with an authorized copy to the Santa Monica City Council Office.",
+        "successMessage": "Your signed support has been securely registered by Digital-UNI. Your authorization to send a copy to the Santa Monica City Council Office is recorded.",
         "invalidSubmission": "Please review the required fields and try again.",
         "submissionFailed": "We could not register your support right now. Please try again shortly.",
         "verificationFailed": "Human verification was not completed. Please try the verification again.",
         "deliveryUnavailable": "Automatic email delivery is not configured yet. Please use the direct email option below.",
         "deliveryFailed": "The email service did not accept this submission. Please use the direct email option below.",
-        "backupWarning": "The email copy was accepted, but the private campaign backup record could not be saved. You do not need to submit again.",
+        "backupWarning": "The email notification was accepted, but the private campaign record could not be saved. Keep your support reference and do not submit again.",
         "emailFallback": "Email Digital-UNI and the City Council Office directly",
         "requiredError": "This field or acknowledgement is required.",
         "emailError": "Enter a valid email address.",
@@ -830,7 +839,9 @@
           "investmentPartnership": "Investment or strategic partnership",
           "volunteer": "Volunteer or community outreach",
           "generalSupport": "General community support"
-        }
+        },
+        "referenceLabel": "Support reference",
+        "deliveryPendingWarning": "Your support is safely stored, but the email notification is pending. You do not need to submit the form again."
       }
     }
   },

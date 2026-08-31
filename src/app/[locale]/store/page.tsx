@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { getTranslations } from 'next-intl/server';
@@ -7,9 +8,25 @@ import { StoreCheckout } from './store-checkout';
 const productConfig = [
   { key: 'studentTicket', icon: 'PASS', priceEnv: 'STORE_EXPLORATORY_STUDENT_PRICE', checkoutEnv: 'STORE_EXPLORATORY_STUDENT_CHECKOUT_URL', featured: true },
   { key: 'staffTicket', icon: 'PASS', priceEnv: 'STORE_EXPLORATORY_STAFF_PRICE', checkoutEnv: 'STORE_EXPLORATORY_STAFF_CHECKOUT_URL', featured: true },
-  { key: 'sharksShirt', icon: '01', priceEnv: 'STORE_SHARKS_SHIRT_PRICE', checkoutEnv: 'STORE_SHARKS_SHIRT_CHECKOUT_URL', featured: false },
-  { key: 'digitalUniShirt', icon: 'UNI', priceEnv: 'STORE_DIGITAL_UNI_SHIRT_PRICE', checkoutEnv: 'STORE_DIGITAL_UNI_SHIRT_CHECKOUT_URL', featured: false },
-  { key: 'accessories', icon: 'KIT', priceEnv: 'STORE_ACCESSORIES_PRICE', checkoutEnv: 'STORE_ACCESSORIES_CHECKOUT_URL', featured: false }
+  { key: 'digitalUniShirt', icon: 'UNI', priceEnv: 'STORE_DIGITAL_UNI_SHIRT_PRICE', checkoutEnv: 'STORE_DIGITAL_UNI_SHIRT_CHECKOUT_URL', featured: false, defaultPrice: '$35 USD' },
+  { key: 'accessories', icon: 'KIT', priceEnv: 'STORE_ACCESSORIES_PRICE', checkoutEnv: 'STORE_ACCESSORIES_CHECKOUT_URL', featured: false, defaultPrice: '$5–$70 USD' }
+] as const;
+
+const teamShirtCollections = [
+  {
+    key: 'santaMonicaSharksShirts',
+    image: '/images/store/ai-pioneers-sharks-santa-monica-team-shirts.png',
+    priceEnv: 'STORE_SANTA_MONICA_SHARKS_SHIRT_PRICE',
+    checkoutEnv: 'STORE_SANTA_MONICA_SHARKS_SHIRT_CHECKOUT_URL',
+    defaultPrice: '$35 USD'
+  },
+  {
+    key: 'paloAltoSharksShirts',
+    image: '/images/store/ai-pioneers-sharks-palo-alto-team-shirts.png',
+    priceEnv: 'STORE_PALO_ALTO_SHARKS_SHIRT_PRICE',
+    checkoutEnv: 'STORE_PALO_ALTO_SHARKS_SHIRT_CHECKOUT_URL',
+    defaultPrice: '$35 USD'
+  }
 ] as const;
 
 function configuredValue(name: string) {
@@ -124,8 +141,38 @@ export default async function StorePage({ params }: { params: { locale: string }
           <p className="text-sm font-black uppercase tracking-[0.2em] text-highlight-turquoise">{t('merch.eyebrow')}</p>
           <h2 className="mt-3 text-3xl font-black text-navy-900 md:text-5xl">{t('merch.title')}</h2>
           <p className="mt-5 max-w-4xl text-lg leading-8 text-navy-600">{t('merch.intro')}</p>
+          <p className="mt-4 inline-flex rounded-full border border-gold-400/60 bg-gold-200/30 px-4 py-2 text-sm font-black text-navy-800">{t('merch.priceGuide')}</p>
 
-          <div className="mt-10 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+          <div className="mt-10 grid gap-8 lg:grid-cols-2">
+            {teamShirtCollections.map((product) => {
+              const price = configuredValue(product.priceEnv) || configuredValue('STORE_SHARKS_SHIRT_PRICE');
+              const checkoutUrl = configuredUrl(product.checkoutEnv) || configuredUrl('STORE_SHARKS_SHIRT_CHECKOUT_URL');
+              return (
+                <article key={product.key} className="overflow-hidden rounded-3xl border border-emerald-700/30 bg-navy-900 shadow-card">
+                  <div className="relative aspect-[4/3] bg-black">
+                    <Image
+                      src={product.image}
+                      alt={t(`products.${product.key}.imageAlt`)}
+                      fill
+                      sizes="(min-width: 1024px) 50vw, 100vw"
+                      className="object-contain"
+                    />
+                  </div>
+                  <div className="border-t border-emerald-700/30 bg-white p-7">
+                    <span className="inline-flex rounded-full bg-emerald-100 px-3 py-1 text-xs font-black uppercase tracking-wider text-emerald-800">
+                      {t(`products.${product.key}.type`)}
+                    </span>
+                    <h3 className="mt-4 text-2xl font-black text-navy-900">{t(`products.${product.key}.title`)}</h3>
+                    <p className="mt-3 text-sm leading-7 text-navy-600">{t(`products.${product.key}.description`)}</p>
+                    <p className="mt-5 text-xl font-black text-gold-600">{price || product.defaultPrice}</p>
+                    <StoreCheckout locale={locale} checkoutUrl={checkoutUrl} labels={checkoutLabels} />
+                  </div>
+                </article>
+              );
+            })}
+          </div>
+
+          <div className="mt-8 grid gap-6 md:grid-cols-2">
             {productConfig.filter((product) => !product.featured).map((product) => {
               const price = configuredValue(product.priceEnv);
               const checkoutUrl = configuredUrl(product.checkoutEnv);
@@ -137,7 +184,7 @@ export default async function StorePage({ params }: { params: { locale: string }
                   <div className="p-7">
                     <h3 className="text-2xl font-black text-navy-900">{t(`products.${product.key}.title`)}</h3>
                     <p className="mt-3 text-sm leading-7 text-navy-600">{t(`products.${product.key}.description`)}</p>
-                    <p className="mt-5 text-xl font-black text-gold-600">{price || t('pricePending')}</p>
+                    <p className="mt-5 text-xl font-black text-gold-600">{price || ('defaultPrice' in product ? product.defaultPrice : t('pricePending'))}</p>
                     <StoreCheckout locale={locale} checkoutUrl={checkoutUrl} labels={checkoutLabels} />
                   </div>
                 </article>
