@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { campaignSupportSchema, contactFormSchema } from './schemas';
+import { campaignReviewedSupportSchema, campaignSupportSchema, contactFormSchema } from './schemas';
 
 const validRequest = {
   name: 'Ada Lovelace',
@@ -63,5 +63,10 @@ describe('campaignSupportSchema', () => {
 
   it('requires authorization before copying personal information to the City Council Office', () => {
     expect(campaignSupportSchema.safeParse({ ...validCampaignSupport, cityCopyConsent: false }).success).toBe(false);
+  });
+
+  it('requires the supporter to complete the review step before final submission', () => {
+    expect(campaignReviewedSupportSchema.safeParse(validCampaignSupport).success).toBe(false);
+    expect(campaignReviewedSupportSchema.safeParse({ ...validCampaignSupport, reviewed: true }).success).toBe(true);
   });
 });

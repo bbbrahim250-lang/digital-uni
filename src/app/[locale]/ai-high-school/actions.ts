@@ -1,7 +1,11 @@
 'use server';
 
 import { createSupabaseServerClient } from '@/lib/supabase/server';
-import { campaignSupportSchema, type CampaignSupportValues } from '@/lib/schemas';
+import {
+  campaignReviewedSupportSchema,
+  type CampaignReviewedSupportValues,
+  type CampaignSupportValues
+} from '@/lib/schemas';
 import { sendTransactionalEmail } from '@/lib/email';
 
 const DIGITAL_UNI_RECIPIENTS = ['enroll@digital-uni.net', 'financial_aid@digital-uni.net'];
@@ -63,9 +67,9 @@ async function sendCampaignEmail(
 
 export async function submitCampaignSupport(
   locale: string,
-  values: CampaignSupportValues
+  values: CampaignReviewedSupportValues
 ): Promise<CampaignSubmissionResult> {
-  const parsed = campaignSupportSchema.safeParse(values);
+  const parsed = campaignReviewedSupportSchema.safeParse(values);
 
   if (!parsed.success) {
     return { ok: false, code: 'invalid_submission' };

@@ -57,6 +57,12 @@ export const campaignSupportSchema = z.object({
 
 export type CampaignSupportValues = z.infer<typeof campaignSupportSchema>;
 
+export const campaignReviewedSupportSchema = campaignSupportSchema.and(z.object({
+  reviewed: z.literal(true)
+}));
+
+export type CampaignReviewedSupportValues = z.infer<typeof campaignReviewedSupportSchema>;
+
 export const copyrightRemovalFormSchema = z.object({
   submittedByName: z.string().min(2).max(200),
   submittedByEmail: z.string().email(),

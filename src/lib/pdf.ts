@@ -3,6 +3,31 @@ import { brochureDisclaimer, type ApplicantPlan } from './applicant-planning';
 function ascii(value: string) { return value.normalize('NFKD').replace(/[^\x20-\x7E]/g, '?'); }
 function escape(value: string) { return ascii(value).replace(/([\\()])/g, '\\$1'); }
 
+function assemblePdf(objects: Array<string | Buffer>) {
+  const chunks: Buffer[] = [Buffer.from('%PDF-1.4\n', 'binary')];
+  const offsets = [0];
+  let length = chunks[0]!.length;
+
+  objects.forEach((object, index) => {
+    offsets.push(length);
+    const header = Buffer.from(`${index + 1} 0 obj\n`, 'binary');
+    const body = typeof object === 'string' ? Buffer.from(object, 'binary') : object;
+    const footer = Buffer.from('\nendobj\n', 'binary');
+    chunks.push(header, body, footer);
+    length += header.length + body.length + footer.length;
+  });
+
+  const xref = length;
+  const table = [
+    `xref\n0 ${objects.length + 1}\n`,
+    '0000000000 65535 f \n',
+    offsets.slice(1).map(offset => `${String(offset).padStart(10, '0')} 00000 n \n`).join(''),
+    `trailer << /Size ${objects.length + 1} /Root 1 0 R >>\nstartxref\n${xref}\n%%EOF`
+  ].join('');
+  chunks.push(Buffer.from(table, 'binary'));
+  return Buffer.concat(chunks);
+}
+
 export function createBrochurePdf(plan: ApplicantPlan, reference: string, generated: string) {
   const lines = [
     'DIGITAL-UNI(TM) PERSONALIZED LEARNING PATHWAY', 'Digital-UNI | www.digital-uni.net | 213-708-4890',
@@ -25,12 +50,88 @@ export function createBrochurePdf(plan: ApplicantPlan, reference: string, genera
   const objects = [
     '<< /Type /Catalog /Pages 2 0 R >>', '<< /Type /Pages /Kids [3 0 R] /Count 1 >>',
     '<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 5 0 R >> >> /Contents 4 0 R >>',
-    `<< /Length ${content.length} >>\nstream\n${content}\nendstream`, '<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>'
+    `<< /Length ${Buffer.byteLength(content, 'binary')} >>\nstream\n${content}\nendstream`,
+    '<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>'
   ];
-  let pdf = '%PDF-1.4\n'; const offsets = [0];
-  objects.forEach((object, index) => { offsets.push(pdf.length); pdf += `${index + 1} 0 obj\n${object}\nendobj\n`; });
-  const xref = pdf.length; pdf += `xref\n0 ${objects.length + 1}\n0000000000 65535 f \n`;
-  pdf += offsets.slice(1).map(offset => `${String(offset).padStart(10, '0')} 00000 n \n`).join('');
-  pdf += `trailer << /Size ${objects.length + 1} /Root 1 0 R >>\nstartxref\n${xref}\n%%EOF`;
-  return Buffer.from(pdf, 'binary');
+  return assemblePdf(objects);
+}
+
+export type CommunitySupportLetterInput = {
+  generated: string;
+  reference: string;
+  name: string;
+  email: string;
+  phone?: string;
+  zipCode: string;
+  connection: string;
+  interest: string;
+  message?: string;
+  signatureName: string;
+};
+
+export function createCommunitySupportLetterPdf(
+  input: CommunitySupportLetterInput,
+  teamLogoJpeg: Buffer,
+  logoSize: { width: number; height: number }
+) {
+  const letterLines = [
+    'DIGITAL-UNI(TM) AI HIGH SCHOOL - SANTA MONICA',
+    'AI PIONEERS SHARKS | COMMUNITY SUPPORT REVIEW LETTER',
+    'www.digital-uni.net | enroll@digital-uni.net | 213-708-4890',
+    '',
+    'DRAFT REVIEW COPY - NOT SUBMITTED',
+    `Review reference: ${input.reference}`,
+    `Prepared: ${input.generated}`,
+    '',
+    'Subject: Community support for the proposed Santa Monica AI-Native Private High School',
+    '',
+    'To Digital-UNI and the Santa Monica City Council Office:',
+    '',
+    `I, ${input.name}, register my community support for the proposed Digital-UNI Santa Monica AI High School initiative and its AI Pioneers Sharks athletics program.`,
+    '',
+    `Community connection: ${input.connection}`,
+    `Primary area of interest: ${input.interest}`,
+    `ZIP code: ${input.zipCode}`,
+    `Email: ${input.email}`,
+    `Phone: ${input.phone || 'Not provided'}`,
+    '',
+    'Supporter comment:',
+    input.message || 'No additional comment provided.',
+    '',
+    `Electronic signature: ${input.signatureName}`,
+    '',
+    'I confirm that my typed name is my electronic signature and that the information above is accurate. I authorize Digital-UNI to register this support and send a copy to the Santa Monica City Council Office.',
+    '',
+    'LEGAL NOTICE: This is a community-support registration, not a statutory municipal initiative or ballot-petition signature. Site control, school authorization, land-use review, historic preservation, permits, financing, and public approvals remain required.',
+    '',
+    'Review this letter carefully. Use Make Changes if anything is incorrect. The final Submit Support button is the action that sends and stores the submission.'
+  ];
+
+  const wrapped = letterLines.flatMap(line => line.match(/.{1,78}(?:\s|$)/g)?.map(value => value.trim()) ?? ['']);
+  const textCommands = wrapped.slice(0, 45).map((line, index) => {
+    const font = index < 2 || line === 'DRAFT REVIEW COPY - NOT SUBMITTED' ? '/F2' : '/F1';
+    const size = index === 0 ? 15 : index === 1 ? 11 : 9;
+    return `BT ${font} ${size} Tf 48 ${750 - index * 15} Td (${escape(line)}) Tj ET`;
+  });
+  const content = [
+    '0.02 0.17 0.14 rg 0 770 612 22 re f',
+    '0.83 0.66 0.24 RG 1.5 w 48 704 m 564 704 l S',
+    'q 82 0 0 96 478 658 cm /Im1 Do Q',
+    ...textCommands
+  ].join('\n');
+  const imageObject = Buffer.concat([
+    Buffer.from(`<< /Type /XObject /Subtype /Image /Width ${logoSize.width} /Height ${logoSize.height} /ColorSpace /DeviceRGB /BitsPerComponent 8 /Filter /DCTDecode /Length ${teamLogoJpeg.length} >>\nstream\n`, 'binary'),
+    teamLogoJpeg,
+    Buffer.from('\nendstream', 'binary')
+  ]);
+  const objects: Array<string | Buffer> = [
+    '<< /Type /Catalog /Pages 2 0 R >>',
+    '<< /Type /Pages /Kids [3 0 R] /Count 1 >>',
+    '<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 5 0 R /F2 6 0 R >> /XObject << /Im1 7 0 R >> >> /Contents 4 0 R >>',
+    `<< /Length ${Buffer.byteLength(content, 'binary')} >>\nstream\n${content}\nendstream`,
+    '<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>',
+    '<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >>',
+    imageObject
+  ];
+  return assemblePdf(objects);
 }

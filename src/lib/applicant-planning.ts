@@ -150,11 +150,15 @@ export const planSchema = aiGeneratedPlanSchema.extend({
   paymentSchedule: z.array(z.string()).min(1).max(12)
 });
 
-export const submissionSchema = z.object({
+export const applicantReviewSchema = z.object({
   answers: applicantAnswersSchema,
   plan: planSchema,
-  planToken: z.string().min(40).max(200),
+  planToken: z.string().min(40).max(200)
+});
+
+export const submissionSchema = applicantReviewSchema.extend({
   consent: z.literal(true),
+  reviewed: z.literal(true),
   website: z.string().max(0).optional()
 });
 

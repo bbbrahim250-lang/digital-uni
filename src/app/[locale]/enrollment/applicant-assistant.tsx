@@ -38,6 +38,14 @@ const copy = {
     edit: 'Edit Answers',
     regenerate: 'Regenerate Plan',
     approve: 'Reserve Itinerary & Generate Brochure',
+    prepareReview: 'Review brochure and résumé',
+    preparingReview: 'Preparing private review…',
+    reviewReadyTitle: 'Your application package is ready to review',
+    reviewReadyText: 'Nothing has been submitted yet. Open both files, confirm the brochure and résumé are correct, then submit personally or return to make changes.',
+    openBrochureReview: 'Open brochure review copy',
+    openResumeReview: 'Open attached résumé',
+    makeChanges: 'Make Changes',
+    submitApplication: 'Submit Application',
     cancel: 'Cancel',
     preview: 'Live ticket and brochure preview',
     review: 'Review your proposed route before submission',
@@ -68,6 +76,14 @@ const copy = {
     edit: 'Modifier les réponses',
     regenerate: 'Régénérer le plan',
     approve: 'Réserver l’itinéraire et créer la brochure',
+    prepareReview: 'Vérifier la brochure et le CV',
+    preparingReview: 'Préparation de la vérification privée…',
+    reviewReadyTitle: 'Votre dossier est prêt à être vérifié',
+    reviewReadyText: 'Rien n’a encore été envoyé. Ouvrez les deux fichiers, confirmez la brochure et le CV, puis envoyez personnellement votre demande ou revenez pour apporter des modifications.',
+    openBrochureReview: 'Ouvrir la brochure à vérifier',
+    openResumeReview: 'Ouvrir le CV joint',
+    makeChanges: 'Apporter des modifications',
+    submitApplication: 'Envoyer la demande',
     cancel: 'Annuler',
     preview: 'Aperçu du billet et de la brochure',
     review: 'Vérifiez votre parcours proposé avant l’envoi',
@@ -98,6 +114,14 @@ const copy = {
     edit: 'تعديل الإجابات',
     regenerate: 'إعادة إنشاء الخطة',
     approve: 'حجز خط السير وإنشاء الكتيب',
+    prepareReview: 'مراجعة الكتيب والسيرة الذاتية',
+    preparingReview: 'جارٍ إعداد نسخة المراجعة الخاصة…',
+    reviewReadyTitle: 'ملف طلبك جاهز للمراجعة',
+    reviewReadyText: 'لم يتم إرسال أي شيء بعد. افتح الملفين وتأكد من صحة الكتيب والسيرة الذاتية، ثم أرسل الطلب بنفسك أو ارجع لإجراء التعديلات.',
+    openBrochureReview: 'فتح نسخة مراجعة الكتيب',
+    openResumeReview: 'فتح السيرة الذاتية المرفقة',
+    makeChanges: 'إجراء تعديلات',
+    submitApplication: 'إرسال الطلب',
     cancel: 'إلغاء',
     preview: 'معاينة التذكرة والكتيب',
     review: 'راجع المسار المقترح قبل الإرسال',
@@ -333,6 +357,9 @@ export function ApplicantAssistant({ locale, enabled }: { locale: Locale; enable
   const [error, setError] = useState('');
   const [consent, setConsent] = useState(false);
   const [result, setResult] = useState<{ reference: string; brochureUrl: string; emailDelivered: boolean } | null>(null);
+  const [reviewReady, setReviewReady] = useState(false);
+  const [brochureReviewUrl, setBrochureReviewUrl] = useState('');
+  const [resumeReviewUrl, setResumeReviewUrl] = useState('');
   const [explorationTopic, setExplorationTopic] = useState<string>(explorationTopics[locale][0]);
   const [explorationPrompt, setExplorationPrompt] = useState('');
   const [explorationRunning, setExplorationRunning] = useState(false);
@@ -344,12 +371,25 @@ export function ApplicantAssistant({ locale, enabled }: { locale: Locale; enable
   );
 
   function clearGeneratedPlan() {
+    clearReview();
     setPlan(null);
     setPlanToken('');
     setResult(null);
     setResume(null);
     setConsent(false);
     setError('');
+  }
+
+  function clearReview() {
+    setReviewReady(false);
+    setBrochureReviewUrl(current => {
+      if (current) URL.revokeObjectURL(current);
+      return '';
+    });
+    setResumeReviewUrl(current => {
+      if (current) URL.revokeObjectURL(current);
+      return '';
+    });
   }
 
   function selectTrack(track: PathwayTrack) {
@@ -420,6 +460,7 @@ export function ApplicantAssistant({ locale, enabled }: { locale: Locale; enable
   }
 
   async function submit() {
+    if (!reviewReady) return setError('Review the brochure and résumé before submitting.');
     if (!consent || !plan || !planToken) return setError('Explicit consent and a valid plan are required.');
     if (!resume) return setError('Please attach your résumé as a PDF or DOCX file.');
     const formData = new FormData();
@@ -427,6 +468,7 @@ export function ApplicantAssistant({ locale, enabled }: { locale: Locale; enable
     formData.set('plan', JSON.stringify(plan));
     formData.set('planToken', planToken);
     formData.set('consent', String(consent));
+    formData.set('reviewed', 'true');
     formData.set('website', '');
     formData.set('resume', resume);
     setBusy(true);
@@ -435,10 +477,39 @@ export function ApplicantAssistant({ locale, enabled }: { locale: Locale; enable
     const data = await response.json();
     setBusy(false);
     if (!response.ok) return setError(`${data.error}${data.reference ? ` Reference: ${data.reference}` : ''}`);
+    clearReview();
     setResult(data);
   }
 
+  async function prepareReview() {
+    if (!consent || !plan || !planToken) return setError('Explicit consent and a valid plan are required.');
+    if (!resume) return setError('Please attach your résumé as a PDF or DOCX file.');
+
+    setBusy(true);
+    setError('');
+    const response = await fetch('/api/applicant-preview', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ answers, plan, planToken })
+    });
+
+    if (!response.ok) {
+      const data = await response.json().catch(() => ({ error: 'The review package could not be created.' }));
+      setBusy(false);
+      return setError(data.error);
+    }
+
+    const brochureUrl = URL.createObjectURL(await response.blob());
+    const resumeUrl = URL.createObjectURL(resume);
+    clearReview();
+    setBrochureReviewUrl(brochureUrl);
+    setResumeReviewUrl(resumeUrl);
+    setReviewReady(true);
+    setBusy(false);
+  }
+
   function cancel() {
+    clearReview();
     setAnswers(createInitialAnswers());
     setPlannerWindow('professional');
     setPlan(null);
@@ -452,6 +523,11 @@ export function ApplicantAssistant({ locale, enabled }: { locale: Locale; enable
     setExplorationPassReady(false);
     setError('');
   }
+
+  useEffect(() => () => {
+    if (brochureReviewUrl) URL.revokeObjectURL(brochureReviewUrl);
+    if (resumeReviewUrl) URL.revokeObjectURL(resumeReviewUrl);
+  }, [brochureReviewUrl, resumeReviewUrl]);
 
   useEffect(() => {
     fetch('/api/applicant-status', { cache: 'no-store' })
@@ -730,43 +806,70 @@ export function ApplicantAssistant({ locale, enabled }: { locale: Locale; enable
 
             {plan && !result ? (
               <div>
-                <h3 className="text-xl font-bold">{t.review}</h3>
-                <p className="mt-3 text-sm">{t.estimateNotice}</p>
-                <div className="mt-5 rounded-lg border border-navy-100 p-4">
-                  <label className="block text-sm font-bold" htmlFor="applicant-resume">{t.resumeLabel}</label>
-                  <p id="applicant-resume-help" className="mt-2 text-xs leading-5 text-navy-600">{t.resumeHelp}</p>
-                  <input
-                    id="applicant-resume"
-                    type="file"
-                    required
-                    accept=".pdf,.docx,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-                    aria-describedby="applicant-resume-help"
-                    onChange={event => {
-                      const file = event.target.files?.[0] ?? null;
-                      if (file && file.size > 3 * 1024 * 1024) {
-                        event.target.value = '';
-                        setResume(null);
-                        setError('The résumé must be 3 MB or smaller.');
-                        return;
-                      }
-                      setResume(file);
-                      setError('');
-                    }}
-                    className="mt-3 block w-full text-sm file:me-4 file:rounded-md file:border-0 file:bg-navy-900 file:px-4 file:py-3 file:font-bold file:text-white"
-                  />
-                  {resume ? <p className="mt-2 break-all text-xs font-semibold text-emerald-700">Selected: {resume.name}</p> : null}
-                </div>
-                <label className="mt-5 flex gap-3 rounded-lg bg-navy-50 p-4 text-sm">
-                  <input type="checkbox" checked={consent} onChange={event => setConsent(event.target.checked)} className="h-6 w-6 shrink-0" />
-                  {t.consent}
-                </label>
-                <p className="mt-3 text-xs leading-5">{t.privacy}</p>
-                <div className="mt-5 grid gap-3 sm:grid-cols-2">
-                  <button type="button" onClick={() => { setPlan(null); setPlanToken(''); setStep(0); }} className="min-h-12 rounded-lg border font-bold">{t.edit}</button>
-                  <button type="button" onClick={() => void generate()} disabled={busy} className="min-h-12 rounded-lg border font-bold">{t.regenerate}</button>
-                  <button type="button" onClick={() => void submit()} disabled={busy || !consent || !resume} className="min-h-14 rounded-lg bg-gold-500 px-3 font-bold disabled:opacity-50">{t.approve}</button>
-                  <button type="button" onClick={cancel} className="min-h-14 rounded-lg bg-navy-100 font-bold">{t.cancel}</button>
-                </div>
+                {!reviewReady ? (
+                  <>
+                    <h3 className="text-xl font-bold">{t.review}</h3>
+                    <p className="mt-3 text-sm">{t.estimateNotice}</p>
+                    <div className="mt-5 rounded-lg border border-navy-100 p-4">
+                      <label className="block text-sm font-bold" htmlFor="applicant-resume">{t.resumeLabel}</label>
+                      <p id="applicant-resume-help" className="mt-2 text-xs leading-5 text-navy-600">{t.resumeHelp}</p>
+                      <input
+                        id="applicant-resume"
+                        type="file"
+                        required
+                        accept=".pdf,.docx,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+                        aria-describedby="applicant-resume-help"
+                        onChange={event => {
+                          const file = event.target.files?.[0] ?? null;
+                          clearReview();
+                          if (file && file.size > 3 * 1024 * 1024) {
+                            event.target.value = '';
+                            setResume(null);
+                            setError('The résumé must be 3 MB or smaller.');
+                            return;
+                          }
+                          setResume(file);
+                          setError('');
+                        }}
+                        className="mt-3 block w-full text-sm file:me-4 file:rounded-md file:border-0 file:bg-navy-900 file:px-4 file:py-3 file:font-bold file:text-white"
+                      />
+                      {resume ? <p className="mt-2 break-all text-xs font-semibold text-emerald-700">Selected: {resume.name}</p> : null}
+                    </div>
+                    <label className="mt-5 flex gap-3 rounded-lg bg-navy-50 p-4 text-sm">
+                      <input type="checkbox" checked={consent} onChange={event => { setConsent(event.target.checked); clearReview(); }} className="h-6 w-6 shrink-0" />
+                      {t.consent}
+                    </label>
+                    <p className="mt-3 text-xs leading-5">{t.privacy}</p>
+                    <div className="mt-5 grid gap-3 sm:grid-cols-2">
+                      <button type="button" onClick={() => { clearReview(); setPlan(null); setPlanToken(''); setStep(0); }} className="min-h-12 rounded-lg border font-bold">{t.edit}</button>
+                      <button type="button" onClick={() => { clearReview(); void generate(); }} disabled={busy} className="min-h-12 rounded-lg border font-bold">{t.regenerate}</button>
+                      <button type="button" onClick={() => void prepareReview()} disabled={busy || !consent || !resume} className="min-h-14 rounded-lg bg-gold-500 px-3 font-bold disabled:opacity-50 sm:col-span-2">
+                        {busy ? t.preparingReview : t.prepareReview}
+                      </button>
+                      <button type="button" onClick={cancel} className="min-h-12 rounded-lg bg-navy-100 font-bold sm:col-span-2">{t.cancel}</button>
+                    </div>
+                  </>
+                ) : (
+                  <div className="rounded-2xl border-2 border-emerald-300 bg-emerald-50 p-5">
+                    <p className="text-xs font-black uppercase tracking-[.16em] text-emerald-700">Final review · not submitted</p>
+                    <h3 className="mt-2 text-xl font-black text-navy-900">{t.reviewReadyTitle}</h3>
+                    <p className="mt-3 text-sm leading-6 text-navy-700">{t.reviewReadyText}</p>
+                    <div className="mt-5 grid gap-3">
+                      <a href={brochureReviewUrl} target="_blank" rel="noreferrer" className="inline-flex min-h-12 items-center justify-center rounded-lg bg-navy-900 px-4 text-center font-bold text-white">
+                        {t.openBrochureReview}
+                      </a>
+                      <a href={resumeReviewUrl} target="_blank" rel="noreferrer" className="inline-flex min-h-12 items-center justify-center rounded-lg border border-navy-200 bg-white px-4 text-center font-bold text-navy-900">
+                        {t.openResumeReview}: {resume?.name}
+                      </a>
+                    </div>
+                    <div className="mt-5 grid gap-3 sm:grid-cols-2">
+                      <button type="button" onClick={clearReview} disabled={busy} className="min-h-12 rounded-lg border border-navy-200 bg-white font-bold text-navy-900">{t.makeChanges}</button>
+                      <button type="button" onClick={() => void submit()} disabled={busy} className="min-h-12 rounded-lg bg-gold-500 px-4 font-black text-navy-900 disabled:opacity-50">
+                        {busy ? '…' : t.submitApplication}
+                      </button>
+                    </div>
+                  </div>
+                )}
               </div>
             ) : null}
 
