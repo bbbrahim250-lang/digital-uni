@@ -115,8 +115,20 @@ export async function POST(request: NextRequest) {
     })
   ]);
   const accepted = internalDelivery.accepted && applicantDelivery.accepted;
-  if (!accepted) return NextResponse.json({ error: 'Your application was stored, but the email provider did not accept every notification. Please contact enroll@digital-uni.net and quote your reference.', reference }, { status: 502 });
+  if (!accepted) {
+    console.warn('applicant_workflow_notification_pending', {
+      reference,
+      internalAccepted: internalDelivery.accepted,
+      applicantAccepted: applicantDelivery.accepted
+    });
+    return NextResponse.json({
+      submitted: true,
+      reference,
+      brochureUrl: signed.data.signedUrl,
+      emailDelivered: false
+    });
+  }
   await supabase.from('applicant_plans').update({ status: 'notified' }).eq('reference', reference);
   console.info('Applicant workflow notification accepted', { reference, financialAid: parsed.data.answers.financialAid });
-  return NextResponse.json({ submitted: true, reference, brochureUrl: signed.data.signedUrl });
+  return NextResponse.json({ submitted: true, reference, brochureUrl: signed.data.signedUrl, emailDelivered: true });
 }
