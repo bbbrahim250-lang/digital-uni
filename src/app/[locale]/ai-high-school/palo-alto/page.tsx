@@ -39,12 +39,12 @@ export default async function PaloAltoAiHighSchoolPage({ params }: { params: { l
 
           <aside className="flex items-center gap-4 rounded-3xl border border-gold-400/35 bg-white/[0.06] p-5 shadow-2xl backdrop-blur sm:gap-6 sm:p-7">
             <Image
-              src="/images/digital-uni-ai-pioneers-shark-logo.png"
-              alt={campuses('fundPage.logoAlt')}
-              width={230}
-              height={242}
-              sizes="(max-width: 640px) 140px, 200px"
-              className="h-auto w-32 shrink-0 object-contain sm:w-44"
+              src="/images/digital-uni-ai-pioneers-sharks-palo-alto.webp"
+              alt={campuses('fundPage.paloAltoLogoAlt')}
+              width={1217}
+              height={1293}
+              sizes="(max-width: 640px) 128px, 176px"
+              className="h-auto w-32 shrink-0 rounded-xl bg-white object-contain sm:w-44"
             />
             <div>
               <p className="text-xs font-black uppercase tracking-[0.16em] text-highlight-turquoise">Digital-UNI</p>

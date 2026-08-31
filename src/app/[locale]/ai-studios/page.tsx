@@ -120,6 +120,60 @@ export default async function AiStudiosPage({ params }: { params: { locale: stri
         </div>
       </section>
 
+      <section id="exploratory-ticket" className="bg-white px-4 py-16 md:py-20">
+        <div className="mx-auto max-w-7xl overflow-hidden rounded-3xl border-2 border-dashed border-gold-500 bg-[linear-gradient(135deg,#fffdf5,#f5fbff)] shadow-card">
+          <div className="flex flex-wrap items-center justify-between gap-3 border-b border-dashed border-gold-500/60 bg-navy-900 px-6 py-4 text-white md:px-9">
+            <div>
+              <p className="text-xs font-black uppercase tracking-[0.2em] text-gold-400">{t('exploration.eyebrow')}</p>
+              <p className="mt-1 text-sm font-bold">{t('exploration.ticketNumber')}</p>
+            </div>
+            <span className="rounded-full border border-highlight-turquoise/40 bg-highlight-turquoise/10 px-4 py-2 text-xs font-black uppercase tracking-wider text-highlight-turquoise">
+              {t('exploration.status')}
+            </span>
+          </div>
+
+          <div className="p-6 md:p-10">
+            <h2 className="max-w-5xl text-3xl font-black text-navy-900 md:text-5xl">{t('exploration.title')}</h2>
+            <p className="mt-5 max-w-5xl text-lg leading-8 text-navy-600">{t('exploration.intro')}</p>
+
+            <div className="mt-10 grid gap-6 lg:grid-cols-2">
+              <article className="rounded-2xl border border-navy-100 bg-white p-7">
+                <span className="text-xs font-black uppercase tracking-[0.16em] text-gold-600">{t('exploration.consultation.label')}</span>
+                <h3 className="mt-3 text-2xl font-black text-navy-900">{t('exploration.consultation.title')}</h3>
+                <p className="mt-3 text-sm leading-7 text-navy-600">{t('exploration.consultation.description')}</p>
+                <div className="mt-5 flex flex-wrap gap-2">
+                  {['Netflix', 'Hulu', 'Tubi', 'Pluto TV', 'Prime Video', 'Apple TV+'].map((platform) => (
+                    <span key={platform} className="rounded-full bg-navy-50 px-3 py-1.5 text-xs font-bold text-navy-700">{platform}</span>
+                  ))}
+                </div>
+              </article>
+
+              <article className="rounded-2xl border border-highlight-turquoise/30 bg-navy-900 p-7 text-white">
+                <span className="text-xs font-black uppercase tracking-[0.16em] text-highlight-turquoise">{t('exploration.algorithm.label')}</span>
+                <h3 className="mt-3 text-2xl font-black">{t('exploration.algorithm.title')}</h3>
+                <p className="mt-3 text-sm leading-7 text-navy-50/75">{t('exploration.algorithm.description')}</p>
+                <ol className="mt-6 grid gap-3">
+                  {(['start', 'match', 'rank', 'display'] as const).map((step, index) => (
+                    <li key={step} className="flex items-start gap-3 rounded-xl bg-white/5 p-3 text-sm">
+                      <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-gold-500 text-xs font-black text-navy-900">{index + 1}</span>
+                      <span className="pt-1 leading-5">{t(`exploration.algorithm.steps.${step}`)}</span>
+                    </li>
+                  ))}
+                </ol>
+              </article>
+            </div>
+
+            <div className="mt-7 rounded-xl border border-navy-100 bg-navy-50 p-5 text-sm leading-7 text-navy-600">
+              <strong className="text-navy-900">{t('exploration.safeguardTitle')}</strong> {t('exploration.safeguard')}
+            </div>
+
+            <Link href={`/${locale}/store#exploratory-ticket`} className="mt-7 inline-flex rounded-lg bg-navy-900 px-5 py-3 font-bold text-white transition hover:bg-navy-600">
+              {t('exploration.cta')}
+            </Link>
+          </div>
+        </div>
+      </section>
+
       <section id="platform-pathways" className="scroll-mt-24 bg-navy-50 px-4 py-16 md:py-20">
         <div className="mx-auto max-w-7xl">
           <p className="text-sm font-black uppercase tracking-[0.2em] text-highlight-electric">{t('platformEyebrow')}</p>

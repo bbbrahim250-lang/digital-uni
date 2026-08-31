@@ -7,6 +7,20 @@ import { isValidLocale, type Locale } from '@/i18n/config';
 
 const supportKeys = ['athletics', 'aiLabs', 'scholarships', 'community'] as const;
 const campusKeys = ['santaMonica', 'paloAlto'] as const;
+const campusLogos = {
+  santaMonica: {
+    src: '/images/digital-uni-ai-pioneers-sharks-santa-monica.webp',
+    width: 1122,
+    height: 1402,
+    altKey: 'santaMonicaLogoAlt'
+  },
+  paloAlto: {
+    src: '/images/digital-uni-ai-pioneers-sharks-palo-alto.webp',
+    width: 1217,
+    height: 1293,
+    altKey: 'paloAltoLogoAlt'
+  }
+} as const;
 
 export async function generateMetadata({ params }: { params: { locale: string } }): Promise<Metadata> {
   if (!isValidLocale(params.locale)) notFound();
@@ -18,7 +32,10 @@ export async function generateMetadata({ params }: { params: { locale: string } 
     openGraph: {
       title: t('metaTitle'),
       description: t('metaDescription'),
-      images: ['/images/digital-uni-ai-pioneers-shark-logo.png']
+      images: [
+        '/images/digital-uni-ai-pioneers-sharks-santa-monica.webp',
+        '/images/digital-uni-ai-pioneers-sharks-palo-alto.webp'
+      ]
     }
   };
 }
@@ -37,16 +54,23 @@ export default async function AiPioneersFundPage({ params }: { params: { locale:
         <div aria-hidden="true" className="absolute inset-0 bg-[radial-gradient(circle_at_18%_28%,rgba(47,182,168,.28),transparent_27%),radial-gradient(circle_at_82%_78%,rgba(217,181,89,.2),transparent_30%)]" />
         <div aria-hidden="true" className="absolute inset-0 opacity-10 [background-image:linear-gradient(rgba(255,255,255,.14)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.14)_1px,transparent_1px)] [background-size:44px_44px]" />
         <div className="relative mx-auto grid max-w-7xl items-center gap-10 lg:grid-cols-[.9fr_1.1fr]">
-          <div className="mx-auto w-full max-w-xl">
-            <Image
-              src="/images/digital-uni-ai-pioneers-shark-logo.png"
-              alt={t('logoAlt')}
-              width={1221}
-              height={1288}
-              priority
-              sizes="(max-width: 1024px) 88vw, 520px"
-              className="h-auto w-full drop-shadow-[0_28px_42px_rgba(0,0,0,.45)]"
-            />
+          <div className="mx-auto grid w-full max-w-xl grid-cols-2 items-center gap-3 sm:gap-5">
+            {campusKeys.map((key) => {
+              const logo = campusLogos[key];
+              return (
+                <div key={key} className="rounded-2xl bg-white p-2 shadow-2xl shadow-black/40 sm:p-3">
+                  <Image
+                    src={logo.src}
+                    alt={t(logo.altKey)}
+                    width={logo.width}
+                    height={logo.height}
+                    priority
+                    sizes="(max-width: 1024px) 42vw, 250px"
+                    className="h-auto w-full object-contain"
+                  />
+                </div>
+              );
+            })}
           </div>
 
           <div>
@@ -77,12 +101,12 @@ export default async function AiPioneersFundPage({ params }: { params: { locale:
               <article key={key} className={`overflow-hidden rounded-3xl border p-8 shadow-card ${index === 0 ? 'border-highlight-turquoise/40 bg-gradient-to-br from-white to-emerald-50' : 'border-gold-400/40 bg-gradient-to-br from-white to-gold-200/30'}`}>
                 <div className="flex flex-col gap-6 sm:flex-row sm:items-center">
                   <Image
-                    src="/images/digital-uni-ai-pioneers-shark-logo.png"
-                    alt=""
-                    width={190}
-                    height={200}
+                    src={campusLogos[key].src}
+                    alt={t(campusLogos[key].altKey)}
+                    width={campusLogos[key].width}
+                    height={campusLogos[key].height}
                     sizes="190px"
-                    className="h-36 w-36 shrink-0 object-contain"
+                    className="h-44 w-40 shrink-0 rounded-xl bg-white object-contain p-1"
                   />
                   <div>
                     <p className="text-xs font-black uppercase tracking-[0.18em] text-gold-600">{t(`campuses.${key}.status`)}</p>

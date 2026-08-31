@@ -98,12 +98,12 @@ export default async function AiHighSchoolPage({ params }: { params: { locale: s
             <figcaption className="mt-4 rounded-xl border border-white/15 bg-white/5 p-4 text-sm leading-6 text-navy-50/80">{t('founderCredential')}</figcaption>
             <div className="mt-4 flex items-center gap-4 rounded-2xl border border-gold-400/30 bg-white/[0.06] p-4 shadow-xl backdrop-blur">
               <Image
-                src="/images/digital-uni-ai-pioneers-shark-logo.png"
-                alt={campuses('fundPage.logoAlt')}
-                width={112}
-                height={112}
-                sizes="112px"
-                className="h-24 w-24 shrink-0 object-contain md:h-28 md:w-28"
+                src="/images/digital-uni-ai-pioneers-sharks-santa-monica.webp"
+                alt={campuses('fundPage.santaMonicaLogoAlt')}
+                width={1122}
+                height={1402}
+                sizes="(max-width: 768px) 96px, 112px"
+                className="h-28 w-24 shrink-0 rounded-lg bg-white object-contain md:h-32 md:w-28"
               />
               <div>
                 <p className="text-xs font-black uppercase tracking-[0.14em] text-highlight-turquoise">Digital-UNI</p>
@@ -229,6 +229,16 @@ export default async function AiHighSchoolPage({ params }: { params: { locale: s
             <p className="text-sm font-bold uppercase tracking-[0.2em] text-highlight-turquoise">{t('supportKicker')}</p>
             <h2 className="mt-3 text-3xl font-black tracking-tight text-navy-900 md:text-5xl">{t('supportTitle')}</h2>
             <p className="mt-5 text-lg leading-8 text-navy-600">{t('supportIntro')}</p>
+            <div className="mt-8 flex justify-center rounded-2xl border border-navy-100 bg-white p-4 shadow-card">
+              <Image
+                src="/images/digital-uni-ai-pioneers-sharks-santa-monica.webp"
+                alt={campuses('fundPage.santaMonicaLogoAlt')}
+                width={1122}
+                height={1402}
+                sizes="240px"
+                className="h-auto w-60 object-contain"
+              />
+            </div>
             <div className="mt-8 rounded-2xl bg-navy-900 p-6 text-white">
               <h3 className="text-xl font-bold text-gold-400">{t('legalTitle')}</h3>
               <p className="mt-3 text-sm leading-7 text-navy-50/80">{t('legalText')}</p>
