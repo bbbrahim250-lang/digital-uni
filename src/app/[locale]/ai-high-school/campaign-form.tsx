@@ -1,6 +1,7 @@
 'use client';
 
-import { useCallback, useState } from 'react';
+import Image from 'next/image';
+import { useCallback, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import {
@@ -33,6 +34,15 @@ export type CampaignFormCopy = {
   verificationUnavailable: string;
   submit: string;
   submitting: string;
+  reviewButton: string;
+  reviewCreating: string;
+  reviewTitle: string;
+  reviewIntro: string;
+  reviewNotice: string;
+  downloadLetter: string;
+  makeChanges: string;
+  finalSubmit: string;
+  finalSubmitting: string;
   successTitle: string;
   successMessage: string;
   referenceLabel: string;
@@ -72,6 +82,9 @@ export function CampaignForm({
   const [backupStored, setBackupStored] = useState(true);
   const [emailDelivered, setEmailDelivered] = useState(true);
   const [reference, setReference] = useState('');
+  const [reviewValues, setReviewValues] = useState<CampaignSupportValues | null>(null);
+  const [letterUrl, setLetterUrl] = useState('');
+  const [reviewSubmitting, setReviewSubmitting] = useState(false);
   const {
     register,
     handleSubmit,
@@ -104,16 +117,50 @@ export function CampaignForm({
     [setValue]
   );
 
-  async function onSubmit(values: CampaignSupportValues) {
+  function clearReviewLetter() {
+    setLetterUrl(current => {
+      if (current) URL.revokeObjectURL(current);
+      return '';
+    });
+  }
+
+  async function beginReview(values: CampaignSupportValues) {
     setServerError(null);
     setStatus('idle');
-    const result = await submitCampaignSupport(locale, values);
+    const response = await fetch('/api/community-support-preview', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(values)
+    });
+
+    if (!response.ok) {
+      const data = await response.json().catch(() => ({ error: copy.submissionFailed }));
+      setStatus('error');
+      setServerError(data.error ?? copy.submissionFailed);
+      return;
+    }
+
+    const url = URL.createObjectURL(await response.blob());
+    clearReviewLetter();
+    setLetterUrl(url);
+    setReviewValues(values);
+  }
+
+  async function submitReviewed() {
+    if (!reviewValues) return;
+    setServerError(null);
+    setStatus('idle');
+    setReviewSubmitting(true);
+    const result = await submitCampaignSupport(locale, { ...reviewValues, reviewed: true });
+    setReviewSubmitting(false);
 
     if (result.ok) {
       setStatus('success');
       setBackupStored(result.backupStored);
       setEmailDelivered(result.emailDelivered);
       setReference(result.reference);
+      setReviewValues(null);
+      clearReviewLetter();
       reset({
         submissionId: createSubmissionId(),
         name: '', email: '', phone: '', zipCode: '', connection: 'resident', interest: 'general_support',
@@ -132,6 +179,10 @@ export function CampaignForm({
     } as const;
     setServerError(errorCopy[result.code] ?? copy.submissionFailed);
   }
+
+  useEffect(() => () => {
+    if (letterUrl) URL.revokeObjectURL(letterUrl);
+  }, [letterUrl]);
 
   if (status === 'success') {
     return (
@@ -154,11 +205,89 @@ export function CampaignForm({
     );
   }
 
+  if (reviewValues && letterUrl) {
+    const reviewReference = `DU-SM-${reviewValues.submissionId.slice(0, 8).toUpperCase()}`;
+    return (
+      <div className="overflow-hidden rounded-2xl border-2 border-emerald-300 bg-white shadow-card">
+        <div className="flex flex-col gap-5 bg-gradient-to-r from-navy-900 via-emerald-950 to-navy-900 p-6 text-white sm:flex-row sm:items-center">
+          <Image
+            src="/images/digital-uni-ai-pioneers-sharks-santa-monica.webp"
+            alt="Digital-UNI Santa Monica AI Pioneers Sharks team logo"
+            width={1122}
+            height={1402}
+            sizes="96px"
+            className="h-28 w-24 shrink-0 rounded-xl bg-white object-contain"
+          />
+          <div>
+            <p className="text-xs font-black uppercase tracking-[.18em] text-gold-400">Digital-UNI AI High School · Santa Monica</p>
+            <h3 className="mt-2 text-2xl font-black">{copy.reviewTitle}</h3>
+            <p className="mt-2 text-sm leading-6 text-navy-50">{copy.reviewIntro}</p>
+          </div>
+        </div>
+
+        <div className="space-y-5 p-6">
+          {status === 'error' ? (
+            <div role="alert" className="rounded-xl border border-red-200 bg-red-50 p-4 text-sm text-red-800">
+              {serverError}
+            </div>
+          ) : null}
+
+          <div className="rounded-xl border border-gold-400/50 bg-gold-200/20 p-5">
+            <p className="text-xs font-black uppercase tracking-[.16em] text-gold-700">{copy.reviewNotice}</p>
+            <p className="mt-2 font-mono text-sm font-bold text-navy-900">{reviewReference}</p>
+          </div>
+
+          <dl className="grid gap-4 text-sm sm:grid-cols-2">
+            <div><dt className="font-black text-navy-900">{copy.name}</dt><dd className="mt-1 break-words text-navy-600">{reviewValues.name}</dd></div>
+            <div><dt className="font-black text-navy-900">{copy.email}</dt><dd className="mt-1 break-words text-navy-600">{reviewValues.email}</dd></div>
+            <div><dt className="font-black text-navy-900">{copy.zipCode}</dt><dd className="mt-1 text-navy-600">{reviewValues.zipCode}</dd></div>
+            <div><dt className="font-black text-navy-900">{copy.connection}</dt><dd className="mt-1 text-navy-600">{copy.connectionOptions[reviewValues.connection]}</dd></div>
+            <div className="sm:col-span-2"><dt className="font-black text-navy-900">{copy.interest}</dt><dd className="mt-1 text-navy-600">{copy.interestOptions[reviewValues.interest]}</dd></div>
+            <div className="sm:col-span-2"><dt className="font-black text-navy-900">{copy.message}</dt><dd className="mt-1 whitespace-pre-wrap text-navy-600">{reviewValues.message || '—'}</dd></div>
+            <div className="sm:col-span-2"><dt className="font-black text-navy-900">{copy.signatureName}</dt><dd className="mt-1 text-navy-600">{reviewValues.signatureName}</dd></div>
+          </dl>
+
+          <a
+            href={letterUrl}
+            download="digital-uni-santa-monica-support-review.pdf"
+            className="inline-flex min-h-12 w-full items-center justify-center rounded-xl bg-navy-900 px-5 text-center font-black text-white hover:bg-navy-800"
+          >
+            {copy.downloadLetter}
+          </a>
+
+          <div className="grid gap-3 sm:grid-cols-2">
+            <button
+              type="button"
+              disabled={reviewSubmitting}
+              onClick={() => {
+                setReviewValues(null);
+                clearReviewLetter();
+                setStatus('idle');
+                setServerError(null);
+              }}
+              className="min-h-12 rounded-xl border border-navy-200 bg-white px-5 font-bold text-navy-900"
+            >
+              {copy.makeChanges}
+            </button>
+            <button
+              type="button"
+              disabled={reviewSubmitting}
+              onClick={() => void submitReviewed()}
+              className="min-h-12 rounded-xl bg-gold-500 px-5 font-black text-navy-900 shadow-lg disabled:opacity-60"
+            >
+              {reviewSubmitting ? copy.finalSubmitting : copy.finalSubmit}
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   const inputClass =
     'mt-2 w-full rounded-xl border border-navy-100 bg-white px-4 py-3 text-navy-900 shadow-sm outline-none transition focus:border-gold-500 focus:ring-2 focus:ring-gold-200';
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} noValidate className="space-y-5">
+    <form onSubmit={handleSubmit(beginReview)} noValidate className="space-y-5">
       {status === 'error' ? (
         <div role="alert" className="rounded-xl border border-red-200 bg-red-50 p-4 text-sm text-red-800">
           {serverError}
@@ -319,7 +448,7 @@ export function CampaignForm({
         disabled={isSubmitting || !turnstileSiteKey}
         className="w-full rounded-xl bg-gold-500 px-6 py-3.5 text-base font-bold text-navy-900 shadow-lg transition hover:bg-gold-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-500 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-60"
       >
-        {isSubmitting ? copy.submitting : copy.submit}
+        {isSubmitting ? copy.reviewCreating : copy.reviewButton}
       </button>
       <a href={emailFallbackHref} className="block text-center text-sm font-bold text-highlight-electric underline">
         {copy.emailFallback}

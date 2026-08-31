@@ -32,6 +32,7 @@ export async function POST(request: NextRequest) {
     plan: parseJsonField(formData, 'plan'),
     planToken: formData.get('planToken'),
     consent: formData.get('consent') === 'true',
+    reviewed: formData.get('reviewed') === 'true',
     website: formData.get('website')
   });
   if (!parsed.success) return NextResponse.json({ error: 'Explicit consent and a valid plan are required.' }, { status: 400 });
