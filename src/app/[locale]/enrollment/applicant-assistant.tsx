@@ -46,7 +46,8 @@ const copy = {
     consent: 'I explicitly consent to Digital-UNI storing and emailing this proposal and my résumé for application review. I have read the privacy and retention notice.',
     privacy: 'Data is minimized, access-restricted and retained for up to 24 months for application review unless law requires longer. Request access or deletion at enroll@digital-uni.net.',
     submitted: 'Itinerary reservation request submitted',
-    download: 'Secure brochure download'
+    download: 'Secure brochure download',
+    emailPending: 'Your brochure is ready and stored securely. Email delivery is pending; use the download button and quote your reference if you contact us.'
   },
   fr: {
     kicker: 'Planificateur de billets AI Train Digital-UNI',
@@ -75,7 +76,8 @@ const copy = {
     consent: 'Je consens explicitement au stockage et à l’envoi par courriel de cette proposition et de mon CV pour examen. J’ai lu l’avis de confidentialité et de conservation.',
     privacy: 'Les données minimales sont protégées et conservées jusqu’à 24 mois, sauf obligation légale. Demandez l’accès ou la suppression à enroll@digital-uni.net.',
     submitted: 'Demande de réservation de l’itinéraire envoyée',
-    download: 'Télécharger la brochure sécurisée'
+    download: 'Télécharger la brochure sécurisée',
+    emailPending: 'Votre brochure est prête et enregistrée en toute sécurité. L’envoi par e-mail est en attente ; utilisez le bouton de téléchargement et indiquez votre référence si vous nous contactez.'
   },
   ar: {
     kicker: 'مخطط تذكرة قطار Digital-UNI بالذكاء الاصطناعي',
@@ -104,7 +106,8 @@ const copy = {
     consent: 'أوافق صراحة على تخزين هذا المقترح وسيرتي الذاتية وإرسالهما بالبريد لمراجعة الطلب. قرأت إشعار الخصوصية والاحتفاظ.',
     privacy: 'تُحفظ البيانات الضرورية فقط مع تقييد الوصول لمدة تصل إلى 24 شهرًا ما لم يتطلب القانون غير ذلك. لطلب الوصول أو الحذف: enroll@digital-uni.net.',
     submitted: 'تم إرسال طلب حجز خط السير',
-    download: 'تنزيل الكتيب الآمن'
+    download: 'تنزيل الكتيب الآمن',
+    emailPending: 'الكتيب جاهز ومحفوظ بأمان. إرسال البريد الإلكتروني قيد الانتظار؛ استخدم زر التنزيل واذكر رقم المرجع عند التواصل معنا.'
   }
 } as const;
 
@@ -329,7 +332,7 @@ export function ApplicantAssistant({ locale, enabled }: { locale: Locale; enable
   const [resume, setResume] = useState<File | null>(null);
   const [error, setError] = useState('');
   const [consent, setConsent] = useState(false);
-  const [result, setResult] = useState<{ reference: string; brochureUrl: string } | null>(null);
+  const [result, setResult] = useState<{ reference: string; brochureUrl: string; emailDelivered: boolean } | null>(null);
   const [explorationTopic, setExplorationTopic] = useState<string>(explorationTopics[locale][0]);
   const [explorationPrompt, setExplorationPrompt] = useState('');
   const [explorationRunning, setExplorationRunning] = useState(false);
@@ -771,6 +774,7 @@ export function ApplicantAssistant({ locale, enabled }: { locale: Locale; enable
               <div role="status" className="rounded-xl border border-green-300 bg-green-50 p-6">
                 <h3 className="text-xl font-bold">{t.submitted}</h3>
                 <p className="mt-2">Reference: <strong>{result.reference}</strong></p>
+                {!result.emailDelivered ? <p className="mt-3 rounded-lg bg-amber-50 p-3 text-sm leading-6 text-amber-900">{t.emailPending}</p> : null}
                 <a className="mt-5 inline-flex min-h-12 items-center rounded-lg bg-navy-900 px-5 font-bold text-white" href={result.brochureUrl} target="_blank" rel="noreferrer">{t.download}</a>
               </div>
             ) : null}

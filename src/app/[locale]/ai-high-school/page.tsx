@@ -50,6 +50,7 @@ export default async function AiHighSchoolPage({ params }: { params: { locale: s
     legalAcknowledgement: t('form.legalAcknowledgement'), submit: t('form.submit'), submitting: t('form.submitting'),
     humanVerification: t('form.humanVerification'), verificationUnavailable: t('form.verificationUnavailable'),
     successTitle: t('form.successTitle'), successMessage: t('form.successMessage'),
+    referenceLabel: t('form.referenceLabel'), deliveryPendingWarning: t('form.deliveryPendingWarning'),
     invalidSubmission: t('form.invalidSubmission'), submissionFailed: t('form.submissionFailed'),
     verificationFailed: t('form.verificationFailed'), deliveryUnavailable: t('form.deliveryUnavailable'),
     deliveryFailed: t('form.deliveryFailed'), backupWarning: t('form.backupWarning'),

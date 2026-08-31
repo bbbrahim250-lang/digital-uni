@@ -35,6 +35,8 @@ export type CampaignFormCopy = {
   submitting: string;
   successTitle: string;
   successMessage: string;
+  referenceLabel: string;
+  deliveryPendingWarning: string;
   invalidSubmission: string;
   submissionFailed: string;
   verificationFailed: string;
@@ -68,6 +70,8 @@ export function CampaignForm({
   const [status, setStatus] = useState<'idle' | 'success' | 'error'>('idle');
   const [serverError, setServerError] = useState<string | null>(null);
   const [backupStored, setBackupStored] = useState(true);
+  const [emailDelivered, setEmailDelivered] = useState(true);
+  const [reference, setReference] = useState('');
   const {
     register,
     handleSubmit,
@@ -108,6 +112,8 @@ export function CampaignForm({
     if (result.ok) {
       setStatus('success');
       setBackupStored(result.backupStored);
+      setEmailDelivered(result.emailDelivered);
+      setReference(result.reference);
       reset({
         submissionId: createSubmissionId(),
         name: '', email: '', phone: '', zipCode: '', connection: 'resident', interest: 'general_support',
@@ -132,6 +138,17 @@ export function CampaignForm({
       <div role="status" className="rounded-2xl border border-emerald-300 bg-emerald-50 p-7 text-emerald-950">
         <h3 className="text-xl font-bold">{copy.successTitle}</h3>
         <p className="mt-2 leading-7">{copy.successMessage}</p>
+        <p className="mt-3 rounded-lg bg-white/70 px-4 py-3 font-mono text-sm font-bold">
+          {copy.referenceLabel}: {reference}
+        </p>
+        {!emailDelivered ? (
+          <>
+            <p className="mt-3 text-sm leading-6">{copy.deliveryPendingWarning}</p>
+            <a href={emailFallbackHref} className="mt-3 inline-flex text-sm font-bold text-highlight-electric underline">
+              {copy.emailFallback}
+            </a>
+          </>
+        ) : null}
         {!backupStored ? <p className="mt-3 text-sm leading-6">{copy.backupWarning}</p> : null}
       </div>
     );
