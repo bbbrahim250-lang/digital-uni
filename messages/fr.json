@@ -448,9 +448,37 @@
     },
     "merch": {
       "eyebrow": "Vêtements Digital-UNI",
-      "title": "T-shirts et accessoires",
-      "intro": "Soutenez la communauté Digital-UNI avec les vêtements AI Pioneers Sharks, les t-shirts Digital-UNI et des accessoires pratiques.",
-      "priceGuide": "Mugs à partir de 5 $ • T-shirts 35 $ • Chaussures de football et de basketball 45–70 $"
+      "title": "Équipement AI Pioneers Sharks vendu à l'unité",
+      "intro": "Découvrez séparément chaque produit des collections Santa Monica et Palo Alto : maillots hommes et femmes, mugs, casquettes, chaussures, ballons de football américain, de football et de basketball.",
+      "priceGuide": "Mugs 5 $ • Casquettes 15 $ • Maillots 35 $ • Chaussures 45–70 $ • Ballons 25–30 $"
+    },
+    "catalog": {
+      "campusCollection": "Collection du campus",
+      "individualNotice": "Chaque modèle est présenté et tarifé séparément. Les images restent des aperçus conceptuels jusqu'à l'approbation de la fabrication.",
+      "teamShirts": "Maillots d'équipe hommes et femmes",
+      "accessoriesAndEquipment": "Accessoires et équipements sportifs"
+    },
+    "campuses": {
+      "santaMonica": "AI Pioneers Sharks de Santa Monica",
+      "paloAlto": "AI Pioneers Sharks de Palo Alto"
+    },
+    "audiences": {
+      "mens": "Hommes",
+      "womens": "Femmes"
+    },
+    "sports": {
+      "football": "Football américain",
+      "basketball": "Basketball",
+      "soccer": "Football"
+    },
+    "smartGear": {
+      "badge": "Futur projet pilote de capteur IA",
+      "eligible": "Admissible au projet pilote IA",
+      "title": "Concept de capteur de performance IA dans l'œil du requin",
+      "slogan": "Conception du jeu avec l'IA. Joué par des humains.",
+      "description": "Une puce optionnelle prévue dans l'œil du requin sur les maillots, casquettes et chaussures admissibles pourrait recueillir, avec autorisation, des signaux de mouvement et de charge. Le projet pilote associerait ces mesures aux bilans de stress et de récupération déclarés par l'athlète et aux observations de sportivité examinées par l'entraîneur afin d'appuyer l'entraînement et les alertes de risque potentiel de blessure.",
+      "safetyTitle": "Technologie en phase de conception",
+      "safetyNotice": "L'édition avec capteur IA n'est pas actuellement en vente et n'est pas un dispositif médical. Elle exige des essais matériels, des contrôles de confidentialité et de sécurité, le consentement éclairé de l'athlète ou du parent, des limites de conservation et une supervision humaine qualifiée. Elle ne peut diagnostiquer le stress, garantir la prévention des blessures ni prendre de décision disciplinaire."
     },
     "products": {
       "studentTicket": {
@@ -462,6 +490,40 @@
         "type": "Pass personnel",
         "title": "Billet exploratoire personnel",
         "description": "Pour le personnel admissible d'un établissement, d'un programme ou de Digital-UNI participant à une séance ou un événement approuvé. Le lien professionnel est vérifié avant l'émission."
+      },
+      "teamShirt": {
+        "type": "Maillot d'équipe",
+        "title": "{campus} — Maillot {audience} de {sport}",
+        "description": "Modèle d'équipe binaire 1/0 noir et émeraude avec l'écusson AI Pioneers Sharks du campus. La taille, le tissu, le numéro, la disponibilité et la livraison sont confirmés avant le paiement.",
+        "imageAlt": "Aperçu conceptuel de {title}"
+      },
+      "coffeeMug": {
+        "title": "Mug {campus}",
+        "description": "Mug binaire noir et émeraude avec l'écusson AI Pioneers Sharks du campus."
+      },
+      "cap": {
+        "title": "Casquette d'équipe {campus}",
+        "description": "Casquette binaire noire et émeraude avec l'écusson à l'œil du requin, admissible au projet pilote de capteur optionnel."
+      },
+      "soccerShoes": {
+        "title": "Chaussures de football {campus}",
+        "description": "Concept de chaussures de football binaires noires et émeraude, admissible au projet pilote de capteur optionnel."
+      },
+      "basketballShoes": {
+        "title": "Chaussures de basketball {campus}",
+        "description": "Concept de chaussures de basketball binaires noires et émeraude, admissible au projet pilote de capteur optionnel."
+      },
+      "football": {
+        "title": "Ballon de football américain {campus}",
+        "description": "Concept de ballon de football américain AI Pioneers Sharks pour l'équipe et les supporters."
+      },
+      "soccerBall": {
+        "title": "Ballon de football {campus}",
+        "description": "Concept de ballon de football AI Pioneers Sharks pour l'équipe et les supporters."
+      },
+      "basketball": {
+        "title": "Ballon de basketball {campus}",
+        "description": "Concept de ballon de basketball AI Pioneers Sharks pour l'équipe et les supporters."
       },
       "santaMonicaSharksShirts": {
         "type": "Collection Santa Monica",
