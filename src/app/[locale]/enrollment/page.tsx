@@ -70,7 +70,9 @@ export default async function EnrollmentPage({
           </div>
         </div>
       </section>
-      <ApplicantAssistant locale={locale} enabled={Boolean(process.env.OPENAI_API_KEY && process.env.APPLICANT_PLAN_SIGNING_SECRET)} />
+      <section id="applicant-assistant" className="scroll-mt-24">
+        <ApplicantAssistant locale={locale} enabled={Boolean(process.env.OPENAI_API_KEY && process.env.APPLICANT_PLAN_SIGNING_SECRET)} />
+      </section>
     </article>
   );
 }

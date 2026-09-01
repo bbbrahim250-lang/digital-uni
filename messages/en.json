@@ -8,7 +8,7 @@
     "pathways": "Learning Pathways",
     "institutions": "Institutions",
     "certifications": "Certifications",
-    "accreditation": "Accreditation",
+    "accreditation": "Accreditation & AI Lab",
     "faa": "FAA AI Controller",
     "cte": "CTE Programs",
     "translations": "Translations",
@@ -660,8 +660,26 @@
       "intro": "Preparation pathways for external, industry-issued certifications. Official credentials are issued only by the named provider."
     },
     "accreditation": {
-      "title": "Accreditation and Certifications",
-      "intro": "Digital-UNI intends to pursue formal recognition through authorized partnerships, articulation agreements, and regulatory processes."
+      "title": "Accreditation, Certifications & AI Lab",
+      "intro": "Follow Digital-UNI’s recognition roadmap and use the proposed AI Lab to move a commercial application from an original idea to responsible publication.",
+      "lab": { "eyebrow": "Digital-UNI applied AI lab", "title": "Choose the right intelligence for the application", "intro": "The lab is designed to help learners compare leading hosted and open models, combine them responsibly, and select the best fit for reasoning, coding, vision, audio, automation, privacy, and cost.", "models": {
+        "openai": { "title": "OpenAI", "description": "Reasoning, multimodal assistance, coding, structured output, and agent workflows." },
+        "anthropic": { "title": "Anthropic Claude", "description": "Long-context analysis, writing, coding, tool use, and safety-centered workflows." },
+        "google": { "title": "Google Gemini", "description": "Multimodal development and integration across Google cloud and application ecosystems." },
+        "meta": { "title": "Meta Llama", "description": "Open-weight model options for customization, private deployment, and experimentation." },
+        "mistral": { "title": "Mistral AI", "description": "Efficient multilingual and deployable models for commercial prototypes and services." },
+        "openSource": { "title": "Open-source model studio", "description": "Compare specialized models for image, video, speech, embeddings, and local inference." }
+      } },
+      "workflow": { "eyebrow": "From idea to marketplace", "title": "A commercial application workflow", "intro": "The Digital-UNI AI Agent helps each builder produce a reviewable plan before development begins.", "steps": {
+        "idea": { "title": "Initiate the idea", "description": "Define the customer, problem, value, constraints, and responsible-use requirements with the Digital-UNI AI Agent." },
+        "architecture": { "title": "Design the workflow", "description": "Select models, data, tools, security controls, human review, cost limits, and a publication strategy." },
+        "prototype": { "title": "Build the prototype", "description": "Create the interface, model orchestration, tests, analytics, and a working commercial demonstration." },
+        "validation": { "title": "Validate responsibly", "description": "Test quality, accessibility, privacy, cybersecurity, intellectual property, and marketplace compliance." },
+        "publication": { "title": "Publish the application", "description": "Prepare submissions for the web, Google Play, Apple App Store, and other appropriate platforms." },
+        "growth": { "title": "Advertise and improve", "description": "Launch through Digital-UNI channels, measure adoption, collect feedback, and improve the product." }
+      } },
+      "agent": { "eyebrow": "AI Agent planning window", "title": "Start with your idea—not a blank technical form", "description": "Describe the commercial application you want to create. The planning assistant prepares a proposed learning, development, publication, and promotion workflow for review and counselor approval.", "cta": "Open the Digital-UNI AI Agent" },
+      "share": { "eyebrow": "Commercial partnership", "title": "25% Digital-UNI participation", "description": "For applications accepted into a separate written Digital-UNI commercialization agreement, 25% of eligible sales is allocated to the program.", "donation": "donation supporting Digital-UNI education programs and AI Pioneers Sharks sports funds", "commercial": "Digital-UNI commercial revenue share for development, publication, and advertising support", "definition": "Eligible sales means net receipts after marketplace fees, taxes, refunds, and chargebacks. Participation requires a separate written agreement; browsing or using the AI Lab does not transfer ownership or create a revenue obligation." }
     },
     "faaAiController": {
       "title": "Proposed Digital-UNI FAA AI Controller Training and Simulation Program",
@@ -848,7 +866,10 @@
       "openDeck": "Open investor deck PDF",
       "deckFrameLabel": "Digital-UNI Santa Monica AI High School investor deck",
       "deckMobileText": "The full 10-slide investor deck is available as a high-resolution PDF and opens in a new browser tab.",
-      "supportKicker": "Santa Monica community support",
+    "movement": { "eyebrow": "A citywide education and sports movement", "title": "Bring a new sports fever to Santa Monica", "description": "Unite students, families, teams, neighborhoods, and local businesses around AI Pioneers Sharks football, basketball, soccer, youth clinics, streamed events, and the campaign to reactivate the Civic Auditorium.", "goalLabel": "Community reach goal", "goalText": "A public campaign goal across Santa Monica, Malibu, Westwood, Brentwood, and neighboring communities.", "cta": "Join the community", "progressLabel": "Community campaign progress toward 100,000 supporters", "progressNote": "100,000 is the outreach target—not a claim of current supporters or a statutory petition count. Verified registrations will be reported separately." },
+    "events": { "eyebrow": "Civic Auditorium events fund", "title": "Concerts and celebrations that help fund the campus", "description": "The restored auditorium can combine education with ticketed cultural events that bring residents together and support school, arts, technology, and athletics programming.", "proposed": "Proposed event", "items": { "halloween": { "title": "Halloween Concert & Festival", "description": "A family-centered music, costume, AI-art, and youth celebration." }, "thanksgiving": { "title": "Thanksgiving Community Celebration", "description": "A local gratitude event connecting families, schools, performers, and businesses." }, "newYear": { "title": "New Year Celebration", "description": "A signature community concert welcoming the next year of learning and innovation." }, "aiFestival": { "title": "AI Art, Film & Music Festival", "description": "Original student and community work across AI-assisted film, music, design, and performance." }, "studentShowcase": { "title": "Student Talent Showcase", "description": "Performances, demonstrations, robotics, applications, and entrepreneurial projects." }, "sportsAwards": { "title": "Sports Awards & Fundraising Night", "description": "Celebrate athletes, coaches, sportsmanship, academic progress, and community partners." } }, "cta": "Register ticket interest", "legal": "Ticket-interest registration is not a ticket sale. Dates, artists, capacity, prices, permits, insurance, accessibility, and refund terms require confirmation before sales open." },
+    "sponsors": { "eyebrow": "Local business partnership", "title": "Help build the school, teams, and community stage", "description": "Local businesses can register interest in supporting uniforms, scholarships, AI equipment, concerts, transportation, streaming, youth clinics, or renovation planning.", "items": { "community": "Community Sponsor", "youthSports": "Youth Sports Sponsor", "concert": "Concert Sponsor", "aiLab": "AI Lab Sponsor", "founding": "Founding Campus Sponsor", "naming": "Naming-Rights Inquiry" }, "cta": "Open a sponsorship conversation", "legal": "All sponsorship benefits, recognition, naming opportunities, contributions, and tax treatment require a separate written agreement and applicable City approvals." },
+    "supportKicker": "Santa Monica community support",
       "supportTitle": "Add your name to the campaign",
       "supportIntro": "Santa Monica residents, parents, students, educators, neighborhood leaders, businesses, and community partners may register support and receive project updates.",
       "legalTitle": "Community registration—not a ballot signature",

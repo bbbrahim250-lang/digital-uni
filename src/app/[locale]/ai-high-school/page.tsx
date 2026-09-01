@@ -11,6 +11,8 @@ const NOTICE_PDF = '/documents/digital-uni-formal-notice-santa-monica-ai-high-sc
 const DECK_PDF = '/documents/digital-uni-santa-monica-ai-high-school-investor-deck-2026.pdf';
 const siteFactKeys = ['landmark', 'district', 'field', 'approvals'] as const;
 const priorityKeys = ['school', 'athletics', 'infrastructure', 'pathways'] as const;
+const eventKeys = ['halloween', 'thanksgiving', 'newYear', 'aiFestival', 'studentShowcase', 'sportsAwards'] as const;
+const sponsorKeys = ['community', 'youthSports', 'concert', 'aiLab', 'founding', 'naming'] as const;
 
 export async function generateMetadata({ params }: { params: { locale: string } }): Promise<Metadata> {
   if (!isValidLocale(params.locale)) notFound();
@@ -227,6 +229,28 @@ export default async function AiHighSchoolPage({ params }: { params: { locale: s
           </div>
         </div>
       </section>
+
+      <section className="bg-navy-900 px-4 py-20 text-white">
+        <div className="mx-auto grid max-w-7xl gap-8 lg:grid-cols-[.72fr_1.28fr] lg:items-end">
+          <div><p className="text-sm font-black uppercase tracking-[0.2em] text-highlight-turquoise">{t('movement.eyebrow')}</p><h2 className="mt-3 text-3xl font-black tracking-tight md:text-5xl">{t('movement.title')}</h2><p className="mt-5 text-lg leading-8 text-navy-50/80">{t('movement.description')}</p></div>
+          <div className="rounded-3xl border border-gold-400/30 bg-white/[0.06] p-6 md:p-8">
+            <div className="flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between"><div><p className="text-sm font-black uppercase tracking-[0.18em] text-gold-400">{t('movement.goalLabel')}</p><p className="mt-2 text-4xl font-black">100,000</p><p className="mt-2 text-sm leading-6 text-navy-50/70">{t('movement.goalText')}</p></div><a href="#resident-support" className="shrink-0 rounded-xl bg-gold-500 px-6 py-3.5 text-center font-black text-navy-900 hover:bg-gold-400">{t('movement.cta')}</a></div>
+            <div className="mt-6 h-3 overflow-hidden rounded-full bg-white/10" aria-label={t('movement.progressLabel')}><div className="h-full w-[2%] rounded-full bg-gradient-to-r from-highlight-turquoise to-gold-400" /></div><p className="mt-3 text-xs leading-5 text-navy-50/60">{t('movement.progressNote')}</p>
+          </div>
+        </div>
+      </section>
+
+      <section className="px-4 py-20"><div className="mx-auto max-w-7xl">
+        <p className="text-sm font-black uppercase tracking-[0.2em] text-highlight-turquoise">{t('events.eyebrow')}</p><h2 className="mt-3 text-3xl font-black text-navy-900 md:text-5xl">{t('events.title')}</h2><p className="mt-5 max-w-4xl text-lg leading-8 text-navy-600">{t('events.description')}</p>
+        <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">{eventKeys.map((key) => <article key={key} className="rounded-2xl border border-navy-100 bg-white p-6 shadow-card"><p className="text-xs font-black uppercase tracking-[0.16em] text-gold-600">{t('events.proposed')}</p><h3 className="mt-3 text-xl font-black text-navy-900">{t(`events.items.${key}.title`)}</h3><p className="mt-3 leading-7 text-navy-600">{t(`events.items.${key}.description`)}</p></article>)}</div>
+        <a href="#resident-support" className="mt-8 inline-flex rounded-xl bg-navy-900 px-6 py-3.5 font-black text-white hover:bg-navy-600">{t('events.cta')}</a><p className="mt-3 text-xs leading-5 text-navy-400">{t('events.legal')}</p>
+      </div></section>
+
+      <section className="bg-navy-50 px-4 py-20"><div className="mx-auto max-w-7xl">
+        <p className="text-sm font-black uppercase tracking-[0.2em] text-highlight-electric">{t('sponsors.eyebrow')}</p><h2 className="mt-3 text-3xl font-black text-navy-900 md:text-5xl">{t('sponsors.title')}</h2><p className="mt-5 max-w-4xl text-lg leading-8 text-navy-600">{t('sponsors.description')}</p>
+        <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">{sponsorKeys.map((key) => <div key={key} className="rounded-2xl border border-white bg-white p-5 font-bold text-navy-900 shadow-card">{t(`sponsors.items.${key}`)}</div>)}</div>
+        <Link href={`/${locale}/contact`} className="mt-8 inline-flex rounded-xl bg-highlight-turquoise px-6 py-3.5 font-black text-navy-900 hover:bg-gold-400">{t('sponsors.cta')}</Link><p className="mt-3 text-xs leading-5 text-navy-400">{t('sponsors.legal')}</p>
+      </div></section>
 
       <section id="resident-support" className="scroll-mt-24 bg-navy-50 px-4 py-20">
         <div className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[.78fr_1.22fr]">
