@@ -153,9 +153,12 @@ body {
 @keyframes board-students { 0%, 3% { opacity: 0; transform: translateX(18px); } 7%, 16% { opacity: 1; transform: translateX(0); } 20%, 100% { opacity: 0; transform: translate(-32px, 10px) scale(.8); } }
 
 @media (max-width: 700px) {
-  .cinematic-hero { align-items: flex-start; padding-top: 8vh; }
-  .cinematic-content { margin: 0 auto; padding: 1.25rem; }
-  .cinematic-content h1 { font-size: clamp(2.6rem, 15vw, 4.5rem); }
+  .cinematic-hero { min-height: 52rem; align-items: flex-start; padding: 2rem .75rem 10rem; background-position: 62% center; }
+  .cinematic-hero-media, .cinematic-camera { inset: 0; width: 100%; height: 100%; }
+  .cinematic-content { width: 100%; margin: 0 auto; padding: 1.1rem; border-radius: 1.15rem; }
+  .cinematic-content h1 { font-size: clamp(2.35rem, 13vw, 4.1rem); line-height: .9; }
+  .cinematic-headline { font-size: 1rem; }
+  .cinematic-actions > * { flex: 1 1 9rem; text-align: center; }
   .digital-coin { top: auto; right: 1rem; bottom: 8.5rem; }
   .cinematic-route { bottom: 4%; }
   .cinematic-stop { width: 5rem; }

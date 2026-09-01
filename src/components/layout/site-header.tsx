@@ -56,7 +56,8 @@ function MobileNavigation({
   certifications,
   studios,
   sectionLabels,
-  signIn
+  signIn,
+  signUp
 }: {
   label: string;
   directItems: Array<{ href: string; label: string }>;
@@ -66,6 +67,7 @@ function MobileNavigation({
   studios: DropdownItem[];
   sectionLabels: { campuses: string; institutions: string; certifications: string; studios: string };
   signIn: { href: string; label: string };
+  signUp: { href: string; label: string };
 }) {
   const sections = [
     [sectionLabels.campuses, campuses],
@@ -101,6 +103,9 @@ function MobileNavigation({
         ))}
         <Link href={signIn.href} className="mt-2 block rounded-lg border border-navy-100 px-3 py-2 text-center text-sm font-semibold sm:hidden">
           {signIn.label}
+        </Link>
+        <Link href={signUp.href} className="mt-2 block rounded-lg bg-gold-500 px-3 py-2 text-center text-sm font-black text-navy-900 sm:hidden">
+          {signUp.label}
         </Link>
       </div>
     </details>
@@ -145,10 +150,10 @@ export async function SiteHeader({ locale }: { locale: Locale }) {
 
   return (
     <header className="border-b border-navy-100 bg-navy-900 text-white">
-      <div className="mx-auto flex max-w-[90rem] items-center justify-between gap-3 px-4 py-3">
+      <div className="mx-auto flex max-w-[90rem] items-center justify-between gap-1.5 px-2 py-3 sm:gap-3 sm:px-4">
         <Link href={`/${locale}`} className="flex items-center gap-2 font-semibold">
           <span className="rounded bg-gold-500 px-2 py-1 text-xs font-bold text-navy-900">UNI</span>
-          <span>{tSite('name')}</span>
+          <span className="hidden sm:inline">{tSite('name')}</span>
         </Link>
 
         <nav aria-label={t('primaryNavigation')} className="hidden items-center gap-1 xl:flex">
@@ -189,6 +194,7 @@ export async function SiteHeader({ locale }: { locale: Locale }) {
             studios={studios}
             sectionLabels={{ campuses: t('aiHighSchool'), institutions: t('institutions'), certifications: t('certifications'), studios: t('aiStudios') }}
             signIn={{ href: `/${locale}/sign-in`, label: t('signIn') }}
+            signUp={{ href: `/${locale}/sign-up`, label: t('signUp') }}
           />
           <LanguageSwitcher current={locale} label={t('language')} />
           <Link
@@ -205,7 +211,7 @@ export async function SiteHeader({ locale }: { locale: Locale }) {
           </Link>
           <Link
             href={`/${locale}/sign-up`}
-            className="rounded-md bg-gold-500 px-3 py-1.5 text-sm font-medium text-navy-900 hover:bg-gold-400"
+            className="hidden rounded-md bg-gold-500 px-3 py-1.5 text-sm font-medium text-navy-900 hover:bg-gold-400 sm:inline-flex"
           >
             {t('signUp')}
           </Link>
