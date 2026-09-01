@@ -448,9 +448,37 @@
     },
     "merch": {
       "eyebrow": "Digital-UNI apparel",
-      "title": "Shirts & Accessories",
-      "intro": "Support the Digital-UNI community with AI Pioneers Sharks apparel, Digital-UNI shirts, and practical branded accessories.",
-      "priceGuide": "Mugs from $5 • Shirts $35 • Soccer and basketball shoes $45–$70"
+      "title": "Individually Priced AI Pioneers Sharks Gear",
+      "intro": "Shop the Santa Monica and Palo Alto collections one product at a time: men's and women's team shirts, mugs, caps, shoes, footballs, soccer balls, and basketballs.",
+      "priceGuide": "Mugs $5 • Caps $15 • Shirts $35 • Shoes $45–$70 • Balls $25–$30"
+    },
+    "catalog": {
+      "campusCollection": "Campus collection",
+      "individualNotice": "Every design is displayed and priced individually. Product images remain concept previews until manufacturing approval.",
+      "teamShirts": "Men's and women's team shirts",
+      "accessoriesAndEquipment": "Accessories and sports equipment"
+    },
+    "campuses": {
+      "santaMonica": "Santa Monica AI Pioneers Sharks",
+      "paloAlto": "Palo Alto AI Pioneers Sharks"
+    },
+    "audiences": {
+      "mens": "Men's",
+      "womens": "Women's"
+    },
+    "sports": {
+      "football": "Football",
+      "basketball": "Basketball",
+      "soccer": "Soccer"
+    },
+    "smartGear": {
+      "badge": "Future AI sensor pilot",
+      "eligible": "AI sensor pilot eligible",
+      "title": "Shark-eye AI performance sensor concept",
+      "slogan": "Game Design with AI. Played by Humans.",
+      "description": "A planned optional chip inside the shark-eye badge on eligible shirts, caps, and shoes could capture permitted motion and workload signals. The pilot would combine those measurements with athlete-reported stress and recovery check-ins and coach-reviewed sportsmanship observations to support training and potential injury-risk alerts.",
+      "safetyTitle": "Design-stage technology",
+      "safetyNotice": "The AI sensor edition is not currently for sale and is not a medical device. It requires hardware testing, privacy and security controls, informed athlete or guardian consent, retention limits, and qualified human review. It cannot diagnose stress, guarantee injury prevention, or make disciplinary decisions."
     },
     "products": {
       "studentTicket": {
@@ -462,6 +490,40 @@
         "type": "Staff pass",
         "title": "Staff Exploratory Ticket",
         "description": "For eligible school, program, or Digital-UNI staff attending an approved exploratory session or event. Employment or staff affiliation is reviewed before issuance."
+      },
+      "teamShirt": {
+        "type": "Team shirt",
+        "title": "{campus} — {audience} {sport} Shirt",
+        "description": "Black-and-emerald binary 1/0 team design with the campus AI Pioneers Sharks crest. Size, fabric, player number, availability, and fulfillment are confirmed before checkout.",
+        "imageAlt": "Concept preview of {title}"
+      },
+      "coffeeMug": {
+        "title": "{campus} Coffee Mug",
+        "description": "Black-and-emerald binary mug with the campus AI Pioneers Sharks crest."
+      },
+      "cap": {
+        "title": "{campus} Team Cap",
+        "description": "Black-and-emerald binary cap with the shark-eye crest; eligible for the proposed optional sensor pilot."
+      },
+      "soccerShoes": {
+        "title": "{campus} Soccer Shoes",
+        "description": "Black-and-emerald binary soccer shoe concept; eligible for the proposed optional sensor pilot."
+      },
+      "basketballShoes": {
+        "title": "{campus} Basketball Shoes",
+        "description": "Black-and-emerald binary basketball shoe concept; eligible for the proposed optional sensor pilot."
+      },
+      "football": {
+        "title": "{campus} American Football",
+        "description": "AI Pioneers Sharks branded American football concept for team and supporter use."
+      },
+      "soccerBall": {
+        "title": "{campus} Soccer Ball",
+        "description": "AI Pioneers Sharks branded soccer ball concept for team and supporter use."
+      },
+      "basketball": {
+        "title": "{campus} Basketball",
+        "description": "AI Pioneers Sharks branded basketball concept for team and supporter use."
       },
       "santaMonicaSharksShirts": {
         "type": "Santa Monica collection",

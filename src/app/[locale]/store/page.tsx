@@ -7,26 +7,47 @@ import { StoreCheckout } from './store-checkout';
 
 const productConfig = [
   { key: 'studentTicket', icon: 'PASS', priceEnv: 'STORE_EXPLORATORY_STUDENT_PRICE', checkoutEnv: 'STORE_EXPLORATORY_STUDENT_CHECKOUT_URL', featured: true },
-  { key: 'staffTicket', icon: 'PASS', priceEnv: 'STORE_EXPLORATORY_STAFF_PRICE', checkoutEnv: 'STORE_EXPLORATORY_STAFF_CHECKOUT_URL', featured: true },
-  { key: 'digitalUniShirt', icon: 'UNI', priceEnv: 'STORE_DIGITAL_UNI_SHIRT_PRICE', checkoutEnv: 'STORE_DIGITAL_UNI_SHIRT_CHECKOUT_URL', featured: false, defaultPrice: '$35 USD' },
-  { key: 'accessories', icon: 'KIT', priceEnv: 'STORE_ACCESSORIES_PRICE', checkoutEnv: 'STORE_ACCESSORIES_CHECKOUT_URL', featured: false, defaultPrice: '$5–$70 USD' }
+  { key: 'staffTicket', icon: 'PASS', priceEnv: 'STORE_EXPLORATORY_STAFF_PRICE', checkoutEnv: 'STORE_EXPLORATORY_STAFF_CHECKOUT_URL', featured: true }
 ] as const;
 
-const teamShirtCollections = [
+const campusCollections = [
   {
-    key: 'santaMonicaSharksShirts',
+    key: 'santaMonica',
+    envPrefix: 'SANTA_MONICA',
     image: '/images/store/ai-pioneers-sharks-santa-monica-team-shirts.png',
+    crest: '/images/digital-uni-ai-pioneers-sharks-santa-monica.webp',
     priceEnv: 'STORE_SANTA_MONICA_SHARKS_SHIRT_PRICE',
     checkoutEnv: 'STORE_SANTA_MONICA_SHARKS_SHIRT_CHECKOUT_URL',
-    defaultPrice: '$35 USD'
+    accessoriesCheckoutEnv: 'STORE_SANTA_MONICA_ACCESSORIES_CHECKOUT_URL'
   },
   {
-    key: 'paloAltoSharksShirts',
+    key: 'paloAlto',
+    envPrefix: 'PALO_ALTO',
     image: '/images/store/ai-pioneers-sharks-palo-alto-team-shirts.png',
+    crest: '/images/digital-uni-ai-pioneers-sharks-palo-alto.webp',
     priceEnv: 'STORE_PALO_ALTO_SHARKS_SHIRT_PRICE',
     checkoutEnv: 'STORE_PALO_ALTO_SHARKS_SHIRT_CHECKOUT_URL',
-    defaultPrice: '$35 USD'
+    accessoriesCheckoutEnv: 'STORE_PALO_ALTO_ACCESSORIES_CHECKOUT_URL'
   }
+] as const;
+
+const teamShirts = [
+  { key: 'mensFootballShirt', envKey: 'MENS_FOOTBALL_SHIRT', audience: 'mens', sport: 'football', position: '0% 0%' },
+  { key: 'womensFootballShirt', envKey: 'WOMENS_FOOTBALL_SHIRT', audience: 'womens', sport: 'football', position: '100% 0%' },
+  { key: 'mensBasketballShirt', envKey: 'MENS_BASKETBALL_SHIRT', audience: 'mens', sport: 'basketball', position: '0% 50%' },
+  { key: 'womensBasketballShirt', envKey: 'WOMENS_BASKETBALL_SHIRT', audience: 'womens', sport: 'basketball', position: '100% 50%' },
+  { key: 'mensSoccerShirt', envKey: 'MENS_SOCCER_SHIRT', audience: 'mens', sport: 'soccer', position: '0% 100%' },
+  { key: 'womensSoccerShirt', envKey: 'WOMENS_SOCCER_SHIRT', audience: 'womens', sport: 'soccer', position: '100% 100%' }
+] as const;
+
+const accessories = [
+  { key: 'coffeeMug', icon: '☕', defaultPrice: '$5 USD', priceEnv: 'STORE_COFFEE_MUG_PRICE', checkoutEnv: 'STORE_COFFEE_MUG_CHECKOUT_URL', sensorEligible: false },
+  { key: 'cap', icon: 'CAP', defaultPrice: '$15 USD', priceEnv: 'STORE_CAP_PRICE', checkoutEnv: 'STORE_CAP_CHECKOUT_URL', sensorEligible: true },
+  { key: 'soccerShoes', icon: '⚽', defaultPrice: '$45 USD', priceEnv: 'STORE_SOCCER_SHOES_PRICE', checkoutEnv: 'STORE_SOCCER_SHOES_CHECKOUT_URL', sensorEligible: true },
+  { key: 'basketballShoes', icon: '🏀', defaultPrice: '$70 USD', priceEnv: 'STORE_BASKETBALL_SHOES_PRICE', checkoutEnv: 'STORE_BASKETBALL_SHOES_CHECKOUT_URL', sensorEligible: true },
+  { key: 'football', icon: '🏈', defaultPrice: '$30 USD', priceEnv: 'STORE_FOOTBALL_PRICE', checkoutEnv: 'STORE_FOOTBALL_CHECKOUT_URL', sensorEligible: false },
+  { key: 'soccerBall', icon: '⚽', defaultPrice: '$25 USD', priceEnv: 'STORE_SOCCER_BALL_PRICE', checkoutEnv: 'STORE_SOCCER_BALL_CHECKOUT_URL', sensorEligible: false },
+  { key: 'basketball', icon: '🏀', defaultPrice: '$30 USD', priceEnv: 'STORE_BASKETBALL_PRICE', checkoutEnv: 'STORE_BASKETBALL_CHECKOUT_URL', sensorEligible: false }
 ] as const;
 
 function configuredValue(name: string) {
@@ -43,6 +64,14 @@ function configuredUrl(name: string) {
   } catch {
     return undefined;
   }
+}
+
+function configuredUrlFrom(...names: string[]) {
+  for (const name of names) {
+    const value = configuredUrl(name);
+    if (value) return value;
+  }
+  return undefined;
 }
 
 export default async function StorePage({ params }: { params: { locale: string } }) {
@@ -143,54 +172,103 @@ export default async function StorePage({ params }: { params: { locale: string }
           <p className="mt-5 max-w-4xl text-lg leading-8 text-navy-600">{t('merch.intro')}</p>
           <p className="mt-4 inline-flex rounded-full border border-gold-400/60 bg-gold-200/30 px-4 py-2 text-sm font-black text-navy-800">{t('merch.priceGuide')}</p>
 
-          <div className="mt-10 grid gap-8 lg:grid-cols-2">
-            {teamShirtCollections.map((product) => {
-              const price = configuredValue(product.priceEnv) || configuredValue('STORE_SHARKS_SHIRT_PRICE');
-              const checkoutUrl = configuredUrl(product.checkoutEnv) || configuredUrl('STORE_SHARKS_SHIRT_CHECKOUT_URL');
-              return (
-                <article key={product.key} className="overflow-hidden rounded-3xl border border-emerald-700/30 bg-navy-900 shadow-card">
-                  <div className="relative aspect-[4/3] bg-black">
-                    <Image
-                      src={product.image}
-                      alt={t(`products.${product.key}.imageAlt`)}
-                      fill
-                      sizes="(min-width: 1024px) 50vw, 100vw"
-                      className="object-contain"
-                    />
-                  </div>
-                  <div className="border-t border-emerald-700/30 bg-white p-7">
-                    <span className="inline-flex rounded-full bg-emerald-100 px-3 py-1 text-xs font-black uppercase tracking-wider text-emerald-800">
-                      {t(`products.${product.key}.type`)}
-                    </span>
-                    <h3 className="mt-4 text-2xl font-black text-navy-900">{t(`products.${product.key}.title`)}</h3>
-                    <p className="mt-3 text-sm leading-7 text-navy-600">{t(`products.${product.key}.description`)}</p>
-                    <p className="mt-5 text-xl font-black text-gold-600">{price || product.defaultPrice}</p>
-                    <StoreCheckout locale={locale} checkoutUrl={checkoutUrl} labels={checkoutLabels} />
-                  </div>
-                </article>
-              );
-            })}
+          <div className="mt-8 rounded-3xl border border-emerald-700/30 bg-navy-900 p-6 text-white shadow-card md:p-8">
+            <div className="flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between">
+              <div className="max-w-3xl">
+                <span className="inline-flex rounded-full border border-highlight-turquoise/40 bg-highlight-turquoise/10 px-3 py-1 text-xs font-black uppercase tracking-wider text-highlight-turquoise">{t('smartGear.badge')}</span>
+                <h3 className="mt-4 text-2xl font-black md:text-3xl">{t('smartGear.title')}</h3>
+                <p className="mt-3 text-xl font-black text-gold-400">{t('smartGear.slogan')}</p>
+                <p className="mt-3 text-sm leading-7 text-navy-50/75">{t('smartGear.description')}</p>
+              </div>
+              <div className="rounded-2xl border border-gold-400/40 bg-white/5 p-5 text-sm leading-6 text-navy-50/75 lg:max-w-md">
+                <strong className="block text-gold-400">{t('smartGear.safetyTitle')}</strong>
+                {t('smartGear.safetyNotice')}
+              </div>
+            </div>
           </div>
 
-          <div className="mt-8 grid gap-6 md:grid-cols-2">
-            {productConfig.filter((product) => !product.featured).map((product) => {
-              const price = configuredValue(product.priceEnv);
-              const checkoutUrl = configuredUrl(product.checkoutEnv);
-              return (
-                <article key={product.key} className="overflow-hidden rounded-2xl border border-navy-100 bg-navy-50 shadow-card">
-                  <div className="flex h-40 items-center justify-center bg-[radial-gradient(circle_at_center,rgba(20,230,190,0.22),transparent_45%),linear-gradient(135deg,#0a1b31,#142f50)]">
-                    <span className="flex h-24 w-24 items-center justify-center rounded-full border-4 border-gold-400 bg-navy-900 text-2xl font-black text-gold-400">{product.icon}</span>
-                  </div>
-                  <div className="p-7">
-                    <h3 className="text-2xl font-black text-navy-900">{t(`products.${product.key}.title`)}</h3>
-                    <p className="mt-3 text-sm leading-7 text-navy-600">{t(`products.${product.key}.description`)}</p>
-                    <p className="mt-5 text-xl font-black text-gold-600">{price || ('defaultPrice' in product ? product.defaultPrice : t('pricePending'))}</p>
-                    <StoreCheckout locale={locale} checkoutUrl={checkoutUrl} labels={checkoutLabels} />
-                  </div>
-                </article>
-              );
-            })}
-          </div>
+          {campusCollections.map((campus) => (
+            <section key={campus.key} className="mt-14" aria-labelledby={`${campus.key}-store-heading`}>
+              <div className="flex items-center gap-5 border-b border-navy-100 pb-6">
+                <div className="relative h-20 w-20 shrink-0 overflow-hidden rounded-2xl border border-gold-400/40 bg-black">
+                  <Image src={campus.crest} alt="" fill sizes="80px" className="object-cover" />
+                </div>
+                <div>
+                  <p className="text-xs font-black uppercase tracking-[0.18em] text-emerald-700">{t('catalog.campusCollection')}</p>
+                  <h3 id={`${campus.key}-store-heading`} className="mt-1 text-3xl font-black text-navy-900">{t(`campuses.${campus.key}`)}</h3>
+                  <p className="mt-2 text-sm text-navy-600">{t('catalog.individualNotice')}</p>
+                </div>
+              </div>
+
+              <h4 className="mt-8 text-xl font-black text-navy-900">{t('catalog.teamShirts')}</h4>
+              <div className="mt-5 grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
+                {teamShirts.map((shirt) => {
+                  const title = t('products.teamShirt.title', {
+                    campus: t(`campuses.${campus.key}`),
+                    audience: t(`audiences.${shirt.audience}`),
+                    sport: t(`sports.${shirt.sport}`)
+                  });
+                  const price = configuredValue(`STORE_${campus.envPrefix}_${shirt.envKey}_PRICE`) || configuredValue(campus.priceEnv) || configuredValue('STORE_SHARKS_SHIRT_PRICE') || '$35 USD';
+                  const checkoutUrl = configuredUrlFrom(
+                    `STORE_${campus.envPrefix}_${shirt.envKey}_CHECKOUT_URL`,
+                    campus.checkoutEnv,
+                    'STORE_SHARKS_SHIRT_CHECKOUT_URL'
+                  );
+
+                  return (
+                    <article key={shirt.key} className="overflow-hidden rounded-2xl border border-emerald-700/25 bg-white shadow-card">
+                      <div
+                        role="img"
+                        aria-label={t('products.teamShirt.imageAlt', { title })}
+                        className="aspect-square bg-black bg-no-repeat"
+                        style={{ backgroundImage: `url(${campus.image})`, backgroundPosition: shirt.position, backgroundSize: '200% 300%' }}
+                      />
+                      <div className="p-6">
+                        <div className="flex flex-wrap gap-2">
+                          <span className="inline-flex rounded-full bg-emerald-100 px-3 py-1 text-xs font-black uppercase tracking-wider text-emerald-800">{t('products.teamShirt.type')}</span>
+                          <span className="inline-flex rounded-full bg-gold-200/60 px-3 py-1 text-xs font-black uppercase tracking-wider text-navy-800">{t('smartGear.eligible')}</span>
+                        </div>
+                        <h5 className="mt-4 text-xl font-black text-navy-900">{title}</h5>
+                        <p className="mt-3 text-sm leading-7 text-navy-600">{t('products.teamShirt.description')}</p>
+                        <p className="mt-5 text-xl font-black text-gold-600">{price}</p>
+                        <StoreCheckout locale={locale} checkoutUrl={checkoutUrl} labels={checkoutLabels} />
+                      </div>
+                    </article>
+                  );
+                })}
+              </div>
+
+              <h4 className="mt-10 text-xl font-black text-navy-900">{t('catalog.accessoriesAndEquipment')}</h4>
+              <div className="mt-5 grid gap-6 sm:grid-cols-2 xl:grid-cols-4">
+                {accessories.map((product) => {
+                  const title = t(`products.${product.key}.title`, { campus: t(`campuses.${campus.key}`) });
+                  const price = configuredValue(product.priceEnv) || product.defaultPrice;
+                  const checkoutUrl = configuredUrlFrom(product.checkoutEnv, campus.accessoriesCheckoutEnv, 'STORE_ACCESSORIES_CHECKOUT_URL');
+
+                  return (
+                    <article key={product.key} className="overflow-hidden rounded-2xl border border-navy-100 bg-white shadow-card">
+                      <div className="relative flex aspect-[4/3] items-center justify-center overflow-hidden bg-[radial-gradient(circle_at_center,rgba(20,230,190,0.24),transparent_48%),linear-gradient(135deg,#020905,#071f17)]">
+                        <div className="absolute inset-0 select-none overflow-hidden p-4 font-mono text-xs leading-5 text-emerald-400/25" aria-hidden="true">01001010 11010010 00110101 10100110 01011001 11001010 00101101 10110010 01010110 10010101</div>
+                        <span className="relative z-10 flex h-24 w-24 items-center justify-center rounded-full border-4 border-gold-400 bg-black/80 text-3xl font-black text-white shadow-2xl">{product.icon}</span>
+                        <div className="absolute bottom-3 end-3 h-14 w-14 overflow-hidden rounded-xl border border-gold-400/50 bg-black">
+                          <Image src={campus.crest} alt="" fill sizes="56px" className="object-cover" />
+                        </div>
+                      </div>
+                      <div className="p-6">
+                        {product.sensorEligible && (
+                          <span className="inline-flex rounded-full bg-gold-200/60 px-3 py-1 text-xs font-black uppercase tracking-wider text-navy-800">{t('smartGear.eligible')}</span>
+                        )}
+                        <h5 className="mt-3 text-xl font-black text-navy-900">{title}</h5>
+                        <p className="mt-3 text-sm leading-7 text-navy-600">{t(`products.${product.key}.description`)}</p>
+                        <p className="mt-5 text-xl font-black text-gold-600">{price}</p>
+                        <StoreCheckout locale={locale} checkoutUrl={checkoutUrl} labels={checkoutLabels} />
+                      </div>
+                    </article>
+                  );
+                })}
+              </div>
+            </section>
+          ))}
 
           <p className="mt-10 text-sm leading-7 text-navy-500">{t('fulfillmentNotice')}</p>
           <Link href={`/${locale}/contact`} className="mt-6 inline-flex font-bold text-highlight-electric hover:underline">{t('bulkCta')} →</Link>
