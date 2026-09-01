@@ -185,3 +185,18 @@ seven-day signed links are generated only after consent. Set a 24-month deletion
 job for `applicant_plans` and its brochure objects, and honor access/deletion
 requests received at `enroll@digital-uni.net`. Do not put `OPENAI_API_KEY` in a
 `NEXT_PUBLIC_` variable.
+
+## Athletic tryout workflow
+
+Apply migration `0008_athletic_tryout_applications.sql` before enabling the
+tryout form. It creates the private `athletic_tryout_applications` table and the
+private `tryout-applications` storage bucket. The workflow also requires
+`APPLICANT_PLAN_SIGNING_SECRET`, `NEXT_PUBLIC_SUPABASE_URL`,
+`SUPABASE_SERVICE_ROLE_KEY`, and the transactional email variables listed above.
+
+The public form accepts one PDF/DOCX résumé or short MP4/MOV/WebM highlight clip
+up to 3 MB. Applicants must generate and review a signed brochure before final
+submission. Set a 24-month deletion job for the table rows and private storage
+objects; give access only to authorized enrollment and coaching reviewers.
+Never request medical records, a full insurance policy number, government ID,
+or payment-card information through this workflow.

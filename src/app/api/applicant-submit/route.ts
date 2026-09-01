@@ -31,6 +31,7 @@ export async function POST(request: NextRequest) {
     answers: parseJsonField(formData, 'answers'),
     plan: parseJsonField(formData, 'plan'),
     planToken: formData.get('planToken'),
+    counselorReviewPreference: formData.get('counselorReviewPreference'),
     consent: formData.get('consent') === 'true',
     reviewed: formData.get('reviewed') === 'true',
     website: formData.get('website')
@@ -61,7 +62,10 @@ export async function POST(request: NextRequest) {
   const brochurePath = `${reference}/personalized-pathway.pdf`;
   const resumePath = `${reference}/resume.${resume.extension}`;
   const supabase = createClient(url, key, { auth: { persistSession: false } });
-  const pdf = createBrochurePdf(parsed.data.plan, reference, generated);
+  const counselorReview = parsed.data.counselorReviewPreference === 'ai_counselor_preliminary'
+    ? 'AI counselor preliminary recommendation followed by authorized human counselor review'
+    : 'Authorized human counselor review';
+  const pdf = createBrochurePdf(parsed.data.plan, reference, generated, counselorReview);
   const brochureUpload = await supabase.storage.from('applicant-brochures').upload(brochurePath, pdf, { contentType: 'application/pdf', upsert: false });
   if (brochureUpload.error) return NextResponse.json({ error: 'Brochure storage failed. Nothing was submitted.' }, { status: 502 });
   const resumeUpload = await supabase.storage.from('applicant-brochures').upload(resumePath, resume.content, { contentType: resume.contentType, upsert: false });
@@ -69,7 +73,7 @@ export async function POST(request: NextRequest) {
     await supabase.storage.from('applicant-brochures').remove([brochurePath]);
     return NextResponse.json({ error: 'Résumé storage failed. Nothing was submitted.' }, { status: 502 });
   }
-  const stored = await supabase.from('applicant_plans').insert({ reference, applicant_name: parsed.data.answers.name, applicant_email: parsed.data.answers.email, preferred_language: parsed.data.answers.preferredLanguage, financial_aid_requested: parsed.data.answers.financialAid, installment_preference: parsed.data.answers.installmentPreference, plan: { ...parsed.data.plan, resumePath, resumeFilename: resume.filename }, brochure_path: brochurePath, consented_at: new Date().toISOString(), status: 'notification_pending' });
+  const stored = await supabase.from('applicant_plans').insert({ reference, applicant_name: parsed.data.answers.name, applicant_email: parsed.data.answers.email, preferred_language: parsed.data.answers.preferredLanguage, financial_aid_requested: parsed.data.answers.financialAid, installment_preference: parsed.data.answers.installmentPreference, plan: { ...parsed.data.plan, resumePath, resumeFilename: resume.filename, counselorReviewPreference: parsed.data.counselorReviewPreference }, brochure_path: brochurePath, consented_at: new Date().toISOString(), status: 'notification_pending' });
   if (stored.error) {
     await supabase.storage.from('applicant-brochures').remove([brochurePath, resumePath]);
     return NextResponse.json({ error: 'Application storage failed. Nothing was submitted.' }, { status: 502 });
@@ -85,6 +89,7 @@ export async function POST(request: NextRequest) {
     `Reservation schedule request: ${parsed.data.answers.installmentPreference}`,
     ...parsed.data.plan.paymentSchedule.map(item => `  - ${item}`),
     `Financial-aid information requested: ${parsed.data.answers.financialAid ? 'Yes' : 'No'}`,
+    `Counselor review route: ${counselorReview}`,
     `Résumé attached: ${resume.filename}`,
     `Secure brochure (expires in 7 days): ${signed.data.signedUrl}`,
     '',

@@ -24,7 +24,10 @@ export async function POST(request: NextRequest) {
   }
 
   const generated = new Date().toISOString().slice(0, 10);
-  const pdf = createBrochurePdf(parsed.data.plan, 'REVIEW COPY - NOT SUBMITTED', generated);
+  const counselorReview = parsed.data.counselorReviewPreference === 'ai_counselor_preliminary'
+    ? 'AI counselor preliminary recommendation followed by authorized human counselor review'
+    : 'Authorized human counselor review';
+  const pdf = createBrochurePdf(parsed.data.plan, 'REVIEW COPY - NOT SUBMITTED', generated, counselorReview);
 
   return new NextResponse(new Uint8Array(pdf), {
     headers: {
