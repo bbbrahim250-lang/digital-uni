@@ -452,6 +452,13 @@
       "intro": "Découvrez séparément chaque produit des collections Santa Monica et Palo Alto : maillots hommes et femmes, mugs, casquettes, chaussures, ballons de football américain, de football et de basketball.",
       "priceGuide": "Mugs 5 $ • Casquettes 15 $ • Maillots 35 $ • Chaussures 45–70 $ • Ballons 25–30 $"
     },
+    "tryouts": {
+      "eyebrow": "Sélections des équipes AI Pioneers Sharks",
+      "title": "Candidature aux sélections des entraîneurs",
+      "description": "Candidatez à l'évaluation des entraîneurs de football américain, basketball ou football à Santa Monica ou Palo Alto. Vérifiez votre brochure professionnelle avant de l'envoyer personnellement.",
+      "dates": "Sélections annuelles : 10 juin et 12 novembre",
+      "cta": "Ouvrir la candidature"
+    },
     "catalog": {
       "campusCollection": "Collection du campus",
       "individualNotice": "Chaque modèle est présenté et tarifé séparément. Les images restent des aperçus conceptuels jusqu'à l'approbation de la fabrication.",

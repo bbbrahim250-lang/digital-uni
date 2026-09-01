@@ -15,6 +15,8 @@ const campusCollections = [
     key: 'santaMonica',
     envPrefix: 'SANTA_MONICA',
     image: '/images/store/ai-pioneers-sharks-santa-monica-team-shirts.png',
+    accessoriesImage: '/images/store/ai-pioneers-sharks-santa-monica-accessories.png',
+    equipmentImage: '/images/store/ai-pioneers-sharks-santa-monica-equipment.png',
     crest: '/images/digital-uni-ai-pioneers-sharks-santa-monica.webp',
     priceEnv: 'STORE_SANTA_MONICA_SHARKS_SHIRT_PRICE',
     checkoutEnv: 'STORE_SANTA_MONICA_SHARKS_SHIRT_CHECKOUT_URL',
@@ -24,6 +26,8 @@ const campusCollections = [
     key: 'paloAlto',
     envPrefix: 'PALO_ALTO',
     image: '/images/store/ai-pioneers-sharks-palo-alto-team-shirts.png',
+    accessoriesImage: '/images/store/ai-pioneers-sharks-palo-alto-accessories.png',
+    equipmentImage: '/images/store/ai-pioneers-sharks-palo-alto-equipment.png',
     crest: '/images/digital-uni-ai-pioneers-sharks-palo-alto.webp',
     priceEnv: 'STORE_PALO_ALTO_SHARKS_SHIRT_PRICE',
     checkoutEnv: 'STORE_PALO_ALTO_SHARKS_SHIRT_CHECKOUT_URL',
@@ -41,13 +45,13 @@ const teamShirts = [
 ] as const;
 
 const accessories = [
-  { key: 'coffeeMug', icon: '☕', defaultPrice: '$5 USD', priceEnv: 'STORE_COFFEE_MUG_PRICE', checkoutEnv: 'STORE_COFFEE_MUG_CHECKOUT_URL', sensorEligible: false },
-  { key: 'cap', icon: 'CAP', defaultPrice: '$15 USD', priceEnv: 'STORE_CAP_PRICE', checkoutEnv: 'STORE_CAP_CHECKOUT_URL', sensorEligible: true },
-  { key: 'soccerShoes', icon: '⚽', defaultPrice: '$45 USD', priceEnv: 'STORE_SOCCER_SHOES_PRICE', checkoutEnv: 'STORE_SOCCER_SHOES_CHECKOUT_URL', sensorEligible: true },
-  { key: 'basketballShoes', icon: '🏀', defaultPrice: '$70 USD', priceEnv: 'STORE_BASKETBALL_SHOES_PRICE', checkoutEnv: 'STORE_BASKETBALL_SHOES_CHECKOUT_URL', sensorEligible: true },
-  { key: 'football', icon: '🏈', defaultPrice: '$30 USD', priceEnv: 'STORE_FOOTBALL_PRICE', checkoutEnv: 'STORE_FOOTBALL_CHECKOUT_URL', sensorEligible: false },
-  { key: 'soccerBall', icon: '⚽', defaultPrice: '$25 USD', priceEnv: 'STORE_SOCCER_BALL_PRICE', checkoutEnv: 'STORE_SOCCER_BALL_CHECKOUT_URL', sensorEligible: false },
-  { key: 'basketball', icon: '🏀', defaultPrice: '$30 USD', priceEnv: 'STORE_BASKETBALL_PRICE', checkoutEnv: 'STORE_BASKETBALL_CHECKOUT_URL', sensorEligible: false }
+  { key: 'coffeeMug', image: 'accessoriesImage', position: '100% 0%', backgroundSize: '200% 200%', aspect: 'aspect-[3/2]', defaultPrice: '$5 USD', priceEnv: 'STORE_COFFEE_MUG_PRICE', checkoutEnv: 'STORE_COFFEE_MUG_CHECKOUT_URL', sensorEligible: false },
+  { key: 'cap', image: 'accessoriesImage', position: '0% 0%', backgroundSize: '200% 200%', aspect: 'aspect-[3/2]', defaultPrice: '$15 USD', priceEnv: 'STORE_CAP_PRICE', checkoutEnv: 'STORE_CAP_CHECKOUT_URL', sensorEligible: true },
+  { key: 'soccerShoes', image: 'accessoriesImage', position: '0% 100%', backgroundSize: '200% 200%', aspect: 'aspect-[3/2]', defaultPrice: '$45 USD', priceEnv: 'STORE_SOCCER_SHOES_PRICE', checkoutEnv: 'STORE_SOCCER_SHOES_CHECKOUT_URL', sensorEligible: true },
+  { key: 'basketballShoes', image: 'accessoriesImage', position: '100% 100%', backgroundSize: '200% 200%', aspect: 'aspect-[3/2]', defaultPrice: '$70 USD', priceEnv: 'STORE_BASKETBALL_SHOES_PRICE', checkoutEnv: 'STORE_BASKETBALL_SHOES_CHECKOUT_URL', sensorEligible: true },
+  { key: 'football', image: 'equipmentImage', position: '0% 50%', backgroundSize: '300% 100%', aspect: 'aspect-[2/3]', defaultPrice: '$30 USD', priceEnv: 'STORE_FOOTBALL_PRICE', checkoutEnv: 'STORE_FOOTBALL_CHECKOUT_URL', sensorEligible: false },
+  { key: 'soccerBall', image: 'equipmentImage', position: '50% 50%', backgroundSize: '300% 100%', aspect: 'aspect-[2/3]', defaultPrice: '$25 USD', priceEnv: 'STORE_SOCCER_BALL_PRICE', checkoutEnv: 'STORE_SOCCER_BALL_CHECKOUT_URL', sensorEligible: false },
+  { key: 'basketball', image: 'equipmentImage', position: '100% 50%', backgroundSize: '300% 100%', aspect: 'aspect-[2/3]', defaultPrice: '$30 USD', priceEnv: 'STORE_BASKETBALL_PRICE', checkoutEnv: 'STORE_BASKETBALL_CHECKOUT_URL', sensorEligible: false }
 ] as const;
 
 function configuredValue(name: string) {
@@ -187,6 +191,25 @@ export default async function StorePage({ params }: { params: { locale: string }
             </div>
           </div>
 
+          <div className="mt-8 rounded-3xl border border-gold-400/60 bg-gradient-to-r from-emerald-950 via-navy-900 to-black p-6 text-white shadow-card md:p-8">
+            <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
+              <div className="max-w-3xl">
+                <p className="text-xs font-black uppercase tracking-[0.2em] text-gold-400">{t('tryouts.eyebrow')}</p>
+                <h3 className="mt-3 text-2xl font-black md:text-3xl">{t('tryouts.title')}</h3>
+                <p className="mt-3 text-sm leading-7 text-navy-50/80">{t('tryouts.description')}</p>
+                <p className="mt-4 font-black text-highlight-turquoise">{t('tryouts.dates')}</p>
+              </div>
+              <Link
+                href={`/${locale}/tryouts`}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex min-h-14 shrink-0 items-center justify-center rounded-xl bg-gold-500 px-6 text-center font-black text-navy-900 transition hover:bg-white"
+              >
+                {t('tryouts.cta')}
+              </Link>
+            </div>
+          </div>
+
           {campusCollections.map((campus) => (
             <section key={campus.key} className="mt-14" aria-labelledby={`${campus.key}-store-heading`}>
               <div className="flex items-center gap-5 border-b border-navy-100 pb-6">
@@ -247,13 +270,16 @@ export default async function StorePage({ params }: { params: { locale: string }
 
                   return (
                     <article key={product.key} className="overflow-hidden rounded-2xl border border-navy-100 bg-white shadow-card">
-                      <div className="relative flex aspect-[4/3] items-center justify-center overflow-hidden bg-[radial-gradient(circle_at_center,rgba(20,230,190,0.24),transparent_48%),linear-gradient(135deg,#020905,#071f17)]">
-                        <div className="absolute inset-0 select-none overflow-hidden p-4 font-mono text-xs leading-5 text-emerald-400/25" aria-hidden="true">01001010 11010010 00110101 10100110 01011001 11001010 00101101 10110010 01010110 10010101</div>
-                        <span className="relative z-10 flex h-24 w-24 items-center justify-center rounded-full border-4 border-gold-400 bg-black/80 text-3xl font-black text-white shadow-2xl">{product.icon}</span>
-                        <div className="absolute bottom-3 end-3 h-14 w-14 overflow-hidden rounded-xl border border-gold-400/50 bg-black">
-                          <Image src={campus.crest} alt="" fill sizes="56px" className="object-cover" />
-                        </div>
-                      </div>
+                      <div
+                        role="img"
+                        aria-label={title}
+                        className={`${product.aspect} bg-black bg-no-repeat`}
+                        style={{
+                          backgroundImage: `url(${campus[product.image]})`,
+                          backgroundPosition: product.position,
+                          backgroundSize: product.backgroundSize
+                        }}
+                      />
                       <div className="p-6">
                         {product.sensorEligible && (
                           <span className="inline-flex rounded-full bg-gold-200/60 px-3 py-1 text-xs font-black uppercase tracking-wider text-navy-800">{t('smartGear.eligible')}</span>

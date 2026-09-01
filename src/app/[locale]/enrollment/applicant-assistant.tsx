@@ -51,6 +51,10 @@ const copy = {
     review: 'Review your proposed route before submission',
     resumeLabel: 'Attach your résumé',
     resumeHelp: 'Required PDF or DOCX file, maximum 3 MB. It is sent privately with your personalized brochure to Digital-UNI enrollment and financial aid.',
+    counselorReviewLabel: 'Choose proposal review route',
+    humanCounselor: 'Authorized human counselor review',
+    aiCounselor: 'AI counselor preliminary recommendation + authorized human review',
+    counselorNotice: 'The AI counselor may organize the proposal and suggest questions, but it cannot approve enrollment, eligibility, financial aid, or courses. Final approval remains with an authorized human reviewer.',
     consent: 'I explicitly consent to Digital-UNI storing and emailing this proposal and my résumé for application review. I have read the privacy and retention notice.',
     privacy: 'Data is minimized, access-restricted and retained for up to 24 months for application review unless law requires longer. Request access or deletion at enroll@digital-uni.net.',
     submitted: 'Itinerary reservation request submitted',
@@ -89,6 +93,10 @@ const copy = {
     review: 'Vérifiez votre parcours proposé avant l’envoi',
     resumeLabel: 'Joindre votre CV',
     resumeHelp: 'Fichier PDF ou DOCX obligatoire, 3 Mo maximum. Il est envoyé de façon privée avec votre brochure aux services des inscriptions et de l’aide financière.',
+    counselorReviewLabel: 'Choisissez le mode de vérification de la proposition',
+    humanCounselor: 'Vérification par un conseiller humain autorisé',
+    aiCounselor: 'Recommandation préliminaire du conseiller IA + vérification humaine autorisée',
+    counselorNotice: 'Le conseiller IA peut organiser la proposition et suggérer des questions, mais il ne peut approuver l’inscription, l’admissibilité, l’aide financière ou les cours. L’approbation finale appartient à une personne autorisée.',
     consent: 'Je consens explicitement au stockage et à l’envoi par courriel de cette proposition et de mon CV pour examen. J’ai lu l’avis de confidentialité et de conservation.',
     privacy: 'Les données minimales sont protégées et conservées jusqu’à 24 mois, sauf obligation légale. Demandez l’accès ou la suppression à enroll@digital-uni.net.',
     submitted: 'Demande de réservation de l’itinéraire envoyée',
@@ -127,6 +135,10 @@ const copy = {
     review: 'راجع المسار المقترح قبل الإرسال',
     resumeLabel: 'أرفق سيرتك الذاتية',
     resumeHelp: 'ملف PDF أو DOCX مطلوب، بحد أقصى 3 ميغابايت. يُرسل بشكل خاص مع الكتيب إلى فريقي التسجيل والمساعدة المالية.',
+    counselorReviewLabel: 'اختر مسار مراجعة المقترح',
+    humanCounselor: 'مراجعة مستشار بشري مخوّل',
+    aiCounselor: 'توصية أولية من مستشار الذكاء الاصطناعي مع مراجعة بشرية مخوّلة',
+    counselorNotice: 'يمكن لمستشار الذكاء الاصطناعي تنظيم المقترح واقتراح الأسئلة، لكنه لا يوافق على التسجيل أو الأهلية أو المساعدة المالية أو المقررات. تبقى الموافقة النهائية لمراجع بشري مخوّل.',
     consent: 'أوافق صراحة على تخزين هذا المقترح وسيرتي الذاتية وإرسالهما بالبريد لمراجعة الطلب. قرأت إشعار الخصوصية والاحتفاظ.',
     privacy: 'تُحفظ البيانات الضرورية فقط مع تقييد الوصول لمدة تصل إلى 24 شهرًا ما لم يتطلب القانون غير ذلك. لطلب الوصول أو الحذف: enroll@digital-uni.net.',
     submitted: 'تم إرسال طلب حجز خط السير',
@@ -354,6 +366,7 @@ export function ApplicantAssistant({ locale, enabled }: { locale: Locale; enable
   const [busy, setBusy] = useState(false);
   const [planToken, setPlanToken] = useState('');
   const [resume, setResume] = useState<File | null>(null);
+  const [counselorReviewPreference, setCounselorReviewPreference] = useState<'human_counselor' | 'ai_counselor_preliminary'>('human_counselor');
   const [error, setError] = useState('');
   const [consent, setConsent] = useState(false);
   const [result, setResult] = useState<{ reference: string; brochureUrl: string; emailDelivered: boolean } | null>(null);
@@ -469,6 +482,7 @@ export function ApplicantAssistant({ locale, enabled }: { locale: Locale; enable
     formData.set('planToken', planToken);
     formData.set('consent', String(consent));
     formData.set('reviewed', 'true');
+    formData.set('counselorReviewPreference', counselorReviewPreference);
     formData.set('website', '');
     formData.set('resume', resume);
     setBusy(true);
@@ -490,7 +504,7 @@ export function ApplicantAssistant({ locale, enabled }: { locale: Locale; enable
     const response = await fetch('/api/applicant-preview', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ answers, plan, planToken })
+      body: JSON.stringify({ answers, plan, planToken, counselorReviewPreference })
     });
 
     if (!response.ok) {
@@ -518,6 +532,7 @@ export function ApplicantAssistant({ locale, enabled }: { locale: Locale; enable
     setValue('');
     setResume(null);
     setConsent(false);
+    setCounselorReviewPreference('human_counselor');
     setResult(null);
     setExplorationPrompt('');
     setExplorationPassReady(false);
@@ -810,6 +825,22 @@ export function ApplicantAssistant({ locale, enabled }: { locale: Locale; enable
                   <>
                     <h3 className="text-xl font-bold">{t.review}</h3>
                     <p className="mt-3 text-sm">{t.estimateNotice}</p>
+                    <label className="mt-5 block rounded-lg border border-emerald-200 bg-emerald-50 p-4 text-sm font-bold text-navy-900" htmlFor="counselor-review-preference">
+                      {t.counselorReviewLabel}
+                      <select
+                        id="counselor-review-preference"
+                        value={counselorReviewPreference}
+                        onChange={event => {
+                          setCounselorReviewPreference(event.target.value as 'human_counselor' | 'ai_counselor_preliminary');
+                          clearReview();
+                        }}
+                        className={inputClass}
+                      >
+                        <option value="human_counselor">{t.humanCounselor}</option>
+                        <option value="ai_counselor_preliminary">{t.aiCounselor}</option>
+                      </select>
+                      <span className="mt-3 block text-xs font-normal leading-5 text-navy-600">{t.counselorNotice}</span>
+                    </label>
                     <div className="mt-5 rounded-lg border border-navy-100 p-4">
                       <label className="block text-sm font-bold" htmlFor="applicant-resume">{t.resumeLabel}</label>
                       <p id="applicant-resume-help" className="mt-2 text-xs leading-5 text-navy-600">{t.resumeHelp}</p>
@@ -854,6 +885,9 @@ export function ApplicantAssistant({ locale, enabled }: { locale: Locale; enable
                     <p className="text-xs font-black uppercase tracking-[.16em] text-emerald-700">Final review · not submitted</p>
                     <h3 className="mt-2 text-xl font-black text-navy-900">{t.reviewReadyTitle}</h3>
                     <p className="mt-3 text-sm leading-6 text-navy-700">{t.reviewReadyText}</p>
+                    <p className="mt-3 rounded-lg border border-emerald-200 bg-white p-3 text-sm font-semibold text-navy-700">
+                      {counselorReviewPreference === 'ai_counselor_preliminary' ? t.aiCounselor : t.humanCounselor}
+                    </p>
                     <div className="mt-5 grid gap-3">
                       <a href={brochureReviewUrl} target="_blank" rel="noreferrer" className="inline-flex min-h-12 items-center justify-center rounded-lg bg-navy-900 px-4 text-center font-bold text-white">
                         {t.openBrochureReview}

@@ -1,4 +1,13 @@
 import { brochureDisclaimer, type ApplicantPlan } from './applicant-planning';
+import {
+  tryoutCampusLabels,
+  tryoutDisclaimer,
+  tryoutInsuranceLabels,
+  tryoutPrivacyNotice,
+  tryoutSessionLabels,
+  tryoutSportLabels,
+  type TryoutApplication
+} from './tryout';
 
 function ascii(value: string) { return value.normalize('NFKD').replace(/[^\x20-\x7E]/g, '?'); }
 function escape(value: string) { return ascii(value).replace(/([\\()])/g, '\\$1'); }
@@ -28,7 +37,12 @@ function assemblePdf(objects: Array<string | Buffer>) {
   return Buffer.concat(chunks);
 }
 
-export function createBrochurePdf(plan: ApplicantPlan, reference: string, generated: string) {
+export function createBrochurePdf(
+  plan: ApplicantPlan,
+  reference: string,
+  generated: string,
+  counselorReview = 'Digital-UNI human counselor review requested'
+) {
   const lines = [
     'DIGITAL-UNI(TM) PERSONALIZED LEARNING PATHWAY', 'Digital-UNI | www.digital-uni.net | 213-708-4890',
     'enroll@digital-uni.net | financial_aid@digital-uni.net', '', `Applicant: ${plan.applicantName}`, `Application reference: ${reference}`,
@@ -43,6 +57,8 @@ export function createBrochurePdf(plan: ApplicantPlan, reference: string, genera
     `Applied project: ${plan.appliedProject}`, `Personalized AI application: ${plan.personalizedAiApplicationOutcome}`,
     `Duration: ${plan.proposedDuration}`, `Applicant stated budget: ${plan.applicantBudget}`,
     `Financial-aid-information request: ${plan.financialAidInquiryStatus ? 'Yes' : 'No'}`, '', 'Enrollment next steps:',
+    `Counselor review route: ${counselorReview}`,
+    'Any AI counselor output is a preliminary recommendation only. Enrollment, eligibility, financial aid, and course approval require authorized human review and written confirmation.',
     'Digital-UNI staff review, written confirmation, then secure payment if approved.', '', brochureDisclaimer
   ];
   const wrapped = lines.flatMap(line => line.match(/.{1,88}(?:\s|$)/g)?.map(x => x.trim()) ?? ['']);
@@ -52,6 +68,76 @@ export function createBrochurePdf(plan: ApplicantPlan, reference: string, genera
     '<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 5 0 R >> >> /Contents 4 0 R >>',
     `<< /Length ${Buffer.byteLength(content, 'binary')} >>\nstream\n${content}\nendstream`,
     '<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>'
+  ];
+  return assemblePdf(objects);
+}
+
+export function createTryoutApplicationPdf(
+  application: TryoutApplication,
+  reference: string,
+  generated: string,
+  status = 'REVIEW COPY - NOT SUBMITTED'
+) {
+  const lines = [
+    'DIGITAL-UNI(TM) AI PIONEERS SHARKS',
+    'PROFESSIONAL ATHLETIC TRYOUT APPLICATION BROCHURE',
+    'Digital-UNI | www.digital-uni.net | enroll@digital-uni.net | 213-708-4890',
+    '',
+    status,
+    `Application ID: ${reference}`,
+    `Prepared: ${generated}`,
+    '',
+    `Campus: ${tryoutCampusLabels[application.campus]}`,
+    `Sport: ${tryoutSportLabels[application.sport]}`,
+    `Tryout session: ${tryoutSessionLabels[application.session]}`,
+    `Applicant: ${application.applicantName}`,
+    `Email: ${application.applicantEmail}`,
+    `Phone: ${application.applicantPhone}`,
+    `Age group: ${application.ageGroup === 'under_18' ? 'Under 18' : '18 or older'}`,
+    `Guardian: ${application.guardianName || 'Not required'}`,
+    `Guardian email: ${application.guardianEmail || 'Not required'}`,
+    '',
+    'Coach selection information:',
+    `Athletic history: ${application.athleticHistory}`,
+    `Resume or game video: ${application.evidenceFilename}`,
+    '',
+    'Participation and insurance information:',
+    `Health or participation notes: ${application.healthParticipationNotes || 'None provided'}`,
+    `Insurance status: ${tryoutInsuranceLabels[application.insuranceStatus]}`,
+    `Insurance provider: ${application.insuranceProvider || 'Not provided'}`,
+    `Member ID last four: ${application.insuranceMemberLast4 || 'Not provided'}`,
+    '',
+    `Electronic signature: ${application.signatureName}`,
+    'The applicant confirms that the information is true and complete to the best of their knowledge and authorizes private coaching and enrollment review.',
+    '',
+    tryoutPrivacyNotice,
+    '',
+    tryoutDisclaimer,
+    '',
+    'Review this brochure and the attached resume or game video. Use Make Changes if anything is incorrect. Nothing is submitted until the applicant personally presses Submit Application.'
+  ];
+  const wrapped = lines.slice(4).flatMap(line => line.match(/.{1,84}(?:\s|$)/g)?.map(value => value.trim()) ?? ['']);
+  const bodyCommands = wrapped.slice(0, 45).map((line, index) => {
+    const font = line === status ? '/F2' : '/F1';
+    return `0.03 0.08 0.12 rg BT ${font} 9 Tf 48 ${686 - index * 14} Td (${escape(line)}) Tj ET`;
+  });
+  const content = [
+    '0.02 0.07 0.12 rg 0 720 612 72 re f',
+    '0.83 0.66 0.24 rg 0 716 612 4 re f',
+    `1 1 1 rg BT /F2 15 Tf 48 764 Td (${escape(lines[0]!)}) Tj ET`,
+    `0.83 0.66 0.24 rg BT /F2 11 Tf 48 744 Td (${escape(lines[1]!)}) Tj ET`,
+    `0.8 0.9 0.88 rg BT /F1 8 Tf 48 729 Td (${escape(lines[2]!)}) Tj ET`,
+    ...bodyCommands,
+    '0.83 0.66 0.24 rg 48 22 516 1 re f',
+    '0.15 0.25 0.3 rg BT /F1 7 Tf 48 10 Td (Private review document | Digital-UNI AI Pioneers Sharks) Tj ET'
+  ].join('\n');
+  const objects = [
+    '<< /Type /Catalog /Pages 2 0 R >>',
+    '<< /Type /Pages /Kids [3 0 R] /Count 1 >>',
+    '<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 5 0 R /F2 6 0 R >> >> /Contents 4 0 R >>',
+    `<< /Length ${Buffer.byteLength(content, 'binary')} >>\nstream\n${content}\nendstream`,
+    '<< /Type /Font /Subtype /Type1 /BaseFont /Courier /Encoding /WinAnsiEncoding >>',
+    '<< /Type /Font /Subtype /Type1 /BaseFont /Courier-Bold /Encoding /WinAnsiEncoding >>'
   ];
   return assemblePdf(objects);
 }

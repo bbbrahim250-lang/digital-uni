@@ -44,6 +44,7 @@ export const ticketPaymentValues = [
   'Two advance installments',
   'Station-by-station installments'
 ] as const;
+export const counselorReviewValues = ['human_counselor', 'ai_counselor_preliminary'] as const;
 
 export type PathwayTrack = (typeof pathwayTrackValues)[number];
 export type TicketPaymentPreference = (typeof ticketPaymentValues)[number];
@@ -153,7 +154,8 @@ export const planSchema = aiGeneratedPlanSchema.extend({
 export const applicantReviewSchema = z.object({
   answers: applicantAnswersSchema,
   plan: planSchema,
-  planToken: z.string().min(40).max(200)
+  planToken: z.string().min(40).max(200),
+  counselorReviewPreference: z.enum(counselorReviewValues)
 });
 
 export const submissionSchema = applicantReviewSchema.extend({
