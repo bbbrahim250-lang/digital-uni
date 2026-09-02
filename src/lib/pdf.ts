@@ -43,31 +43,161 @@ export function createBrochurePdf(
   generated: string,
   counselorReview = 'Digital-UNI human counselor review requested'
 ) {
-  const lines = [
-    'DIGITAL-UNI(TM) PERSONALIZED LEARNING PATHWAY', 'Digital-UNI | www.digital-uni.net | 213-708-4890',
-    'enroll@digital-uni.net | financial_aid@digital-uni.net', '', `Applicant: ${plan.applicantName}`, `Application reference: ${reference}`,
-    `Generation date: ${generated}`, `AI Train route: ${plan.routeLabel}`, `Route duration: ${plan.routeDuration}`,
-    `Selected program: ${plan.recommendedProgram}`, `Learning objectives: ${plan.learningGoals}`,
-    'Proposed ticket itinerary:',
-    ...plan.ticketSegments.map(segment => `Station ${segment.station}: ${segment.title} | ${segment.duration} | USD ${segment.price.toLocaleString('en-US')}`),
-    `Proposed complete-route ticket: USD ${plan.ticketTotal.toLocaleString('en-US')}`,
-    `Requested reservation schedule: ${plan.requestedInstallmentPreference}`,
-    ...plan.paymentSchedule.map(item => `  ${item}`),
-    `Program modules: ${plan.skillsAndModules.join(' | ')}`, `Weekly learning schedule: ${plan.weeklySchedule.join(' | ')}`,
-    `Applied project: ${plan.appliedProject}`, `Personalized AI application: ${plan.personalizedAiApplicationOutcome}`,
-    `Duration: ${plan.proposedDuration}`, `Applicant stated budget: ${plan.applicantBudget}`,
-    `Financial-aid-information request: ${plan.financialAidInquiryStatus ? 'Yes' : 'No'}`, '', 'Enrollment next steps:',
-    `Counselor review route: ${counselorReview}`,
-    'Any AI counselor output is a preliminary recommendation only. Enrollment, eligibility, financial aid, and course approval require authorized human review and written confirmation.',
-    'Digital-UNI staff review, written confirmation, then secure payment if approved.', '', brochureDisclaimer
-  ];
-  const wrapped = lines.flatMap(line => line.match(/.{1,88}(?:\s|$)/g)?.map(x => x.trim()) ?? ['']);
-  const content = wrapped.slice(0, 48).map((line, i) => `BT /F1 ${i === 0 ? 16 : 10} Tf 54 ${760 - i * 14} Td (${escape(line)}) Tj ET`).join('\n');
+  const navy = '0.039 0.067 0.125';
+  const emerald = '0.027 0.455 0.333';
+  const gold = '0.788 0.612 0.2';
+  const slate = '0.22 0.29 0.39';
+  const pale = '0.945 0.965 0.975';
+  const white = '1 1 1';
+
+  function text(commands: string[], value: string, x: number, y: number, size = 10, font = 'F1', color = navy) {
+    commands.push(`${color} rg BT /${font} ${size} Tf ${x} ${y} Td (${escape(value)}) Tj ET`);
+  }
+
+  function wrap(value: string, width: number, size = 10) {
+    const max = Math.max(18, Math.floor(width / (size * 0.53)));
+    const words = ascii(value).split(/\s+/).filter(Boolean);
+    const lines: string[] = [];
+    let line = '';
+    for (const word of words) {
+      const next = line ? `${line} ${word}` : word;
+      if (next.length > max && line) {
+        lines.push(line);
+        line = word;
+      } else line = next;
+    }
+    if (line) lines.push(line);
+    return lines.length ? lines : [''];
+  }
+
+  function paragraph(commands: string[], value: string, x: number, y: number, width: number, size = 10, leading = 14, color = slate, font = 'F1') {
+    const lines = wrap(value, width, size);
+    lines.forEach((line, index) => text(commands, line, x, y - index * leading, size, font, color));
+    return y - lines.length * leading;
+  }
+
+  function header(commands: string[], section: string, page: number) {
+    commands.push(`${navy} rg 0 752 612 40 re f`, `${gold} rg 0 748 612 4 re f`);
+    text(commands, 'DIGITAL-UNI', 42, 769, 13, 'F2', white);
+    text(commands, section.toUpperCase(), 420, 769, 8, 'F2', '0.72 0.82 0.82');
+    commands.push(`${gold} rg 42 31 528 1 re f`);
+    text(commands, 'digital-uni.net  |  enroll@digital-uni.net  |  213-708-4890', 42, 17, 7.5, 'F1', slate);
+    text(commands, `${page} / 4`, 535, 17, 7.5, 'F2', slate);
+  }
+
+  function contentObject(commands: string[]) {
+    const value = commands.join('\n');
+    return `<< /Length ${Buffer.byteLength(value, 'binary')} >>\nstream\n${value}\nendstream`;
+  }
+
+  const cover: string[] = [];
+  cover.push(`${navy} rg 0 0 612 792 re f`, `${emerald} rg 0 0 612 188 re f`, `${gold} rg 0 184 612 4 re f`);
+  cover.push('0.06 0.25 0.23 rg 332 390 340 340 re f');
+  for (let i = 0; i < 12; i += 1) {
+    const x = 345 + (i % 4) * 68;
+    const y = 430 + Math.floor(i / 4) * 76;
+    text(cover, i % 3 === 0 ? 'AI' : i % 2 === 0 ? '01' : '10', x, y, 24, 'F2', '0.2 0.58 0.47');
+  }
+  cover.push(`${gold} RG 3 w 48 626 62 62 re S`);
+  text(cover, 'DU', 61, 646, 24, 'F2', gold);
+  text(cover, 'DIGITAL-UNI', 48, 589, 14, 'F2', gold);
+  text(cover, 'PERSONALIZED PROGRAM BROCHURE', 48, 563, 10, 'F2', '0.67 0.85 0.8');
+  let coverY = 500;
+  for (const line of wrap(plan.recommendedProgram, 475, 32).slice(0, 4)) {
+    text(cover, line, 48, coverY, 32, 'F2', white);
+    coverY -= 38;
+  }
+  coverY -= 10;
+  coverY = paragraph(cover, `A personalized ${plan.routeLabel.toLowerCase()} prepared for ${plan.applicantName}.`, 48, coverY, 440, 13, 19, '0.8 0.88 0.9');
+  text(cover, 'CANDIDATE', 48, 143, 8, 'F2', '0.72 0.95 0.86');
+  text(cover, plan.applicantName, 48, 119, 17, 'F2', white);
+  text(cover, 'DOCUMENT STATUS', 315, 143, 8, 'F2', '0.72 0.95 0.86');
+  text(cover, reference, 315, 119, 13, 'F2', white);
+  text(cover, `Prepared ${generated}  |  ${plan.routeDuration} proposed route`, 48, 72, 9, 'F1', white);
+  text(cover, 'Private candidate document - review every page before personal submission.', 48, 48, 8, 'F1', '0.75 0.9 0.84');
+
+  const profile: string[] = [];
+  header(profile, 'Candidate and program fit', 2);
+  text(profile, 'YOUR PROGRAM AT A GLANCE', 42, 712, 9, 'F2', emerald);
+  let y = 680;
+  y = paragraph(profile, plan.recommendedProgram, 42, y, 520, 25, 30, navy, 'F2') - 8;
+  profile.push(`${pale} rg 42 ${y - 95} 528 95 re f`);
+  text(profile, 'PROPOSED FORMAT', 60, y - 24, 8, 'F2', emerald);
+  text(profile, `${plan.routeLabel} - ${plan.routeDuration}`, 60, y - 46, 13, 'F2', navy);
+  text(profile, 'PLANNING ESTIMATE', 348, y - 24, 8, 'F2', emerald);
+  text(profile, `USD ${plan.ticketTotal.toLocaleString('en-US')}`, 348, y - 46, 13, 'F2', navy);
+  text(profile, 'No payment is collected by this brochure.', 348, y - 65, 8, 'F1', slate);
+  y -= 126;
+  text(profile, 'CANDIDATE PROFILE', 42, y, 9, 'F2', emerald); y -= 26;
+  text(profile, plan.applicantName, 42, y, 16, 'F2', navy); y -= 20;
+  text(profile, plan.applicantEmail, 42, y, 10, 'F1', slate); y -= 32;
+  text(profile, 'CURRENT EXPERIENCE', 42, y, 8, 'F2', emerald); y -= 18;
+  y = paragraph(profile, plan.currentExperience, 42, y, 520, 10, 15) - 18;
+  text(profile, 'LEARNING OBJECTIVES', 42, y, 8, 'F2', emerald); y -= 18;
+  y = paragraph(profile, plan.learningGoals, 42, y, 520, 10, 15) - 18;
+  text(profile, 'PERSONALIZED OUTCOME', 42, y, 8, 'F2', emerald); y -= 18;
+  paragraph(profile, plan.personalizedAiApplicationOutcome, 42, y, 520, 10, 15);
+
+  const routePage: string[] = [];
+  header(routePage, 'Learning route', 3);
+  text(routePage, 'YOUR DIGITAL-UNI AI TRAIN ROUTE', 42, 712, 9, 'F2', emerald);
+  text(routePage, `${plan.routeLabel}  |  ${plan.routeDuration}`, 42, 683, 22, 'F2', navy);
+  let routeY = 632;
+  plan.ticketSegments.forEach(segment => {
+    routePage.push(`${segment.station % 2 ? pale : '0.91 0.96 0.94'} rg 42 ${routeY - 70} 528 76 re f`);
+    routePage.push(`${emerald} rg 56 ${routeY - 52} 38 38 re f`);
+    text(routePage, String(segment.station).padStart(2, '0'), 67, routeY - 40, 13, 'F2', white);
+    text(routePage, `Station ${segment.station}  |  ${segment.duration}`, 112, routeY - 24, 8, 'F2', emerald);
+    text(routePage, segment.title, 112, routeY - 45, 12, 'F2', navy);
+    text(routePage, `USD ${segment.price.toLocaleString('en-US')}`, 460, routeY - 45, 10, 'F2', navy);
+    routeY -= 88;
+  });
+  text(routePage, 'REQUESTED RESERVATION SCHEDULE', 42, routeY - 2, 8, 'F2', emerald);
+  text(routePage, plan.requestedInstallmentPreference, 42, routeY - 24, 12, 'F2', navy);
+  let paymentY = routeY - 48;
+  plan.paymentSchedule.forEach(item => { text(routePage, `- ${item}`, 55, paymentY, 9, 'F1', slate); paymentY -= 16; });
+  text(routePage, 'WEEKLY LEARNING RHYTHM', 315, routeY - 2, 8, 'F2', emerald);
+  let weeklyY = routeY - 24;
+  plan.weeklySchedule.slice(0, 5).forEach(item => { weeklyY = paragraph(routePage, `- ${item}`, 315, weeklyY, 250, 9, 13) - 4; });
+
+  const details: string[] = [];
+  header(details, 'Curriculum and next steps', 4);
+  text(details, 'WHAT YOU WILL BUILD', 42, 712, 9, 'F2', emerald);
+  let detailsY = 680;
+  text(details, 'Applied project', 42, detailsY, 18, 'F2', navy); detailsY -= 24;
+  detailsY = paragraph(details, plan.appliedProject, 42, detailsY, 520, 10, 15) - 22;
+  text(details, 'Proposed skills and modules', 42, detailsY, 18, 'F2', navy); detailsY -= 28;
+  plan.skillsAndModules.slice(0, 8).forEach((item, index) => {
+    const column = index % 2;
+    const row = Math.floor(index / 2);
+    const boxX = 42 + column * 266;
+    const boxY = detailsY - row * 52;
+    details.push(`${pale} rg ${boxX} ${boxY - 34} 254 40 re f`);
+    text(details, `${String(index + 1).padStart(2, '0')}  ${item}`, boxX + 12, boxY - 19, 8.5, 'F2', navy);
+  });
+  detailsY -= Math.ceil(Math.min(plan.skillsAndModules.length, 8) / 2) * 52 + 10;
+  text(details, 'COUNSELOR REVIEW AND CANDIDATE CONTROL', 42, detailsY, 9, 'F2', emerald); detailsY -= 24;
+  detailsY = paragraph(details, `Review route: ${counselorReview}. Any AI counselor output is preliminary. Enrollment, eligibility, financial aid, and course approval require authorized human review and written confirmation.`, 42, detailsY, 520, 9.5, 14) - 18;
+  text(details, 'Next steps', 42, detailsY, 16, 'F2', navy); detailsY -= 25;
+  ['1. Open and review this complete brochure.', '2. Review the attached resume and correct anything inaccurate.', '3. Personally choose Make Changes or Submit Application.', '4. Await Digital-UNI written review before any secure payment.'].forEach(item => { text(details, item, 54, detailsY, 9.5, 'F1', slate); detailsY -= 18; });
+  details.push('0.99 0.96 0.86 rg 42 55 528 92 re f');
+  text(details, 'IMPORTANT PLANNING NOTICE', 56, 126, 8, 'F2', '0.55 0.35 0.02');
+  paragraph(details, brochureDisclaimer, 56, 109, 500, 7.5, 10, '0.32 0.27 0.18');
+
+  const pageResource = '/Resources << /Font << /F1 11 0 R /F2 12 0 R >> >>';
   const objects = [
-    '<< /Type /Catalog /Pages 2 0 R >>', '<< /Type /Pages /Kids [3 0 R] /Count 1 >>',
-    '<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 5 0 R >> >> /Contents 4 0 R >>',
-    `<< /Length ${Buffer.byteLength(content, 'binary')} >>\nstream\n${content}\nendstream`,
-    '<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>'
+    '<< /Type /Catalog /Pages 2 0 R >>',
+    '<< /Type /Pages /Kids [3 0 R 5 0 R 7 0 R 9 0 R] /Count 4 >>',
+    `<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] ${pageResource} /Contents 4 0 R >>`,
+    contentObject(cover),
+    `<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] ${pageResource} /Contents 6 0 R >>`,
+    contentObject(profile),
+    `<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] ${pageResource} /Contents 8 0 R >>`,
+    contentObject(routePage),
+    `<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] ${pageResource} /Contents 10 0 R >>`,
+    contentObject(details),
+    '<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>',
+    '<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold /Encoding /WinAnsiEncoding >>'
   ];
   return assemblePdf(objects);
 }

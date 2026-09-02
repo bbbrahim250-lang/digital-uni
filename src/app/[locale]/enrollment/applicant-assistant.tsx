@@ -14,6 +14,7 @@ import {
   type PathwayTrack,
   type TicketPaymentPreference
 } from '@/lib/applicant-planning';
+import { getProgramPresentation, programPresentations, type ProgramPresentation } from '@/lib/program-presentations';
 
 type Locale = 'en' | 'ar' | 'fr';
 type PlannerWindow = PathwayTrack | 'exploration';
@@ -321,16 +322,35 @@ function AiTrainPass({
   );
 }
 
-const questions = {
-  en: ['What is your name?', 'What is your email?', 'What do you want to learn?', 'What is your current education and professional experience?', 'What career or professional outcome do you want?', 'Does this proposed route duration work, or do you need another schedule?', 'How many hours per week are available?', 'What is your tuition budget?', 'Are you requesting financial-aid information?', 'Which language do you prefer: English, Arabic, or French?'],
-  fr: ['Quel est votre nom ?', 'Quelle est votre adresse e-mail ?', 'Que souhaitez-vous apprendre ?', 'Quels sont votre formation et votre expérience professionnelle ?', 'Quel résultat professionnel souhaitez-vous ?', 'La durée proposée vous convient-elle ou souhaitez-vous un autre calendrier ?', 'Combien d’heures par semaine sont disponibles ?', 'Quel est votre budget de scolarité ?', 'Demandez-vous des informations sur l’aide financière ?', 'Quelle langue préférez-vous : anglais, arabe ou français ?'],
-  ar: ['ما اسمك؟', 'ما بريدك الإلكتروني؟', 'ماذا تريد أن تتعلم؟', 'ما تعليمك الحالي وخبرتك المهنية؟', 'ما النتيجة المهنية التي تريدها؟', 'هل مدة المسار المقترحة مناسبة أم تحتاج إلى جدول آخر؟', 'كم ساعة متاحة أسبوعيًا؟', 'ما ميزانية الرسوم الدراسية؟', 'هل تطلب معلومات عن المساعدة المالية؟', 'ما لغتك المفضلة: الإنجليزية أم العربية أم الفرنسية؟']
+const formCopy = {
+  en: {
+    discoveryKicker: 'Explore Digital-UNI programs', discoveryTitle: 'Find the program that moves your work forward', discoveryText: 'Compare applied professional programs and executive advisory pathways. Every selection opens a program-specific profile before you provide personal information.',
+    all: 'Featured', professional: 'Professional', executive: 'Executive', view: 'View program & brochure', selected: 'Selected program',
+    audience: 'Designed for', outcome: 'Portfolio / advisory outcome', format: 'Format', online: 'Guided online + applied project',
+    brochureKicker: 'Personalized program profile', brochureTitle: 'Get your Digital-UNI brochure', brochureIntro: 'Tell us enough to build a meaningful proposal. The brochure is prepared as a private review copy; it is not an application submission.',
+    contact: 'Your profile', name: 'Full name', email: 'Email address', experience: 'Education and professional experience', goals: 'What do you want to learn?', career: 'Target role or professional outcome', schedule: 'Schedule and planning', duration: 'Preferred completion schedule', hours: 'Hours available each week', budget: 'Planning budget', aid: 'Request financial-aid information', language: 'Brochure language', create: 'Create my personalized proposal', creating: 'Building your proposal…', private: 'Private planning · no payment · no submission',
+    selectHint: 'Choose any program below to see its full profile and start your brochure.',
+    stepProfile: 'Complete your private program profile', stepReview: 'Open the full multipage brochure and your résumé', stepSubmit: 'Make changes or personally submit for counselor review', start: 'Start my private brochure', proposed: 'planning estimate'
+  },
+  fr: {
+    discoveryKicker: 'Explorer les programmes Digital-UNI', discoveryTitle: 'Trouvez le programme qui fait progresser votre travail', discoveryText: 'Comparez les programmes professionnels appliqués et les parcours de conseil exécutif. Chaque choix ouvre un profil avant toute saisie de données personnelles.',
+    all: 'En vedette', professional: 'Professionnel', executive: 'Exécutif', view: 'Voir le programme et la brochure', selected: 'Programme sélectionné',
+    audience: 'Conçu pour', outcome: 'Résultat du portfolio / conseil', format: 'Format', online: 'En ligne guidé + projet appliqué',
+    brochureKicker: 'Profil de programme personnalisé', brochureTitle: 'Obtenez votre brochure Digital-UNI', brochureIntro: 'Donnez les informations nécessaires à une proposition utile. La brochure est une copie privée à vérifier, pas un envoi de candidature.',
+    contact: 'Votre profil', name: 'Nom complet', email: 'Adresse e-mail', experience: 'Formation et expérience professionnelle', goals: 'Que souhaitez-vous apprendre ?', career: 'Poste ou résultat professionnel visé', schedule: 'Calendrier et planification', duration: 'Calendrier de réalisation souhaité', hours: 'Heures disponibles par semaine', budget: 'Budget de planification', aid: 'Demander des informations sur l’aide financière', language: 'Langue de la brochure', create: 'Créer ma proposition personnalisée', creating: 'Création de votre proposition…', private: 'Planification privée · aucun paiement · aucun envoi',
+    selectHint: 'Choisissez un programme pour voir son profil complet et commencer votre brochure.',
+    stepProfile: 'Complétez votre profil privé', stepReview: 'Ouvrez la brochure multipage et votre CV', stepSubmit: 'Modifiez ou envoyez personnellement pour vérification', start: 'Commencer ma brochure privée', proposed: 'estimation de planification'
+  },
+  ar: {
+    discoveryKicker: 'استكشف برامج Digital-UNI', discoveryTitle: 'اختر البرنامج الذي يدفع عملك إلى الأمام', discoveryText: 'قارن بين البرامج المهنية التطبيقية ومسارات الاستشارة التنفيذية. يفتح كل اختيار ملفًا خاصًا بالبرنامج قبل إدخال معلوماتك الشخصية.',
+    all: 'المميزة', professional: 'المهنية', executive: 'التنفيذية', view: 'عرض البرنامج والكتيب', selected: 'البرنامج المختار',
+    audience: 'مصمم لـ', outcome: 'نتيجة المشروع أو الاستشارة', format: 'الصيغة', online: 'تعلم موجه عبر الإنترنت + مشروع تطبيقي',
+    brochureKicker: 'ملف برنامج شخصي', brochureTitle: 'احصل على كتيب Digital-UNI', brochureIntro: 'زودنا بالمعلومات اللازمة لبناء مقترح مفيد. يُعد الكتيب نسخة خاصة للمراجعة وليس إرسالًا للطلب.',
+    contact: 'ملفك', name: 'الاسم الكامل', email: 'البريد الإلكتروني', experience: 'التعليم والخبرة المهنية', goals: 'ماذا تريد أن تتعلم؟', career: 'الدور أو النتيجة المهنية المستهدفة', schedule: 'الجدول والتخطيط', duration: 'جدول الإكمال المفضل', hours: 'الساعات المتاحة أسبوعيًا', budget: 'ميزانية التخطيط', aid: 'طلب معلومات المساعدة المالية', language: 'لغة الكتيب', create: 'إنشاء مقترحي الشخصي', creating: 'جارٍ إنشاء المقترح…', private: 'تخطيط خاص · بلا دفع · بلا إرسال',
+    selectHint: 'اختر أي برنامج أدناه لعرض ملفه الكامل وبدء الكتيب.',
+    stepProfile: 'أكمل ملف البرنامج الخاص', stepReview: 'افتح الكتيب الكامل متعدد الصفحات وسيرتك الذاتية', stepSubmit: 'عدّل أو أرسل بنفسك لمراجعة المستشار', start: 'ابدأ كتيبي الخاص', proposed: 'تقدير تخطيطي'
+  }
 } as const;
-
-const fields: (keyof ApplicantAnswers)[] = [
-  'name', 'email', 'learningGoals', 'currentExperience', 'careerOutcome',
-  'studyDuration', 'weeklyHours', 'budget', 'financialAid', 'preferredLanguage'
-];
 
 function createInitialAnswers(): ApplicantAnswers {
   return {
@@ -357,11 +377,11 @@ function formatUsd(value: number) {
 export function ApplicantAssistant({ locale, enabled }: { locale: Locale; enabled: boolean }) {
   const t = copy[locale];
   const wt = windowCopy[locale];
+  const ft = formCopy[locale];
   const [answers, setAnswers] = useState<ApplicantAnswers>(() => createInitialAnswers());
   const [plannerWindow, setPlannerWindow] = useState<PlannerWindow>('professional');
-  const [step, setStep] = useState(0);
+  const [catalogTrack, setCatalogTrack] = useState<PathwayTrack | 'all'>('all');
   const [isEnabled, setIsEnabled] = useState(enabled);
-  const [value, setValue] = useState('');
   const [plan, setPlan] = useState<ApplicantPlan | null>(null);
   const [busy, setBusy] = useState(false);
   const [planToken, setPlanToken] = useState('');
@@ -414,10 +434,21 @@ export function ApplicantAssistant({ locale, enabled }: { locale: Locale; enable
       programInterest: nextProgram,
       studyDuration: ''
     }));
-    setStep(0);
-    setValue('');
     setExplorationPassReady(false);
     clearGeneratedPlan();
+  }
+
+  function selectProgram(program: ProgramPresentation) {
+    setPlannerWindow(program.track);
+    setAnswers(current => ({
+      ...current,
+      pathwayTrack: program.track,
+      programInterest: program.title as ApplicantAnswers['programInterest'],
+      studyDuration: getTrainPathway(program.track).duration
+    }));
+    setExplorationPassReady(false);
+    clearGeneratedPlan();
+    window.setTimeout(() => document.getElementById('brochure-profile')?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 50);
   }
 
   function selectExploration() {
@@ -437,12 +468,6 @@ export function ApplicantAssistant({ locale, enabled }: { locale: Locale; enable
     setExplorationPassReady(true);
   }
 
-  function choiceValue() {
-    if (step === 8) return answers.financialAid;
-    if (step === 9) return answers.preferredLanguage;
-    return value;
-  }
-
   async function generate(nextAnswers = answers) {
     setBusy(true);
     setError('');
@@ -458,18 +483,10 @@ export function ApplicantAssistant({ locale, enabled }: { locale: Locale; enable
     setPlanToken(data.planToken);
   }
 
-  function next(event: FormEvent) {
+  function createProposal(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    const raw = choiceValue();
-    if ((typeof raw === 'string' && !raw.trim()) || (step === 1 && !/^\S+@\S+\.\S+$/.test(String(raw)))) {
-      return setError('Please provide a valid answer.');
-    }
-    const updated = { ...answers, [fields[step]!]: raw };
-    setAnswers(updated);
     setError('');
-    setValue('');
-    if (step === fields.length - 1) void generate(updated);
-    else setStep(current => current + 1);
+    void generate(answers);
   }
 
   async function submit() {
@@ -526,10 +543,9 @@ export function ApplicantAssistant({ locale, enabled }: { locale: Locale; enable
     clearReview();
     setAnswers(createInitialAnswers());
     setPlannerWindow('professional');
+    setCatalogTrack('all');
     setPlan(null);
     setPlanToken('');
-    setStep(0);
-    setValue('');
     setResume(null);
     setConsent(false);
     setCounselorReviewPreference('human_counselor');
@@ -552,6 +568,8 @@ export function ApplicantAssistant({ locale, enabled }: { locale: Locale; enable
   }, []);
 
   const availablePrograms = programNamesByTrack[answers.pathwayTrack];
+  const visiblePrograms = programPresentations.filter(program => catalogTrack === 'all' ? program.featured : program.track === catalogTrack);
+  const selectedProgram = getProgramPresentation(answers.programInterest);
   const inputClass = 'mt-3 min-h-12 w-full rounded-xl border border-navy-100 bg-white p-3 text-navy-900 outline-none focus:border-gold-500 focus:ring-2 focus:ring-gold-200';
   const paidWindowTitle = plannerWindow === 'executive' ? wt.executive : wt.professional;
   const activeWindowTitle = plannerWindow === 'exploration' ? wt.exploration : paidWindowTitle;
@@ -590,6 +608,86 @@ export function ApplicantAssistant({ locale, enabled }: { locale: Locale; enable
           </div>
         </div>
       </div>
+
+      <section className="mt-12" aria-labelledby="program-discovery-title">
+        <div className="grid gap-8 lg:grid-cols-[1fr_auto] lg:items-end">
+          <div>
+            <p className="text-xs font-black uppercase tracking-[.22em] text-emerald-700">{ft.discoveryKicker}</p>
+            <h2 id="program-discovery-title" className="mt-3 max-w-4xl text-3xl font-black leading-tight tracking-[-.025em] text-navy-900 md:text-5xl">{ft.discoveryTitle}</h2>
+            <p className="mt-4 max-w-3xl leading-7 text-navy-600">{ft.discoveryText}</p>
+          </div>
+          <div className="flex flex-wrap rounded-xl border border-navy-100 bg-white p-1 shadow-card" role="group" aria-label="Program category">
+            {([
+              ['all', ft.all],
+              ['professional', ft.professional],
+              ['executive', ft.executive]
+            ] as const).map(([id, label]) => (
+              <button key={id} type="button" aria-pressed={catalogTrack === id} onClick={() => setCatalogTrack(id)} className={`min-h-11 rounded-lg px-4 text-sm font-black transition ${catalogTrack === id ? 'bg-navy-900 text-white shadow-lg' : 'text-navy-600 hover:bg-navy-50'}`}>{label}</button>
+            ))}
+          </div>
+        </div>
+
+        <div className="mt-8 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+          {visiblePrograms.map(program => {
+            const selected = answers.programInterest === program.title && plannerWindow === program.track;
+            return (
+              <article key={program.title} className={`group overflow-hidden rounded-2xl border bg-white shadow-card transition duration-300 hover:-translate-y-1 hover:shadow-2xl ${selected ? 'border-emerald-500 ring-2 ring-emerald-200' : 'border-navy-100'}`}>
+                <div className="relative aspect-[16/9] overflow-hidden bg-navy-900">
+                  <Image src={program.image} alt="" fill sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw" className="object-cover transition duration-500 group-hover:scale-[1.03]" />
+                  <div className="absolute inset-x-0 top-0 flex items-start justify-between gap-3 p-4">
+                    <span className="rounded-full bg-navy-900/85 px-3 py-1.5 text-[10px] font-black uppercase tracking-[.16em] text-emerald-200 backdrop-blur">{program.category}</span>
+                    {selected ? <span className="rounded-full bg-gold-400 px-3 py-1.5 text-[10px] font-black uppercase tracking-widest text-navy-900">{ft.selected}</span> : null}
+                  </div>
+                </div>
+                <div className="flex min-h-[320px] flex-col p-6">
+                  <p className="text-xs font-black uppercase tracking-[.16em] text-emerald-700">{program.track === 'executive' ? ft.executive : ft.professional}</p>
+                  <h3 className="mt-2 text-2xl font-black leading-tight text-navy-900">{program.shortTitle}</h3>
+                  <p className="mt-4 text-sm leading-6 text-navy-600">{program.promise}</p>
+                  <div className="mt-5 border-t border-navy-100 pt-4 text-sm text-navy-600">
+                    <strong className="text-navy-900">{ft.outcome}:</strong> {program.outcome}
+                  </div>
+                  <button type="button" onClick={() => selectProgram(program)} className="mt-auto inline-flex min-h-12 items-center justify-between gap-3 rounded-xl bg-navy-900 px-4 text-left text-sm font-black text-white transition group-hover:bg-emerald-800">
+                    {ft.view}<span aria-hidden="true">→</span>
+                  </button>
+                </div>
+              </article>
+            );
+          })}
+        </div>
+        <p className="mt-5 text-sm text-navy-500">{ft.selectHint}</p>
+      </section>
+
+      <section id="brochure-profile" className="mt-14 scroll-mt-24 overflow-hidden rounded-3xl border border-navy-100 bg-white shadow-2xl" aria-labelledby="selected-program-title">
+        <div className="grid lg:grid-cols-[1.15fr_.85fr]">
+          <div className="relative min-h-[430px] overflow-hidden bg-navy-900 p-7 text-white md:p-10">
+            <Image src={selectedProgram.image} alt="" fill sizes="(max-width: 1024px) 100vw, 58vw" className="object-cover opacity-55" />
+            <div className="absolute inset-0 bg-gradient-to-t from-navy-900 via-navy-900/55 to-transparent" />
+            <div className="relative flex h-full min-h-[360px] flex-col justify-end">
+              <p className="text-xs font-black uppercase tracking-[.2em] text-gold-400">{ft.selected} · {selectedProgram.category}</p>
+              <h2 id="selected-program-title" className="mt-3 max-w-3xl text-4xl font-black leading-[1.03] tracking-[-.03em] md:text-6xl">{selectedProgram.shortTitle}</h2>
+              <p className="mt-5 max-w-2xl text-lg leading-7 text-white/85">{selectedProgram.promise}</p>
+              <dl className="mt-8 grid gap-5 border-t border-white/20 pt-6 sm:grid-cols-2">
+                <div><dt className="text-[10px] font-black uppercase tracking-widest text-emerald-200">{ft.audience}</dt><dd className="mt-2 text-sm font-bold leading-6">{selectedProgram.audience}</dd></div>
+                <div><dt className="text-[10px] font-black uppercase tracking-widest text-emerald-200">{ft.outcome}</dt><dd className="mt-2 text-sm font-bold leading-6">{selectedProgram.outcome}</dd></div>
+                <div><dt className="text-[10px] font-black uppercase tracking-widest text-emerald-200">{ft.format}</dt><dd className="mt-2 text-sm font-bold leading-6">{ft.online}</dd></div>
+                <div><dt className="text-[10px] font-black uppercase tracking-widest text-emerald-200">{t.routeTicket}</dt><dd className="mt-2 text-sm font-bold leading-6">{formatUsd(getTrainPathway(selectedProgram.track).startingPrice)} · {ft.proposed}</dd></div>
+              </dl>
+            </div>
+          </div>
+          <div className="bg-[#f8fafc] p-7 md:p-10">
+            <p className="text-xs font-black uppercase tracking-[.2em] text-emerald-700">{ft.brochureKicker}</p>
+            <h2 className="mt-3 text-3xl font-black tracking-tight text-navy-900">{ft.brochureTitle}</h2>
+            <p className="mt-4 text-sm leading-6 text-navy-600">{ft.brochureIntro}</p>
+            <div className="mt-7 grid gap-3">
+              <div className="flex items-center gap-3 rounded-xl border border-navy-100 bg-white p-4"><span className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-emerald-100 font-black text-emerald-800">1</span><span className="text-sm font-bold text-navy-900">{ft.stepProfile}</span></div>
+              <div className="flex items-center gap-3 rounded-xl border border-navy-100 bg-white p-4"><span className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-emerald-100 font-black text-emerald-800">2</span><span className="text-sm font-bold text-navy-900">{ft.stepReview}</span></div>
+              <div className="flex items-center gap-3 rounded-xl border border-navy-100 bg-white p-4"><span className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-emerald-100 font-black text-emerald-800">3</span><span className="text-sm font-bold text-navy-900">{ft.stepSubmit}</span></div>
+            </div>
+            <a href="#program-profile-form" className="mt-7 inline-flex min-h-14 w-full items-center justify-center rounded-xl bg-gold-500 px-5 py-4 text-center font-black text-navy-900 shadow-lg">{ft.start}</a>
+            <p className="mt-4 text-center text-xs font-bold uppercase tracking-widest text-navy-500">{ft.private}</p>
+          </div>
+        </div>
+      </section>
 
       <div className="mt-8 rounded-3xl border border-navy-100 bg-white p-5 shadow-card md:p-8">
         <div className="grid gap-5 lg:grid-cols-3">
@@ -776,46 +874,39 @@ export function ApplicantAssistant({ locale, enabled }: { locale: Locale; enable
       ) : !isEnabled ? (
         <div className="mt-6 rounded-2xl border border-amber-300 bg-amber-50 p-6 text-center text-amber-950">
           <strong>{t.unavailable}</strong>
-          <p className="mt-2 text-sm">The standard enrollment form remains available above.</p>
+          <p className="mt-2 text-sm">Program discovery remains available. Contact enroll@digital-uni.net for a counselor-prepared brochure while secure generation is being configured.</p>
         </div>
       ) : (
         <div className="mt-6 grid min-w-0 gap-6 lg:grid-cols-2">
           <div className="min-w-0 rounded-2xl border border-navy-100 bg-white p-5 shadow-card md:p-7">
             {!plan && !result ? (
-              <form onSubmit={next}>
-                <div className={`rounded-2xl border p-4 ${promptTheme}`}>
-                  <div className="flex items-center gap-3">
-                    <div className="relative h-14 w-14 shrink-0 overflow-hidden rounded-full border-2 border-white/50 bg-navy-900 shadow-md">
-                      <Image
-                        src="/images/digital-uni-bitcoin-logo.png"
-                        alt="Digital-UNI Bitcoin logo"
-                        fill
-                        sizes="56px"
-                        className="object-cover"
-                      />
-                    </div>
-                    <div>
-                      <p className="text-xs font-bold uppercase tracking-widest text-white/75">Digital-AI Train · OpenAI prompt · Stop {step + 1} / {fields.length}</p>
-                      <p aria-live="polite" className="mt-1 flex items-center gap-2 text-xs font-semibold text-white/65">
-                        <span className={`h-2 w-2 rounded-full bg-gold-400 ${busy ? 'animate-ping' : 'animate-pulse'}`} />
-                        {busy ? wt.trainSearching : wt.trainReady}
-                      </p>
-                    </div>
-                  </div>
-                  <label className="mt-4 block text-lg font-bold text-white" htmlFor="assistant-answer">{questions[locale][step]}</label>
-                  {step === 8 ? (
-                    <select id="assistant-answer" value={String(answers.financialAid)} onChange={event => setAnswers(current => ({ ...current, financialAid: event.target.value === 'true' }))} className={inputClass}>
-                      <option value="false">No</option><option value="true">Yes</option>
-                    </select>
-                  ) : step === 9 ? (
-                    <select id="assistant-answer" value={answers.preferredLanguage} onChange={event => setAnswers(current => ({ ...current, preferredLanguage: event.target.value as ApplicantAnswers['preferredLanguage'] }))} className={inputClass}>
-                      <option>English</option><option>Arabic</option><option>French</option>
-                    </select>
-                  ) : (
-                    <textarea id="assistant-answer" rows={step === 1 ? 1 : 3} value={value} onChange={event => setValue(event.target.value)} className={inputClass} maxLength={1500} />
-                  )}
+              <form id="program-profile-form" onSubmit={createProposal} className="scroll-mt-24">
+                <div className={`rounded-2xl border p-5 ${promptTheme}`}>
+                  <p className="text-xs font-black uppercase tracking-[.18em] text-white/70">{ft.brochureKicker}</p>
+                  <h3 className="mt-2 text-2xl font-black text-white">{selectedProgram.shortTitle}</h3>
+                  <p aria-live="polite" className="mt-3 flex items-center gap-2 text-xs font-semibold text-white/70"><span className={`h-2.5 w-2.5 rounded-full bg-gold-400 ${busy ? 'animate-ping' : 'animate-pulse'}`} />{busy ? ft.creating : wt.trainReady}</p>
                 </div>
-                <button className="mt-5 min-h-12 w-full rounded-xl bg-gold-500 px-6 font-bold text-navy-900" disabled={busy}>{busy ? '…' : t.next}</button>
+
+                <fieldset className="mt-6 grid gap-5 md:grid-cols-2">
+                  <legend className="mb-1 text-xl font-black text-navy-900">{ft.contact}</legend>
+                  <label className="font-bold text-navy-900">{ft.name}<input required minLength={2} maxLength={120} autoComplete="name" value={answers.name} onChange={event => setAnswers(current => ({ ...current, name: event.target.value }))} className={inputClass} /></label>
+                  <label className="font-bold text-navy-900">{ft.email}<input required type="email" autoComplete="email" value={answers.email} onChange={event => setAnswers(current => ({ ...current, email: event.target.value }))} className={inputClass} /></label>
+                  <label className="font-bold text-navy-900 md:col-span-2">{ft.experience}<textarea required minLength={2} rows={3} maxLength={1500} value={answers.currentExperience} onChange={event => setAnswers(current => ({ ...current, currentExperience: event.target.value }))} className={inputClass} /></label>
+                  <label className="font-bold text-navy-900 md:col-span-2">{ft.goals}<textarea required minLength={2} rows={3} maxLength={1500} value={answers.learningGoals} onChange={event => setAnswers(current => ({ ...current, learningGoals: event.target.value }))} className={inputClass} /></label>
+                  <label className="font-bold text-navy-900 md:col-span-2">{ft.career}<textarea required minLength={2} rows={3} maxLength={1500} value={answers.careerOutcome} onChange={event => setAnswers(current => ({ ...current, careerOutcome: event.target.value }))} className={inputClass} /></label>
+                </fieldset>
+
+                <fieldset className="mt-7 grid gap-5 border-t border-navy-100 pt-6 md:grid-cols-2">
+                  <legend className="mb-1 text-xl font-black text-navy-900">{ft.schedule}</legend>
+                  <label className="font-bold text-navy-900">{ft.duration}<input required maxLength={100} placeholder={route.duration} value={answers.studyDuration} onChange={event => setAnswers(current => ({ ...current, studyDuration: event.target.value }))} className={inputClass} /></label>
+                  <label className="font-bold text-navy-900">{ft.hours}<input required maxLength={100} placeholder="8–10" value={answers.weeklyHours} onChange={event => setAnswers(current => ({ ...current, weeklyHours: event.target.value }))} className={inputClass} /></label>
+                  <label className="font-bold text-navy-900">{ft.budget}<input required maxLength={100} placeholder={formatUsd(route.startingPrice)} value={answers.budget} onChange={event => setAnswers(current => ({ ...current, budget: event.target.value }))} className={inputClass} /></label>
+                  <label className="font-bold text-navy-900">{ft.language}<select value={answers.preferredLanguage} onChange={event => setAnswers(current => ({ ...current, preferredLanguage: event.target.value as ApplicantAnswers['preferredLanguage'] }))} className={inputClass}><option>English</option><option>Arabic</option><option>French</option></select></label>
+                  <label className="flex items-center gap-3 rounded-xl border border-emerald-200 bg-emerald-50 p-4 text-sm font-bold text-navy-900 md:col-span-2"><input type="checkbox" checked={answers.financialAid} onChange={event => setAnswers(current => ({ ...current, financialAid: event.target.checked }))} className="h-5 w-5 shrink-0" />{ft.aid}</label>
+                </fieldset>
+
+                <button className="mt-7 min-h-14 w-full rounded-xl bg-gold-500 px-6 font-black text-navy-900 shadow-lg disabled:opacity-60" disabled={busy}>{busy ? ft.creating : ft.create}</button>
+                <p className="mt-4 text-center text-xs font-bold uppercase tracking-widest text-navy-500">{ft.private}</p>
               </form>
             ) : null}
 
@@ -872,7 +963,7 @@ export function ApplicantAssistant({ locale, enabled }: { locale: Locale; enable
                     </label>
                     <p className="mt-3 text-xs leading-5">{t.privacy}</p>
                     <div className="mt-5 grid gap-3 sm:grid-cols-2">
-                      <button type="button" onClick={() => { clearReview(); setPlan(null); setPlanToken(''); setStep(0); }} className="min-h-12 rounded-lg border font-bold">{t.edit}</button>
+                      <button type="button" onClick={() => { clearReview(); setPlan(null); setPlanToken(''); }} className="min-h-12 rounded-lg border font-bold">{t.edit}</button>
                       <button type="button" onClick={() => { clearReview(); void generate(); }} disabled={busy} className="min-h-12 rounded-lg border font-bold">{t.regenerate}</button>
                       <button type="button" onClick={() => void prepareReview()} disabled={busy || !consent || !resume} className="min-h-14 rounded-lg bg-gold-500 px-3 font-bold disabled:opacity-50 sm:col-span-2">
                         {busy ? t.preparingReview : t.prepareReview}
@@ -908,11 +999,22 @@ export function ApplicantAssistant({ locale, enabled }: { locale: Locale; enable
             ) : null}
 
             {result ? (
-              <div role="status" className="rounded-xl border border-green-300 bg-green-50 p-6">
-                <h3 className="text-xl font-bold">{t.submitted}</h3>
-                <p className="mt-2">Reference: <strong>{result.reference}</strong></p>
+              <div role="status" className="overflow-hidden rounded-2xl border border-emerald-300 bg-white">
+                <div className="bg-navy-900 p-6 text-white">
+                  <div className="grid h-12 w-12 place-items-center rounded-full bg-emerald-400 text-2xl font-black text-navy-900">✓</div>
+                  <p className="mt-5 text-xs font-black uppercase tracking-[.2em] text-gold-400">Counselor review requested</p>
+                  <h3 className="mt-2 text-3xl font-black">{t.submitted}</h3>
+                  <p className="mt-3 text-sm text-white/75">Reference: <strong className="text-white">{result.reference}</strong></p>
+                </div>
+                <div className="p-6">
+                  <p className="text-sm leading-6 text-navy-600">Your reviewed package has entered the Digital-UNI counselor workflow. Keep the reference above with your records.</p>
                 {!result.emailDelivered ? <p className="mt-3 rounded-lg bg-amber-50 p-3 text-sm leading-6 text-amber-900">{t.emailPending}</p> : null}
-                <a className="mt-5 inline-flex min-h-12 items-center rounded-lg bg-navy-900 px-5 font-bold text-white" href={result.brochureUrl} target="_blank" rel="noreferrer">{t.download}</a>
+                  <div className="mt-5 grid gap-3">
+                    <a className="inline-flex min-h-12 items-center justify-center rounded-lg bg-navy-900 px-5 text-center font-bold text-white" href={result.brochureUrl} target="_blank" rel="noreferrer">{t.download}</a>
+                    <a className="inline-flex min-h-12 items-center justify-center rounded-lg border border-navy-200 px-5 text-center font-bold text-navy-900" href={`mailto:enroll@digital-uni.net?subject=Advisor%20call%20for%20${encodeURIComponent(result.reference)}`}>Schedule a call with an advisor</a>
+                  </div>
+                  <p className="mt-5 text-xs leading-5 text-navy-500">Submitting a proposal does not create enrollment acceptance, approval, accreditation, financial aid, or payment obligations.</p>
+                </div>
               </div>
             ) : null}
             {error ? <p role="alert" className="mt-5 rounded-lg bg-red-50 p-3 text-sm text-red-800">{error}</p> : null}
@@ -946,7 +1048,15 @@ export function ApplicantAssistant({ locale, enabled }: { locale: Locale; enable
                 <p className="rounded-lg border border-amber-300 bg-amber-50 p-3">{brochureDisclaimer}</p>
               </div>
             ) : (
-              <p className="mt-5 text-sm text-navy-500">Your validated AI Train ticket and proposal will appear here after the questions are complete.</p>
+              <div className="mt-5 rounded-2xl border border-dashed border-navy-200 bg-white p-6">
+                <p className="text-xs font-black uppercase tracking-[.16em] text-emerald-700">Brochure preview</p>
+                <h3 className="mt-2 text-xl font-black text-navy-900">{selectedProgram.shortTitle}</h3>
+                <p className="mt-3 text-sm leading-6 text-navy-600">Complete your profile to generate a counselor-ready route with program modules, an applied project, weekly schedule, proposed investment, and next steps.</p>
+                <div className="mt-5 grid grid-cols-2 gap-3 text-sm">
+                  <div className="rounded-xl bg-navy-50 p-3"><strong className="block text-navy-900">{route.duration}</strong><span className="text-xs text-navy-500">Proposed duration</span></div>
+                  <div className="rounded-xl bg-navy-50 p-3"><strong className="block text-navy-900">{formatUsd(route.startingPrice)}</strong><span className="text-xs text-navy-500">Planning estimate</span></div>
+                </div>
+              </div>
             )}
           </div>
         </div>

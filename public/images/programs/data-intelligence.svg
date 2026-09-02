@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 720" role="img" aria-labelledby="title desc">
+  <title id="title">Data intelligence and responsible finance</title><desc id="desc">Original Digital-UNI abstract artwork showing analytical dashboards, governed data, and AI insights.</desc>
+  <defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#071221"/><stop offset=".5" stop-color="#103d52"/><stop offset="1" stop-color="#064d3f"/></linearGradient><linearGradient id="bar" x1="0" y1="1" x2="0" y2="0"><stop stop-color="#13a36d"/><stop offset="1" stop-color="#a9ffd5"/></linearGradient></defs>
+  <rect width="1200" height="720" fill="url(#bg)"/><g fill="none" stroke="#fff" stroke-opacity=".12"><path d="M90 130h1020M90 260h1020M90 390h1020M90 520h1020M250 70v580M460 70v580M670 70v580M880 70v580"/></g>
+  <g fill="url(#bar)"><rect x="170" y="390" width="95" height="210" rx="12"/><rect x="320" y="290" width="95" height="310" rx="12"/><rect x="470" y="345" width="95" height="255" rx="12"/><rect x="620" y="190" width="95" height="410" rx="12"/></g>
+  <path d="m170 350 200-135 150 70 180-155 220 80" fill="none" stroke="#d9b559" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/><g fill="#fff"><circle cx="170" cy="350" r="14"/><circle cx="370" cy="215" r="14"/><circle cx="520" cy="285" r="14"/><circle cx="700" cy="130" r="14"/><circle cx="920" cy="210" r="14"/></g>
+  <g transform="translate(805 320)"><path d="M130 0 250 45v105c0 92-49 153-120 185C59 303 10 242 10 150V45Z" fill="#06182a" stroke="#7df5bd" stroke-width="7"/><path d="m70 160 38 38 88-100" fill="none" stroke="#d9b559" stroke-width="17" stroke-linecap="round" stroke-linejoin="round"/></g>
+</svg>

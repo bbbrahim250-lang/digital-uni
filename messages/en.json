@@ -662,7 +662,15 @@
     "accreditation": {
       "title": "Accreditation, Certifications & AI Lab",
       "intro": "Follow Digital-UNI’s recognition roadmap and use the proposed AI Lab to move a commercial application from an original idea to responsible publication.",
-      "lab": { "eyebrow": "Digital-UNI applied AI lab", "title": "Choose the right intelligence for the application", "intro": "The lab is designed to help learners compare leading hosted and open models, combine them responsibly, and select the best fit for reasoning, coding, vision, audio, automation, privacy, and cost.", "models": {
+      "lab": { "eyebrow": "Digital-UNI applied AI lab", "title": "Three working windows. One commercial capstone.", "intro": "Move a business idea through three complementary AI workspaces, then compare the wider model catalog and select the best measured stack for reasoning, coding, vision, audio, automation, privacy, speed, and cost.",
+        "windowOutput": "Required studio output", "compareTitle": "Compare the broader AI model catalog", "compareIntro": "The three primary windows organize the student workflow. The expanded catalog below supports model comparison, routing, specialized media, private deployment, and independent evaluation.", "providerNotice": "Provider names describe technologies to evaluate. They do not imply sponsorship, endorsement, certification, partnership, bundled access, or that every provider API is already connected. Model use is subject to provider terms, availability, cost, and Digital-UNI review.",
+        "windows": {
+          "openaiCodex": { "role": "Business brainstorm + build", "title": "OpenAI + Codex", "description": "Frame the customer problem, commercial value, responsible-use requirements, product scope, and business model; then turn the approved brief into architecture, code, tests, and a deployable capstone application.", "output": "Commercial concept brief, product requirements, working codebase, automated tests, and deployment plan." },
+          "claude": { "role": "Research + independent review", "title": "Anthropic Claude", "description": "Analyze long research, customer evidence, policies, contracts, specifications, and competing solutions. Challenge assumptions and conduct an independent architecture, safety, and clarity review.", "output": "Research dossier, revised specification, risk register, and independent capstone critique." },
+          "gemini": { "role": "Multimodal product + campaign", "title": "Google Gemini", "description": "Evaluate documents, images, audio, video, interfaces, and campaign concepts. Develop alternate product approaches, multimedia demonstrations, accessibility checks, and advertising assets.", "output": "Multimodal QA report, campaign concept, creative asset plan, and launch-media prototype." }
+        },
+        "studio": { "eyebrow": "Commercial capstone studio", "title": "Bring one business idea; leave with a reviewable final product", "description": "The student follows a documented path from business discovery and model selection through implementation, evaluation, publication, advertising, launch measurement, and final product review.", "cta": "Plan my capstone pathway" },
+        "models": {
         "openai": { "title": "OpenAI", "description": "Reasoning, multimodal assistance, coding, structured output, and agent workflows." },
         "anthropic": { "title": "Anthropic Claude", "description": "Long-context analysis, writing, coding, tool use, and safety-centered workflows." },
         "google": { "title": "Google Gemini", "description": "Multimodal development and integration across Google cloud and application ecosystems." },
@@ -674,7 +682,8 @@
         "idea": { "title": "Initiate the idea", "description": "Define the customer, problem, value, constraints, and responsible-use requirements with the Digital-UNI AI Agent." },
         "architecture": { "title": "Design the workflow", "description": "Select models, data, tools, security controls, human review, cost limits, and a publication strategy." },
         "prototype": { "title": "Build the prototype", "description": "Create the interface, model orchestration, tests, analytics, and a working commercial demonstration." },
-        "validation": { "title": "Validate responsibly", "description": "Test quality, accessibility, privacy, cybersecurity, intellectual property, and marketplace compliance." },
+        "validation": { "title": "Validate responsibly", "description": "Run task-specific model evaluations for quality, accessibility, privacy, cybersecurity, intellectual property, latency, and cost." },
+        "capstone": { "title": "Complete the final app capstone", "description": "Integrate the selected model stack into one working commercial application with tests, documentation, analytics, human-review controls, and a final demonstration." },
         "publication": { "title": "Publish the application", "description": "Prepare submissions for the web, Google Play, Apple App Store, and other appropriate platforms." },
         "growth": { "title": "Advertise and improve", "description": "Launch through Digital-UNI channels, measure adoption, collect feedback, and improve the product." }
       } },
