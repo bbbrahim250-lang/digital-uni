@@ -23,6 +23,8 @@ describe('applicant planning safeguards', () => {
     expect(pdf.toString()).toContain('USD 3,000');
     expect(pdf.toString()).toContain('Station 4');
     expect(pdf.toString()).toContain('not enrollment');
+    expect(pdf.toString()).toContain('/Count 4');
+    expect(pdf.toString()).toContain('PERSONALIZED PROGRAM BROCHURE');
   });
 
   it('creates a branded community-support review letter without submitting it', () => {
