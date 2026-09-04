@@ -70,7 +70,7 @@ body {
   overflow: hidden;
   align-items: center;
   color: white;
-  background: #071a1d url('/images/ai-train-poster.png') center / cover no-repeat;
+  background: #071a1d url('/images/ai-train-poster-institutional-badge.png') center / cover no-repeat;
 }
 
 .cinematic-hero-media,
@@ -85,7 +85,7 @@ body {
 
 .cinematic-hero-media { z-index: -2; color: transparent; animation: cinematic-camera 18s ease-in-out infinite alternate; }
 .cinematic-camera {
-  background: url('/images/ai-train-poster.png') center / cover no-repeat;
+  background: url('/images/ai-train-poster-institutional-badge.png') center / cover no-repeat;
   animation: cinematic-camera 18s ease-in-out infinite alternate;
 }
 
@@ -168,7 +168,7 @@ body {
 
 /* Cinematic global learning itinerary */
 .pathway-experience { position: relative; overflow: hidden; background: #020b16; color: white; }
-.pathway-video-frame { width: 100%; background: #020b16 url('/images/ai-train-poster.png') center / contain no-repeat; }
+.pathway-video-frame { width: 100%; background: #020b16 url('/images/ai-train-poster-institutional-badge.png') center / contain no-repeat; }
 .pathway-video { display: block; width: 100%; height: auto; object-fit: contain; background: #020b16; }
 .pathway-experience > .pathway-actions { display: flex; position: relative; z-index: 5; flex-wrap: wrap; justify-content: center; align-items: center; gap: .8rem; padding: .85rem clamp(1rem, 4vw, 3rem) 1rem; background: linear-gradient(180deg, #020b16, #061625); }
 .pathway-stage { isolation: isolate; position: relative; min-height: clamp(680px, calc(100vh - 65px), 980px); overflow: hidden; background: radial-gradient(circle at 72% 45%, #0b5360, transparent 35%), linear-gradient(135deg, #061625, #020b16); }
