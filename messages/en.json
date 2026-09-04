@@ -44,6 +44,12 @@
         "status": "Proposed campus concept",
         "description": "A proposed Digital-UNI AI-native high-school and professional-certification campus serving Silicon Valley learners and workforce needs."
       },
+      "paris": {
+        "title": "Paris, France",
+        "short": "Proposed bilingual AI lycée and vacant-site campaign",
+        "status": "Community campaign · site search open",
+        "description": "A proposed French–English AI lycée in Paris. No arrondissement or building has been selected; the community is invited to support the initiative and recommend a suitable vacant site."
+      },
       "pioneersFund": {
         "title": "AI Pioneers Sharks Fund",
         "short": "Support Santa Monica and Palo Alto programs",

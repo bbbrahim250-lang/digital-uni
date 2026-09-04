@@ -44,6 +44,12 @@
         "status": "Concept de campus proposé",
         "description": "Un projet de lycée natif de l’IA et de campus de certifications professionnelles Digital-UNI au service des apprenants et des besoins de la Silicon Valley."
       },
+      "paris": {
+        "title": "Paris, France",
+        "short": "Projet de lycée IA bilingue et recherche de site vacant",
+        "status": "Campagne communautaire · recherche ouverte",
+        "description": "Un projet de lycée franco-anglais à Paris. Aucun arrondissement ni bâtiment n’est sélectionné ; la communauté peut soutenir l’initiative et recommander un site vacant adapté."
+      },
       "pioneersFund": {
         "title": "Fonds AI Pioneers Sharks",
         "short": "Soutenir les programmes de Santa Monica et Palo Alto",

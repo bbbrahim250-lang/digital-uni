@@ -37,7 +37,7 @@ export function CinematicPathway({ locale, eyebrow, headline, enrollLabel, pathw
   return (
     <section className="pathway-experience" aria-labelledby="cinematic-hero-title">
       <div className="pathway-video-frame">
-        <video className="pathway-video block h-auto w-full" autoPlay muted loop playsInline controls preload="metadata" poster="/images/ai-train-poster.png">
+        <video className="pathway-video block h-auto w-full" autoPlay muted loop playsInline controls preload="metadata" poster="/images/ai-train-poster-institutional-badge.png">
           <source src="/images/digital-uni-ai-train-trailer.mp4.mp4" type="video/mp4" />
         </video>
       </div>

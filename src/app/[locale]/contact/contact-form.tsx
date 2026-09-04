@@ -16,10 +16,11 @@ export const PROGRAMS = [
   'Court AI Clerk Assistant',
   'Court AI Expert',
   'Digital-UNI™ AI Agent for Proof-of-Service & Jurisdiction Compatibility',
+  'Paris AI Lycée community campaign',
   'Other Digital-UNI™ program'
 ] as const;
 
-export function ContactForm({ locale }: { locale: string }) {
+export function ContactForm({ locale, initialSubject = '' }: { locale: string; initialSubject?: string }) {
   const [status, setStatus] = useState<'idle' | 'success' | 'error'>('idle');
   const [serverError, setServerError] = useState<string | null>(null);
 
@@ -28,7 +29,13 @@ export function ContactForm({ locale }: { locale: string }) {
     handleSubmit,
     reset,
     formState: { errors, isSubmitting }
-  } = useForm<ContactFormValues>({ resolver: zodResolver(contactFormSchema) });
+  } = useForm<ContactFormValues>({
+    resolver: zodResolver(contactFormSchema),
+    defaultValues: {
+      program: initialSubject.startsWith('Paris AI Lycée') ? 'Paris AI Lycée community campaign' : undefined,
+      subject: initialSubject
+    }
+  });
 
   async function onSubmit(values: ContactFormValues) {
     setServerError(null);

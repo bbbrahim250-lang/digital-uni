@@ -1,6 +1,7 @@
 export const campusDirectoryItems = [
   { key: 'santaMonica', href: 'ai-high-school' },
-  { key: 'paloAlto', href: 'ai-high-school/palo-alto' }
+  { key: 'paloAlto', href: 'ai-high-school/palo-alto' },
+  { key: 'paris', href: 'ai-high-school/paris' }
 ] as const;
 
 export const campusSupportItems = [
