@@ -9,9 +9,8 @@ const copy = {
     title: 'Digital-UNI AI Lycée — Paris 8e arrondissement',
     eyebrow: 'Proposed AI Lycée · Paris 8e arrondissement',
     intro: 'A Digital-UNI concept for an AI-native lycée in Paris 8e connecting rigorous secondary education, applied artificial intelligence, robotics, entrepreneurship, arts and professional pathways.',
-    enrollment: 'Explore enrollment pathways',
-    contact: 'Discuss Paris community support',
-    overview: 'View all AI High School locations',
+    enrollment: 'Explore enrollment pathways', contact: 'Discuss Paris community support', overview: 'View all AI High School locations',
+    sportsTitle: 'AI Pioneers Sharks · Lycée-Paris 8 Sports Gear', sportsText: 'Explore the Lycée-Paris 8 sports identity and campus collection, with euro pricing in the Digital-UNI Store.', sportsCta: 'View Paris 8 Store',
     focusTitle: 'Proposed learning model',
     focuses: [
       ['AI, Mathematics & Robotics', 'Project-based mathematics, Python, machine learning, computer vision, automation and robotics with measurable student work.'],
@@ -32,9 +31,8 @@ const copy = {
     title: 'Digital-UNI Lycée IA — Paris 8e arrondissement',
     eyebrow: 'Projet de Lycée IA · Paris 8e arrondissement',
     intro: 'Un concept Digital-UNI de lycée natif de l’IA dans le 8e arrondissement de Paris, associant enseignement secondaire exigeant, intelligence artificielle appliquée, robotique, entrepreneuriat, arts et parcours professionnels.',
-    enrollment: 'Explorer les parcours d’inscription',
-    contact: 'Soutenir le projet communautaire à Paris',
-    overview: 'Voir tous les lycées IA',
+    enrollment: 'Explorer les parcours d’inscription', contact: 'Soutenir le projet communautaire à Paris', overview: 'Voir tous les lycées IA',
+    sportsTitle: 'AI Pioneers Sharks · Équipements Lycée-Paris 8', sportsText: 'Découvrez l’identité sportive et la collection du Lycée-Paris 8, avec les prix en euros dans la boutique Digital-UNI.', sportsCta: 'Voir la boutique Paris 8',
     focusTitle: 'Modèle pédagogique proposé',
     focuses: [
       ['IA, mathématiques et robotique', 'Mathématiques par projets, Python, apprentissage automatique, vision par ordinateur, automatisation et robotique avec productions mesurables.'],
@@ -52,12 +50,10 @@ const copy = {
     statusText: 'Il s’agit d’une proposition indépendante de Digital-UNI. Le Lycée IA Paris 8e n’est pas actuellement ouvert et aucune autorisation scolaire, accréditation, subvention publique, approbation de site ou date d’ouverture n’est revendiquée. Aucune affiliation ni approbation de la Ville de Paris, du ministère français de l’Éducation nationale ou d’une autre institution publique ou privée n’est sous-entendue.'
   },
   ar: {
-    title: 'Digital-UNI ثانوية الذكاء الاصطناعي — باريس 8',
-    eyebrow: 'مبادرة مقترحة لثانوية الذكاء الاصطناعي · باريس 8',
+    title: 'Digital-UNI ثانوية الذكاء الاصطناعي — باريس 8', eyebrow: 'مبادرة مقترحة لثانوية الذكاء الاصطناعي · باريس 8',
     intro: 'تصور من Digital-UNI لثانوية حديثة في الدائرة الثامنة بباريس تجمع التعليم الثانوي القوي والذكاء الاصطناعي التطبيقي والروبوتات وريادة الأعمال والفنون والمسارات المهنية.',
-    enrollment: 'استكشاف مسارات التسجيل',
-    contact: 'مناقشة دعم مجتمع باريس',
-    overview: 'عرض جميع مواقع الثانويات',
+    enrollment: 'استكشاف مسارات التسجيل', contact: 'مناقشة دعم مجتمع باريس', overview: 'عرض جميع مواقع الثانويات',
+    sportsTitle: 'AI Pioneers Sharks · معدات Lycée-Paris 8 الرياضية', sportsText: 'استكشف الهوية الرياضية ومجموعة Lycée-Paris 8 مع الأسعار باليورو في متجر Digital-UNI.', sportsCta: 'عرض متجر Paris 8',
     focusTitle: 'النموذج التعليمي المقترح',
     focuses: [
       ['الذكاء الاصطناعي والرياضيات والروبوتات', 'رياضيات قائمة على المشاريع وPython والتعلم الآلي والرؤية الحاسوبية والأتمتة والروبوتات مع أعمال طلابية قابلة للتقييم.'],
@@ -67,12 +63,9 @@ const copy = {
       ['مسارات ثنائية اللغة وعالمية', 'مسارات بالفرنسية والإنجليزية لربط طلاب باريس بفرص أكاديمية ومهنية دولية.'],
       ['ملف مهني وشهادات Digital-UNI', 'مشاريع تطبيقية وأدلة مهارية ومسارات مهنية مع مراجعة بشرية وحدود واضحة لنطاق الشهادة.']
     ],
-    communityTitle: 'مبادرة مجتمع ومبنى باريس 8',
-    communityText: 'تدعو Digital-UNI الأسر والمعلمين وأصحاب العمل وشركاء التكنولوجيا والجهات المجتمعية في باريس إلى مناقشة تطوير هذه الثانوية المقترحة ودراسة تهيئة مبنى مناسب شاغر أو قليل الاستخدام للتعليم والمختبرات والاستوديوهات والبرامج المجتمعية.',
-    siteTitle: 'البحث عن مبنى مقترح — لم يتم اختيار موقع',
-    siteText: 'لا تدعي Digital-UNI أن أي عقار في باريس تم شراؤه أو استئجاره أو حجزه أو اعتماده. أي موقع مستقبلي سيخضع لموافقة المالك وجميع متطلبات التخطيط والتعليم والسلامة وإمكانية الوصول والتمويل والتشغيل.',
-    statusTitle: 'حالة المشروع',
-    statusText: 'هذا اقتراح مستقل من Digital-UNI. ثانوية باريس 8 للذكاء الاصطناعي ليست مفتوحة حاليا، ولا ندعي وجود ترخيص مدرسي أو اعتماد أو تمويل عام أو موافقة على مبنى أو تاريخ افتتاح. ولا يُفهم منه أي انتساب أو تأييد من مدينة باريس أو وزارة التربية الوطنية الفرنسية أو أي مؤسسة عامة أو خاصة أخرى.'
+    communityTitle: 'مبادرة مجتمع ومبنى باريس 8', communityText: 'تدعو Digital-UNI الأسر والمعلمين وأصحاب العمل وشركاء التكنولوجيا والجهات المجتمعية في باريس إلى مناقشة تطوير هذه الثانوية المقترحة ودراسة تهيئة مبنى مناسب شاغر أو قليل الاستخدام للتعليم والمختبرات والاستوديوهات والبرامج المجتمعية.',
+    siteTitle: 'البحث عن مبنى مقترح — لم يتم اختيار موقع', siteText: 'لا تدعي Digital-UNI أن أي عقار في باريس تم شراؤه أو استئجاره أو حجزه أو اعتماده. أي موقع مستقبلي سيخضع لموافقة المالك وجميع متطلبات التخطيط والتعليم والسلامة وإمكانية الوصول والتمويل والتشغيل.',
+    statusTitle: 'حالة المشروع', statusText: 'هذا اقتراح مستقل من Digital-UNI. ثانوية باريس 8 للذكاء الاصطناعي ليست مفتوحة حاليا، ولا ندعي وجود ترخيص مدرسي أو اعتماد أو تمويل عام أو موافقة على مبنى أو تاريخ افتتاح. ولا يُفهم منه أي انتساب أو تأييد من مدينة باريس أو وزارة التربية الوطنية الفرنسية أو أي مؤسسة عامة أو خاصة أخرى.'
   }
 } as const;
 
@@ -102,54 +95,25 @@ export default function ParisAiLyceePage({ params }: { params: { locale: string 
               <Link href={`/${locale}/ai-high-school#campus-selector`} className="rounded-xl border border-white/30 px-6 py-3.5 font-bold hover:bg-white/10">{c.overview}</Link>
             </div>
           </div>
-
           <div className="mx-auto w-full max-w-[280px] rounded-3xl border border-gold-400/40 bg-black/35 p-5 text-center shadow-2xl">
-            <div className="relative mx-auto aspect-square w-full overflow-hidden rounded-2xl bg-black">
-              <Image src="/images/digital-uni-ai-pioneers-shark-logo.png" alt="Digital-UNI AI Pioneers Sharks logo — Lycée-Paris 8" fill sizes="280px" className="object-contain" />
-            </div>
-            <p className="mt-4 text-xs font-black uppercase tracking-[0.2em] text-highlight-turquoise">Digital-UNI AI Pioneers Sharks</p>
-            <p className="mt-2 text-2xl font-black text-gold-400">Lycée-Paris 8</p>
+            <div className="relative mx-auto aspect-square w-full overflow-hidden rounded-2xl bg-black"><Image src="/images/digital-uni-ai-pioneers-shark-logo.png" alt="Digital-UNI AI Pioneers Sharks logo — Lycée-Paris 8" fill sizes="280px" className="object-contain" /></div>
+            <p className="mt-4 text-xs font-black uppercase tracking-[0.2em] text-highlight-turquoise">Digital-UNI AI Pioneers Sharks</p><p className="mt-2 text-2xl font-black text-gold-400">Lycée-Paris 8</p>
           </div>
         </div>
       </section>
 
-      <section className="bg-navy-50 px-4 py-16 md:py-20">
+      <section className="bg-white px-4 py-14 md:py-18">
         <div className="mx-auto max-w-7xl">
-          <h2 className="text-3xl font-black text-navy-900 md:text-5xl">{c.focusTitle}</h2>
-          <div className="mt-9 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-            {c.focuses.map(([title, description], index) => (
-              <article key={title} className="rounded-2xl border border-navy-100 bg-white p-7 shadow-card">
-                <span className="text-sm font-black text-gold-600">0{index + 1}</span>
-                <h3 className="mt-3 text-xl font-bold text-navy-900">{title}</h3>
-                <p className="mt-3 text-sm leading-7 text-navy-600">{description}</p>
-              </article>
-            ))}
-          </div>
+          <div className="mb-6 flex flex-wrap items-end justify-between gap-4"><div><p className="text-xs font-black uppercase tracking-[0.18em] text-highlight-turquoise">Digital-UNI Store · Paris 8</p><h2 className="mt-2 text-3xl font-black text-navy-900 md:text-5xl">{c.sportsTitle}</h2><p className="mt-3 max-w-3xl text-navy-600">{c.sportsText}</p></div><Link href={`/${locale}/store/lycee-paris-8`} className="rounded-xl bg-navy-900 px-5 py-3 font-black text-white hover:bg-navy-700">{c.sportsCta}</Link></div>
+          <div className="relative aspect-[16/9] overflow-hidden rounded-3xl border border-navy-100 bg-navy-900 shadow-2xl"><Image src="/images/lycee-paris-8-sports-gear.png" alt="Digital-UNI AI Lycée-Paris 8 Sports Gear poster" fill sizes="(max-width: 1200px) 100vw, 1280px" className="object-contain" /></div>
         </div>
       </section>
 
-      <section className="px-4 py-16 md:py-20">
-        <div className="mx-auto grid max-w-7xl gap-6 lg:grid-cols-2">
-          <article className="rounded-3xl border border-navy-100 bg-white p-8 shadow-card">
-            <p className="text-xs font-black uppercase tracking-[0.18em] text-highlight-turquoise">Paris 8 · Community</p>
-            <h2 className="mt-3 text-3xl font-black text-navy-900">{c.communityTitle}</h2>
-            <p className="mt-5 leading-8 text-navy-600">{c.communityText}</p>
-          </article>
-          <article className="rounded-3xl border border-gold-400/50 bg-gold-200/30 p-8">
-            <p className="text-xs font-black uppercase tracking-[0.18em] text-gold-600">Facility concept</p>
-            <h2 className="mt-3 text-3xl font-black text-navy-900">{c.siteTitle}</h2>
-            <p className="mt-5 leading-8 text-navy-600">{c.siteText}</p>
-          </article>
-        </div>
-      </section>
+      <section className="bg-navy-50 px-4 py-16 md:py-20"><div className="mx-auto max-w-7xl"><h2 className="text-3xl font-black text-navy-900 md:text-5xl">{c.focusTitle}</h2><div className="mt-9 grid gap-5 md:grid-cols-2 lg:grid-cols-3">{c.focuses.map(([title, description], index) => <article key={title} className="rounded-2xl border border-navy-100 bg-white p-7 shadow-card"><span className="text-sm font-black text-gold-600">0{index + 1}</span><h3 className="mt-3 text-xl font-bold text-navy-900">{title}</h3><p className="mt-3 text-sm leading-7 text-navy-600">{description}</p></article>)}</div></div></section>
 
-      <section className="bg-navy-900 px-4 py-16 text-white">
-        <div className="mx-auto max-w-7xl rounded-3xl border border-white/15 bg-white/[0.06] p-8 md:p-10">
-          <p className="text-xs font-black uppercase tracking-[0.18em] text-gold-400">Digital-UNI · Lycée-Paris 8</p>
-          <h2 className="mt-3 text-3xl font-black">{c.statusTitle}</h2>
-          <p className="mt-5 max-w-5xl leading-8 text-navy-50/85">{c.statusText}</p>
-        </div>
-      </section>
+      <section className="px-4 py-16 md:py-20"><div className="mx-auto grid max-w-7xl gap-6 lg:grid-cols-2"><article className="rounded-3xl border border-navy-100 bg-white p-8 shadow-card"><p className="text-xs font-black uppercase tracking-[0.18em] text-highlight-turquoise">Paris 8 · Community</p><h2 className="mt-3 text-3xl font-black text-navy-900">{c.communityTitle}</h2><p className="mt-5 leading-8 text-navy-600">{c.communityText}</p></article><article className="rounded-3xl border border-gold-400/50 bg-gold-200/30 p-8"><p className="text-xs font-black uppercase tracking-[0.18em] text-gold-600">Facility concept</p><h2 className="mt-3 text-3xl font-black text-navy-900">{c.siteTitle}</h2><p className="mt-5 leading-8 text-navy-600">{c.siteText}</p></article></div></section>
+
+      <section className="bg-navy-900 px-4 py-16 text-white"><div className="mx-auto max-w-7xl rounded-3xl border border-white/15 bg-white/[0.06] p-8 md:p-10"><p className="text-xs font-black uppercase tracking-[0.18em] text-gold-400">Digital-UNI · Lycée-Paris 8</p><h2 className="mt-3 text-3xl font-black">{c.statusTitle}</h2><p className="mt-5 max-w-5xl leading-8 text-navy-50/85">{c.statusText}</p></div></section>
     </main>
   );
 }
