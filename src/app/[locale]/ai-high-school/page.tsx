@@ -97,6 +97,10 @@ export default async function AiHighSchoolPage({ params }: { params: { locale: s
           </div>
 
           <figure className="mx-auto w-full max-w-md">
+            <div className="mb-4 grid grid-cols-2 gap-3">
+              <a href="#resident-support" className="rounded-xl bg-gold-500 px-4 py-3 text-center text-sm font-black text-navy-900 shadow-lg transition hover:bg-gold-400">100,000 · Join Community</a>
+              <a href={NOTICE_PDF} target="_blank" rel="noreferrer" className="rounded-xl border border-white/30 bg-white/5 px-4 py-3 text-center text-sm font-black text-white transition hover:bg-white/10">City Council Letter · PDF</a>
+            </div>
             <a href={LINKEDIN_URL} target="_blank" rel="noreferrer" aria-label="Follow Brahim-BB on LinkedIn" className="block overflow-hidden rounded-[2rem] border border-gold-400/40 bg-navy-800 shadow-2xl shadow-black/40 transition hover:border-gold-400">
               <Image src={FOUNDER_PORTRAIT} alt="Brahim-BB — Founder of Digital-UNI; follow on LinkedIn" width={1112} height={1376} priority sizes="(max-width: 1024px) 90vw, 420px" className="h-auto w-full" />
             </a>
