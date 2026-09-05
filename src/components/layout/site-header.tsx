@@ -51,6 +51,7 @@ function NavigationDropdown({ label, overview, items }: { label: string; overvie
 function MobileNavigation({
   label,
   directItems,
+  courseReservations,
   campuses,
   institutions,
   certifications,
@@ -61,15 +62,17 @@ function MobileNavigation({
 }: {
   label: string;
   directItems: Array<{ href: string; label: string }>;
+  courseReservations: DropdownItem[];
   campuses: DropdownItem[];
   institutions: DropdownItem[];
   certifications: DropdownItem[];
   studios: DropdownItem[];
-  sectionLabels: { campuses: string; institutions: string; certifications: string; studios: string };
+  sectionLabels: { courses: string; campuses: string; institutions: string; certifications: string; studios: string };
   signIn: { href: string; label: string };
   signUp: { href: string; label: string };
 }) {
   const sections = [
+    [sectionLabels.courses, courseReservations],
     [sectionLabels.campuses, campuses],
     [sectionLabels.institutions, institutions],
     [sectionLabels.certifications, certifications],
@@ -126,6 +129,44 @@ export async function SiteHeader({ locale }: { locale: Locale }) {
     href: `/${locale}/${path}`,
     label: t(key)
   }));
+
+  const courseCopy = {
+    en: {
+      overview: 'Browse Digital-UNI courses and learning options',
+      inPerson: 'In-Person Class Reservation',
+      inPersonDescription: 'Request a seat for an available Digital-UNI in-person class or lab session.',
+      remote: 'Remote-Classroom Reservation',
+      remoteDescription: 'Reserve a remote session and access Digital-UNI Zoom and Google Classroom entry points.'
+    },
+    fr: {
+      overview: 'Parcourir les cours et options de formation Digital-UNI',
+      inPerson: 'Réservation de cours en présentiel',
+      inPersonDescription: 'Demander une place pour un cours ou laboratoire Digital-UNI disponible en présentiel.',
+      remote: 'Réservation de classe à distance',
+      remoteDescription: 'Réserver une session à distance et accéder aux points d’entrée Zoom et Google Classroom de Digital-UNI.'
+    },
+    ar: {
+      overview: 'استعراض دورات وخيارات التعلم في Digital-UNI',
+      inPerson: 'حجز فصل حضوري',
+      inPersonDescription: 'طلب مقعد في فصل أو مختبر حضوري متاح لدى Digital-UNI.',
+      remote: 'حجز فصل عن بُعد',
+      remoteDescription: 'حجز جلسة عن بُعد والوصول إلى بوابات Zoom وGoogle Classroom الخاصة بـ Digital-UNI.'
+    }
+  }[locale];
+
+  const courseReservations: DropdownItem[] = [
+    {
+      href: `/${locale}/courses/in-person-reservation`,
+      label: courseCopy.inPerson,
+      description: courseCopy.inPersonDescription
+    },
+    {
+      href: `/${locale}/courses/remote-classroom-reservation`,
+      label: courseCopy.remote,
+      description: courseCopy.remoteDescription
+    }
+  ];
+
   const campuses = [...campusDirectoryItems, ...campusSupportItems].map(({ key, href }) => ({
     href: `/${locale}/${href}`,
     label: tCampus(`items.${key}.title`),
@@ -163,9 +204,12 @@ export async function SiteHeader({ locale }: { locale: Locale }) {
             overview={{ href: `/${locale}/ai-high-school#campus-selector`, label: tCampus('chooseTitle'), description: tCampus('chooseShort') }}
             items={campuses}
           />
-          {directItems.slice(1, 3).map((item) => (
-            <Link key={item.href} href={item.href} className="rounded-md px-2 py-1.5 text-sm text-navy-50 hover:bg-white/10 hover:text-gold-400">{item.label}</Link>
-          ))}
+          <NavigationDropdown
+            label={t('courses')}
+            overview={{ href: `/${locale}/courses`, label: t('courses'), description: courseCopy.overview }}
+            items={courseReservations}
+          />
+          <Link href={directItems[2]!.href} className="rounded-md px-2 py-1.5 text-sm text-navy-50 hover:bg-white/10 hover:text-gold-400">{directItems[2]!.label}</Link>
           <NavigationDropdown
             label={t('institutions')}
             overview={{ href: `/${locale}/institutions`, label: tInstitutions('title'), description: tInstitutions('menuDescription') }}
@@ -188,11 +232,12 @@ export async function SiteHeader({ locale }: { locale: Locale }) {
           <MobileNavigation
             label={t('explore')}
             directItems={[...directItems, store]}
+            courseReservations={courseReservations}
             campuses={campuses}
             institutions={institutions}
             certifications={certifications}
             studios={studios}
-            sectionLabels={{ campuses: t('aiHighSchool'), institutions: t('institutions'), certifications: t('certifications'), studios: t('aiStudios') }}
+            sectionLabels={{ courses: t('courses'), campuses: t('aiHighSchool'), institutions: t('institutions'), certifications: t('certifications'), studios: t('aiStudios') }}
             signIn={{ href: `/${locale}/sign-in`, label: t('signIn') }}
             signUp={{ href: `/${locale}/sign-up`, label: t('signUp') }}
           />
