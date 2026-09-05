@@ -33,33 +33,24 @@ export async function SiteFooter({ locale }: { locale: Locale }) {
         <p className="mt-6 text-xs text-navy-50/60">
           © {new Date().getFullYear()} {tSite('name')}. {t('rights')}
         </p>
-        <div className="mt-5 flex flex-wrap gap-5 text-sm"><a href="tel:+12137084890" className="hover:text-gold-400">213-708-4890</a><a href="mailto:enroll@digital-uni.net" className="hover:text-gold-400">enroll@digital-uni.net</a><a href="mailto:financial_aid@digital-uni.net" className="hover:text-gold-400">financial_aid@digital-uni.net</a></div>
+
+        <div className="mt-5 flex flex-wrap gap-5 text-sm">
+          <a href="mailto:enroll@digital-uni.net" className="hover:text-gold-400">enroll@digital-uni.net</a>
+          <a href="mailto:financial_aid@digital-uni.net" className="hover:text-gold-400">financial_aid@digital-uni.net</a>
+          <a href="https://www.linkedin.com/in/brahim-bb-600153113/" target="_blank" rel="noreferrer" className="hover:text-gold-400">Brahim-BB · LinkedIn</a>
+        </div>
 
         <div className="mt-10 border-t border-white/15 pt-8">
-          <div className="relative mx-auto w-full max-w-3xl overflow-hidden rounded-xl border border-white/20 shadow-2xl">
+          <div className="relative mx-auto w-full max-w-6xl overflow-hidden rounded-xl border border-white/20 shadow-2xl">
             <Image
-              src="/images/brahim-boumakh-digital-uni-business-card.webp"
-              alt="Brahim Boumakh — Digital-UNI AI infrastructure and information technology contact information"
-              width={1536}
-              height={1024}
-              sizes="(max-width: 768px) 100vw, 768px"
+              src="/images/brahim-bb-digital-uni-campus-card.png"
+              alt="Brahim BB — Digital-UNI global campus card for Palo Alto, Santa Monica and Lycée-Paris 8"
+              width={1624}
+              height={920}
+              sizes="(max-width: 768px) 100vw, 1152px"
               className="h-auto w-full"
             />
-            <Link
-              href={`/${locale}/enrollment?promo=TUITION10`}
-              aria-label={t('enrollmentQr')}
-              className="absolute block bg-white p-[0.5%]"
-              style={{ left: '81.3%', top: '65.5%', width: '15.1%', aspectRatio: '1 / 1' }}
-            >
-              <Image src="/images/enrollment-tuition-10-qr.svg" alt={t('enrollmentQr')} width={256} height={256} unoptimized className="h-full w-full" />
-            </Link>
           </div>
-          <p className="mt-4 text-center text-sm font-medium text-gold-200">
-            <Link href={`/${locale}/enrollment?promo=TUITION10`} className="hover:text-gold-400">
-              {t('tuitionDiscount')}
-            </Link>
-          </p>
-          <p className="mt-2 text-center text-xs text-amber-200">The business-card image may contain outdated contact details and is flagged for replacement. Current phone: <a className="underline" href="tel:+12137084890">213-708-4890</a>.</p>
         </div>
       </div>
     </footer>
