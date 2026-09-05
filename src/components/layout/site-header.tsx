@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import Link from 'next/link';
 import { getTranslations } from 'next-intl/server';
 import type { Locale } from '@/i18n/config';
@@ -21,6 +22,7 @@ type DropdownItem = {
   href: string;
   label: string;
   description: string;
+  image?: string;
 };
 
 function NavigationDropdown({ label, overview, items }: { label: string; overview: DropdownItem; items: DropdownItem[] }) {
@@ -30,16 +32,23 @@ function NavigationDropdown({ label, overview, items }: { label: string; overvie
         {label}
         <span aria-hidden="true" className="text-[10px] transition group-open:rotate-180">▼</span>
       </summary>
-      <div className="absolute start-0 z-50 mt-2 w-80 overflow-hidden rounded-2xl border border-navy-100 bg-white p-2 text-navy-900 shadow-2xl">
+      <div className="absolute start-0 z-50 mt-2 w-96 overflow-hidden rounded-2xl border border-navy-100 bg-white p-2 text-navy-900 shadow-2xl">
         <Link href={overview.href} className="block rounded-xl bg-navy-50 px-4 py-3 transition hover:bg-gold-200/50">
           <span className="block text-sm font-bold">{overview.label}</span>
           <span className="mt-1 block text-xs leading-5 text-navy-400">{overview.description}</span>
         </Link>
         <div className="mt-1 max-h-[28rem] overflow-y-auto">
           {items.map((item) => (
-            <Link key={item.href} href={item.href} className="block rounded-xl px-4 py-3 transition hover:bg-navy-50">
-              <span className="block text-sm font-semibold">{item.label}</span>
-              <span className="mt-0.5 block text-xs leading-5 text-navy-400">{item.description}</span>
+            <Link key={item.href} href={item.href} className="flex items-center gap-3 rounded-xl px-3 py-3 transition hover:bg-navy-50">
+              {item.image ? (
+                <div className="relative h-14 w-14 shrink-0 overflow-hidden rounded-xl border border-navy-100 bg-black">
+                  <Image src={item.image} alt="" fill sizes="56px" className="object-contain" />
+                </div>
+              ) : null}
+              <span className="min-w-0">
+                <span className="block text-sm font-semibold">{item.label}</span>
+                <span className="mt-0.5 block text-xs leading-5 text-navy-400">{item.description}</span>
+              </span>
             </Link>
           ))}
         </div>
@@ -154,6 +163,12 @@ export async function SiteHeader({ locale }: { locale: Locale }) {
     }
   }[locale];
 
+  const parisCopy = {
+    en: { label: 'AI Pioneers Sharks — Lycée-Paris 8', description: 'Proposed Paris 8 AI Lycée and community partnership initiative' },
+    fr: { label: 'AI Pioneers Sharks — Lycée-Paris 8', description: 'Projet de Lycée IA Paris 8 et initiative de partenariat éducatif' },
+    ar: { label: 'AI Pioneers Sharks — Lycée-Paris 8', description: 'مشروع ثانوية الذكاء الاصطناعي باريس 8 ومبادرة شراكة تعليمية' }
+  }[locale];
+
   const courseReservations: DropdownItem[] = [
     {
       href: `/${locale}/courses/in-person-reservation`,
@@ -167,11 +182,27 @@ export async function SiteHeader({ locale }: { locale: Locale }) {
     }
   ];
 
-  const campuses = [...campusDirectoryItems, ...campusSupportItems].map(({ key, href }) => ({
-    href: `/${locale}/${href}`,
-    label: tCampus(`items.${key}.title`),
-    description: tCampus(`items.${key}.short`)
-  }));
+  const campusImageByKey: Record<string, string | undefined> = {
+    santaMonica: '/images/digital-uni-ai-pioneers-sharks-santa-monica.webp',
+    paloAlto: '/images/digital-uni-ai-pioneers-sharks-palo-alto.webp',
+    pioneersFund: '/images/digital-uni-ai-pioneers-shark-logo.png'
+  };
+
+  const campuses: DropdownItem[] = [
+    ...[...campusDirectoryItems, ...campusSupportItems].map(({ key, href }) => ({
+      href: `/${locale}/${href}`,
+      label: tCampus(`items.${key}.title`),
+      description: tCampus(`items.${key}.short`),
+      image: campusImageByKey[key]
+    })),
+    {
+      href: `/${locale}/ai-high-school/paris`,
+      label: parisCopy.label,
+      description: parisCopy.description,
+      image: '/images/digital-uni-ai-pioneers-shark-logo.png'
+    }
+  ];
+
   const institutions = institutionDirectoryItems.map(({ key, anchor }) => ({
     href: `/${locale}/institutions#${anchor}`,
     label: tInstitutions(`items.${key}.title`),
