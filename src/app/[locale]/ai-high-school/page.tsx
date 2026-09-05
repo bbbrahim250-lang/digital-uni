@@ -9,6 +9,8 @@ import { CampaignForm, type CampaignFormCopy } from './campaign-form';
 
 const NOTICE_PDF = '/documents/digital-uni-formal-notice-santa-monica-ai-high-school-2026.pdf';
 const DECK_PDF = '/documents/digital-uni-santa-monica-ai-high-school-investor-deck-2026.pdf';
+const LINKEDIN_URL = 'https://www.linkedin.com/in/brahim-bb-600153113/';
+const FOUNDER_PORTRAIT = '/The%20revised%20Brahim-BB%20portrait.png';
 const siteFactKeys = ['landmark', 'district', 'field', 'approvals'] as const;
 const priorityKeys = ['school', 'athletics', 'infrastructure', 'pathways'] as const;
 const eventKeys = ['halloween', 'thanksgiving', 'newYear', 'aiFestival', 'studentShowcase', 'sportsAwards'] as const;
@@ -28,7 +30,7 @@ export async function generateMetadata({ params }: { params: { locale: string } 
     openGraph: {
       title: t('metaTitle'),
       description: t('metaDescription'),
-      images: ['/images/brahim-boumakh-ai-high-school-founder.png']
+      images: [FOUNDER_PORTRAIT]
     }
   };
 }
@@ -95,14 +97,13 @@ export default async function AiHighSchoolPage({ params }: { params: { locale: s
           </div>
 
           <figure className="mx-auto w-full max-w-md">
-            <div className="relative aspect-[4/5] overflow-hidden rounded-[2rem] border border-gold-400/40 bg-navy-800 shadow-2xl shadow-black/40">
-              <Image src="/images/brahim-boumakh-ai-high-school-founder.png" alt={t('founderImageAlt')} fill priority sizes="(max-width: 1024px) 90vw, 420px" className="object-cover object-top" />
-              <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-navy-900 via-navy-900/90 to-transparent px-6 pb-6 pt-20">
-                <p className="text-2xl font-black text-gold-400">Brahim Boumakh</p>
-                <p className="mt-1 text-sm font-semibold uppercase tracking-wider text-white">{t('founderRole')}</p>
-              </div>
-            </div>
-            <figcaption className="mt-4 rounded-xl border border-white/15 bg-white/5 p-4 text-sm leading-6 text-navy-50/80">{t('founderCredential')}</figcaption>
+            <a href={LINKEDIN_URL} target="_blank" rel="noreferrer" aria-label="Follow Brahim-BB on LinkedIn" className="block overflow-hidden rounded-[2rem] border border-gold-400/40 bg-navy-800 shadow-2xl shadow-black/40 transition hover:border-gold-400">
+              <Image src={FOUNDER_PORTRAIT} alt="Brahim-BB — Founder of Digital-UNI; follow on LinkedIn" width={1112} height={1376} priority sizes="(max-width: 1024px) 90vw, 420px" className="h-auto w-full" />
+            </a>
+            <figcaption className="mt-4 rounded-xl border border-white/15 bg-white/5 p-4 text-sm leading-6 text-navy-50/80">
+              <a href={LINKEDIN_URL} target="_blank" rel="noreferrer" className="font-black text-gold-300 hover:text-gold-400">Brahim-BB · LinkedIn</a>
+              <span className="mt-2 block">{t('founderCredential')}</span>
+            </figcaption>
             <div className="mt-4 flex items-center gap-4 rounded-2xl border border-gold-400/30 bg-white/[0.06] p-4 shadow-xl backdrop-blur">
               <Image
                 src="/images/digital-uni-ai-pioneers-sharks-santa-monica.webp"
