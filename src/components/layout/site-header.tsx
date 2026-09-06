@@ -145,21 +145,27 @@ export async function SiteHeader({ locale }: { locale: Locale }) {
       inPerson: 'In-Person Class Reservation',
       inPersonDescription: 'Request a seat for an available Digital-UNI in-person class or lab session.',
       remote: 'Remote-Classroom Reservation',
-      remoteDescription: 'Reserve a remote session and access Digital-UNI Zoom and Google Classroom entry points.'
+      remoteDescription: 'Reserve a remote session and access Digital-UNI Zoom and Google Classroom entry points.',
+      tutor: 'Digital-UNI AI Tutor (K–12)',
+      tutorDescription: '$30/hour · All subjects'
     },
     fr: {
       overview: 'Parcourir les cours et options de formation Digital-UNI',
       inPerson: 'Réservation de cours en présentiel',
       inPersonDescription: 'Demander une place pour un cours ou laboratoire Digital-UNI disponible en présentiel.',
       remote: 'Réservation de classe à distance',
-      remoteDescription: 'Réserver une session à distance et accéder aux points d’entrée Zoom et Google Classroom de Digital-UNI.'
+      remoteDescription: 'Réserver une session à distance et accéder aux points d’entrée Zoom et Google Classroom de Digital-UNI.',
+      tutor: 'Tuteur IA Digital-UNI (K–12)',
+      tutorDescription: '30 $/heure · Toutes les matières'
     },
     ar: {
       overview: 'استعراض دورات وخيارات التعلم في Digital-UNI',
       inPerson: 'حجز فصل حضوري',
       inPersonDescription: 'طلب مقعد في فصل أو مختبر حضوري متاح لدى Digital-UNI.',
       remote: 'حجز فصل عن بُعد',
-      remoteDescription: 'حجز جلسة عن بُعد والوصول إلى بوابات Zoom وGoogle Classroom الخاصة بـ Digital-UNI.'
+      remoteDescription: 'حجز جلسة عن بُعد والوصول إلى بوابات Zoom وGoogle Classroom الخاصة بـ Digital-UNI.',
+      tutor: 'مدرّس Digital-UNI بالذكاء الاصطناعي (K–12)',
+      tutorDescription: '30 دولارًا/الساعة · جميع المواد'
     }
   }[locale];
 
@@ -179,6 +185,11 @@ export async function SiteHeader({ locale }: { locale: Locale }) {
       href: `/${locale}/courses/remote-classroom-reservation`,
       label: courseCopy.remote,
       description: courseCopy.remoteDescription
+    },
+    {
+      href: `/${locale}/courses`,
+      label: courseCopy.tutor,
+      description: courseCopy.tutorDescription
     }
   ];
 
