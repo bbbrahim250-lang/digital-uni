@@ -8,10 +8,11 @@ import { Image } from "expo-image";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { colors } from "@/src/theme";
 import Ticket from "@/src/components/Ticket";
+import VideoBox from "@/src/components/VideoBox";
 import { Chip, PrimaryButton, GhostButton, PickerRow, Card, SectionTitle } from "@/src/components/UI";
 import {
   TRACKS, PROGRAMS, CREDENTIALS, STORE_EXPLORATORY, STORE_EVENTS, FUND_TIERS,
-  APPAREL_ITEMS, AIML_QUIZ, AI_LAB_STAGES, FLAGSHIP_APPS, IMAGES,
+  APPAREL_ITEMS, AIML_QUIZ, AI_LAB_STAGES, FLAGSHIP_APPS, IMAGES, VIDEOS,
 } from "@/src/data/appData";
 
 type ViewKey =
@@ -178,7 +179,7 @@ export default function App() {
         contentContainerStyle={{ paddingHorizontal: 16, paddingBottom: 40 + insets.bottom }}
         keyboardShouldPersistTaps="handled"
       >
-        {view === "home" && <HomeView onPick={(id) => { setSelectedTrack(id); setView("track"); }} onCTA={() => setView("takeAction")} onDiscover={() => setView("discover")} />}
+        {view === "home" && <HomeView onPick={(id: string) => { setSelectedTrack(id); setView("track"); }} onCTA={() => setView("takeAction")} onDiscover={() => setView("discover")} onCourse={() => setView("course")} />}
         {view === "track" && track && (
           <TrackView track={track} onBack={() => setView("home")} onEnroll={() => setView("enroll")} />
         )}
@@ -331,12 +332,12 @@ function Header({ insetsTop, cartCount, onLogo, onStore, onSignIn, onNav }: any)
 }
 
 // ---------- Home ----------
-function HomeView({ onPick, onCTA, onDiscover }: any) {
+function HomeView({ onPick, onCTA, onDiscover, onCourse }: any) {
   return (
     <View>
       <View style={styles.hero}>
-        <Image source={IMAGES.hero} style={StyleSheet.absoluteFillObject} contentFit="cover" />
-        <LinearGradient colors={["rgba(10,14,31,0.4)", "rgba(10,14,31,0.95)"]} style={StyleSheet.absoluteFillObject} />
+        <VideoBox source={VIDEOS.hero} style={StyleSheet.absoluteFillObject} testID="hero-video" />
+        <LinearGradient colors={["rgba(10,14,31,0.15)", "rgba(10,14,31,0.9)"]} style={StyleSheet.absoluteFillObject} />
         <View style={{ padding: 20, minHeight: 220, justifyContent: "flex-end" }}>
           <Text style={styles.heroWordmark}>DIGITAL-UNI™ AI TRAIN</Text>
           <Text style={styles.heroTag}>Moving at the speed of learning</Text>
@@ -347,6 +348,15 @@ function HomeView({ onPick, onCTA, onDiscover }: any) {
         <Text style={styles.brandStatement}>DIGITAL-UNI — University of the Future. Jobs of Tomorrow.</Text>
         <Text style={styles.brandLead}>LEAD WITH AI.</Text>
         <PrimaryButton label="Board the AI Train →" onPress={onCTA} testID="cta-board" />
+      </View>
+
+      <View style={styles.stationsBanner}>
+        <Image source={IMAGES.stations} style={StyleSheet.absoluteFillObject} contentFit="cover" />
+        <LinearGradient colors={["rgba(10,14,31,0.1)", "rgba(10,14,31,0.75)"]} style={StyleSheet.absoluteFillObject} />
+        <View style={{ padding: 14 }}>
+          <Text style={styles.stationsKicker}>ONE TRAIN · MANY DESTINATIONS</Text>
+          <Text style={styles.stationsTitle}>Lycée Paris 8 · New York · Algiers · Kuala Lumpur · Santa Monica-Malibu · Palo Alto-Redwood City</Text>
+        </View>
       </View>
 
       <SectionTitle testID="pick-your-track">Pick Your Track</SectionTitle>
@@ -370,6 +380,7 @@ function HomeView({ onPick, onCTA, onDiscover }: any) {
 
       <View style={{ marginTop: 24 }}>
         <PrimaryButton tone="gold" label="Discover the Ecosystem" onPress={onDiscover} testID="cta-discover" />
+        <PrimaryButton label="Preview a Sample Course →" onPress={onCourse} testID="cta-course" />
       </View>
       <Chip>Illustrative demo experience — no real payments, accounts, or credentials.</Chip>
     </View>
@@ -864,9 +875,7 @@ function CourseView(p: any) {
       <Text style={styles.h1}>AI + ML — Course Preview</Text>
       <Text style={styles.helper}>Sample course · preview lesson clip</Text>
       <View style={styles.videoBox}>
-        <Image source={IMAGES.lab} style={StyleSheet.absoluteFillObject} contentFit="cover" />
-        <LinearGradient colors={["rgba(10,14,31,0.3)", "rgba(10,14,31,0.85)"]} style={StyleSheet.absoluteFillObject} />
-        <View style={styles.playCircle}><Text style={{ fontSize: 28 }}>▶</Text></View>
+        <VideoBox source={VIDEOS.course} style={StyleSheet.absoluteFillObject} testID="course-video" />
       </View>
       <Text style={styles.blurb}>Foundations of AI and ML: what they are, how models learn from data, and where they show up in everyday tools.</Text>
 
@@ -1077,9 +1086,8 @@ function SignInView(p: any) {
   return (
     <View>
       <GhostButton label="← Back" onPress={p.onBack} />
-      <View style={styles.videoBox}>
-        <Image source={IMAGES.campus} style={StyleSheet.absoluteFillObject} contentFit="cover" />
-        <LinearGradient colors={["rgba(10,14,31,0.2)", "rgba(10,14,31,0.9)"]} style={StyleSheet.absoluteFillObject} />
+      <View style={styles.signInHero}>
+        <Image source={IMAGES.founder} style={StyleSheet.absoluteFillObject} contentFit="cover" />
       </View>
       <View style={{ flexDirection: "row", marginTop: 12, gap: 8 }}>
         <Pressable onPress={() => setTab("in")} style={[styles.tabBtn, tab === "in" && styles.tabBtnSel]} testID="tab-signin">
@@ -1107,12 +1115,13 @@ function SignInView(p: any) {
       <TextInput placeholder="Password" placeholderTextColor={colors.muted} style={styles.input} testID="signin-pass" secureTextEntry />
       <PrimaryButton label="Sign In (demo)" onPress={p.onSubmit} testID="signin-submit" />
 
-      <Card style={{ marginTop: 20, flexDirection: "row", alignItems: "center" }}>
-        <View style={styles.founderAvatar}><Text style={{ color: "#0a0e1f", fontWeight: "700", fontSize: 18 }}>BB</Text></View>
-        <View style={{ marginLeft: 12, flex: 1 }}>
-          <Text style={styles.credTitle}>Brahim Boumakh</Text>
-          <Text style={styles.helper}>Founder, Digital-UNI</Text>
-          <Text style={styles.helper}>University of the Future — Jobs of Tomorrow.</Text>
+      <Card style={{ marginTop: 20, padding: 0, overflow: "hidden" }}>
+        <View style={styles.founderPoster}>
+          <Image source={IMAGES.founder} style={StyleSheet.absoluteFillObject} contentFit="cover" />
+        </View>
+        <View style={{ padding: 12 }}>
+          <Text style={styles.credTitle}>Brahim BB — Founder & CEO, Digital-UNI</Text>
+          <Text style={styles.helper}>University of the Future — AI for a Better World.</Text>
         </View>
       </Card>
 
@@ -1367,4 +1376,15 @@ const styles = StyleSheet.create({
     width: 48, height: 48, borderRadius: 24, backgroundColor: colors.brandTertiary,
     alignItems: "center", justifyContent: "center",
   },
+  stationsBanner: {
+    marginTop: 20, borderRadius: 16, overflow: "hidden", minHeight: 140,
+    borderWidth: 1, borderColor: colors.border, justifyContent: "flex-end",
+  },
+  stationsKicker: { color: colors.brandTertiary, fontSize: 10, fontWeight: "700", letterSpacing: 1.5 },
+  stationsTitle: { color: colors.onSurface, fontSize: 13, fontWeight: "600", marginTop: 4, lineHeight: 18 },
+  signInHero: {
+    marginTop: 12, borderRadius: 16, overflow: "hidden", height: 200,
+    borderWidth: 1, borderColor: colors.border,
+  },
+  founderPoster: { height: 180, width: "100%" },
 });

@@ -273,9 +273,15 @@ export const FLAGSHIP_APPS = [
 ];
 
 export const IMAGES = {
-  hero: "https://images.unsplash.com/photo-1723997637631-97cf9aa0bb3b?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA3MDR8MHwxfHNlYXJjaHwxfHxmdXR1cmlzdGljJTIwaGlnaCUyMHNwZWVkJTIwdHJhaW4lMjBkYXJrJTIwbmlnaHR8ZW58MHx8fHwxNzg5MjU3NTMwfDA&ixlib=rb-4.1.0&q=85",
+  hero: "https://customer-assets-lqy194kg.emergentagent.net/job_learn-build-belong/artifacts/fd83meob_ai-train-stations.jpg",
+  stations: "https://customer-assets-lqy194kg.emergentagent.net/job_learn-build-belong/artifacts/fd83meob_ai-train-stations.jpg",
+  founder: "https://customer-assets-lqy194kg.emergentagent.net/job_learn-build-belong/artifacts/shuvqpem_founder-card.jpg",
   lab: "https://images.unsplash.com/photo-1737703218497-64e00b39638f?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjAzMzV8MHwxfHNlYXJjaHwxfHx0ZWNoJTIwbGFib3JhdG9yeSUyMGRhcmslMjBuZW9uJTIwZ3JlZW58ZW58MHx8fHwxNzg5MjU3NTMwfDA&ixlib=rb-4.1.0&q=85",
-  gold: "https://images.unsplash.com/photo-1656055450593-5f9fc1e88b65?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1NzR8MHwxfHNlYXJjaHwxfHxibGFuayUyMGdvbGRlbiUyMGNvbmNlcnQlMjB0aWNrZXQlMjB0ZXh0dXJlfGVufDB8fHx8MTc4OTI1NzUzMHww&ixlib=rb-4.1.0&q=85",
-  founder: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1NTN8MHwxfHNlYXJjaHwxfHxwb3J0cmFpdCUyMHByb2Zlc3Npb25hbCUyMGZvdW5kZXIlMjBkYXJrJTIwYmFja2dyb3VuZHxlbnwwfHx8fDE3ODkyNTc1MzB8MA&ixlib=rb-4.1.0&q=85",
-  campus: "https://images.unsplash.com/photo-1785637717302-8580c648d99a?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1Nzl8MHwxfHNlYXJjaHwxfHxmdXR1cmlzdGljJTIwdW5pdmVyc2l0eSUyMGNhbXB1cyUyMG5pZ2h0fGVufDB8fHx8MTc4OTI1NzUzMHww&ixlib=rb-4.1.0&q=85",
+  gold: "https://customer-assets-lqy194kg.emergentagent.net/job_learn-build-belong/artifacts/fd83meob_ai-train-stations.jpg",
+  campus: "https://customer-assets-lqy194kg.emergentagent.net/job_learn-build-belong/artifacts/shuvqpem_founder-card.jpg",
+};
+
+export const VIDEOS = {
+  hero: "https://customer-assets-lqy194kg.emergentagent.net/job_learn-build-belong/artifacts/exvesota_hero-train.mp4",
+  course: "https://customer-assets-lqy194kg.emergentagent.net/job_learn-build-belong/artifacts/eelcaoj7_course-video.mp4",
 };

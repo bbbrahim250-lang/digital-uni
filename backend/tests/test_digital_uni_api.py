@@ -117,3 +117,22 @@ class TestBadges:
         d = r.json()
         assert d["percent"] == 80
         assert d["badge_id"].startswith("DU-BADGE-AIML-")
+
+    def test_create_passing_badge_from_course_flow(self, api):
+        """Simulates the AI+ML course flow submitting a passing score (5/5)."""
+        payload = {
+            "course_id": "aiml",
+            "first_name": "TEST_Ada",
+            "last_name": "Lovelace",
+            "score": 5,
+            "total": 5,
+        }
+        r = api.post(f"{API}/badges", json=payload)
+        assert r.status_code == 200, r.text
+        d = r.json()
+        assert d["percent"] == 100
+        assert d["badge_id"].startswith("DU-BADGE-AIML-")
+        assert d["first_name"] == "TEST_Ada"
+        assert d["last_name"] == "Lovelace"
+        assert d["score"] == 5
+        assert d["total"] == 5
