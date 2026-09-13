@@ -1,9 +1,10 @@
 import React from "react";
-import { Platform, StyleSheet, View } from "react-native";
+import { Image, Platform, StyleSheet, View } from "react-native";
 import { useVideoPlayer, VideoView } from "expo-video";
 
 type Props = {
-  source: string;
+  source: any;
+  poster?: string;
   style?: any;
   contentFit?: "cover" | "contain";
   autoPlay?: boolean;
@@ -12,8 +13,22 @@ type Props = {
   testID?: string;
 };
 
+function resolveWebSrc(source: any): string {
+  if (typeof source === "string") return source;
+  // On web, require() returns either a plain URL string or an object with { uri }.
+  // Image.resolveAssetSource handles both consistently.
+  try {
+    const resolved = Image.resolveAssetSource(source);
+    if (resolved && resolved.uri) return resolved.uri;
+  } catch {
+    // fall through
+  }
+  return typeof source === "object" && source?.uri ? source.uri : String(source);
+}
+
 export default function VideoBox({
   source,
+  poster,
   style,
   contentFit = "cover",
   autoPlay = true,
@@ -21,22 +36,23 @@ export default function VideoBox({
   muted = true,
   testID,
 }: Props) {
-  // Web: use plain HTML5 <video> — autoplay-muted + playsInline is the only
-  // universally reliable path in modern browsers; expo-video's web player
-  // was hitting MEDIA_ERR_SRC_NOT_SUPPORTED here.
   if (Platform.OS === "web") {
+    const src = resolveWebSrc(source);
     return React.createElement("video", {
-      src: source,
+      src,
+      poster,
       autoPlay,
       loop,
       muted,
       playsInline: true,
+      preload: "auto",
       "data-testid": testID,
       style: {
         width: "100%",
         height: "100%",
         objectFit: contentFit,
         display: "block",
+        backgroundColor: "#0a0e1f",
       },
     });
   }

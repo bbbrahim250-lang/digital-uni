@@ -337,7 +337,7 @@ function HomeView({ onPick, onCTA, onDiscover, onCourse }: any) {
   return (
     <View>
       <View style={styles.hero}>
-        <VideoBox source={VIDEOS.hero} style={StyleSheet.absoluteFillObject} testID="hero-video" />
+        <VideoBox source={VIDEOS.hero} poster={IMAGES.stations} style={StyleSheet.absoluteFillObject} testID="hero-video" />
         <LinearGradient colors={["rgba(10,14,31,0.15)", "rgba(10,14,31,0.9)"]} style={StyleSheet.absoluteFillObject} />
         <View style={{ padding: 20, minHeight: 220, justifyContent: "flex-end" }}>
           <Text style={styles.heroWordmark}>DIGITAL-UNI™ AI TRAIN</Text>
@@ -903,7 +903,7 @@ function CourseView(p: any) {
       <Text style={styles.h1}>AI + ML — Course Preview</Text>
       <Text style={styles.helper}>Sample course · preview lesson clip</Text>
       <View style={styles.videoBox}>
-        <VideoBox source={VIDEOS.course} style={StyleSheet.absoluteFillObject} testID="course-video" />
+        <VideoBox source={VIDEOS.course} poster={IMAGES.stations} style={StyleSheet.absoluteFillObject} testID="course-video" />
       </View>
       <Text style={styles.blurb}>Foundations of AI and ML: what they are, how models learn from data, and where they show up in everyday tools.</Text>
 

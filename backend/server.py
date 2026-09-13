@@ -1,4 +1,5 @@
 from fastapi import FastAPI, APIRouter
+from fastapi.staticfiles import StaticFiles
 from dotenv import load_dotenv
 from starlette.middleware.cors import CORSMiddleware
 from motor.motor_asyncio import AsyncIOMotorClient
@@ -197,6 +198,13 @@ async def create_badge(payload: BadgeCreate):
 
 
 app.include_router(api_router)
+
+# Serve locally-hosted media (videos) so the browser gets a real video/mp4
+# response instead of Metro's HTML dev-server fallback. Path is /api/media/*
+# so it flows through the same kubernetes ingress rule as the rest of the API.
+MEDIA_DIR = ROOT_DIR / "media"
+if MEDIA_DIR.exists():
+    app.mount("/api/media", StaticFiles(directory=str(MEDIA_DIR)), name="media")
 
 
 @app.get("/health")

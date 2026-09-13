@@ -1,0 +1,26 @@
+{
+  "summary": "Hero + course video render fix verified. Backend: /api/media/hero-train.mp4 and /api/media/course-video.mp4 both return 200 with content-type video/mp4 and exact byte sizes 332897 / 613313. First 16 bytes = valid ftyp/isom mp4 header (00000020 66747970 69736f6d ...). ffprobe on both the on-disk file AND the bytes downloaded through the k8s ingress confirms H.264 Main profile 3.1, yuv420p, 480x200 (hero) / 560x374 (course), moov-before-mdat (faststart), 5s @ 24fps. md5(disk) == md5(network-downloaded) so delivery is byte-perfect. Frontend: <video> mounts with correct src, data-testid='hero-video', poster='ai-train-stations.jpg'; tapping cta-course mounts a second <video> with data-testid='course-video' pointing at course-video.mp4. Poster fallback image is visibly rendered on the home screen (screenshot confirms user sees the AI Train stations backdrop). The main agent's headless screenshot tool and Playwright's bundled Chromium (HeadlessChrome/145.0.7632.0) both report media error code 4 (DEMUXER_ERROR_NO_SUPPORTED_STREAMS) because they are compiled WITHOUT proprietary codecs -- confirmed via canPlayType(): all avc1.* codecs return '' (unsupported) while VP8/VP9 return 'probably'. This is a Chromium OSS build limitation, NOT a bug in the file or the app. Real Chrome / Safari / Firefox / Edge all license H.264 and will decode both files. All 15 backend pytest cases pass (enrollments/orders/tryouts/badges + SEC-001 list-endpoint removals). No red screens, no console errors, no deprecated packages introduced.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": [],
+    "react_native_issues": []
+  },
+  "test_report_links": [
+    "/app/backend/tests/test_digital_uni_api.py",
+    "/app/test_reports/pytest/pytest_results.xml"
+  ],
+  "action_items": [],
+  "critical_code_review_comments": [
+    "The mp4 files are H.264 (proprietary codec). Any headless-chromium-based screenshot / preview tooling that lacks the H.264 license will report error=4. If the team wants those tools to also render the video, ship a WebM/VP9 sibling (e.g. hero-train.webm) and add a <source> fallback inside VideoBox. Not required for real users.",
+    "/app/frontend/app/index.tsx is 1419 lines -- still well over the 700-line soft limit (carried over from iteration 6)."
+  ],
+  "updated_files": [],
+  "success_rate": {"backend": "100% (15/15)", "frontend": "100% verified via headers + ffprobe + DOM mount; visual decode requires H.264-licensed browser (real Chrome/Safari/Firefox/Edge)"},
+  "seed_data_creation": "None",
+  "retest_needed": false,
+  "should_main_agent_self_test": true,
+  "context_for_next_testing_agent": "Playwright's bundled Chromium and the E1 screenshot tool are BOTH built without H.264 codec support -- canPlayType('video/mp4; codecs=\"avc1.4D401F\"') returns '' in these environments. Do NOT interpret error=4 / videoWidth=0 from those tools as a real user-facing bug on this app. Instead validate via: (a) HEAD/GET on /api/media/*.mp4 for correct Content-Type + Content-Length, (b) ffprobe on the file, (c) DOM check that <video data-testid='hero-video'> and <video data-testid='course-video'> mount with the correct src. All three pass here. If a future rebuild swaps to VP9/WebM you can additionally rely on Playwright's built-in decode.",
+  "rca_of_issue": "User's original hero-train.mp4 had an avc1 sample entry declaring dimensions 0x0, which caused MEDIA_ERR_SRC_NOT_SUPPORTED in real browsers. Main agent re-encoded both files (libx264 main@3.1, yuv420p, +faststart) fixing the avc1 dimensions to 480x200 and 560x374 respectively, mounted them behind FastAPI StaticFiles at /api/media/*, and updated the frontend VIDEOS constants + VideoBox (HTML5 <video> on web, expo-video on native, poster fallback). Verified byte-perfect delivery through the k8s ingress. Bug is fixed for real end users. The persistent error=4 seen in E1's headless-Chromium screenshot tool is a codec-license limitation of the test tool itself, not a residual bug."
+}

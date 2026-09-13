@@ -281,7 +281,9 @@ export const IMAGES = {
   campus: "https://customer-assets-lqy194kg.emergentagent.net/job_learn-build-belong/artifacts/shuvqpem_founder-card.jpg",
 };
 
+const BACKEND_URL = process.env.EXPO_PUBLIC_BACKEND_URL || "";
+
 export const VIDEOS = {
-  hero: "https://customer-assets-lqy194kg.emergentagent.net/job_learn-build-belong/artifacts/exvesota_hero-train.mp4",
-  course: "https://customer-assets-lqy194kg.emergentagent.net/job_learn-build-belong/artifacts/eelcaoj7_course-video.mp4",
+  hero: `${BACKEND_URL}/api/media/hero-train.mp4`,
+  course: `${BACKEND_URL}/api/media/course-video.mp4`,
 };
