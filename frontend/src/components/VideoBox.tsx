@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, View } from "react-native";
+import { Platform, StyleSheet, View } from "react-native";
 import { useVideoPlayer, VideoView } from "expo-video";
 
 type Props = {
@@ -20,6 +20,31 @@ export default function VideoBox({
   loop = true,
   muted = true,
   testID,
+}: Props) {
+  // Web: use plain HTML5 <video> — autoplay-muted + playsInline is the only
+  // universally reliable path in modern browsers; expo-video's web player
+  // was hitting MEDIA_ERR_SRC_NOT_SUPPORTED here.
+  if (Platform.OS === "web") {
+    return React.createElement("video", {
+      src: source,
+      autoPlay,
+      loop,
+      muted,
+      playsInline: true,
+      "data-testid": testID,
+      style: {
+        width: "100%",
+        height: "100%",
+        objectFit: contentFit,
+        display: "block",
+      },
+    });
+  }
+  return <NativeVideoBox {...{ source, style, contentFit, autoPlay, loop, muted, testID }} />;
+}
+
+function NativeVideoBox({
+  source, style, contentFit = "cover", autoPlay = true, loop = true, muted = true, testID,
 }: Props) {
   const player = useVideoPlayer(source, (p) => {
     p.loop = loop;
