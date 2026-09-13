@@ -1,0 +1,31 @@
+{
+  "summary": "Iteration 5 (post-security-audit hardening) verified end-to-end. Backend pytest 15/15 passing after updating test_digital_uni_api.py to reflect SEC-001 removal of GET /api/enrollments and GET /api/orders (both now return 405 as expected — only POST is defined). Added validation tests for the newly-bounded POST bodies: oversized items array (>50 -> 422), negative price (-5.0 -> 422), zero qty (-> 422), empty items list (-> 422), and out-of-bound tryout documents (99 -> 422). Updated the tryout POST test to the reduced payload (only sport/team/documents — no parent/student PII) and confirmed 200 + DU-TRY-BAS- prefix. Confirmed POST /api/enrollments -> 200 DU-AIT-, POST /api/orders -> 200 DU-ORD-, POST /api/tryouts -> 200 DU-TRY-{SPORT}-, POST /api/badges -> 200 DU-BADGE-{COURSE}- with correct percent math (80/100/etc). /health returns 200 {status:ok} when hit on the backend directly (the k8s ingress only routes /api/* to backend, so an external hit to /health lands on the Expo web preview — this is environment behavior, not a backend regression). Frontend regression 4/4 flows green on mobile viewport 390x844: Home -> Track(aiml) -> Continue -> Program(prof) -> Generate Ticket produced DU-AIT-VX885T (Passenger Ticket rendered with all fields); Store -> Add item -> Cart -> Complete Purchase produced DU-ORD-ZGF46J on Credit Card at $15; Store -> Tryout CTA -> Basketball + AI Pioneers Santa Monica-Malibu Sharks -> Submit produced DU-TRY-BAS-LIY at $45 fee; Home -> Preview Sample Course -> fill names + answer 5/5 correct -> Submit Quiz produced DU-BADGE-AIML-DD3D at 100%. Assets verified rendering (hero-train.mp4, ai-train-stations.jpg store event backdrop, course-video.mp4 in CourseView, founder-card.jpg on Sign In). Zero console errors, zero page errors, no React Native red screens.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": [],
+    "react_native_issues": []
+  },
+  "test_report_links": [
+    "/app/backend/tests/test_digital_uni_api.py",
+    "/app/test_reports/pytest/pytest_results.xml"
+  ],
+  "action_items": [],
+  "critical_code_review_comments": [
+    "server.py cleanly drops the two list endpoints — POST-only methods on /enrollments and /orders now correctly return 405 Method Not Allowed on GET (fastapi default). No dead code left behind, and the removal-rationale comment at server.py:193-196 documents SEC-001 for future maintainers.",
+    "Pydantic bounds are appropriately proportional: OrderItem.price le=10_000_000, qty le=1000, items conlist max_length=50, total le=100_000_000. All rejection paths verified via 422 tests. Consider whether total should be server-computed vs client-trusted; currently trusted (non-blocking for demo but a note for prod).",
+    "TryoutCreate PII removal is clean — model no longer accepts parent_name/parent_email/parent_phone/student_name; extra fields are ignored by default in pydantic v2 unless model_config forbids them. This means a stale client sending parent fields still gets a 200 but the fields are silently dropped. Non-blocking, but strict='allow'->'forbid' would give a louder signal if desired.",
+    "index.tsx still 1391 lines — prior refactor recommendation remains open, non-blocking.",
+    "Frontend never called the removed list endpoints, verified by grep — no regression risk from SEC-001 fix."
+  ],
+  "updated_files": [
+    "/app/backend/tests/test_digital_uni_api.py (removed old list-endpoint tests, added SEC-001 405 assertions on GET /api/enrollments and /api/orders, added 5 validation-422 tests for order caps/negatives/empties and tryout documents bound, updated tryout POST test to reduced payload, added /health backend-direct check)"
+  ],
+  "success_rate": {"backend": "100% (15/15)", "frontend": "100% (4/4 flows: enroll, order, tryout, course/badge)"},
+  "seed_data_creation": "Test run inserted TEST_-prefixed docs across enrollments/orders/tryouts/badges collections plus additional 422-rejected requests that leave no residue.",
+  "retest_needed": false,
+  "should_main_agent_self_test": false,
+  "context_for_next_testing_agent": "Security-audit fixes fully verified. Correct testIDs: track-{id} (e.g. track-aiml), continue-enroll, program-{id} (e.g. program-prof), generate-ticket, passenger-ticket, header-store, add-{itemId}, cart-bar, complete-purchase, order-receipt, tryout-cta (inside Store), sport-{Name}, team-{first20chars}, submit-tryout, tryout-ticket, cta-course (on Home), course-first/last, q{qi}-o{oi}, submit-quiz, badge-ticket. Correct AIML quiz answers 5/5: q0-o0, q1-o1, q2-o2, q3-o0, q4-o1. /health only reachable on backend port 8001 directly; external ingress routes non-/api paths to Expo web preview.",
+  "rca_of_issue": "N/A — security-audit hardening changes verified with no regressions."
+}

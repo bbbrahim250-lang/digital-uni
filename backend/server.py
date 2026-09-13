@@ -5,8 +5,8 @@ from motor.motor_asyncio import AsyncIOMotorClient
 import os
 import logging
 from pathlib import Path
-from pydantic import BaseModel, Field
-from typing import List, Optional, Dict, Any
+from pydantic import BaseModel, Field, constr, conlist, confloat, conint
+from typing import List, Optional
 import uuid
 from datetime import datetime, timezone
 
@@ -26,13 +26,17 @@ def now_iso() -> str:
     return datetime.now(timezone.utc).isoformat()
 
 
-# ---------- Models ----------
+# ---------- Models (bounded) ----------
+ShortStr = constr(strip_whitespace=True, min_length=0, max_length=120)
+MediumStr = constr(strip_whitespace=True, min_length=0, max_length=240)
+
+
 class EnrollmentCreate(BaseModel):
-    track_id: str
-    program_id: str
-    user_type: str = "college"
+    track_id: constr(min_length=1, max_length=40)
+    program_id: constr(min_length=1, max_length=40)
+    user_type: constr(min_length=1, max_length=20) = "college"
     financial_aid: bool = False
-    campus: Optional[str] = None
+    campus: Optional[ShortStr] = None
 
 
 class Enrollment(BaseModel):
@@ -47,16 +51,16 @@ class Enrollment(BaseModel):
 
 
 class OrderItem(BaseModel):
-    id: str
-    name: str
-    price: float
-    qty: int
+    id: ShortStr
+    name: MediumStr
+    price: confloat(ge=0, le=10_000_000)
+    qty: conint(ge=1, le=1000)
 
 
 class OrderCreate(BaseModel):
-    items: List[OrderItem]
-    total: float
-    method: str = "Credit Card"
+    items: conlist(OrderItem, min_length=1, max_length=50)
+    total: confloat(ge=0, le=100_000_000)
+    method: constr(min_length=1, max_length=40) = "Credit Card"
 
 
 class Order(BaseModel):
@@ -68,14 +72,14 @@ class Order(BaseModel):
     created_at: str
 
 
+# Note: PII fields (parent name/email/phone, student name) were removed from
+# this schema in response to a security audit finding — the frontend never
+# sent them and the disclaimer explicitly promises "no personal data is
+# collected or stored".
 class TryoutCreate(BaseModel):
-    parent_name: str = ""
-    parent_email: str = ""
-    parent_phone: str = ""
-    student_name: str = ""
-    sport: str
-    team: str
-    documents: int = 0
+    sport: constr(min_length=1, max_length=30)
+    team: constr(min_length=1, max_length=80)
+    documents: conint(ge=0, le=4) = 0
 
 
 class Tryout(BaseModel):
@@ -89,11 +93,11 @@ class Tryout(BaseModel):
 
 
 class BadgeCreate(BaseModel):
-    course_id: str
-    first_name: str
-    last_name: str
-    score: int
-    total: int
+    course_id: constr(min_length=1, max_length=30)
+    first_name: constr(min_length=0, max_length=60)
+    last_name: constr(min_length=0, max_length=60)
+    score: conint(ge=0, le=100)
+    total: conint(ge=1, le=100)
 
 
 class Badge(BaseModel):
@@ -186,16 +190,10 @@ async def create_badge(payload: BadgeCreate):
     return Badge(**doc)
 
 
-@api_router.get("/enrollments", response_model=List[Enrollment])
-async def list_enrollments():
-    items = await db.enrollments.find({}, {"_id": 0}).sort("created_at", -1).to_list(200)
-    return [Enrollment(**i) for i in items]
-
-
-@api_router.get("/orders", response_model=List[Order])
-async def list_orders():
-    items = await db.orders.find({}, {"_id": 0}).sort("created_at", -1).to_list(200)
-    return [Order(**i) for i in items]
+# Public list endpoints were removed in response to security audit SEC-001
+# (unauthenticated bulk read of all stored records). Since this demo has no
+# auth system, dropping the endpoints entirely is the proportional fix — the
+# frontend never called them; they were only added as a convenience.
 
 
 app.include_router(api_router)

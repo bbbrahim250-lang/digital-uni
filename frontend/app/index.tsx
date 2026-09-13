@@ -9,6 +9,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { colors } from "@/src/theme";
 import Ticket from "@/src/components/Ticket";
 import VideoBox from "@/src/components/VideoBox";
+import BoardingPassCard from "@/src/components/BoardingPassCard";
 import { Chip, PrimaryButton, GhostButton, PickerRow, Card, SectionTitle } from "@/src/components/UI";
 import {
   TRACKS, PROGRAMS, CREDENTIALS, STORE_EXPLORATORY, STORE_EVENTS, FUND_TIERS,
@@ -618,39 +619,56 @@ function StoreView({ cart, addToCart, onCheckout, onTryout, onBack }: any) {
       ))}
 
       <SectionTitle>Concerts & Program Tickets</SectionTitle>
-      {STORE_EVENTS.map((ev) => (
-        <View key={ev.id} style={{ marginTop: 12 }}>
-          <View style={styles.eventCard}>
-            <Image source={IMAGES.gold} style={StyleSheet.absoluteFillObject} contentFit="cover" />
-            <LinearGradient colors={["rgba(10,14,31,0.5)", "rgba(10,14,31,0.85)"]} style={StyleSheet.absoluteFillObject} />
-            <View style={{ padding: 14 }}>
-              <Text style={styles.eventTag}>SCHOOL OF AI · BOARDING PASS</Text>
-              <Text style={styles.eventTitle}>{ev.title}</Text>
-              <Text style={styles.eventSub}>{ev.subtitle}</Text>
-              <Text style={styles.eventSub}>{ev.where}</Text>
+      {STORE_EVENTS.map((ev) => {
+        const prices = ev.tiers.map((t) => t.price);
+        const priceLabel = prices.length > 1
+          ? `$${Math.min(...prices).toLocaleString()} – $${Math.max(...prices).toLocaleString()}`
+          : `$${prices[0].toLocaleString()}`;
+        const refId = `DU-${ev.id.toUpperCase()}-2026`;
+        return (
+          <View key={ev.id} style={{ marginTop: 14 }}>
+            <BoardingPassCard
+              tag="SCHOOL OF AI"
+              title={ev.title}
+              subtitle={`${ev.subtitle} · ${ev.where}`}
+              priceLabel={priceLabel}
+              refId={refId}
+              pillLabel="ADMIT ONE"
+              panelKicker="EVENT TICKET"
+              testID={`event-card-${ev.id}`}
+            />
+            <View style={{ flexDirection: "row", flexWrap: "wrap", gap: 8, marginTop: 10 }}>
+              {ev.tiers.map((t) => {
+                const id = `ticket-${ev.id}-${t.key}`;
+                const qty = cart[id]?.qty || 0;
+                return (
+                  <Pressable
+                    key={t.key}
+                    onPress={() => addToCart(id, `${ev.title} — ${t.label}`, t.price)}
+                    style={[styles.tierBtn, qty > 0 && styles.tierBtnSel]}
+                    testID={`event-${ev.id}-${t.key}`}
+                  >
+                    <Text style={[styles.tierLabel, qty > 0 && styles.tierLabelSel]}>{t.label} · ${t.price}{qty > 0 ? ` ×${qty}` : ""}</Text>
+                  </Pressable>
+                );
+              })}
             </View>
           </View>
-          <View style={{ flexDirection: "row", flexWrap: "wrap", gap: 8, marginTop: 8 }}>
-            {ev.tiers.map((t) => {
-              const id = `ticket-${ev.id}-${t.key}`;
-              const qty = cart[id]?.qty || 0;
-              return (
-                <Pressable
-                  key={t.key}
-                  onPress={() => addToCart(id, `${ev.title} — ${t.label}`, t.price)}
-                  style={[styles.tierBtn, qty > 0 && styles.tierBtnSel]}
-                  testID={`event-${ev.id}-${t.key}`}
-                >
-                  <Text style={[styles.tierLabel, qty > 0 && styles.tierLabelSel]}>{t.label} · ${t.price}{qty > 0 ? ` ×${qty}` : ""}</Text>
-                </Pressable>
-              );
-            })}
-          </View>
-        </View>
-      ))}
+        );
+      })}
 
       <SectionTitle>Fundraising — AI Lab Research</SectionTitle>
-      <View style={{ flexDirection: "row", flexWrap: "wrap", gap: 8 }}>
+      <BoardingPassCard
+        tag="AI LAB RESEARCH"
+        title="Support Digital-UNI AI Lab Research"
+        subtitle="Fund applied research at the Digital-AI Research Lab — NESU case study, Green Sovereign Corridors."
+        priceLabel={`$${FUND_TIERS[0].toLocaleString()} – $${FUND_TIERS[FUND_TIERS.length - 1].toLocaleString()}`}
+        refId="DU-FUND-AILAB-2026"
+        pillLabel="SUPPORTER"
+        panelKicker="DONATION TICKET"
+        testID="fund-card-ailab"
+      />
+      <View style={{ flexDirection: "row", flexWrap: "wrap", gap: 8, marginTop: 10 }}>
         {FUND_TIERS.map((amt) => {
           const id = `fund-ailab-${amt}`;
           const qty = cart[id]?.qty || 0;
@@ -668,7 +686,17 @@ function StoreView({ cart, addToCart, onCheckout, onTryout, onBack }: any) {
       </View>
 
       <SectionTitle>Fundraising — AI High Schools</SectionTitle>
-      <View style={{ flexDirection: "row", flexWrap: "wrap", gap: 8 }}>
+      <BoardingPassCard
+        tag="AI HIGH SCHOOLS"
+        title="Support the AI-Native Private School Network"
+        subtitle="Santa Monica-Malibu · Palo Alto-Redwood City · proposed Lycée Paris 8 partnership."
+        priceLabel={`$${FUND_TIERS[0].toLocaleString()} – $${FUND_TIERS[FUND_TIERS.length - 1].toLocaleString()}`}
+        refId="DU-FUND-AIHS-2026"
+        pillLabel="SUPPORTER"
+        panelKicker="DONATION TICKET"
+        testID="fund-card-aihs"
+      />
+      <View style={{ flexDirection: "row", flexWrap: "wrap", gap: 8, marginTop: 10 }}>
         {FUND_TIERS.map((amt) => {
           const id = `fund-aihs-${amt}`;
           const qty = cart[id]?.qty || 0;
