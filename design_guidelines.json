@@ -1,0 +1,181 @@
+{
+  "app_name": "Digital-UNI AI Train",
+  "personality": "7 Dark-First Utility DARK with Custom Premium Brand Colors",
+  "personality_one_liner": "A premium, dark-themed, futuristic educational 'express train' that feels like an exclusive boarding pass to the AI-driven jobs of tomorrow.",
+  "color": {
+    "surface": "#0a0e1f",
+    "onSurface": "#eef1f7",
+    "surfaceSecondary": "#10162c",
+    "onSurfaceSecondary": "#9aa3bd",
+    "surfaceTertiary": "#0d1226",
+    "onSurfaceTertiary": "#6f7896",
+    "surfaceInverse": "#f4f1e8",
+    "onSurfaceInverse": "#0a0e1f",
+    "brand": "#34e08a",
+    "onBrand": "#0a0e1f",
+    "brandPrimary": "#34e08a",
+    "onBrandPrimary": "#0a0e1f",
+    "brandSecondary": "#1fae8f",
+    "onBrandSecondary": "#0a0e1f",
+    "brandTertiary": "#f2a93c",
+    "onBrandTertiary": "#0a0e1f",
+    "success": "#34e08a",
+    "onSuccess": "#0a0e1f",
+    "successBg": "rgba(52,224,138,0.1)",
+    "warning": "#f2a93c",
+    "onWarning": "#0a0e1f",
+    "warningBg": "rgba(242,169,60,0.1)",
+    "error": "#ff8a8a",
+    "onError": "#0a0e1f",
+    "info": "#1fae8f",
+    "onInfo": "#0a0e1f",
+    "border": "rgba(154,163,189,0.2)",
+    "borderStrong": "#1fae8f",
+    "divider": "rgba(154,163,189,0.1)",
+    "muted": "#6f7896"
+  },
+  "typography": {
+    "displayFontFamily": "Space Grotesk",
+    "textFontFamily": "Inter",
+    "scale": {
+      "sm": 12,
+      "base": 14,
+      "lg": 16,
+      "xl": 20,
+      "2xl": 26
+    }
+  },
+  "spacing": {
+    "rule": "Generous vertical breathing room for premium feel. Utilize md (12) for inner padding and lg (16) to xl (24) for block separation.",
+    "xs": 4,
+    "sm": 8,
+    "md": 12,
+    "lg": 16,
+    "xl": 24,
+    "2xl": 32,
+    "3xl": 48
+  },
+  "radius_tokens": {
+    "sm": 6,
+    "md": 12,
+    "lg": 20,
+    "pill": 999
+  },
+  "shadow_tier": "1",
+  "navigation": "bottom_tabs",
+  "icon_set": "Ionicons",
+  "glassmorphism": {
+    "enabled": true,
+    "do's": [
+      "Apply frosted glass (expo-blur) over #10162c at 80% opacity for sticky headers, nav bars, and floating action buttons.",
+      "Use subtle blur backdrops behind premium feature cards to enhance the 'futuristic train' theme."
+    ],
+    "dont's": [
+      "Do not blur standard list rows or form inputs. Maintain high contrast readability for dense data screens."
+    ]
+  },
+  "platform_libraries": {
+    "glass": {
+      "ios": "expo-glass-effect",
+      "android": "expo-blur",
+      "low_end_android_fallback": "solid surfaceTertiary"
+    },
+    "image": "expo-image",
+    "blur": "expo-blur",
+    "bottom_sheet": "@gorhom/bottom-sheet",
+    "animation": "react-native-reanimated",
+    "gesture": "react-native-gesture-handler"
+  },
+  "screens": [
+    {
+      "name": "Home (Discover & Board)",
+      "purpose": "Front door to the AI train, showcasing the primary CTA to board and a track picker.",
+      "states": {
+        "loading": "Centered train wheel loading animation or green spinner.",
+        "empty": "N/A",
+        "error": "Failed to load tracks. Show retry."
+      },
+      "layout": "2-row Top App Header (Brand row + Nav row with 'Learn-AI / Build-AI' dropdowns and 'Sign In' pill). Below header: Hero Banner (rounded, bordered dark-green gradient panel featuring the futuristic train image with text overlay 'LEAD WITH AI. Board the AI Train'). Below hero: Track Picker (grid or horizontal scroll of 7 learning tracks). Use radio-style picker rows for track selection, keeping it highly operational."
+    },
+    {
+      "name": "Track Detail & Learn",
+      "purpose": "Display the learning track stations timeline and house the AI-grading interactions.",
+      "states": {
+        "loading": "Skeleton timeline nodes.",
+        "empty": "No stations available yet.",
+        "error": "Failed to load station map."
+      },
+      "layout": "Vertical timeline of 'Stations'. Sticky track title header. Provide a 'Sample Course' module containing a video thumbnail and a quiz CTA. During quiz submission, show the AI-grading loading state: spinning ring with rotating status messages. Below, show success (badge) or failure."
+    },
+    {
+      "name": "Certify (Boarding Pass)",
+      "purpose": "The ultimate ticket representing enrollment and achievement.",
+      "states": {
+        "loading": "Generating your ticket...",
+        "empty": "No certificates yet.",
+        "error": "Could not issue ticket."
+      },
+      "layout": "Display a large 'Boarding Pass / Ticket' card centered. Design specs: dark-green gradient header strip, light cream panel (surfaceInverse #f4f1e8), dashed perforation with punch holes, QR code block, and a green footer bar (brandPrimary). Use a swipeable card carousel if multiple tickets exist. Avoid generic paper look; make it digital-premium."
+    },
+    {
+      "name": "Build (AI Lab)",
+      "purpose": "Showcase a 6-stage AI commercialization pipeline.",
+      "states": {
+        "loading": "Loading lab instances...",
+        "empty": "No projects started.",
+        "error": "Lab connection failed."
+      },
+      "layout": "Use a grid of cards detailing the 6 stages. Incorporate dark/neon tech lab imagery subtly in card backgrounds with linear-gradient scrims (transparent to #10162c at bottom). Include a 'Commercialize' sticky bottom CTA offering a 75/25 revenue share graphic (pie chart or progress bar visual)."
+    },
+    {
+      "name": "Store & Checkout",
+      "purpose": "Purchase exploratory tickets, event passes, and apparel.",
+      "states": {
+        "loading": "Loading store items...",
+        "empty": "Store is currently closed.",
+        "error": "Error loading inventory."
+      },
+      "layout": "Grid layout for apparel, tile layout for tickets. Concert/event tickets use the golden texture background with #0a0e1f text overlay. Bottom fixed cart bar. Checkout screen: standard single-column form with radio button payment selection (include a disabled PayPal placeholder) and 'Order Confirmed' receipt sheet."
+    },
+    {
+      "name": "Sign In",
+      "purpose": "Rich 9-role sign-in and user authentication form.",
+      "states": {
+        "loading": "Authenticating...",
+        "empty": "N/A",
+        "error": "Invalid credentials."
+      },
+      "layout": "Full-height dark container. Top shows founder portrait inside a circular or rounded avatar, or an atmospheric campus shot. Then, a rich form with 9-role picker (small muted chips), file-upload placeholder (for resumes), and a primary green pill submit button."
+    }
+  ],
+  "images": {
+    "hero_train": {
+      "url": "https://images.unsplash.com/photo-1723997637631-97cf9aa0bb3b?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA3MDR8MHwxfHNlYXJjaHwxfHxmdXR1cmlzdGljJTIwaGlnaCUyMHNwZWVkJTIwdHJhaW4lMjBkYXJrJTIwbmlnaHR8ZW58MHx8fHwxNzg5MjU3NTMwfDA&ixlib=rb-4.1.0&q=85",
+      "alt": "High speed futuristic train passing at night"
+    },
+    "ai_lab_bg": {
+      "url": "https://images.unsplash.com/photo-1737703218497-64e00b39638f?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjAzMzV8MHwxfHNlYXJjaHwxfHx0ZWNoJTIwbGFib3JhdG9yeSUyMGRhcmslMjBuZW9uJTIwZ3JlZW58ZW58MHx8fHwxNzg5MjU3NTMwfDA&ixlib=rb-4.1.0&q=85",
+      "alt": "Dark technology laboratory with neon green accents"
+    },
+    "ticket_gold_texture": {
+      "url": "https://images.unsplash.com/photo-1656055450593-5f9fc1e88b65?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1NzR8MHwxfHNlYXJjaHwxfHxibGFuayUyMGdvbGRlbiUyMGNvbmNlcnQlMjB0aWNrZXQlMjB0ZXh0dXJlfGVufDB8fHx8MTc4OTI1NzUzMHww&ixlib=rb-4.1.0&q=85",
+      "alt": "Golden ticket texture for event passes"
+    },
+    "founder_portrait": {
+      "url": "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1NTN8MHwxfHNlYXJjaHwxfHxwb3J0cmFpdCUyMHByb2Zlc3Npb25hbCUyMGZvdW5kZXIlMjBkYXJrJTIwYmFja2dyb3VuZHxlbnwwfHx8fDE3ODkyNTc1MzB8MA&ixlib=rb-4.1.0&q=85",
+      "alt": "Professional portrait on dark background"
+    },
+    "ecosystem_campus": {
+      "url": "https://images.unsplash.com/photo-1785637717302-8580c648d99a?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1Nzl8MHwxfHNlYXJjaHwxfHxmdXR1cmlzdGljJTIwdW5pdmVyc2l0eSUyMGNhbXB1cyUyMG5pZ2h0fGVufDB8fHx8MTc4OTI1NzUzMHww&ixlib=rb-4.1.0&q=85",
+      "alt": "Futuristic university campus cityscape at night"
+    }
+  },
+  "instructions_to_main_agent": [
+    "Strictly enforce the color tokens defined in the JSON. The design represents an exclusive, dark, futuristic aesthetic. Background is #0a0e1f, main panels are #10162c, and the primary brand accent is #34e08a (green).",
+    "Use Space Grotesk for all headings (H1, H2, card titles) and Inter for body text. Weight must not exceed 500.",
+    "Implement the custom 'Boarding Pass/Ticket' strictly as defined: dark-green header, cream panel (#f4f1e8 text must be inverted to #0a0e1f for contrast), dashed perforations, and a green footer.",
+    "The Home Screen MUST include a 2-row Top App Header featuring a Brand row and Nav row with specific dropdowns (Learn-AI, Build-AI, etc.) and a 'Sign In' pill.",
+    "For all photographic backgrounds (Hero Train, AI Lab, Campus), you must use the provided URLs with a linear-gradient scrim (top to bottom fade to #10162c) to guarantee text readability.",
+    "Maintain the train metaphor throughout interactions - loading states should feel operational (e.g., AI-grading spinner with rotating messages)."
+  ]
+}
