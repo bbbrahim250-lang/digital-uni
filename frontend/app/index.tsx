@@ -14,14 +14,17 @@ import { Chip, PrimaryButton, GhostButton, PickerRow, Card, SectionTitle } from 
 import {
   TRACKS, PROGRAMS, CREDENTIALS, STORE_EXPLORATORY, STORE_EVENTS, FUND_TIERS,
   APPAREL_ITEMS, AIML_QUIZ, AI_LAB_STAGES, FLAGSHIP_APPS, IMAGES, VIDEOS,
+  COMMUNITIES, CONNECTIONS, INTERESTS, SIGNATURE_CONSENTS, CAMPAIGN_DISCLAIMER,
 } from "@/src/data/appData";
+import { downloadSupportLetter, downloadCertificate, downloadCouncilLetterTemplate } from "@/src/utils/pdf";
 
 type ViewKey =
   | "home" | "track" | "enroll" | "ticket" | "certify"
   | "legal" | "reserve" | "store" | "checkout" | "orderConfirmed"
   | "tryout" | "tryoutConfirmation" | "course" | "grading" | "courseFail" | "badge"
   | "aiLab" | "commercialization" | "discover" | "takeAction"
-  | "signIn" | "signUp" | "signInConfirmed" | "signUpConfirmed";
+  | "signIn" | "signUp" | "signInConfirmed" | "signUpConfirmed"
+  | "community" | "communityConfirmed" | "pledge" | "pledgeConfirmed";
 
 const BACKEND = process.env.EXPO_PUBLIC_BACKEND_URL;
 
@@ -41,6 +44,8 @@ export default function App() {
   const [lastTicket, setLastTicket] = useState<any>(null);
   const [lastBadge, setLastBadge] = useState<any>(null);
   const [lastTryout, setLastTryout] = useState<any>(null);
+  const [lastSignature, setLastSignature] = useState<any>(null);
+  const [lastPledge, setLastPledge] = useState<any>(null);
   const [tryoutSport, setTryoutSport] = useState<string | null>(null);
   const [tryoutTeam, setTryoutTeam] = useState<string | null>(null);
   const [tryoutDocs, setTryoutDocs] = useState<Record<string, boolean>>({});
@@ -180,7 +185,14 @@ export default function App() {
         contentContainerStyle={{ paddingHorizontal: 16, paddingBottom: 40 + insets.bottom }}
         keyboardShouldPersistTaps="handled"
       >
-        {view === "home" && <HomeView onPick={(id: string) => { setSelectedTrack(id); setView("track"); }} onCTA={() => setView("takeAction")} onDiscover={() => setView("discover")} onCourse={() => setView("course")} />}
+        {view === "home" && <HomeView
+          onPick={(id: string) => { setSelectedTrack(id); setView("track"); }}
+          onCTA={() => setView("takeAction")}
+          onDiscover={() => setView("discover")}
+          onCourse={() => setView("course")}
+          onCommunity={() => setView("community")}
+          onCouncilPdf={() => { downloadCouncilLetterTemplate(); }}
+        />}
         {view === "track" && track && (
           <TrackView track={track} onBack={() => setView("home")} onEnroll={() => setView("enroll")} />
         )}
@@ -207,6 +219,7 @@ export default function App() {
             onCheckout={() => setView("checkout")}
             onTryout={() => setView("tryout")}
             onBack={goHome}
+            onPledge={() => setView("pledge")}
           />
         )}
         {view === "checkout" && (
@@ -271,6 +284,24 @@ export default function App() {
         )}
         {view === "signInConfirmed" && <ConfirmationView title="Welcome Back" subtitle={`Signed in as: ${signInRole}`} onDone={goHome} />}
         {view === "signUpConfirmed" && <ConfirmationView title="Account Created" subtitle={`Registered as: ${signUpRole} · Demo only — no real account was created`} onDone={goHome} />}
+        {view === "community" && (
+          <CommunityView
+            onBack={goHome}
+            onDone={(payload: any) => { setLastSignature(payload); setView("communityConfirmed"); }}
+          />
+        )}
+        {view === "communityConfirmed" && lastSignature && (
+          <CommunityConfirmedView sig={lastSignature} onHome={goHome} onPledge={() => setView("pledge")} />
+        )}
+        {view === "pledge" && (
+          <PledgeView
+            onBack={() => setView("store")}
+            onDone={(p: any) => { setLastPledge(p); setView("pledgeConfirmed"); }}
+          />
+        )}
+        {view === "pledgeConfirmed" && lastPledge && (
+          <PledgeConfirmedView p={lastPledge} onHome={goHome} />
+        )}
       </ScrollView>
 
       {view === "store" && cartCount > 0 && (
@@ -333,7 +364,7 @@ function Header({ insetsTop, cartCount, onLogo, onStore, onSignIn, onNav }: any)
 }
 
 // ---------- Home ----------
-function HomeView({ onPick, onCTA, onDiscover, onCourse }: any) {
+function HomeView({ onPick, onCTA, onDiscover, onCourse, onCommunity, onCouncilPdf }: any) {
   return (
     <View>
       <View style={styles.hero}>
@@ -349,6 +380,16 @@ function HomeView({ onPick, onCTA, onDiscover, onCourse }: any) {
         <Text style={styles.brandStatement}>DIGITAL-UNI — University of the Future. Jobs of Tomorrow.</Text>
         <Text style={styles.brandLead}>LEAD WITH AI.</Text>
         <PrimaryButton label="Board the AI Train →" onPress={onCTA} testID="cta-board" />
+      </View>
+
+      {/* Section 14 — Community Signature & Pledge Campaign entry points */}
+      <View style={styles.campaignRow}>
+        <Pressable onPress={onCommunity} style={styles.campaignPrimary} testID="home-join-community">
+          <Text style={styles.campaignPrimaryLabel}>100,000 · Join Community</Text>
+        </Pressable>
+        <Pressable onPress={onCouncilPdf} style={styles.campaignSecondary} testID="home-council-letter-pdf">
+          <Text style={styles.campaignSecondaryLabel}>City Council Letter · PDF</Text>
+        </Pressable>
       </View>
 
       <View style={styles.stationsBanner}>
@@ -595,7 +636,7 @@ function LegalView({ role, setRole, onBack }: any) {
 }
 
 // ---------- Store ----------
-function StoreView({ cart, addToCart, onCheckout, onTryout, onBack }: any) {
+function StoreView({ cart, addToCart, onCheckout, onTryout, onBack, onPledge }: any) {
   return (
     <View>
       <GhostButton label="← Back" onPress={onBack} />
@@ -658,6 +699,12 @@ function StoreView({ cart, addToCart, onCheckout, onTryout, onBack }: any) {
       })}
 
       <SectionTitle>Fundraising — AI Lab Research</SectionTitle>
+      <View style={{ flexDirection: "row", gap: 8, marginBottom: 8 }}>
+        <View style={styles.modePill}><Text style={styles.modePillActive}>Donate Now</Text></View>
+        <Pressable onPress={onPledge} style={styles.modePillOutline} testID="fund-ailab-pledge">
+          <Text style={styles.modePillOutlineLabel}>Pledge Instead →</Text>
+        </Pressable>
+      </View>
       <BoardingPassCard
         tag="AI LAB RESEARCH"
         title="Support Digital-UNI AI Lab Research"
@@ -686,6 +733,12 @@ function StoreView({ cart, addToCart, onCheckout, onTryout, onBack }: any) {
       </View>
 
       <SectionTitle>Fundraising — AI High Schools</SectionTitle>
+      <View style={{ flexDirection: "row", gap: 8, marginBottom: 8 }}>
+        <View style={styles.modePill}><Text style={styles.modePillActive}>Donate Now</Text></View>
+        <Pressable onPress={onPledge} style={styles.modePillOutline} testID="fund-aihs-pledge">
+          <Text style={styles.modePillOutlineLabel}>Pledge Instead →</Text>
+        </Pressable>
+      </View>
       <BoardingPassCard
         tag="AI HIGH SCHOOLS"
         title="Support the AI-Native Private School Network"
@@ -1194,6 +1247,292 @@ function ConfirmationView({ title, subtitle, onDone }: any) {
 }
 
 // ---------- Styles ----------
+// ---------- Community Signature screen (Section 14.2) ----------
+function CommunityView({ onBack, onDone }: any) {
+  const [community, setCommunity] = useState<string>(COMMUNITIES[0].id);
+  const [fullName, setFullName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [zip, setZip] = useState("");
+  const [connection, setConnection] = useState(CONNECTIONS[0]);
+  const [interest, setInterest] = useState(INTERESTS[0]);
+  const [comment, setComment] = useState("");
+  const [signature, setSignature] = useState("");
+  const [consents, setConsents] = useState<boolean[]>([false, false, false, false]);
+  const [count, setCount] = useState<number | null>(null);
+  const [submitting, setSubmitting] = useState(false);
+
+  const selectedCommunity = COMMUNITIES.find((c) => c.id === community)!;
+  const canSubmit =
+    fullName.trim().length > 0 &&
+    email.trim().length > 3 &&
+    zip.trim().length > 0 &&
+    signature.trim().length > 0 &&
+    consents.every(Boolean) &&
+    !submitting;
+
+  // Live counter — refreshes when community changes
+  React.useEffect(() => {
+    let ok = true;
+    (async () => {
+      try {
+        const r = await fetch(`${BACKEND}/api/signatures/count?community=${encodeURIComponent(community)}`);
+        const j = await r.json();
+        if (ok) setCount(j.count ?? 0);
+      } catch { if (ok) setCount(0); }
+    })();
+    return () => { ok = false; };
+  }, [community]);
+
+  const submit = async () => {
+    setSubmitting(true);
+    try {
+      const r = await fetch(`${BACKEND}/api/signatures`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          community, full_name: fullName, email, phone, zip_code: zip,
+          connection, interest, comment, signature, consents,
+        }),
+      });
+      const j = await r.json();
+      onDone({
+        signatureId: j.signature_id,
+        fullName, community: selectedCommunity.name,
+        connection, interest, comment,
+        date: new Date().toLocaleDateString(),
+      });
+    } catch {
+      onDone({
+        signatureId: `DU-SIG-${community.toUpperCase()}-LOCAL`,
+        fullName, community: selectedCommunity.name,
+        connection, interest, comment,
+        date: new Date().toLocaleDateString(),
+      });
+    } finally { setSubmitting(false); }
+  };
+
+  return (
+    <View>
+      <GhostButton label="← Back" onPress={onBack} testID="community-back" />
+      <Text style={styles.h1}>Community Signature</Text>
+      <Text style={styles.helper}>Add your name to the Digital-UNI 100,000 community campaign.</Text>
+
+      <View style={styles.counterCard}>
+        <Text style={styles.counterNumber}>{count === null ? "…" : count.toLocaleString()} of 100,000</Text>
+        <Text style={styles.counterLabel}>{selectedCommunity.name}</Text>
+      </View>
+
+      <SectionTitle>Choose Your Community</SectionTitle>
+      {COMMUNITIES.map((c) => (
+        <PickerRow
+          key={c.id}
+          label={c.name}
+          selected={community === c.id}
+          onPress={() => setCommunity(c.id)}
+          testID={`community-${c.id}`}
+        />
+      ))}
+
+      <SectionTitle>Your Details</SectionTitle>
+      <TextInput style={styles.input} placeholder="Full name" placeholderTextColor={colors.onSurfaceMuted} value={fullName} onChangeText={setFullName} testID="community-name" />
+      <TextInput style={styles.input} placeholder="Email address" placeholderTextColor={colors.onSurfaceMuted} value={email} onChangeText={setEmail} keyboardType="email-address" autoCapitalize="none" testID="community-email" />
+      <TextInput style={styles.input} placeholder="Phone number (optional)" placeholderTextColor={colors.onSurfaceMuted} value={phone} onChangeText={setPhone} keyboardType="phone-pad" testID="community-phone" />
+      <TextInput style={styles.input} placeholder="ZIP code" placeholderTextColor={colors.onSurfaceMuted} value={zip} onChangeText={setZip} testID="community-zip" />
+
+      <SectionTitle>Your {selectedCommunity.name.split(",")[0]} connection</SectionTitle>
+      {CONNECTIONS.map((c) => (
+        <PickerRow key={c} label={c} selected={connection === c} onPress={() => setConnection(c)} testID={`community-conn-${c}`} />
+      ))}
+
+      <SectionTitle>Primary area of interest</SectionTitle>
+      {INTERESTS.map((c) => (
+        <PickerRow key={c} label={c} selected={interest === c} onPress={() => setInterest(c)} testID={`community-int-${c}`} />
+      ))}
+
+      <SectionTitle>Why do you support this proposal?</SectionTitle>
+      <TextInput
+        style={[styles.input, { minHeight: 80, textAlignVertical: "top" }]}
+        multiline
+        placeholder="Share a brief statement, opinion, or idea for the proposed school and project"
+        placeholderTextColor={colors.onSurfaceMuted}
+        value={comment}
+        onChangeText={setComment}
+        testID="community-comment"
+      />
+
+      <SectionTitle>Electronic signature</SectionTitle>
+      <TextInput
+        style={[styles.input, { fontFamily: Platform.OS === "web" ? "cursive" : "System", fontStyle: "italic" }]}
+        placeholder="Type your full legal name"
+        placeholderTextColor={colors.onSurfaceMuted}
+        value={signature}
+        onChangeText={setSignature}
+        testID="community-signature"
+      />
+      {signature.length > 0 && fullName.length > 0 && signature.trim() !== fullName.trim() && (
+        <Chip>Signature does not match Full name — you can still submit, but please double-check.</Chip>
+      )}
+
+      <SectionTitle>Consent</SectionTitle>
+      {SIGNATURE_CONSENTS.map((label, i) => {
+        const cityWord = selectedCommunity.name.split(",")[0];
+        const rendered = label.replace(/\{city\}/g, cityWord);
+        return (
+          <Pressable
+            key={i}
+            onPress={() => setConsents((prev) => prev.map((v, j) => (j === i ? !v : v)))}
+            style={styles.consentRow}
+            testID={`community-consent-${i}`}
+          >
+            <View style={[styles.checkbox, consents[i] && styles.checkboxSel]}>
+              {consents[i] && <Text style={styles.checkboxCheck}>✓</Text>}
+            </View>
+            <Text style={styles.checkTxt}>{rendered}</Text>
+          </Pressable>
+        );
+      })}
+
+      <View style={styles.notePanel}>
+        <Text style={styles.noteText}>{CAMPAIGN_DISCLAIMER}</Text>
+      </View>
+
+      <PrimaryButton label={submitting ? "Submitting…" : "Review and download my support letter"} onPress={submit} disabled={!canSubmit} testID="community-submit" />
+      <Chip>Illustrative demo — submissions are stored in the app database. No email is dispatched.</Chip>
+    </View>
+  );
+}
+
+function CommunityConfirmedView({ sig, onHome, onPledge }: any) {
+  const community = COMMUNITIES.find((c) => sig.community.startsWith(c.name.split(",")[0])) || COMMUNITIES[0];
+  return (
+    <View>
+      <Text style={styles.h1}>Signature Received</Text>
+      <Text style={styles.helper}>Your community signature has been recorded.</Text>
+
+      <View style={styles.receiptCard}>
+        <View style={[styles.crest, { backgroundColor: community.crestColor }]}>
+          <Text style={styles.crestInitials}>{community.crestInitials}</Text>
+        </View>
+        <Text style={styles.certKicker}>DIGITAL-UNI COMMUNITY REGISTRATION</Text>
+        <Text style={styles.certTitle}>Declaration of Support</Text>
+        <Text style={styles.certPresented}>presented to</Text>
+        <Text style={styles.certName}>{sig.fullName}</Text>
+        <Text style={styles.certMeta}>{sig.community} · {sig.connection}</Text>
+        <Text style={styles.certId}>{sig.signatureId}</Text>
+      </View>
+
+      <PrimaryButton label="Download Support Letter (PDF)" onPress={() => downloadSupportLetter(sig)} testID="community-download-letter" />
+      <PrimaryButton tone="gold" label="Continue with a Pledge →" onPress={onPledge} testID="community-to-pledge" />
+      <GhostButton label="Back to Home" onPress={onHome} />
+    </View>
+  );
+}
+
+// ---------- Pledge screen (Section 14.3) ----------
+function PledgeView({ onBack, onDone }: any) {
+  const [community, setCommunity] = useState<string>(COMMUNITIES[0].id);
+  const [fund, setFund] = useState<string>("ailab");
+  const [fullName, setFullName] = useState("");
+  const [email, setEmail] = useState("");
+  const [tier, setTier] = useState<number>(1000);
+  const [submitting, setSubmitting] = useState(false);
+  const selectedCommunity = COMMUNITIES.find((c) => c.id === community)!;
+  const canSubmit = fullName.trim().length > 0 && email.trim().length > 3 && tier > 0 && !submitting;
+
+  const submit = async () => {
+    setSubmitting(true);
+    try {
+      const r = await fetch(`${BACKEND}/api/pledges`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ community, full_name: fullName, email, tier, fund }),
+      });
+      const j = await r.json();
+      onDone({
+        certificateId: j.certificate_id,
+        fullName, community: selectedCommunity.name,
+        tier, fund: fund === "ailab" ? "AI Lab Research" : "AI High Schools",
+        date: new Date().toLocaleDateString(),
+        crestInitials: selectedCommunity.crestInitials,
+        crestColor: selectedCommunity.crestColor,
+      });
+    } catch {
+      onDone({
+        certificateId: `DU-CERT-${community.toUpperCase()}-LOCAL`,
+        fullName, community: selectedCommunity.name, tier,
+        fund: fund === "ailab" ? "AI Lab Research" : "AI High Schools",
+        date: new Date().toLocaleDateString(),
+        crestInitials: selectedCommunity.crestInitials,
+        crestColor: selectedCommunity.crestColor,
+      });
+    } finally { setSubmitting(false); }
+  };
+
+  return (
+    <View>
+      <GhostButton label="← Back" onPress={onBack} testID="pledge-back" />
+      <Text style={styles.h1}>Pledge of Support</Text>
+      <Text style={styles.helper}>Commit a pledge amount — no payment is collected at submission. You&apos;ll receive a Community Impact Certificate.</Text>
+
+      <SectionTitle>Fund</SectionTitle>
+      <PickerRow label="AI Lab Research" selected={fund === "ailab"} onPress={() => setFund("ailab")} testID="pledge-fund-ailab" />
+      <PickerRow label="AI High Schools" selected={fund === "aihs"} onPress={() => setFund("aihs")} testID="pledge-fund-aihs" />
+
+      <SectionTitle>Community</SectionTitle>
+      {COMMUNITIES.map((c) => (
+        <PickerRow key={c.id} label={c.name} selected={community === c.id} onPress={() => setCommunity(c.id)} testID={`pledge-community-${c.id}`} />
+      ))}
+
+      <SectionTitle>Your Name & Email</SectionTitle>
+      <TextInput style={styles.input} placeholder="Full name" placeholderTextColor={colors.onSurfaceMuted} value={fullName} onChangeText={setFullName} testID="pledge-name" />
+      <TextInput style={styles.input} placeholder="Email" placeholderTextColor={colors.onSurfaceMuted} value={email} onChangeText={setEmail} keyboardType="email-address" autoCapitalize="none" testID="pledge-email" />
+
+      <SectionTitle>Pledge Amount</SectionTitle>
+      <View style={{ flexDirection: "row", flexWrap: "wrap", gap: 8 }}>
+        {[100, 1000, 10000, 100000, 1000000].map((amt) => (
+          <Pressable key={amt} onPress={() => setTier(amt)} style={[styles.tierBtn, tier === amt && styles.tierBtnSel]} testID={`pledge-tier-${amt}`}>
+            <Text style={[styles.tierLabel, tier === amt && styles.tierLabelSel]}>${amt.toLocaleString()}</Text>
+          </Pressable>
+        ))}
+      </View>
+
+      <View style={styles.notePanel}>
+        <Text style={styles.noteText}>{CAMPAIGN_DISCLAIMER}</Text>
+      </View>
+
+      <PrimaryButton label={submitting ? "Submitting…" : "Submit Pledge & Get Certificate"} onPress={submit} disabled={!canSubmit} testID="pledge-submit" />
+      <Chip>Pledges are stored in the app database. No payment is processed in this demo.</Chip>
+    </View>
+  );
+}
+
+function PledgeConfirmedView({ p, onHome }: any) {
+  return (
+    <View>
+      <Text style={styles.h1}>Pledge Received</Text>
+      <Text style={styles.helper}>Your Community Impact Certificate is ready.</Text>
+
+      <View style={styles.receiptCard}>
+        <View style={[styles.crest, { backgroundColor: p.crestColor }]}>
+          <Text style={styles.crestInitials}>{p.crestInitials}</Text>
+        </View>
+        <Text style={styles.certKicker}>COMMUNITY IMPACT CERTIFICATE</Text>
+        <Text style={styles.certTitle}>Pledge of Support</Text>
+        <Text style={styles.certPresented}>presented to</Text>
+        <Text style={styles.certName}>{p.fullName}</Text>
+        <Text style={styles.certAmount}>${p.tier.toLocaleString()}</Text>
+        <Text style={styles.certMeta}>{p.fund} · {p.community}</Text>
+        <Text style={styles.certId}>{p.certificateId}</Text>
+      </View>
+
+      <PrimaryButton label="Download Certificate (PDF)" onPress={() => downloadCertificate(p)} testID="pledge-download-cert" />
+      <GhostButton label="Back to Home" onPress={onHome} />
+    </View>
+  );
+}
+
+
 const styles = StyleSheet.create({
   header: {
     backgroundColor: colors.surfaceTertiary,
@@ -1415,4 +1754,52 @@ const styles = StyleSheet.create({
     borderWidth: 1, borderColor: colors.border,
   },
   founderPoster: { height: 180, width: "100%" },
+
+  // Section 14 — Community Signature & Pledge Campaign
+  campaignRow: { flexDirection: "row", gap: 10, marginTop: 12 },
+  campaignPrimary: {
+    flex: 1, backgroundColor: colors.brandTertiary, borderRadius: 999,
+    paddingVertical: 12, alignItems: "center", justifyContent: "center",
+    shadowColor: colors.brandTertiary, shadowOpacity: 0.35, shadowRadius: 8, shadowOffset: { width: 0, height: 4 },
+  },
+  campaignPrimaryLabel: { color: "#0a0e1f", fontWeight: "800", fontSize: 13, letterSpacing: 0.5 },
+  campaignSecondary: {
+    flex: 1, borderRadius: 999, paddingVertical: 12, alignItems: "center",
+    borderWidth: 1, borderColor: colors.brandTertiary, backgroundColor: "transparent",
+  },
+  campaignSecondaryLabel: { color: colors.brandTertiary, fontWeight: "700", fontSize: 12 },
+  modePill: { paddingHorizontal: 14, paddingVertical: 8, borderRadius: 999, backgroundColor: colors.brandPrimary },
+  modePillActive: { color: "#04140b", fontWeight: "700", fontSize: 12 },
+  modePillOutline: { paddingHorizontal: 14, paddingVertical: 8, borderRadius: 999, borderWidth: 1, borderColor: colors.brandTertiary },
+  modePillOutlineLabel: { color: colors.brandTertiary, fontWeight: "700", fontSize: 12 },
+  counterCard: {
+    marginTop: 12, padding: 14, borderRadius: 14,
+    backgroundColor: "rgba(52,224,138,0.1)", borderWidth: 1, borderColor: "rgba(52,224,138,0.3)",
+    alignItems: "center",
+  },
+  counterNumber: { color: colors.brandPrimary, fontSize: 22, fontWeight: "800", letterSpacing: 1 },
+  counterLabel: { color: colors.onSurfaceSecondary, fontSize: 12, marginTop: 2 },
+  consentRow: { flexDirection: "row", alignItems: "flex-start", marginTop: 10, gap: 10 },
+  notePanel: {
+    marginTop: 14, padding: 12, borderRadius: 10,
+    backgroundColor: "rgba(31,174,143,0.1)", borderLeftWidth: 3, borderLeftColor: colors.brandSecondary,
+  },
+  noteText: { color: colors.onSurface, fontSize: 11.5, lineHeight: 16 },
+  receiptCard: {
+    marginTop: 14, padding: 22, borderRadius: 14, backgroundColor: "#f4f1e8",
+    alignItems: "center", borderWidth: 1, borderColor: colors.border,
+  },
+  crest: {
+    width: 66, height: 74, alignItems: "center", justifyContent: "center", marginBottom: 8,
+    // Hexagonal shield via clipPath — works on web; a plain rounded square on native (visual only).
+    ...(Platform.OS === "web" ? ({ clipPath: "polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%)" } as any) : { borderRadius: 8 }),
+  },
+  crestInitials: { color: "#10162c", fontWeight: "800", fontSize: 22, letterSpacing: 1.5 },
+  certKicker: { color: "#f2a93c", fontSize: 10, fontWeight: "800", letterSpacing: 3, marginTop: 2 },
+  certTitle: { color: "#10162c", fontSize: 22, fontWeight: "700", letterSpacing: 1, marginTop: 6 },
+  certPresented: { color: "#3b4152", fontStyle: "italic", marginTop: 4 },
+  certName: { color: "#10162c", fontSize: 20, fontWeight: "700", marginTop: 6, letterSpacing: 0.5 },
+  certAmount: { color: "#1fae8f", fontSize: 22, fontWeight: "800", marginTop: 6 },
+  certMeta: { color: "#3b4152", fontSize: 11, letterSpacing: 1, marginTop: 6 },
+  certId: { color: "#6f7896", fontSize: 10, fontFamily: Platform.OS === "web" ? "monospace" : "System", marginTop: 10, letterSpacing: 1 },
 });

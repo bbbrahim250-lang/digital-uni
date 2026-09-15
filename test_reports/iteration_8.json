@@ -1,0 +1,32 @@
+{
+  "summary": "Verified the video-playback fix: native (Platform.OS !== 'web') path now uses require('../../assets/videos/{hero-train,course-video}.mp4') so Metro bundles the mp4 into the JS bundle instead of loading it over the network. Static verification: (a) both mp4 files exist under /app/frontend/assets/videos, md5 matches /app/backend/media copies (hero=2d0216..., course=cc0330...), (b) ffprobe confirms valid H.264, hero=1280x538, course=560x374, (c) Metro dev server (served through the preview URL) returns the bundled asset at /assets/assets/videos/hero-train.mp4 with Content-Type: video/mp4 and Content-Length 1522323 — confirming require() resolves the asset correctly, which is how Expo Go picks it up as a file:// URI on native. Backend /api/media/{hero-train,course-video}.mp4 still return 200 video/mp4 with correct sizes for the web path. All 15 backend pytest tests pass. Web frontend flows Home → Track → Enroll → Ticket, Store → Cart → Checkout → Order Receipt, and Sign In role picker all working. The hero <video> element on web is mounted with src=/api/media/hero-train.mp4 as expected. NOTE: In Playwright headless chromium the <video> reports DEMUXER_ERROR_NO_SUPPORTED_STREAMS — this is the codec-stripped Playwright chromium limitation (no proprietary H.264), NOT a real bug; the file is valid H.264 (ffprobe verified) and plays in real browsers.  HONEST LIMITATION: We cannot test Expo Go on a real iOS/Android device from this environment, so the on-device play-through inside Expo Go itself is NOT independently verified — but the substitutable industry-standard claim (native branch resolves to a locally-bundled require() asset rather than a remote URL) IS verified end-to-end.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": [],
+    "react_native_issues": []
+  },
+  "test_report_links": [
+    "/app/backend/tests/test_digital_uni_api.py",
+    "/app/test_reports/pytest/pytest_results.xml"
+  ],
+  "action_items": [
+    "User must confirm playback on a real device inside Expo Go — the testing agent cannot exercise Expo Go on real hardware. All code-side prerequisites for it to work are verified.",
+    "Likely root cause of the previous Expo-Go-specific failures (for the record): the previous remote-URL path forced Expo Go's native player (AVFoundation on iOS / ExoPlayer on Android) to fetch and demux mp4 over HTTPS. This is fragile because (1) iOS App Transport Security may reject non-standard TLS or missing forward secrecy on some Expo Go builds, (2) AVFoundation/ExoPlayer are strict about Content-Type=video/mp4 AND Accept-Ranges=bytes for progressive mp4 — the current backend does not advertise Accept-Ranges, so range-request-sensitive players may bail out, (3) some Expo Go WebView/media-permission policies block autoplay of non-file:// media without a gesture. Bundling the asset via require() eliminates all three because playback becomes a local file read.",
+    "Optional hardening (not required by this fix): add Accept-Ranges: bytes and Range request handling to the /api/media route so web progressive playback stays robust, and keep the require() path as the primary source for native."
+  ],
+  "critical_code_review_comments": [
+    "appData.ts correctly gates on Platform.OS === 'web' vs !== 'web' and returns a require() result for native. This is the industry-standard pattern for guaranteed offline-capable video in Expo Go.",
+    "VideoBox.tsx correctly passes the require() result straight into useVideoPlayer(source, ...); expo-video accepts numeric asset IDs from require() as valid sources.",
+    "Metro is unmodified (default config), so the default assetExts includes mp4 and the require() resolves without extra config.",
+    "The web path still uses <video src=...> pointing at /api/media/... — unchanged and still functioning at the backend level."
+  ],
+  "updated_files": [],
+  "success_rate": {"backend": "100% (15/15)", "frontend": "100% for web flows tested; native/Expo-Go playback NOT independently testable from this environment"},
+  "seed_data_creation": "None",
+  "retest_needed": false,
+  "should_main_agent_self_test": false,
+  "context_for_next_testing_agent": "Video-fix verification round. The change is a single-line source swap in /app/frontend/src/data/appData.ts: on native, VIDEOS.hero and VIDEOS.course now use require('../../assets/videos/...mp4') instead of the remote /api/media URL. Verified: files exist + md5 match backend copies, ffprobe shows valid H.264 with correct dimensions, Metro serves the bundled asset with Content-Type: video/mp4, backend /api/media routes still 200 for web, all backend pytests green, and all core frontend flows work. Playwright headless chromium's <video> error is a codec limitation of the test browser (no H.264) — ignore it, the mp4 is genuinely valid.",
+  "rca_of_issue": "Previous 'video fixed' claims were based on browser-preview testing only; real users on Expo Go saw silent failures because the mp4 was being fetched over HTTPS at runtime. Progressive-mp4 playback through AVFoundation/ExoPlayer inside Expo Go is fragile against (1) ATS/TLS behavior differences, (2) missing Accept-Ranges: bytes on the response, and (3) autoplay policies. The applied fix bundles the mp4 into the JS asset graph via require(), so Expo Go loads it as a local file — bypassing every network-layer failure mode. This is the same approach the expo-video docs recommend for guaranteed on-device playback."
+}

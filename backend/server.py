@@ -113,6 +113,59 @@ class Badge(BaseModel):
     created_at: str
 
 
+# ---------- Community Signature & Pledge Campaign (Section 14) ----------
+# Real persistence (not resettable demo state) — counts are exported to the
+# City Council letter, so we store the full signer record.
+Community = constr(min_length=1, max_length=40)  # sm-malibu / pa-redwood / paris8
+
+class SignatureCreate(BaseModel):
+    community: Community
+    full_name: constr(min_length=1, max_length=120)
+    email: constr(min_length=3, max_length=160)
+    phone: constr(min_length=0, max_length=40) = ""
+    zip_code: constr(min_length=0, max_length=20) = ""
+    connection: constr(min_length=1, max_length=60)
+    interest: constr(min_length=1, max_length=80)
+    comment: constr(min_length=0, max_length=1200) = ""
+    signature: constr(min_length=1, max_length=120)
+    consents: conlist(bool, min_length=4, max_length=4)
+
+
+class Signature(BaseModel):
+    id: str
+    signature_id: str  # DU-SIG-{community}-{timestamp}
+    community: str
+    full_name: str
+    email: str
+    phone: str
+    zip_code: str
+    connection: str
+    interest: str
+    comment: str
+    signature: str
+    consents: List[bool]
+    created_at: str
+
+
+class PledgeCreate(BaseModel):
+    community: Community
+    full_name: constr(min_length=1, max_length=120)
+    email: constr(min_length=3, max_length=160)
+    tier: confloat(ge=1, le=100_000_000)  # $ amount
+    fund: constr(min_length=1, max_length=40) = "ailab"  # ailab or aihs
+
+
+class Pledge(BaseModel):
+    id: str
+    certificate_id: str  # DU-CERT-{community}-{timestamp}
+    community: str
+    full_name: str
+    email: str
+    tier: float
+    fund: str
+    created_at: str
+
+
 # ---------- Routes ----------
 @api_router.get("/")
 async def root():
@@ -195,6 +248,58 @@ async def create_badge(payload: BadgeCreate):
 # (unauthenticated bulk read of all stored records). Since this demo has no
 # auth system, dropping the endpoints entirely is the proportional fix — the
 # frontend never called them; they were only added as a convenience.
+
+
+@api_router.post("/signatures", response_model=Signature)
+async def create_signature(payload: SignatureCreate):
+    sid = str(uuid.uuid4())
+    ts = datetime.now(timezone.utc).strftime("%Y%m%d%H%M%S")
+    signature_id = f"DU-SIG-{payload.community.upper()}-{ts}"
+    doc = {
+        "id": sid,
+        "signature_id": signature_id,
+        "community": payload.community,
+        "full_name": payload.full_name,
+        "email": payload.email,
+        "phone": payload.phone,
+        "zip_code": payload.zip_code,
+        "connection": payload.connection,
+        "interest": payload.interest,
+        "comment": payload.comment,
+        "signature": payload.signature,
+        "consents": list(payload.consents),
+        "created_at": now_iso(),
+    }
+    await db.signatures.insert_one(dict(doc))
+    return Signature(**doc)
+
+
+@api_router.get("/signatures/count")
+async def signatures_count(community: Optional[str] = None):
+    """Live count for the "X of 100,000" signature counter. Safe to expose —
+    returns only aggregate numbers, never individual records."""
+    q = {"community": community} if community else {}
+    total = await db.signatures.count_documents(q)
+    return {"community": community or "all", "count": total, "goal": 100_000}
+
+
+@api_router.post("/pledges", response_model=Pledge)
+async def create_pledge(payload: PledgeCreate):
+    pid = str(uuid.uuid4())
+    ts = datetime.now(timezone.utc).strftime("%Y%m%d%H%M%S")
+    certificate_id = f"DU-CERT-{payload.community.upper()}-{ts}"
+    doc = {
+        "id": pid,
+        "certificate_id": certificate_id,
+        "community": payload.community,
+        "full_name": payload.full_name,
+        "email": payload.email,
+        "tier": payload.tier,
+        "fund": payload.fund,
+        "created_at": now_iso(),
+    }
+    await db.pledges.insert_one(dict(doc))
+    return Pledge(**doc)
 
 
 app.include_router(api_router)

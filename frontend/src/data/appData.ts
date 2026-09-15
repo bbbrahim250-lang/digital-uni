@@ -1,3 +1,5 @@
+import { Platform } from "react-native";
+
 // Static data model for Digital-UNI AI Train — matches Section 3 of the blueprint.
 
 export type Station = { name: string; description: string; price: number };
@@ -187,6 +189,48 @@ export const APPAREL_ITEMS = [
   { key: "mug", name: "AI Pioneers Sharks Coffee Mug", price: 5 },
 ];
 
+// ---------- Community Signature & Pledge Campaign (Section 14) ----------
+export type Community = {
+  id: string;              // sm-malibu / pa-redwood / paris8
+  name: string;            // "Santa Monica-Malibu, CA"
+  crestInitials: string;   // "SM"
+  crestColor: string;      // accent color
+};
+
+export const COMMUNITIES: Community[] = [
+  { id: "sm-malibu", name: "Santa Monica-Malibu, CA", crestInitials: "SM", crestColor: "#34e08a" },
+  { id: "pa-redwood", name: "Palo Alto-Redwood City, CA", crestInitials: "PA", crestColor: "#1fae8f" },
+  { id: "paris8", name: "Lycée Paris 8 (proposed)", crestInitials: "P8", crestColor: "#b78bff" },
+];
+
+export const CONNECTIONS = [
+  "Student",
+  "Parent",
+  "Educator",
+  "Neighborhood leader",
+  "Business owner",
+  "Community member",
+];
+
+export const INTERESTS = [
+  "General community support",
+  "Education & AI High School",
+  "Fundraising",
+  "Volunteering",
+  "Other",
+];
+
+export const SIGNATURE_CONSENTS = [
+  "I declare my typed name is my own signature and attest that the information submitted is accurate.",
+  "Add my name to the Digital-UNI {city} AI High School community campaign and contact me with project updates.",
+  "I authorize Digital-UNI to email a copy of this submission — including my name, email, ZIP code, connection type, and electronic signature — to the {city} City Council Office and staff.",
+  "I understand this is a community registration, not a municipal petition or ballot initiative signature.",
+];
+
+export const CAMPAIGN_DISCLAIMER =
+  "This declaration of support reflects Digital-UNI's community-building campaign only. It is submitted independently of, and is not to be construed as, an endorsement or vote related to any candidacy, including the founder's candidacy for Santa Monica College Board.";
+
+
 export const BTC_RATE_USD = 77800;
 export const BTC_AS_OF = "Sep 2026";
 
@@ -283,7 +327,19 @@ export const IMAGES = {
 
 const BACKEND_URL = process.env.EXPO_PUBLIC_BACKEND_URL || "";
 
+// Web renders via HTML5 <video> against the backend media route (autoplay-muted
+// path is well-tested there). Native (Expo Go / real device) uses expo-video
+// against a locally-bundled asset — this avoids network fetch entirely so the
+// video is guaranteed to be present the moment Expo Go loads the JS bundle,
+// bypassing any WebView autoplay/media-permission or ATS quirks that were
+// preventing playback on the previous remote-URL path.
 export const VIDEOS = {
-  hero: `${BACKEND_URL}/api/media/hero-train.mp4`,
-  course: `${BACKEND_URL}/api/media/course-video.mp4`,
+  hero:
+    Platform.OS === "web"
+      ? `${BACKEND_URL}/api/media/hero-train.mp4`
+      : require("../../assets/videos/hero-train.mp4"),
+  course:
+    Platform.OS === "web"
+      ? `${BACKEND_URL}/api/media/course-video.mp4`
+      : require("../../assets/videos/course-video.mp4"),
 };
