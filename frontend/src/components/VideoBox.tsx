@@ -62,7 +62,7 @@ function NativeVideoBox({
     <View style={[styles.wrap, style]} testID={testID}>
       <VideoView
         player={player}
-        style={StyleSheet.absoluteFillObject}
+        style={StyleSheet.absoluteFill}
         contentFit={contentFit}
         nativeControls={false}
         allowsFullscreen={false}
@@ -126,13 +126,13 @@ export default function VideoBox(props: Props) {
       {poster ? (
         <Image
           source={{ uri: poster }}
-          style={StyleSheet.absoluteFillObject}
+          style={StyleSheet.absoluteFill}
           resizeMode={contentFit === "contain" ? "contain" : "cover"}
         />
       ) : null}
       <NativeVideoBox
         source={source}
-        style={StyleSheet.absoluteFillObject}
+        style={StyleSheet.absoluteFill}
         contentFit={contentFit}
         autoPlay={autoPlay}
         loop={loop}

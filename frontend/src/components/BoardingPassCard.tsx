@@ -35,10 +35,10 @@ export default function BoardingPassCard({
       <View style={styles.body}>
         {/* Left: photo + copy */}
         <View style={styles.leftCol}>
-          <Image source={IMAGES.stations} style={StyleSheet.absoluteFillObject} contentFit="cover" />
+          <Image source={IMAGES.stations} style={StyleSheet.absoluteFill} contentFit="cover" />
           <LinearGradient
             colors={["rgba(10,14,31,0.35)", "rgba(10,14,31,0.85)"]}
-            style={StyleSheet.absoluteFillObject}
+            style={StyleSheet.absoluteFill}
           />
           <View style={styles.leftContent}>
             <View style={styles.schoolPill}>

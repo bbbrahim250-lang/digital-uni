@@ -5,6 +5,7 @@ import {
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { Image } from "expo-image";
+import * as DocumentPicker from "expo-document-picker";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { colors } from "@/src/theme";
 import Ticket from "@/src/components/Ticket";
@@ -15,6 +16,7 @@ import {
   TRACKS, PROGRAMS, CREDENTIALS, STORE_EXPLORATORY, STORE_EVENTS, FUND_TIERS,
   APPAREL_ITEMS, AIML_QUIZ, AI_LAB_STAGES, FLAGSHIP_APPS, IMAGES, VIDEOS,
   COMMUNITIES, CONNECTIONS, INTERESTS, SIGNATURE_CONSENTS, CAMPAIGN_DISCLAIMER,
+  BTC_RATE_USD, BTC_AS_OF,
 } from "@/src/data/appData";
 import { downloadSupportLetter, downloadCertificate, downloadCouncilLetterTemplate } from "@/src/utils/pdf";
 
@@ -28,6 +30,17 @@ type ViewKey =
 
 const BACKEND = process.env.EXPO_PUBLIC_BACKEND_URL;
 
+async function pickDocument(): Promise<{ name: string; uri: string } | null> {
+  try {
+    const result = await DocumentPicker.getDocumentAsync({ type: "*/*", copyToCacheDirectory: true });
+    if (result.canceled || !result.assets || result.assets.length === 0) return null;
+    const asset = result.assets[0];
+    return { name: asset.name, uri: asset.uri };
+  } catch {
+    return null;
+  }
+}
+
 export default function App() {
   const insets = useSafeAreaInsets();
   const [view, setView] = useState<ViewKey>("home");
@@ -35,7 +48,7 @@ export default function App() {
   const [selectedProgram, setSelectedProgram] = useState<string | null>(null);
   const [pendingCampus, setPendingCampus] = useState<string | null>(null);
   const [userType, setUserType] = useState<"college" | "highschool">("college");
-  const [resumeUploaded, setResumeUploaded] = useState(false);
+  const [resumeFile, setResumeFile] = useState<{ name: string; uri: string } | null>(null);
   const [financialAid, setFinancialAid] = useState(false);
   const [legalRole, setLegalRole] = useState<"judge" | "lawyer" | "clerk">("judge");
   const [cart, setCart] = useState<Record<string, { name: string; price: number; qty: number }>>({});
@@ -48,12 +61,13 @@ export default function App() {
   const [lastPledge, setLastPledge] = useState<any>(null);
   const [tryoutSport, setTryoutSport] = useState<string | null>(null);
   const [tryoutTeam, setTryoutTeam] = useState<string | null>(null);
-  const [tryoutDocs, setTryoutDocs] = useState<Record<string, boolean>>({});
+  const [tryoutDocs, setTryoutDocs] = useState<Record<string, { name: string; uri: string } | undefined>>({});
   const [courseFirstName, setCourseFirstName] = useState("");
   const [courseLastName, setCourseLastName] = useState("");
   const [quizAnswers, setQuizAnswers] = useState<Record<number, number>>({});
   const [gradingStep, setGradingStep] = useState(0);
   const [signUpRole, setSignUpRole] = useState<string>("Student");
+  const [signUpAttachment, setSignUpAttachment] = useState<{ name: string; uri: string } | null>(null);
   const [signInRole, setSignInRole] = useState<string>("Guest");
 
   const track = selectedTrack ? TRACKS.find((t) => t.id === selectedTrack) : null;
@@ -199,7 +213,7 @@ export default function App() {
         {view === "enroll" && track && (
           <EnrollView
             userType={userType} setUserType={setUserType}
-            resumeUploaded={resumeUploaded} setResumeUploaded={setResumeUploaded}
+            resumeFile={resumeFile} setResumeFile={setResumeFile}
             selectedProgram={selectedProgram} setSelectedProgram={setSelectedProgram}
             financialAid={financialAid} setFinancialAid={setFinancialAid}
             trackName={track.name}
@@ -280,7 +294,7 @@ export default function App() {
           <SignInView role={signInRole} setRole={setSignInRole} onBack={goHome} onSubmit={() => setView("signInConfirmed")} onSignUp={() => setView("signUp")} onFund={() => setView("store")} />
         )}
         {view === "signUp" && (
-          <SignUpView role={signUpRole} setRole={setSignUpRole} onBack={() => setView("signIn")} onSubmit={() => setView("signUpConfirmed")} />
+          <SignUpView role={signUpRole} setRole={setSignUpRole} attachment={signUpAttachment} setAttachment={setSignUpAttachment} onBack={() => setView("signIn")} onSubmit={() => setView("signUpConfirmed")} />
         )}
         {view === "signInConfirmed" && <ConfirmationView title="Welcome Back" subtitle={`Signed in as: ${signInRole}`} onDone={goHome} />}
         {view === "signUpConfirmed" && <ConfirmationView title="Account Created" subtitle={`Registered as: ${signUpRole} · Demo only — no real account was created`} onDone={goHome} />}
@@ -368,8 +382,8 @@ function HomeView({ onPick, onCTA, onDiscover, onCourse, onCommunity, onCouncilP
   return (
     <View>
       <View style={styles.hero}>
-        <VideoBox source={VIDEOS.hero} poster={IMAGES.stations} style={StyleSheet.absoluteFillObject} testID="hero-video" />
-        <LinearGradient colors={["rgba(10,14,31,0.15)", "rgba(10,14,31,0.9)"]} style={StyleSheet.absoluteFillObject} />
+        <VideoBox source={VIDEOS.hero} poster={IMAGES.stations} style={StyleSheet.absoluteFill} testID="hero-video" />
+        <LinearGradient colors={["rgba(10,14,31,0.15)", "rgba(10,14,31,0.9)"]} style={StyleSheet.absoluteFill} />
         <View style={{ padding: 20, minHeight: 220, justifyContent: "flex-end" }}>
           <Text style={styles.heroWordmark}>DIGITAL-UNI™ AI TRAIN</Text>
           <Text style={styles.heroTag}>Moving at the speed of learning</Text>
@@ -393,8 +407,8 @@ function HomeView({ onPick, onCTA, onDiscover, onCourse, onCommunity, onCouncilP
       </View>
 
       <View style={styles.stationsBanner}>
-        <Image source={IMAGES.stations} style={StyleSheet.absoluteFillObject} contentFit="cover" />
-        <LinearGradient colors={["rgba(10,14,31,0.1)", "rgba(10,14,31,0.75)"]} style={StyleSheet.absoluteFillObject} />
+        <Image source={IMAGES.stations} style={StyleSheet.absoluteFill} contentFit="cover" />
+        <LinearGradient colors={["rgba(10,14,31,0.1)", "rgba(10,14,31,0.75)"]} style={StyleSheet.absoluteFill} />
         <View style={{ padding: 14 }}>
           <Text style={styles.stationsKicker}>ONE TRAIN · MANY DESTINATIONS</Text>
           <Text style={styles.stationsTitle}>Lycée Paris 8 · New York · Algiers · Kuala Lumpur · Santa Monica-Malibu · Palo Alto-Redwood City</Text>
@@ -478,11 +492,18 @@ function EnrollView(p: any) {
       <PickerRow label="High School Student (Grades 8-12)" selected={p.userType === "highschool"} onPress={() => p.setUserType("highschool")} testID="user-hs" />
 
       <Text style={styles.sectionKicker}>RÉSUMÉ (optional)</Text>
-      <Pressable style={styles.uploadBox} onPress={() => p.setResumeUploaded((r: boolean) => !r)} testID="upload-resume">
-        <Text style={styles.uploadTxt}>{p.resumeUploaded ? "✓ Résumé uploaded" : "Tap to upload résumé"}</Text>
+      <Pressable
+        style={styles.uploadBox}
+        onPress={async () => {
+          const file = await pickDocument();
+          if (file) p.setResumeFile(file);
+        }}
+        testID="upload-resume"
+      >
+        <Text style={styles.uploadTxt}>{p.resumeFile ? `✓ ${p.resumeFile.name}` : "Tap to upload résumé"}</Text>
       </Pressable>
 
-      {p.resumeUploaded && (
+      {p.resumeFile && (
         <Card style={{ marginTop: 12 }}>
           <Text style={styles.recLabel}>Your Personalized Learning Pathway (sample)</Text>
           <Text style={styles.recBody}>Recommended first stops for the {p.userType === "highschool" ? "high school (grades 8-12)" : "college-level"} pathway:</Text>
@@ -902,11 +923,14 @@ function TryoutView(p: any) {
       {docs.map((d) => (
         <Pressable
           key={d}
-          onPress={() => p.setDocs((v: any) => ({ ...v, [d]: !v[d] }))}
+          onPress={async () => {
+            const file = await pickDocument();
+            if (file) p.setDocs((v: any) => ({ ...v, [d]: file }));
+          }}
           style={styles.uploadBox}
           testID={`doc-${d}`}
         >
-          <Text style={styles.uploadTxt}>{p.docs[d] ? `✓ ${d} uploaded` : `Upload ${d}`}</Text>
+          <Text style={styles.uploadTxt}>{p.docs[d] ? `✓ ${p.docs[d]!.name}` : `Upload ${d}`}</Text>
         </Pressable>
       ))}
 
@@ -956,7 +980,7 @@ function CourseView(p: any) {
       <Text style={styles.h1}>AI + ML — Course Preview</Text>
       <Text style={styles.helper}>Sample course · preview lesson clip</Text>
       <View style={styles.videoBox}>
-        <VideoBox source={VIDEOS.course} poster={IMAGES.stations} style={StyleSheet.absoluteFillObject} testID="course-video" />
+        <VideoBox source={VIDEOS.course} poster={IMAGES.stations} style={StyleSheet.absoluteFill} testID="course-video" />
       </View>
       <Text style={styles.blurb}>Foundations of AI and ML: what they are, how models learn from data, and where they show up in everyday tools.</Text>
 
@@ -1168,7 +1192,7 @@ function SignInView(p: any) {
     <View>
       <GhostButton label="← Back" onPress={p.onBack} />
       <View style={styles.signInHero}>
-        <Image source={IMAGES.founder} style={StyleSheet.absoluteFillObject} contentFit="cover" />
+        <Image source={IMAGES.founder} style={StyleSheet.absoluteFill} contentFit="cover" />
       </View>
       <View style={{ flexDirection: "row", marginTop: 12, gap: 8 }}>
         <Pressable onPress={() => setTab("in")} style={[styles.tabBtn, tab === "in" && styles.tabBtnSel]} testID="tab-signin">
@@ -1198,7 +1222,7 @@ function SignInView(p: any) {
 
       <Card style={{ marginTop: 20, padding: 0, overflow: "hidden" }}>
         <View style={styles.founderPoster}>
-          <Image source={IMAGES.founder} style={StyleSheet.absoluteFillObject} contentFit="cover" />
+          <Image source={IMAGES.founder} style={StyleSheet.absoluteFill} contentFit="cover" />
         </View>
         <View style={{ padding: 12 }}>
           <Text style={styles.credTitle}>Brahim BB — Founder & CEO, Digital-UNI</Text>
@@ -1227,6 +1251,19 @@ function SignUpView(p: any) {
       {roles.map((r) => (
         <PickerRow key={r} label={r} selected={p.role === r} onPress={() => p.setRole(r)} testID={`su-role-${r.slice(0, 10)}`} />
       ))}
+
+      <Text style={styles.sectionKicker}>SUPPORTING DOCUMENT (optional)</Text>
+      <Pressable
+        style={styles.uploadBox}
+        onPress={async () => {
+          const file = await pickDocument();
+          if (file) p.setAttachment(file);
+        }}
+        testID="su-attachment"
+      >
+        <Text style={styles.uploadTxt}>{p.attachment ? `✓ ${p.attachment.name}` : "Tap to attach a file (résumé, ID, etc.)"}</Text>
+      </Pressable>
+
       <PrimaryButton label="Create Account (demo)" onPress={p.onSubmit} testID="su-submit" />
     </View>
   );
@@ -1522,6 +1559,7 @@ function PledgeConfirmedView({ p, onHome }: any) {
         <Text style={styles.certPresented}>presented to</Text>
         <Text style={styles.certName}>{p.fullName}</Text>
         <Text style={styles.certAmount}>${p.tier.toLocaleString()}</Text>
+        <Text style={styles.certBtc}>≈ ₿ {(p.tier / BTC_RATE_USD).toFixed(p.tier >= 100 ? 4 : 6)} digital value equivalent · ref. BTC rate, {BTC_AS_OF}</Text>
         <Text style={styles.certMeta}>{p.fund} · {p.community}</Text>
         <Text style={styles.certId}>{p.certificateId}</Text>
       </View>
@@ -1800,6 +1838,7 @@ const styles = StyleSheet.create({
   certPresented: { color: "#3b4152", fontStyle: "italic", marginTop: 4 },
   certName: { color: "#10162c", fontSize: 20, fontWeight: "700", marginTop: 6, letterSpacing: 0.5 },
   certAmount: { color: "#1fae8f", fontSize: 22, fontWeight: "800", marginTop: 6 },
+  certBtc: { color: "#c8871f", fontSize: 11, fontWeight: "600", marginTop: 4 },
   certMeta: { color: "#3b4152", fontSize: 11, letterSpacing: 1, marginTop: 6 },
   certId: { color: "#6f7896", fontSize: 10, fontFamily: Platform.OS === "web" ? "monospace" : "System", marginTop: 10, letterSpacing: 1 },
 });
