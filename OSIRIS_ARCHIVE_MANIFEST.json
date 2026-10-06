@@ -1,0 +1,20 @@
+{
+  "archive_branch": "archive/osiris-vendor",
+  "policy": "append-only snapshots keyed by upstream commit SHA",
+  "upstreams": [
+    {
+      "id": "osiris-global",
+      "repository": "jukaben32/Osiris",
+      "license": "MIT",
+      "baseline_sha": "5c992c27e9c40645c58f6b845b174f6fed489d9f",
+      "integration_role": "non-authoritative public-data and visualization adapter"
+    },
+    {
+      "id": "osiris-memory",
+      "repository": "asuramaya/osiris",
+      "license": "AGPL-3.0",
+      "baseline_sha": "4c781169fe7e6dfb3ec4b302e2ba7dfa1cda10d7",
+      "integration_role": "separate non-authoritative MCP/HTTPS provenance and memory service"
+    }
+  ]
+}
