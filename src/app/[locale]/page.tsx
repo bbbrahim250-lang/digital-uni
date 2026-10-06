@@ -4,6 +4,7 @@ import { Hero } from '@/components/home/hero';
 import { FeaturedCategories } from '@/components/home/featured-categories';
 import { LegalNotice } from '@/components/home/legal-notice';
 import { LegalAiPrograms } from '@/components/home/legal-ai-programs';
+import { CampaignLaunch } from '@/components/home/campaign-launch';
 
 export default function HomePage({ params }: { params: { locale: string } }) {
   if (!isValidLocale(params.locale)) notFound();
@@ -12,6 +13,7 @@ export default function HomePage({ params }: { params: { locale: string } }) {
   return (
     <>
       <Hero locale={locale} />
+      <CampaignLaunch locale={locale} />
       <LegalAiPrograms locale={locale} />
       <FeaturedCategories locale={locale} />
       {/* TODO M2+: FeaturedCourses (needs course data), Pathways, Multilingual,
