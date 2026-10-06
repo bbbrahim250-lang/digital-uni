@@ -1,0 +1,58 @@
+name: Monitor OSIRIS upstreams
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "17 9 * * *"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: osiris-upstream-monitor
+  cancel-in-progress: false
+
+jobs:
+  monitor:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Verify MIT OSIRIS upstream and approved baseline
+        shell: bash
+        run: |
+          set -euo pipefail
+          URL="https://github.com/jukaben32/Osiris.git"
+          BASELINE="5c992c27e9c40645c58f6b845b174f6fed489d9f"
+          TMP="$(mktemp -d)"
+          git clone --filter=blob:none "$URL" "$TMP/repo"
+          cd "$TMP/repo"
+          git fetch --tags --prune origin
+          git cat-file -e "$BASELINE^{commit}"
+          HEAD_SHA="$(git rev-parse origin/HEAD)"
+          echo "OSIRIS Global Intelligence available"
+          echo "Approved baseline: $BASELINE"
+          echo "Current upstream HEAD: $HEAD_SHA"
+          echo "License family recorded for integration: MIT"
+
+      - name: Verify AGPL Osiris upstream and approved baseline
+        shell: bash
+        run: |
+          set -euo pipefail
+          URL="https://github.com/asuramaya/osiris.git"
+          BASELINE="4c781169fe7e6dfb3ec4b302e2ba7dfa1cda10d7"
+          TMP="$(mktemp -d)"
+          git clone --filter=blob:none "$URL" "$TMP/repo"
+          cd "$TMP/repo"
+          git fetch --tags --prune origin
+          git cat-file -e "$BASELINE^{commit}"
+          HEAD_SHA="$(git rev-parse origin/HEAD)"
+          echo "Osiris Agent Memory / Provenance available"
+          echo "Approved baseline: $BASELINE"
+          echo "Current upstream HEAD: $HEAD_SHA"
+          echo "License family recorded for integration: GNU AGPL-3.0"
+
+      - name: Public integration boundary
+        run: |
+          echo "This public workflow does NOT archive or publish third-party source."
+          echo "Full approved source snapshots are retained separately in the private Digital-UNI vendor archive."
+          echo "Claude Code should use the public integration docs and upstream repositories while available."
+          echo "Do not copy AGPL implementation into the proprietary ABRAHAM core."
