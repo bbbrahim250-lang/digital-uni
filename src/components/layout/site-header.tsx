@@ -151,6 +151,7 @@ export async function SiteHeader({ locale }: { locale: Locale }) {
   ]);
 
   const directItems = directNavItems.map(([key, path]) => ({ href: `/${locale}/${path}`, label: t(key) }));
+  const nesuItem = { href: `/${locale}/nesu`, label: 'NESU' };
 
   const courseCopy = {
     en: {
@@ -246,6 +247,7 @@ export async function SiteHeader({ locale }: { locale: Locale }) {
 
         <nav aria-label={t('primaryNavigation')} className="hidden items-center gap-1 xl:flex">
           <Link href={directItems[0]!.href} className="rounded-md px-2 py-1.5 text-sm text-navy-50 hover:bg-white/10 hover:text-gold-400">{directItems[0]!.label}</Link>
+          <Link href={nesuItem.href} className="rounded-md px-2 py-1.5 text-sm font-bold text-emerald-300 hover:bg-white/10 hover:text-gold-400">{nesuItem.label}</Link>
           <NavigationDropdown label={t('aiHighSchool')} overview={{ href: `/${locale}/ai-high-school#campus-selector`, label: tCampus('chooseTitle'), description: tCampus('chooseShort') }} items={campuses} />
           <NavigationDropdown label={t('courses')} overview={{ href: `/${locale}/courses`, label: t('courses'), description: courseCopy.overview }} items={courseReservations} />
           <Link href={directItems[2]!.href} className="rounded-md px-2 py-1.5 text-sm text-navy-50 hover:bg-white/10 hover:text-gold-400">{directItems[2]!.label}</Link>
@@ -258,7 +260,7 @@ export async function SiteHeader({ locale }: { locale: Locale }) {
         <div className="flex items-center gap-3">
           <MobileNavigation
             label={t('explore')}
-            directItems={[...directItems, store]}
+            directItems={[...directItems, nesuItem, store]}
             courseReservations={courseReservations}
             campuses={campuses}
             institutions={institutions}
