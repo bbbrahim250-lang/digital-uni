@@ -1,0 +1,116 @@
+name: Archive OSIRIS upstreams
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "17 9 * * *"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: osiris-upstream-archive
+  cancel-in-progress: false
+
+jobs:
+  archive:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout archive branch
+        uses: actions/checkout@v4
+        with:
+          ref: archive/osiris-vendor
+          fetch-depth: 0
+
+      - name: Configure Git
+        run: |
+          git config user.name "digital-uni-archive-bot"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Archive OSIRIS Global Intelligence (MIT)
+        shell: bash
+        run: |
+          set -euo pipefail
+          ID="osiris-global"
+          URL="https://github.com/jukaben32/Osiris.git"
+          BASE="third_party/$ID"
+          mkdir -p "$BASE/snapshots"
+
+          TMP="$(mktemp -d)"
+          if ! git clone --filter=blob:none --no-checkout "$URL" "$TMP/repo"; then
+            echo "Upstream unavailable; existing archive retained unchanged."
+            exit 0
+          fi
+          cd "$TMP/repo"
+          SHA="$(git rev-parse origin/HEAD)"
+          git checkout --detach "$SHA"
+          cd "$GITHUB_WORKSPACE"
+
+          DEST="$BASE/snapshots/$SHA"
+          if [ -d "$DEST" ]; then
+            echo "$ID $SHA already archived."
+          else
+            mkdir -p "$DEST"
+            rsync -a --exclude='.git' "$TMP/repo/" "$DEST/"
+            cat > "$DEST/UPSTREAM_PROVENANCE.md" <<EOF
+          # Upstream provenance
+          - Project: OSIRIS Global Intelligence
+          - Upstream repository: https://github.com/jukaben32/Osiris
+          - Upstream commit: $SHA
+          - License: MIT (see LICENSE in this snapshot)
+          - Captured by: Digital-UNI OSIRIS archive workflow
+          - Captured at (UTC): $(date -u +"%Y-%m-%dT%H:%M:%SZ")
+          - Policy: third-party origin and license attribution must be preserved.
+          EOF
+            printf '%s
+' "$SHA" > "$BASE/CURRENT.txt"
+            git add "$BASE"
+            git commit -m "Archive OSIRIS Global Intelligence $SHA" || true
+          fi
+          rm -rf "$TMP"
+
+      - name: Archive Osiris Agent Memory (AGPL-3.0)
+        shell: bash
+        run: |
+          set -euo pipefail
+          ID="osiris-memory"
+          URL="https://github.com/asuramaya/osiris.git"
+          BASE="third_party/$ID"
+          mkdir -p "$BASE/snapshots"
+
+          TMP="$(mktemp -d)"
+          if ! git clone --filter=blob:none --no-checkout "$URL" "$TMP/repo"; then
+            echo "Upstream unavailable; existing archive retained unchanged."
+            exit 0
+          fi
+          cd "$TMP/repo"
+          SHA="$(git rev-parse origin/HEAD)"
+          git checkout --detach "$SHA"
+          cd "$GITHUB_WORKSPACE"
+
+          DEST="$BASE/snapshots/$SHA"
+          if [ -d "$DEST" ]; then
+            echo "$ID $SHA already archived."
+          else
+            mkdir -p "$DEST"
+            rsync -a --exclude='.git' "$TMP/repo/" "$DEST/"
+            cat > "$DEST/UPSTREAM_PROVENANCE.md" <<EOF
+          # Upstream provenance
+          - Project: Osiris Agent Memory / Provenance Graph
+          - Upstream repository: https://github.com/asuramaya/osiris
+          - Upstream commit: $SHA
+          - License: GNU AGPL-3.0 (see LICENSE in this snapshot)
+          - Captured by: Digital-UNI OSIRIS archive workflow
+          - Captured at (UTC): $(date -u +"%Y-%m-%dT%H:%M:%SZ")
+          - Policy: third-party origin and license attribution must be preserved.
+          EOF
+            printf '%s
+' "$SHA" > "$BASE/CURRENT.txt"
+            git add "$BASE"
+            git commit -m "Archive Osiris Agent Memory $SHA" || true
+          fi
+          rm -rf "$TMP"
+
+      - name: Push append-only snapshots
+        run: |
+          git push origin HEAD:archive/osiris-vendor
